@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "411741998398",
+    "project_id": "dnd-character-sheet-ac25d",
+    "storage_bucket": "dnd-character-sheet-ac25d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:411741998398:android:37c19bea3c8a7131aaf06f",
+        "android_client_info": {
+          "package_name": "com.jlahougue.dndcharactersheet"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDHd3wuGEn_W675rtlQcDx0emJPYXDE0SY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:411741998398:android:f1fdfc5bf57605f1aaf06f",
+        "android_client_info": {
+          "package_name": "com.jlahougue.dndcompanion"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDHd3wuGEn_W675rtlQcDx0emJPYXDE0SY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

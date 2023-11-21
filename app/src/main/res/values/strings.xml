@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">DnDCompanion</string>
+
+    <!-- AuthActivity -->
+    <string name="label_logo">App Logo</string>
+    <string name="label_email">E-mail</string>
+    <string name="label_password">Password</string>
+    <string name="label_confirm_password">Confirm Password</string>
+    <string name="error_email_cannot_be_blank">Email cannot be blank</string>
+    <string name="error_password_too_short">Password cannot be shorter than 6 characters</string>
+    <string name="error_passwords_do_not_match">Password and Confirm Password must be the same</string>
+    <string name="error_login_failed">Login failed</string>
+    <string name="error_register_failed">Register failed</string>
+    <string name="title_activity_auth">AuthActivity</string>
+    <string name="text_register">You don\'t have an account yet ? Click here to register right now !</string>
+    <string name="text_login">Already have an account ? Click here to login !</string>
 </resources>
