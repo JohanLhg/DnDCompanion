@@ -5,5 +5,4 @@ sealed class RegisterEvent {
     data class PasswordChanged(val password: String) : RegisterEvent()
     data class ConfirmPasswordChanged(val confirmPassword: String) : RegisterEvent()
     data object Register : RegisterEvent()
-    data object NavigateToLoginScreen : RegisterEvent()
 }

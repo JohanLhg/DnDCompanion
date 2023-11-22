@@ -19,8 +19,8 @@ import com.jlahougue.dndcompanion.feature_authentication.presentation.login.Logi
 import com.jlahougue.dndcompanion.feature_authentication.presentation.login.LoginViewModel
 import com.jlahougue.dndcompanion.feature_authentication.presentation.register.RegisterScreen
 import com.jlahougue.dndcompanion.feature_authentication.presentation.register.RegisterViewModel
-import com.jlahougue.dndcompanion.feature_authentication.presentation.ui.theme.DnDCompanionTheme
 import com.jlahougue.dndcompanion.feature_authentication.presentation.util.Screen
+import com.jlahougue.dndcompanion.ui.theme.DnDCompanionTheme
 
 class AuthActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,8 +46,13 @@ class AuthActivity : ComponentActivity() {
                                 }
                             )
                             LoginScreen(
-                                navController = navController,
-                                viewModel = viewModel
+                                state = viewModel.state.value,
+                                onEvent = viewModel::onEvent,
+                                navigateToRegister = {
+                                    navController.navigate(Screen.RegisterScreen.route)
+                                },
+                                navigateToNext = { },
+                                events = viewModel.event
                             )
                         }
                         composable(
@@ -59,8 +64,13 @@ class AuthActivity : ComponentActivity() {
                                 }
                             )
                             RegisterScreen(
-                                navController = navController,
-                                viewModel = viewModel
+                                state = viewModel.state.value,
+                                onEvent = viewModel::onEvent,
+                                navigateToLogin = {
+                                    navController.navigate(Screen.LoginScreen.route)
+                                },
+                                navigateToNext = { },
+                                events = viewModel.event
                             )
                         }
                     }

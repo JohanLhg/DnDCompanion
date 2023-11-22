@@ -44,6 +44,7 @@ class RegisterViewModel(
                         ) { success ->
                             if (success) {
                                 viewModelScope.launch {
+                                    _event.emit(UiEvent.ShowSnackbarResource(R.string.register_successful))
                                     _event.emit(UiEvent.NavigateToNextScreen)
                                 }
                                 return@register
@@ -56,11 +57,6 @@ class RegisterViewModel(
                     catch (e: InvalidAuthException) {
                         _event.emit(UiEvent.ShowSnackbarResource(e.messageId))
                     }
-                }
-            }
-            is RegisterEvent.NavigateToLoginScreen -> {
-                viewModelScope.launch {
-                    _event.emit(UiEvent.NavigateToLoginScreen)
                 }
             }
         }
