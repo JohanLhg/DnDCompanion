@@ -54,6 +54,8 @@ android {
 dependencies {
     implementation("androidx.navigation:navigation-runtime-ktx:2.7.5")
     implementation(platform("androidx.compose:compose-bom:2023.03.00"))
+    implementation(platform("androidx.compose:compose-bom:2023.03.00"))
+    androidTestImplementation(platform("androidx.compose:compose-bom:2023.03.00"))
     androidTestImplementation(platform("androidx.compose:compose-bom:2023.03.00"))
     // Firebase (remote database)
     platform("com.google.firebase:firebase-bom:32.6.0")

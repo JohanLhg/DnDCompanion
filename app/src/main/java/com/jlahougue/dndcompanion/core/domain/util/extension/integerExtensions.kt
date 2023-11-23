@@ -1,4 +1,4 @@
-package com.jlahougue.dndcompanion.core.domain.util.extensions
+package com.jlahougue.dndcompanion.core.domain.util.extension
 
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols

@@ -1,4 +1,4 @@
-package com.jlahougue.dndcompanion.core.domain.util.extensions
+package com.jlahougue.dndcompanion.core.domain.util.extension
 
 import org.json.JSONArray
 import org.json.JSONObject
