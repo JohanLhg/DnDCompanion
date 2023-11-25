@@ -40,7 +40,7 @@ class LoadingViewModel(
                             progress = progress
                         )
 
-                        if (it.finished) {
+                        if (it.hasFinished()) {
                             _event.emit(LoadingUiEvent.NavigateToNextScreen)
                         }
                     }

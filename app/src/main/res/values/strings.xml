@@ -44,6 +44,7 @@
     <string name="loading_weapon_properties">Inspecting gear…</string>
     <string name="loading_spells">Filling spell books…</string>
     <string name="loading_weapons">Sharpening weapons…</string>
-    <string name="error_api_spells">Error while fetching the spells from the API</string>
     <string name="error_api_damage_types">Error while fetching the damage types from the API</string>
+    <string name="error_api_classes">Error while fetching the classes from the API</string>
+    <string name="error_api_spells">Error while fetching the spells from the API</string>
 </resources>

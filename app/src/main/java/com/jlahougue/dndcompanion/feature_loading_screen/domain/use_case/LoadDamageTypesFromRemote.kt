@@ -6,7 +6,6 @@ import com.jlahougue.dndcompanion.core.domain.repository.IDamageTypeRepository
 import com.jlahougue.dndcompanion.core.domain.util.UiText
 import com.jlahougue.dndcompanion.core.domain.util.dispatcherProvider.DispatcherProvider
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class LoadDamageTypesFromRemote(
@@ -14,7 +13,7 @@ class LoadDamageTypesFromRemote(
     private val damageTypeRepository: IDamageTypeRepository
 ): LoadFromRemote(UiText.StringResource(R.string.loading_damage_types)) {
 
-    suspend operator fun invoke(): StateFlow<LoadFromRemoteSate> {
+    override operator fun invoke() {
         CoroutineScope(dispatcherProvider.io).launch {
             damageTypeRepository.loadAll(
                 ::onApiEvent
@@ -22,6 +21,5 @@ class LoadDamageTypesFromRemote(
 
             onApiEvent(ApiEvent.Finish)
         }
-        return state
     }
 }

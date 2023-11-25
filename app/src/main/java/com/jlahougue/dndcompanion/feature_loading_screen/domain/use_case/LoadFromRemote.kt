@@ -1,6 +1,5 @@
 package com.jlahougue.dndcompanion.feature_loading_screen.domain.use_case
 
-import android.util.Log
 import com.jlahougue.dndcompanion.core.data.source.remote.api.event.ApiEvent
 import com.jlahougue.dndcompanion.core.domain.util.UiText
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -10,15 +9,17 @@ abstract class LoadFromRemote(
     title: UiText
 ) {
 
-    private var _state = MutableStateFlow(LoadFromRemoteSate(title))
+    var _state = MutableStateFlow(LoadFromRemoteSate(title))
     val state = _state.asStateFlow()
+
+    abstract operator fun invoke()
 
     fun onApiEvent(event: ApiEvent) {
         when(event) {
             is ApiEvent.Error -> TODO()
             is ApiEvent.SkipCall -> {
                 _state.value = _state.value.copy(
-                    finished = true
+                    actionState = LoadFromRemoteSate.ActionState.FINISHED
                 )
             }
             is ApiEvent.Skip -> {
@@ -38,12 +39,10 @@ abstract class LoadFromRemote(
             }
             is ApiEvent.Finish -> {
                 _state.value = _state.value.copy(
-                    finished = true
+                    actionState = LoadFromRemoteSate.ActionState.FINISHED
                 )
             }
         }
-        if (_state.value.progressMax < 100 || _state.value.progress % 100 == 0)
-            Log.d("LoadFromRemote", "${this.javaClass.simpleName}: $event\n${_state.value}")
     }
 
     fun onStateChange(state: LoadFromRemoteSate) {

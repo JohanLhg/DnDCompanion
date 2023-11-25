@@ -6,13 +6,23 @@ data class LoadFromRemoteSate(
     val title: UiText,
     val progress: Int = 0,
     val progressMax: Int = 0,
-    val finished: Boolean = false
+    val actionState: ActionState = ActionState.WAITING
 ) {
+    fun hasStarted() = actionState != ActionState.WAITING
+
+    fun hasFinished() = actionState == ActionState.FINISHED
+
+    enum class ActionState {
+        WAITING,
+        STARTED,
+        FINISHED
+    }
+
     override fun toString(): String {
         val title = when (title) {
             is UiText.StringResource -> title.toString().substringAfterLast("@")
             is UiText.DynamicString -> title.value
         }
-        return "$title : $progress/$progressMax =>${if (!finished) " not" else ""} finished"
+        return "$title : $progress/$progressMax => ${actionState.name}"
     }
 }
