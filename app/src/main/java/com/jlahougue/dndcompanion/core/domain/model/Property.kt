@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = Property.TABLE_PROPERTY)
-class Property(
+data class Property(
     @PrimaryKey
     @ColumnInfo(name = PROPERTY_NAME)
     var name: String = "",

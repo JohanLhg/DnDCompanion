@@ -7,7 +7,7 @@ import androidx.room.Entity
     tableName = ClassLevel.TABLE_CLASS_LEVEL,
     primaryKeys = [ClassLevel.CLASS_LEVEL_CLASS, ClassLevel.CLASS_LEVEL_LEVEL]
 )
-class ClassLevel(
+data class ClassLevel(
     @ColumnInfo(name = CLASS_LEVEL_CLASS)
     val clazz: String,
     @ColumnInfo(name = CLASS_LEVEL_LEVEL)

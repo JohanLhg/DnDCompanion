@@ -9,7 +9,7 @@ import com.jlahougue.dndcompanion.core.domain.model.Property
 @Dao
 interface PropertyDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(property: Property)
+    fun insert(property: Property): Long
 
     @Query("SELECT property_name FROM property")
     fun getNames(): List<String>

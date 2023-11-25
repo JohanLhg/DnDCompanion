@@ -39,10 +39,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import com.jlahougue.dndcompanion.R
-import com.jlahougue.dndcompanion.feature_authentication.presentation.util.Screen
-import com.jlahougue.dndcompanion.feature_authentication.presentation.util.UiEvent
+import com.jlahougue.dndcompanion.feature_authentication.presentation.util.AuthUiEvent
 import com.jlahougue.dndcompanion.ui.spacing
 import com.jlahougue.dndcompanion.ui.theme.DnDCompanionTheme
 import kotlinx.coroutines.flow.SharedFlow
@@ -53,114 +51,109 @@ import kotlinx.coroutines.launch
 fun RegisterScreen(
     state: RegisterState,
     onEvent: (RegisterEvent) -> Unit,
+    events: SharedFlow<AuthUiEvent>,
     navigateToLogin: () -> Unit,
-    navigateToNext: () -> Unit,
-    events: SharedFlow<UiEvent>
+    navigateToNext: () -> Unit
 ) {
     val context = LocalContext.current
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
+
     Scaffold(
-        snackbarHost = { SnackbarHost(snackbarHostState) },
-        content = { paddingValues ->
-
-            LaunchedEffect(Unit) {
-                events.collect { event ->
-                    when (event) {
-                        is UiEvent.ShowSnackbar -> {
-                            scope.launch {
-                                snackbarHostState.showSnackbar(event.message)
-                            }
-                        }
-                        is UiEvent.ShowSnackbarResource -> {
-                            scope.launch {
-                                snackbarHostState.showSnackbar(context.getString(event.messageId))
-                            }
-                        }
-                        is UiEvent.NavigateToNextScreen -> {
-                            navigateToNext()
+        snackbarHost = { SnackbarHost(snackbarHostState) }
+    ) { paddingValues ->
+        LaunchedEffect(Unit) {
+            onEvent(RegisterEvent.CheckIfLoggedIn)
+            events.collect { event ->
+                when (event) {
+                    is AuthUiEvent.ShowSnackbar -> {
+                        scope.launch {
+                            snackbarHostState.showSnackbar(event.message.getString(context))
                         }
                     }
-                }
-            }
-
-            Box(
-                contentAlignment = Alignment.Center,
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(paddingValues = paddingValues)
-            ) {
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center,
-                    modifier = Modifier
-                        .height(IntrinsicSize.Max)
-                        .width(IntrinsicSize.Min)
-                ) {
-                    Image(
-                        painter = painterResource(R.drawable.die),
-                        contentDescription = stringResource(R.string.label_logo),
-                        modifier = Modifier
-                            .size(200.dp)
-                            .padding(bottom = MaterialTheme.spacing.medium),
-                    )
-                    OutlinedTextField(
-                        label = { Text(text = stringResource(R.string.label_email)) },
-                        value = state.email,
-                        onValueChange = { onEvent(RegisterEvent.EmailChanged(it)) },
-                        modifier = Modifier
-                            .padding(top = MaterialTheme.spacing.small),
-                        textStyle = MaterialTheme.typography.bodyLarge,
-                    )
-                    OutlinedTextField(
-                        label = { Text(text = stringResource(R.string.label_password)) },
-                        value = state.password,
-                        onValueChange = { onEvent(RegisterEvent.PasswordChanged(it)) },
-                        modifier = Modifier
-                            .padding(top = MaterialTheme.spacing.small),
-                        textStyle = MaterialTheme.typography.bodyLarge,
-                        visualTransformation = PasswordVisualTransformation(),
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
-                    )
-                    OutlinedTextField(
-                        label = { Text(text = stringResource(R.string.label_confirm_password)) },
-                        value = state.confirmPassword,
-                        onValueChange = { onEvent(RegisterEvent.ConfirmPasswordChanged(it)) },
-                        modifier = Modifier
-                            .padding(top = MaterialTheme.spacing.small),
-                        textStyle = MaterialTheme.typography.bodyLarge,
-                        visualTransformation = PasswordVisualTransformation(),
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
-                    )
-                    Button(
-                        onClick = { onEvent(RegisterEvent.Register) },
-                        shape = TextFieldDefaults.outlinedShape,
-                        modifier = Modifier
-                            .padding(top = MaterialTheme.spacing.medium)
-                            .fillMaxWidth()
-                    ) {
-                        Text(
-                            text = stringResource(R.string.signup).uppercase(),
-                            style = MaterialTheme.typography.bodyMedium
-                        )
-                    }
-                    ClickableText(
-                        text = AnnotatedString(stringResource(R.string.text_login_now)),
-                        style = MaterialTheme.typography.bodyMedium.copy(
-                            color = MaterialTheme.colorScheme.primary,
-                            textAlign = TextAlign.Center
-                        ),
-                        overflow = TextOverflow.Visible,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = MaterialTheme.spacing.medium)
-                    ) {
-                        navigateToLogin()
+                    is AuthUiEvent.NavigateToNextScreen -> {
+                        navigateToNext()
                     }
                 }
             }
         }
-    )
+
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues = paddingValues)
+        ) {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center,
+                modifier = Modifier
+                    .height(IntrinsicSize.Max)
+                    .width(IntrinsicSize.Min)
+            ) {
+                Image(
+                    painter = painterResource(R.drawable.die),
+                    contentDescription = stringResource(R.string.label_logo),
+                    modifier = Modifier
+                        .size(200.dp)
+                        .padding(bottom = MaterialTheme.spacing.medium),
+                )
+                OutlinedTextField(
+                    label = { Text(text = stringResource(R.string.label_email)) },
+                    value = state.email,
+                    onValueChange = { onEvent(RegisterEvent.EmailChanged(it)) },
+                    modifier = Modifier
+                        .padding(top = MaterialTheme.spacing.small),
+                    textStyle = MaterialTheme.typography.bodyLarge,
+                )
+                OutlinedTextField(
+                    label = { Text(text = stringResource(R.string.label_password)) },
+                    value = state.password,
+                    onValueChange = { onEvent(RegisterEvent.PasswordChanged(it)) },
+                    modifier = Modifier
+                        .padding(top = MaterialTheme.spacing.small),
+                    textStyle = MaterialTheme.typography.bodyLarge,
+                    visualTransformation = PasswordVisualTransformation(),
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
+                )
+                OutlinedTextField(
+                    label = { Text(text = stringResource(R.string.label_confirm_password)) },
+                    value = state.confirmPassword,
+                    onValueChange = { onEvent(RegisterEvent.ConfirmPasswordChanged(it)) },
+                    modifier = Modifier
+                        .padding(top = MaterialTheme.spacing.small),
+                    textStyle = MaterialTheme.typography.bodyLarge,
+                    visualTransformation = PasswordVisualTransformation(),
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
+                )
+                Button(
+                    onClick = { onEvent(RegisterEvent.Register) },
+                    shape = TextFieldDefaults.outlinedShape,
+                    modifier = Modifier
+                        .padding(top = MaterialTheme.spacing.medium)
+                        .fillMaxWidth()
+                ) {
+                    Text(
+                        text = stringResource(R.string.signup).uppercase(),
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                }
+                ClickableText(
+                    text = AnnotatedString(stringResource(R.string.text_login_now)),
+                    style = MaterialTheme.typography.bodyMedium.copy(
+                        color = MaterialTheme.colorScheme.primary,
+                        textAlign = TextAlign.Center
+                    ),
+                    overflow = TextOverflow.Visible,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = MaterialTheme.spacing.medium)
+                ) {
+                    navigateToLogin()
+                }
+            }
+        }
+    }
 }
 
 @Preview(

@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = Spell.TABLE_SPELL)
-class Spell(
+data class Spell(
     @PrimaryKey
     @ColumnInfo(name = SPELL_ID)
     var id: String = "",
@@ -30,9 +30,7 @@ class Spell(
     @ColumnInfo(name = SPELL_DESCRIPTION)
     var description: String = "",
     @ColumnInfo(name = SPELL_HIGHER_LEVELS)
-    var higherLevels: String = "",
-    @ColumnInfo(name = SPELL_DAMAGE_TYPE)
-    var damageType: String = ""
+    var higherLevels: String = ""
 ) {
     companion object {
         const val TABLE_SPELL = "spell"
@@ -48,6 +46,5 @@ class Spell(
         const val SPELL_DURATION = "duration"
         const val SPELL_DESCRIPTION = "description"
         const val SPELL_HIGHER_LEVELS = "higher_levels"
-        const val SPELL_DAMAGE_TYPE = "damage_type"
     }
 }

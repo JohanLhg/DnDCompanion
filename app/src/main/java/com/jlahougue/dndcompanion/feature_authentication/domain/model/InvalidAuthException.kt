@@ -1,3 +1,5 @@
 package com.jlahougue.dndcompanion.feature_authentication.domain.model
 
-class InvalidAuthException(val messageId: Int) : Exception()
+import com.jlahougue.dndcompanion.core.domain.util.UiText
+
+class InvalidAuthException(val uiMessage: UiText) : Exception()

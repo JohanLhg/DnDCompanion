@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = DamageType.TABLE_DAMAGE_TYPE)
-class DamageType(
+data class DamageType(
     @PrimaryKey
     @ColumnInfo(name = DAMAGE_TYPE_NAME)
     var name: String = "",
@@ -14,7 +14,7 @@ class DamageType(
 ) {
     companion object {
         const val TABLE_DAMAGE_TYPE = "damage_type"
-        const val DAMAGE_TYPE_NAME = "name"
+        const val DAMAGE_TYPE_NAME = "damage_type_name"
         const val DAMAGE_TYPE_DESCRIPTION = "description"
     }
 }

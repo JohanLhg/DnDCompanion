@@ -9,8 +9,8 @@ import com.jlahougue.dndcompanion.core.domain.model.DamageType
 @Dao
 interface DamageTypeDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(damageType: DamageType): Long
+    suspend fun insert(damageType: DamageType): Long
 
-    @Query("SELECT name FROM damage_type")
-    fun getNames(): List<String>
+    @Query("SELECT damage_type_name FROM damage_type")
+    suspend fun getNames(): List<String>
 }

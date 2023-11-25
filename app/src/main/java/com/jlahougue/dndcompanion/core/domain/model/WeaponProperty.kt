@@ -7,10 +7,10 @@ import androidx.room.Entity
     tableName = WeaponProperty.TABLE_WEAPON_PROPERTY,
     primaryKeys = [WeaponProperty.WEAPON_PROPERTY_WEAPON, WeaponProperty.WEAPON_PROPERTY_PROPERTY]
 )
-class WeaponProperty(
+data class WeaponProperty(
     @ColumnInfo(name = WEAPON_PROPERTY_WEAPON)
     var weapon: String = "",
-    @ColumnInfo(name = WEAPON_PROPERTY_PROPERTY, index = true)
+    @ColumnInfo(name = WEAPON_PROPERTY_PROPERTY)
     var property: String = ""
 ) {
     companion object {

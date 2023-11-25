@@ -8,23 +8,55 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
-import com.jlahougue.dndcompanion.R
+import com.jlahougue.dndcompanion.feature_loading_screen.presentation.util.LoadingUiEvent
 import com.jlahougue.dndcompanion.ui.spacing
 import com.jlahougue.dndcompanion.ui.theme.DnDCompanionTheme
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoadingScreen(
     state: LoadingState,
+    onEvent: (LoadingEvent) -> Unit,
+    events: SharedFlow<LoadingUiEvent>,
+    navigateToNext: () -> Unit
 ) {
-    Scaffold { paddingValues ->
+    val context = LocalContext.current
+    val snackbarHostState = remember { SnackbarHostState() }
+    val scope = rememberCoroutineScope()
+
+    Scaffold(
+        snackbarHost = { SnackbarHost(snackbarHostState) }
+    ) { paddingValues ->
+        LaunchedEffect(Unit) {
+            onEvent(LoadingEvent.StartLoading)
+            events.collect { event ->
+                when (event) {
+                    is LoadingUiEvent.NavigateToNextScreen -> {
+                        navigateToNext()
+                    }
+                    is LoadingUiEvent.ShowSnackbar -> {
+                        scope.launch {
+                            snackbarHostState.showSnackbar(message = event.message.getString(context))
+                        }
+                    }
+                }
+            }
+        }
+
         Box(
             contentAlignment = Alignment.Center,
             modifier = Modifier
@@ -35,7 +67,7 @@ fun LoadingScreen(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = stringResource(id = state.currentStep),
+                    text = state.title.getString(),
                     style = MaterialTheme.typography.bodyLarge,
                     modifier = Modifier
                         .padding(bottom = MaterialTheme.spacing.medium)
@@ -55,10 +87,5 @@ fun LoadingScreen(
 @Composable
 fun LoadingPreview() {
     DnDCompanionTheme {
-        LoadingScreen(
-            state = LoadingState(
-                currentStep = R.string.loading
-            )
-        )
     }
 }

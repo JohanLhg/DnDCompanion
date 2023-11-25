@@ -5,26 +5,36 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jlahougue.dndcompanion.R
-import com.jlahougue.dndcompanion.feature_authentication.presentation.util.UiEvent
+import com.jlahougue.dndcompanion.core.domain.util.UiText
+import com.jlahougue.dndcompanion.di.IAppModule
 import com.jlahougue.dndcompanion.feature_authentication.domain.model.InvalidAuthException
 import com.jlahougue.dndcompanion.feature_authentication.domain.use_case.AuthUseCases
+import com.jlahougue.dndcompanion.feature_authentication.presentation.util.AuthUiEvent
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 
 class LoginViewModel(
+    private val appModule: IAppModule,
     private val authUseCases: AuthUseCases
 ) : ViewModel() {
 
     private val _state = mutableStateOf(LoginState())
     val state: State<LoginState> = _state
 
-    private val _event = MutableSharedFlow<UiEvent>()
-    val event: SharedFlow<UiEvent> = _event.asSharedFlow()
+    private val _event = MutableSharedFlow<AuthUiEvent>(1)
+    val event: SharedFlow<AuthUiEvent> = _event.asSharedFlow()
 
     fun onEvent(event: LoginEvent) {
         when (event) {
+            is LoginEvent.CheckIfLoggedIn -> {
+                if (authUseCases.isLoggedIn()) {
+                    viewModelScope.launch {
+                        _event.emit(AuthUiEvent.NavigateToNextScreen)
+                    }
+                }
+            }
             is LoginEvent.EmailChanged -> {
                 _state.value = state.value.copy(email = event.email)
             }
@@ -32,7 +42,7 @@ class LoginViewModel(
                 _state.value = state.value.copy(password = event.password)
             }
             is LoginEvent.Login -> {
-                viewModelScope.launch {
+                viewModelScope.launch(appModule.dispatcher.io) {
                     try {
                         authUseCases.login(
                             state.value.email,
@@ -40,21 +50,30 @@ class LoginViewModel(
                         ) { success ->
                             if (success) {
                                 viewModelScope.launch {
-                                    _event.emit(UiEvent.ShowSnackbarResource(R.string.login_successful))
-                                    _event.emit(UiEvent.NavigateToNextScreen)
+                                    _event.emit(
+                                        AuthUiEvent.ShowSnackbar(
+                                            UiText.StringResource(R.string.login_successful)
+                                        )
+                                    )
+                                    _event.emit(AuthUiEvent.NavigateToNextScreen)
                                 }
                                 return@login
                             }
                             viewModelScope.launch {
-                                _event.emit(UiEvent.ShowSnackbarResource(R.string.error_login_failed))
+                                _event.emit(
+                                    AuthUiEvent.ShowSnackbar(
+                                        UiText.StringResource(R.string.error_login_failed)
+                                    )
+                                )
                             }
                         }
                     } catch (e: InvalidAuthException) {
-                        _event.emit(UiEvent.ShowSnackbarResource(e.messageId))
+                        _event.emit(
+                            AuthUiEvent.ShowSnackbar(e.uiMessage)
+                        )
                     }
                 }
             }
         }
     }
-
 }

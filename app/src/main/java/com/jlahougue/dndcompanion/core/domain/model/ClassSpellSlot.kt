@@ -11,7 +11,7 @@ import androidx.room.Entity
         ClassSpellSlot.CLASS_SPELL_SLOT_SPELL_LEVEL
     ]
 )
-class ClassSpellSlot(
+data class ClassSpellSlot(
     @ColumnInfo(name = CLASS_SPELL_SLOT_CLASS)
     val clazz: String,
     @ColumnInfo(name = CLASS_SPELL_SLOT_CLASS_LEVEL)

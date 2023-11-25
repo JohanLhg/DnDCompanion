@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 import com.jlahougue.dndcompanion.core.domain.model.enums.AbilityName
 
 @Entity(tableName = Weapon.TABLE_WEAPON)
-class Weapon(
+data class Weapon(
     @PrimaryKey
     @ColumnInfo(name = WEAPON_NAME)
     var name: String = "",
