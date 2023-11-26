@@ -22,7 +22,7 @@ import com.jlahougue.dndcompanion.feature_authentication.presentation.login.Logi
 import com.jlahougue.dndcompanion.feature_authentication.presentation.register.RegisterScreen
 import com.jlahougue.dndcompanion.feature_authentication.presentation.register.RegisterViewModel
 import com.jlahougue.dndcompanion.feature_authentication.presentation.util.Screen
-import com.jlahougue.dndcompanion.feature_loading_screen.LoadingActivity
+import com.jlahougue.dndcompanion.feature_loading_data.LoadingActivity
 import com.jlahougue.dndcompanion.ui.theme.DnDCompanionTheme
 
 class AuthActivity : ComponentActivity() {

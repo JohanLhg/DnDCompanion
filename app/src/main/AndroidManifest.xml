@@ -14,7 +14,7 @@
         android:theme="@style/Theme.DnDCompanion"
         tools:targetApi="31">
         <activity
-            android:name=".feature_loading_screen.LoadingActivity"
+            android:name=".feature_loading_data.LoadingActivity"
             android:exported="false"
             android:label="@string/title_activity_loading"
             android:theme="@style/Theme.DnDCompanion" />

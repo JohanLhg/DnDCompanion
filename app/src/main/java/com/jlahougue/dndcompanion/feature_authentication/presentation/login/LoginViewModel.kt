@@ -5,8 +5,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jlahougue.dndcompanion.R
+import com.jlahougue.dndcompanion.core.di.IAppModule
 import com.jlahougue.dndcompanion.core.domain.util.UiText
-import com.jlahougue.dndcompanion.di.IAppModule
 import com.jlahougue.dndcompanion.feature_authentication.domain.model.InvalidAuthException
 import com.jlahougue.dndcompanion.feature_authentication.domain.use_case.AuthUseCases
 import com.jlahougue.dndcompanion.feature_authentication.presentation.util.AuthUiEvent
