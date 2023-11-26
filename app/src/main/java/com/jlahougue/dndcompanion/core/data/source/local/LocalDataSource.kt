@@ -7,6 +7,8 @@ import com.jlahougue.dndcompanion.data_damage_type.data.source.local.DamageTypeL
 import com.jlahougue.dndcompanion.data_spell.data.source.local.SpellClassLocalDataSource
 import com.jlahougue.dndcompanion.data_spell.data.source.local.SpellDamageTypeLocalDataSource
 import com.jlahougue.dndcompanion.data_spell.data.source.local.SpellLocalDataSource
+import com.jlahougue.dndcompanion.data_weapon.data.source.local.WeaponLocalDataSource
+import com.jlahougue.dndcompanion.data_weapon.data.source.local.WeaponPropertyLocalDataSource
 
 interface LocalDataSource {
     fun classDao(): ClassLocalDataSource
@@ -16,4 +18,6 @@ interface LocalDataSource {
     fun spellDao(): SpellLocalDataSource
     fun spellClassDao(): SpellClassLocalDataSource
     fun spellDamageTypeDao(): SpellDamageTypeLocalDataSource
+    fun weaponDao(): WeaponLocalDataSource
+    fun weaponPropertyDao(): WeaponPropertyLocalDataSource
 }

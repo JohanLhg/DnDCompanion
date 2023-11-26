@@ -1,11 +1,9 @@
-package com.jlahougue.dndcompanion.data_weapon.domain.repository
+package com.jlahougue.dndcompanion.data_weapon.data.source.remote
 
-import com.jlahougue.dndcompanion.core.data.source.remote.subsources.ApiEvent
 import com.jlahougue.dndcompanion.data_weapon.domain.model.Weapon
 import com.jlahougue.dndcompanion.data_weapon.domain.model.WeaponProperty
 
-interface IWeaponRepository {
-    suspend fun loadAll(onApiEvent: (ApiEvent) -> Unit)
+interface WeaponRemoteListener {
     suspend fun save(weapon: Weapon): Boolean
     suspend fun saveProperties(weaponProperties: List<WeaponProperty>)
 }

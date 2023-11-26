@@ -44,6 +44,8 @@ class DamageTypeDnd5eDataSource(
                 fetchDamageType(url, onApiEvent, damageTypeRemoteListener)
             }
         }.joinAll()
+
+        onApiEvent(ApiEvent.Finish)
     }
 
     private suspend fun fetchDamageType(

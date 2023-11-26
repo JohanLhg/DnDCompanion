@@ -15,11 +15,7 @@ class LoadDamageTypesFromRemote(
 
     override operator fun invoke() {
         CoroutineScope(dispatcherProvider.io).launch {
-            damageTypeRepository.loadAll(
-                ::onApiEvent
-            )
-
-            onApiEvent(ApiEvent.Finish)
+            damageTypeRepository.loadAll(::onApiEvent)
         }
     }
 }

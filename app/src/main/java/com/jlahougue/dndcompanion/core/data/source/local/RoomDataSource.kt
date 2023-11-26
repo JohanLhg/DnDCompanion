@@ -18,10 +18,10 @@ import com.jlahougue.dndcompanion.data_spell.data.source.local.SpellLocalDataSou
 import com.jlahougue.dndcompanion.data_spell.domain.model.Spell
 import com.jlahougue.dndcompanion.data_spell.domain.model.SpellClass
 import com.jlahougue.dndcompanion.data_spell.domain.model.SpellDamageType
-import com.jlahougue.dndcompanion.data_weapon.data.source.local.PropertyDao
-import com.jlahougue.dndcompanion.data_weapon.data.source.local.WeaponDao
-import com.jlahougue.dndcompanion.data_weapon.data.source.local.WeaponPropertyDao
-import com.jlahougue.dndcompanion.data_weapon.domain.model.Property
+import com.jlahougue.dndcompanion.data_property.data.source.local.PropertyLocalDataSource
+import com.jlahougue.dndcompanion.data_weapon.data.source.local.WeaponLocalDataSource
+import com.jlahougue.dndcompanion.data_weapon.data.source.local.WeaponPropertyLocalDataSource
+import com.jlahougue.dndcompanion.data_property.domain.model.Property
 import com.jlahougue.dndcompanion.data_weapon.domain.model.Weapon
 import com.jlahougue.dndcompanion.data_weapon.domain.model.WeaponProperty
 
@@ -40,12 +40,12 @@ abstract class RoomDataSource : RoomDatabase(), LocalDataSource {
     abstract override fun classLevelDao(): ClassLevelLocalDataSource
     abstract override fun classSpellSlotDao(): ClassSpellSlotLocalDataSource
     abstract override fun damageTypeDao(): DamageTypeLocalDataSource
-    abstract fun propertyDao(): PropertyDao
+    abstract fun propertyDao(): PropertyLocalDataSource
     abstract override fun spellDao(): SpellLocalDataSource
     abstract override fun spellClassDao(): SpellClassLocalDataSource
     abstract override fun spellDamageTypeDao(): SpellDamageTypeLocalDataSource
-    abstract fun weaponDao(): WeaponDao
-    abstract fun weaponPropertyDao(): WeaponPropertyDao
+    abstract override fun weaponDao(): WeaponLocalDataSource
+    abstract override fun weaponPropertyDao(): WeaponPropertyLocalDataSource
 
     companion object {
         const val DATABASE_NAME = "dnd_companion_database"

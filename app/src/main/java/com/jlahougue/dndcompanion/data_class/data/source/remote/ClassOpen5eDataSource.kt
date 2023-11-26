@@ -49,6 +49,8 @@ class ClassOpen5eDataSource(
                 )
             }
         }.joinAll()
+
+        onApiEvent(ApiEvent.Finish)
     }
 
     private suspend fun getClass(

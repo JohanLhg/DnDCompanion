@@ -4,6 +4,7 @@ import com.jlahougue.dndcompanion.core.data.source.remote.subsources.Dnd5eDataSo
 import com.jlahougue.dndcompanion.core.data.source.remote.subsources.FirebaseDataSource
 import com.jlahougue.dndcompanion.core.data.source.remote.subsources.Open5eDataSource
 import com.jlahougue.dndcompanion.data_class.data.source.remote.ClassMixedRemoteDataSource
+import com.jlahougue.dndcompanion.data_weapon.data.source.remote.WeaponRemoteDataSource
 
 class MixedRemoteDataSource(
     private val firebaseDataSource: FirebaseDataSource,
@@ -18,4 +19,5 @@ class MixedRemoteDataSource(
     }
     override val damageTypeDao by lazy { dnd5eDataSource.damageTypeDao }
     override val spellDao by lazy { open5eDataSource.spellDao }
+    override val weaponDao by lazy { dnd5eDataSource.weaponDao }
 }

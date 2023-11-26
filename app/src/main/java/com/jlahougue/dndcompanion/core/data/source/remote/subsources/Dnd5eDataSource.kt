@@ -4,6 +4,7 @@ import com.jlahougue.dndcompanion.core.domain.util.ApiRequest
 import com.jlahougue.dndcompanion.core.domain.util.dispatcherProvider.DispatcherProvider
 import com.jlahougue.dndcompanion.data_class.data.source.remote.ClassDnd5eDataSource
 import com.jlahougue.dndcompanion.data_damage_type.data.source.remote.DamageTypeDnd5eDataSource
+import com.jlahougue.dndcompanion.data_weapon.data.source.remote.WeaponDnd5eDataSource
 import okhttp3.OkHttpClient
 
 class Dnd5eDataSource(
@@ -20,6 +21,12 @@ class Dnd5eDataSource(
     }
     val damageTypeDao by lazy {
         DamageTypeDnd5eDataSource(
+            dispatcherProvider,
+            this
+        )
+    }
+    val weaponDao by lazy {
+        WeaponDnd5eDataSource(
             dispatcherProvider,
             this
         )

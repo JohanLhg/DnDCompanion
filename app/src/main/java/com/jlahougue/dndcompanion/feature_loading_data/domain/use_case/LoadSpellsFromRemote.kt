@@ -20,8 +20,6 @@ class LoadSpellsFromRemote(
                 damageTypeRepository.getNames(),
                 ::onApiEvent
             )
-
-            onApiEvent(ApiEvent.Finish)
         }
     }
 }

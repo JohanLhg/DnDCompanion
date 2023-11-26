@@ -14,14 +14,16 @@ class LoadAllFromRemote(
     private val dispatcherProvider: DispatcherProvider,
     loadClassesFromRemote: LoadClassesFromRemote,
     loadSpellsFromRemote: LoadSpellsFromRemote,
-    loadDamageTypesFromRemote: LoadDamageTypesFromRemote
+    loadDamageTypesFromRemote: LoadDamageTypesFromRemote,
+    loadWeaponsFromRemote: LoadWeaponsFromRemote
 ) : LoadFromRemote(UiText.StringResource(R.string.loading)) {
 
     private val _waitingFor = MutableStateFlow(
         listOf(
             CLASSES_KEY,
             DAMAGE_TYPES_KEY,
-            SPELLS_KEY
+            SPELLS_KEY,
+            WEAPONS_KEY
         )
     )
     private val waitingFor = _waitingFor.asStateFlow()
@@ -29,7 +31,8 @@ class LoadAllFromRemote(
     private val useCaseMap = mapOf(
         CLASSES_KEY to loadClassesFromRemote,
         DAMAGE_TYPES_KEY to loadDamageTypesFromRemote,
-        SPELLS_KEY to loadSpellsFromRemote
+        SPELLS_KEY to loadSpellsFromRemote,
+        WEAPONS_KEY to loadWeaponsFromRemote
     )
 
     private val useCasePrerequisites = mapOf(
@@ -96,5 +99,6 @@ class LoadAllFromRemote(
         const val CLASSES_KEY = 0
         const val DAMAGE_TYPES_KEY = 1
         const val SPELLS_KEY = 2
+        const val WEAPONS_KEY = 3
     }
 }

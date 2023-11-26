@@ -20,10 +20,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
+import com.jlahougue.dndcompanion.R
+import com.jlahougue.dndcompanion.core.domain.util.UiText
 import com.jlahougue.dndcompanion.feature_loading_data.presentation.util.LoadingUiEvent
 import com.jlahougue.dndcompanion.ui.spacing
 import com.jlahougue.dndcompanion.ui.theme.DnDCompanionTheme
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -87,5 +91,14 @@ fun LoadingScreen(
 @Composable
 fun LoadingPreview() {
     DnDCompanionTheme {
+        LoadingScreen(
+            state = LoadingState(
+                title = UiText.StringResource(R.string.loading),
+                progress = 0.5f
+            ),
+            onEvent = {},
+            events = MutableSharedFlow<LoadingUiEvent>().asSharedFlow(),
+            navigateToNext = {}
+        )
     }
 }

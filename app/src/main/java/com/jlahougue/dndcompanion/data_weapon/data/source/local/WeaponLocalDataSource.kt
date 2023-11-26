@@ -4,13 +4,13 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.jlahougue.dndcompanion.data_weapon.domain.model.Property
+import com.jlahougue.dndcompanion.data_weapon.domain.model.Weapon
 
 @Dao
-interface PropertyDao {
+interface WeaponLocalDataSource {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(property: Property): Long
+    suspend fun insert(weapon: Weapon): Long
 
-    @Query("SELECT property_name FROM property")
-    fun getNames(): List<String>
+    @Query("SELECT weapon_name FROM weapon")
+    suspend fun getNames(): List<String>
 }

@@ -11,6 +11,8 @@ import com.jlahougue.dndcompanion.data_damage_type.di.DamageTypeModule
 import com.jlahougue.dndcompanion.data_damage_type.di.IDamageTypeModule
 import com.jlahougue.dndcompanion.data_spell.di.ISpellModule
 import com.jlahougue.dndcompanion.data_spell.di.SpellModule
+import com.jlahougue.dndcompanion.data_weapon.di.IWeaponModule
+import com.jlahougue.dndcompanion.data_weapon.di.WeaponModule
 import com.jlahougue.dndcompanion.feature_authentication.di.AuthModule
 import com.jlahougue.dndcompanion.feature_authentication.di.IAuthModule
 import com.jlahougue.dndcompanion.feature_loading_data.di.ILoadingModule
@@ -23,8 +25,9 @@ class DnDCompanionApp: Application() {
         lateinit var dataSourceModule: IDataSourceModule
 
         lateinit var classModule: IClassModule
-        lateinit var spellModule: ISpellModule
         lateinit var damageTypeModule: IDamageTypeModule
+        lateinit var spellModule: ISpellModule
+        lateinit var weaponModule: IWeaponModule
 
         lateinit var authModule: IAuthModule
         lateinit var loadingModule: ILoadingModule
@@ -39,11 +42,15 @@ class DnDCompanionApp: Application() {
             dataSourceModule.remoteDataSource,
             dataSourceModule.localDataSource
         )
+        damageTypeModule = DamageTypeModule(
+            dataSourceModule.remoteDataSource,
+            dataSourceModule.localDataSource
+        )
         spellModule = SpellModule(
             dataSourceModule.remoteDataSource,
             dataSourceModule.localDataSource
         )
-        damageTypeModule = DamageTypeModule(
+        weaponModule = WeaponModule(
             dataSourceModule.remoteDataSource,
             dataSourceModule.localDataSource
         )
@@ -53,7 +60,8 @@ class DnDCompanionApp: Application() {
             appModule.dispatcher,
             classModule.classRepository,
             damageTypeModule.damageTypeRepository,
-            spellModule.spellRepository
+            spellModule.spellRepository,
+            weaponModule.weaponRepository
         )
     }
 }

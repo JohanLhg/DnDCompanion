@@ -47,4 +47,5 @@
     <string name="error_api_damage_types">Error while fetching the damage types from the API</string>
     <string name="error_api_classes">Error while fetching the classes from the API</string>
     <string name="error_api_spells">Error while fetching the spells from the API</string>
+    <string name="error_api_weapons">Error while fetching the weapons from the API</string>
 </resources>
