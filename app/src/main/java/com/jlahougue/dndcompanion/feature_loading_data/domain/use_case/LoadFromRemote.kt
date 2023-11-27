@@ -9,7 +9,7 @@ abstract class LoadFromRemote(
     title: UiText
 ) {
 
-    var _state = MutableStateFlow(LoadFromRemoteSate(title))
+    private var _state = MutableStateFlow(LoadFromRemoteSate(title))
     val state = _state.asStateFlow()
 
     abstract operator fun invoke()
@@ -17,11 +17,6 @@ abstract class LoadFromRemote(
     fun onApiEvent(event: ApiEvent) {
         when(event) {
             is ApiEvent.Error -> TODO()
-            is ApiEvent.SkipCall -> {
-                _state.value = _state.value.copy(
-                    actionState = LoadFromRemoteSate.ActionState.FINISHED
-                )
-            }
             is ApiEvent.Skip -> {
                 _state.value = _state.value.copy(
                     progress = _state.value.progress + event.count

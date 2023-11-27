@@ -15,6 +15,7 @@ class LoadAllFromRemote(
     loadClassesFromRemote: LoadClassesFromRemote,
     loadSpellsFromRemote: LoadSpellsFromRemote,
     loadDamageTypesFromRemote: LoadDamageTypesFromRemote,
+    loadPropertiesFromRemote: LoadPropertiesFromRemote,
     loadWeaponsFromRemote: LoadWeaponsFromRemote
 ) : LoadFromRemote(UiText.StringResource(R.string.loading)) {
 
@@ -23,6 +24,7 @@ class LoadAllFromRemote(
             CLASSES_KEY,
             DAMAGE_TYPES_KEY,
             SPELLS_KEY,
+            PROPERTIES_KEY,
             WEAPONS_KEY
         )
     )
@@ -32,6 +34,7 @@ class LoadAllFromRemote(
         CLASSES_KEY to loadClassesFromRemote,
         DAMAGE_TYPES_KEY to loadDamageTypesFromRemote,
         SPELLS_KEY to loadSpellsFromRemote,
+        PROPERTIES_KEY to loadPropertiesFromRemote,
         WEAPONS_KEY to loadWeaponsFromRemote
     )
 
@@ -99,6 +102,7 @@ class LoadAllFromRemote(
         const val CLASSES_KEY = 0
         const val DAMAGE_TYPES_KEY = 1
         const val SPELLS_KEY = 2
-        const val WEAPONS_KEY = 3
+        const val PROPERTIES_KEY = 3
+        const val WEAPONS_KEY = 4
     }
 }

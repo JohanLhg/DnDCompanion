@@ -40,7 +40,7 @@ abstract class RoomDataSource : RoomDatabase(), LocalDataSource {
     abstract override fun classLevelDao(): ClassLevelLocalDataSource
     abstract override fun classSpellSlotDao(): ClassSpellSlotLocalDataSource
     abstract override fun damageTypeDao(): DamageTypeLocalDataSource
-    abstract fun propertyDao(): PropertyLocalDataSource
+    abstract override fun propertyDao(): PropertyLocalDataSource
     abstract override fun spellDao(): SpellLocalDataSource
     abstract override fun spellClassDao(): SpellClassLocalDataSource
     abstract override fun spellDamageTypeDao(): SpellDamageTypeLocalDataSource

@@ -19,5 +19,6 @@ class MixedRemoteDataSource(
     }
     override val damageTypeDao by lazy { dnd5eDataSource.damageTypeDao }
     override val spellDao by lazy { open5eDataSource.spellDao }
+    override val propertyDao by lazy { dnd5eDataSource.propertyDao }
     override val weaponDao by lazy { dnd5eDataSource.weaponDao }
 }

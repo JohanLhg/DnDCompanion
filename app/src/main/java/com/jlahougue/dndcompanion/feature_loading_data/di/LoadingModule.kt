@@ -3,11 +3,13 @@ package com.jlahougue.dndcompanion.feature_loading_data.di
 import com.jlahougue.dndcompanion.core.domain.util.dispatcherProvider.DispatcherProvider
 import com.jlahougue.dndcompanion.data_class.domain.repository.IClassRepository
 import com.jlahougue.dndcompanion.data_damage_type.domain.repository.IDamageTypeRepository
+import com.jlahougue.dndcompanion.data_property.domain.repository.IPropertyRepository
 import com.jlahougue.dndcompanion.data_spell.domain.repository.ISpellRepository
 import com.jlahougue.dndcompanion.data_weapon.domain.repository.IWeaponRepository
 import com.jlahougue.dndcompanion.feature_loading_data.domain.use_case.LoadAllFromRemote
 import com.jlahougue.dndcompanion.feature_loading_data.domain.use_case.LoadClassesFromRemote
 import com.jlahougue.dndcompanion.feature_loading_data.domain.use_case.LoadDamageTypesFromRemote
+import com.jlahougue.dndcompanion.feature_loading_data.domain.use_case.LoadPropertiesFromRemote
 import com.jlahougue.dndcompanion.feature_loading_data.domain.use_case.LoadSpellsFromRemote
 import com.jlahougue.dndcompanion.feature_loading_data.domain.use_case.LoadWeaponsFromRemote
 
@@ -16,6 +18,7 @@ class LoadingModule(
     private val classRepository: IClassRepository,
     private val damageTypeRepository: IDamageTypeRepository,
     private val spellRepository: ISpellRepository,
+    private val propertyRepository: IPropertyRepository,
     private val weaponRepository: IWeaponRepository
 ) : ILoadingModule {
 
@@ -38,6 +41,12 @@ class LoadingModule(
             damageTypeRepository
         )
     }
+    private val loadPropertiesFromRemote by lazy {
+        LoadPropertiesFromRemote(
+            dispatcherProvider,
+            propertyRepository
+        )
+    }
     private val loadWeaponsFromRemote by lazy {
         LoadWeaponsFromRemote(
             dispatcherProvider,
@@ -51,6 +60,7 @@ class LoadingModule(
             loadClassesFromRemote,
             loadSpellsFromRemote,
             loadDamageTypesFromRemote,
+            loadPropertiesFromRemote,
             loadWeaponsFromRemote
         )
     }

@@ -30,7 +30,7 @@ class ClassOpen5eDataSource(
         val json = JSONObject(response)
         val count = json.getInt("count")
         if (count == existingClasses.size) {
-            return onApiEvent(ApiEvent.SkipCall)
+            return onApiEvent(ApiEvent.Finish)
         }
         onApiEvent(ApiEvent.SetMaxProgress(count))
 

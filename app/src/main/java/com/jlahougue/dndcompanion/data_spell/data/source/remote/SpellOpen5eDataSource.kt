@@ -34,7 +34,7 @@ class SpellOpen5eDataSource(
 
         val count = json.getInt("count")
         if (count == existingSpellIds.size) {
-            return onApiEvent(ApiEvent.SkipCall)
+            return onApiEvent(ApiEvent.Finish)
         }
         onApiEvent(ApiEvent.SetMaxProgress(count))
 

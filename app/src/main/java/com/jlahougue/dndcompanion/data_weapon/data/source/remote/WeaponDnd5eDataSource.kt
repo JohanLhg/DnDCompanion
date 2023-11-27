@@ -18,14 +18,14 @@ import org.json.JSONObject
 
 class WeaponDnd5eDataSource(
     private val dispatcherProvider: DispatcherProvider,
-    private val apiRequest: Dnd5eDataSource
+    private val dnd5eDataSource: Dnd5eDataSource
 ): WeaponRemoteDataSource {
     override suspend fun getWeapons(
         existingWeaponNames: List<String>,
         onApiEvent: (ApiEvent) -> Unit,
         weaponRemoteListener: WeaponRemoteListener
     ) {
-        val response = apiRequest.sendGet(Dnd5eDataSource.WEAPON_URL)
+        val response = dnd5eDataSource.sendGet(Dnd5eDataSource.WEAPON_URL)
         if (response == null) {
             val errorMessage = UiText.StringResource(R.string.error_api_weapons)
             return onApiEvent(ApiEvent.Error(errorMessage))
@@ -35,7 +35,7 @@ class WeaponDnd5eDataSource(
         val weapons = json.getJSONArray("equipment")
         val count = weapons.length()
         if (count == existingWeaponNames.size) {
-            return onApiEvent(ApiEvent.SkipCall)
+            return onApiEvent(ApiEvent.Finish)
         }
         onApiEvent(ApiEvent.SetMaxProgress(count))
 
@@ -63,7 +63,7 @@ class WeaponDnd5eDataSource(
         onApiEvent: (ApiEvent) -> Unit,
         weaponRemoteListener: WeaponRemoteListener
     ) {
-        val response = apiRequest.sendGet(url) ?: return onApiEvent(ApiEvent.Skip(1))
+        val response = dnd5eDataSource.sendGet(url) ?: return onApiEvent(ApiEvent.Skip(1))
 
         val json = JSONObject(response)
         val name = json.getString("name")

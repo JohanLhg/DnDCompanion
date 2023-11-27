@@ -9,6 +9,8 @@ import com.jlahougue.dndcompanion.data_class.di.ClassModule
 import com.jlahougue.dndcompanion.data_class.di.IClassModule
 import com.jlahougue.dndcompanion.data_damage_type.di.DamageTypeModule
 import com.jlahougue.dndcompanion.data_damage_type.di.IDamageTypeModule
+import com.jlahougue.dndcompanion.data_property.di.IPropertyModule
+import com.jlahougue.dndcompanion.data_property.di.PropertyModule
 import com.jlahougue.dndcompanion.data_spell.di.ISpellModule
 import com.jlahougue.dndcompanion.data_spell.di.SpellModule
 import com.jlahougue.dndcompanion.data_weapon.di.IWeaponModule
@@ -27,6 +29,7 @@ class DnDCompanionApp: Application() {
         lateinit var classModule: IClassModule
         lateinit var damageTypeModule: IDamageTypeModule
         lateinit var spellModule: ISpellModule
+        lateinit var propertyModule: IPropertyModule
         lateinit var weaponModule: IWeaponModule
 
         lateinit var authModule: IAuthModule
@@ -50,6 +53,10 @@ class DnDCompanionApp: Application() {
             dataSourceModule.remoteDataSource,
             dataSourceModule.localDataSource
         )
+        propertyModule = PropertyModule(
+            dataSourceModule.remoteDataSource,
+            dataSourceModule.localDataSource
+        )
         weaponModule = WeaponModule(
             dataSourceModule.remoteDataSource,
             dataSourceModule.localDataSource
@@ -61,6 +68,7 @@ class DnDCompanionApp: Application() {
             classModule.classRepository,
             damageTypeModule.damageTypeRepository,
             spellModule.spellRepository,
+            propertyModule.propertyRepository,
             weaponModule.weaponRepository
         )
     }
