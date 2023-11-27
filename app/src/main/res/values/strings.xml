@@ -18,6 +18,26 @@
     <string name="ability_wisdom_short">WIS</string>
     <string name="ability_charisma_short">CHA</string>
 
+    <!-- Skill -->
+    <string name="skill_acrobatics">Acrobatics</string>
+    <string name="skill_animal_handling">Animal Handling</string>
+    <string name="skill_arcana">Arcana</string>
+    <string name="skill_athletics">Athletics</string>
+    <string name="skill_deception">Deception</string>
+    <string name="skill_history">History</string>
+    <string name="skill_insight">Insight</string>
+    <string name="skill_intimidation">Intimidation</string>
+    <string name="skill_investigation">Investigation</string>
+    <string name="skill_medicine">Medicine</string>
+    <string name="skill_nature">Nature</string>
+    <string name="skill_perception">Perception</string>
+    <string name="skill_performance">Performance</string>
+    <string name="skill_persuasion">Persuasion</string>
+    <string name="skill_religion">Religion</string>
+    <string name="skill_sleight_of_hand">Sleight of Hand</string>
+    <string name="skill_stealth">Stealth</string>
+    <string name="skill_survival">Survival</string>
+
     <!-- AuthActivity -->
     <string name="title_activity_auth">AuthActivity</string>
     <string name="label_logo">App Logo</string>

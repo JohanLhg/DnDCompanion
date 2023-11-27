@@ -1,4 +1,4 @@
-package com.jlahougue.dndcompanion.core.data.source.remote.subsources
+package com.jlahougue.dndcompanion.core.data.source.remote.subsource
 
 import com.jlahougue.dndcompanion.core.domain.util.UiText
 

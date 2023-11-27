@@ -1,11 +1,12 @@
-package com.jlahougue.dndcompanion.data_class.data.source.remote
+package com.jlahougue.dndcompanion.data_class.data.source.remote.subsource
 
 import com.jlahougue.dndcompanion.R
-import com.jlahougue.dndcompanion.core.data.source.remote.subsources.ApiEvent
-import com.jlahougue.dndcompanion.core.data.source.remote.subsources.Open5eDataSource
+import com.jlahougue.dndcompanion.core.data.source.remote.subsource.ApiEvent
+import com.jlahougue.dndcompanion.core.data.source.remote.subsource.Open5eDataSource
 import com.jlahougue.dndcompanion.core.domain.util.UiText
 import com.jlahougue.dndcompanion.core.domain.util.dispatcherProvider.DispatcherProvider
 import com.jlahougue.dndcompanion.data_ability.domain.model.AbilityName
+import com.jlahougue.dndcompanion.data_class.data.source.remote.ClassRemoteListener
 import com.jlahougue.dndcompanion.data_class.domain.model.Class
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.joinAll
@@ -16,7 +17,7 @@ class ClassOpen5eDataSource(
     private val dispatcherProvider: DispatcherProvider,
     private val open5eDataSource: Open5eDataSource
 ) {
-    suspend fun getClasses(
+    suspend fun load(
         existingClasses: List<String>,
         onApiEvent: (ApiEvent) -> Unit,
         classRemoteListener: ClassRemoteListener
@@ -42,7 +43,7 @@ class ClassOpen5eDataSource(
 
                 if (existingClasses.contains(name))
                     onApiEvent(ApiEvent.Skip())
-                else getClass(
+                else loadClass(
                     clazz,
                     onApiEvent,
                     classRemoteListener
@@ -53,7 +54,7 @@ class ClassOpen5eDataSource(
         onApiEvent(ApiEvent.Finish)
     }
 
-    private suspend fun getClass(
+    private suspend fun loadClass(
         clazz: JSONObject,
         onApiEvent: (ApiEvent) -> Unit,
         classRemoteListener: ClassRemoteListener

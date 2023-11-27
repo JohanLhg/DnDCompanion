@@ -1,11 +1,11 @@
-package com.jlahougue.dndcompanion.core.data.source.remote.subsources
+package com.jlahougue.dndcompanion.core.data.source.remote.subsource
 
 import com.jlahougue.dndcompanion.core.domain.util.ApiRequest
 import com.jlahougue.dndcompanion.core.domain.util.dispatcherProvider.DispatcherProvider
-import com.jlahougue.dndcompanion.data_class.data.source.remote.ClassDnd5eDataSource
+import com.jlahougue.dndcompanion.data_class.data.source.remote.subsource.ClassDnd5eDataSource
 import com.jlahougue.dndcompanion.data_damage_type.data.source.remote.DamageTypeDnd5eDataSource
 import com.jlahougue.dndcompanion.data_property.data.source.remote.PropertyDnd5eDataSource
-import com.jlahougue.dndcompanion.data_weapon.data.source.remote.WeaponDnd5eDataSource
+import com.jlahougue.dndcompanion.data_weapon.data.source.remote.subsource.WeaponDnd5eDataSource
 import okhttp3.OkHttpClient
 
 class Dnd5eDataSource(

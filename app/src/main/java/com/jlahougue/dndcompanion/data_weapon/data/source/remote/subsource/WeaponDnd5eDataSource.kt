@@ -1,14 +1,15 @@
-package com.jlahougue.dndcompanion.data_weapon.data.source.remote
+package com.jlahougue.dndcompanion.data_weapon.data.source.remote.subsource
 
 import com.jlahougue.dndcompanion.R
-import com.jlahougue.dndcompanion.core.data.source.remote.subsources.ApiEvent
-import com.jlahougue.dndcompanion.core.data.source.remote.subsources.Dnd5eDataSource
+import com.jlahougue.dndcompanion.core.data.source.remote.subsource.ApiEvent
+import com.jlahougue.dndcompanion.core.data.source.remote.subsource.Dnd5eDataSource
 import com.jlahougue.dndcompanion.core.domain.util.UiText
 import com.jlahougue.dndcompanion.core.domain.util.dispatcherProvider.DispatcherProvider
 import com.jlahougue.dndcompanion.core.domain.util.extension.getIntIfExists
 import com.jlahougue.dndcompanion.core.domain.util.extension.getJSONArrayIfExists
 import com.jlahougue.dndcompanion.core.domain.util.extension.getStringIfExists
 import com.jlahougue.dndcompanion.data_ability.domain.model.AbilityName
+import com.jlahougue.dndcompanion.data_weapon.data.source.remote.WeaponRemoteListener
 import com.jlahougue.dndcompanion.data_weapon.domain.model.Weapon
 import com.jlahougue.dndcompanion.data_weapon.domain.model.WeaponProperty
 import kotlinx.coroutines.CoroutineScope
@@ -19,8 +20,8 @@ import org.json.JSONObject
 class WeaponDnd5eDataSource(
     private val dispatcherProvider: DispatcherProvider,
     private val dnd5eDataSource: Dnd5eDataSource
-): WeaponRemoteDataSource {
-    override suspend fun getWeapons(
+) {
+    suspend fun load(
         existingWeaponNames: List<String>,
         onApiEvent: (ApiEvent) -> Unit,
         weaponRemoteListener: WeaponRemoteListener
@@ -47,7 +48,7 @@ class WeaponDnd5eDataSource(
                 if (existingWeaponNames.contains(name)) {
                     return@launch onApiEvent(ApiEvent.Skip(1))
                 }
-                getWeapon(
+                loadWeapon(
                     url,
                     onApiEvent,
                     weaponRemoteListener
@@ -58,7 +59,7 @@ class WeaponDnd5eDataSource(
         onApiEvent(ApiEvent.Finish)
     }
 
-    private suspend fun getWeapon(
+    private suspend fun loadWeapon(
         url: String,
         onApiEvent: (ApiEvent) -> Unit,
         weaponRemoteListener: WeaponRemoteListener
@@ -158,12 +159,12 @@ class WeaponDnd5eDataSource(
 
         if (!itemInserted) return onApiEvent(ApiEvent.Skip())
 
-        weaponRemoteListener.saveProperties(getProperties(json, name))
+        weaponRemoteListener.saveProperties(loadProperties(json, name))
 
         onApiEvent(ApiEvent.UpdateProgress)
     }
 
-    private fun getProperties(
+    private fun loadProperties(
         json: JSONObject,
         name: String
     ): List<WeaponProperty> {

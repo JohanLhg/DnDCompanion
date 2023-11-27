@@ -13,7 +13,6 @@ class WeaponModule(
         WeaponRepository(
             remoteDataSource.weaponDao,
             localDataSource.weaponDao(),
-            localDataSource.weaponPropertyDao()
         )
     }
 }

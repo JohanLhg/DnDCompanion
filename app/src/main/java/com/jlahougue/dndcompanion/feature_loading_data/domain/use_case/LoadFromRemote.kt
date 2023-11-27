@@ -1,6 +1,6 @@
 package com.jlahougue.dndcompanion.feature_loading_data.domain.use_case
 
-import com.jlahougue.dndcompanion.core.data.source.remote.subsources.ApiEvent
+import com.jlahougue.dndcompanion.core.data.source.remote.subsource.ApiEvent
 import com.jlahougue.dndcompanion.core.domain.util.UiText
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

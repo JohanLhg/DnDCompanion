@@ -12,9 +12,7 @@ class SpellModule(
     override val spellRepository by lazy {
         SpellRepository(
             remoteDataSource.spellDao,
-            localDataSource.spellDao(),
-            localDataSource.spellClassDao(),
-            localDataSource.spellDamageTypeDao()
+            localDataSource.spellDao()
         )
     }
 }

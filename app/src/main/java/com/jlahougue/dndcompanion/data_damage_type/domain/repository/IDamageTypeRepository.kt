@@ -1,6 +1,6 @@
 package com.jlahougue.dndcompanion.data_damage_type.domain.repository
 
-import com.jlahougue.dndcompanion.core.data.source.remote.subsources.ApiEvent
+import com.jlahougue.dndcompanion.core.data.source.remote.subsource.ApiEvent
 import com.jlahougue.dndcompanion.data_damage_type.domain.model.DamageType
 
 interface IDamageTypeRepository {

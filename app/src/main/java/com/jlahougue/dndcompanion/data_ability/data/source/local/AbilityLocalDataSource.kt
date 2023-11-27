@@ -1,4 +1,4 @@
-package com.jlahougue.dndcompanion.data_ability.data.source
+package com.jlahougue.dndcompanion.data_ability.data.source.local
 
 import androidx.room.Dao
 import androidx.room.Insert
@@ -7,7 +7,7 @@ import androidx.room.Query
 import com.jlahougue.dndcompanion.data_ability.domain.model.Ability
 
 @Dao
-interface AbilityRoomDao {
+interface AbilityLocalDataSource {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(ability: Ability)
 

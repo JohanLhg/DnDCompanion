@@ -10,10 +10,8 @@ class ClassModule(
 ): IClassModule {
     override val classRepository by lazy {
         ClassRepository(
-            localDataSource.classDao(),
-            localDataSource.classLevelDao(),
-            localDataSource.classSpellSlotDao(),
-            remoteDataSource.classDao
+            remoteDataSource.classDao,
+            localDataSource.classDao()
         )
     }
 }

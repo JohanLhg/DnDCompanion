@@ -5,6 +5,8 @@ import com.jlahougue.dndcompanion.core.di.AppModule
 import com.jlahougue.dndcompanion.core.di.DataSourceModule
 import com.jlahougue.dndcompanion.core.di.IAppModule
 import com.jlahougue.dndcompanion.core.di.IDataSourceModule
+import com.jlahougue.dndcompanion.data_ability.di.AbilityModule
+import com.jlahougue.dndcompanion.data_ability.di.IAbilityModule
 import com.jlahougue.dndcompanion.data_class.di.ClassModule
 import com.jlahougue.dndcompanion.data_class.di.IClassModule
 import com.jlahougue.dndcompanion.data_damage_type.di.DamageTypeModule
@@ -26,6 +28,7 @@ class DnDCompanionApp: Application() {
         lateinit var appModule: IAppModule
         lateinit var dataSourceModule: IDataSourceModule
 
+        lateinit var abilityModule: IAbilityModule
         lateinit var classModule: IClassModule
         lateinit var damageTypeModule: IDamageTypeModule
         lateinit var spellModule: ISpellModule
@@ -41,6 +44,10 @@ class DnDCompanionApp: Application() {
         appModule = AppModule()
         dataSourceModule = DataSourceModule(this, appModule.dispatcher)
 
+        abilityModule = AbilityModule(
+            dataSourceModule.remoteDataSource,
+            dataSourceModule.localDataSource
+        )
         classModule = ClassModule(
             dataSourceModule.remoteDataSource,
             dataSourceModule.localDataSource

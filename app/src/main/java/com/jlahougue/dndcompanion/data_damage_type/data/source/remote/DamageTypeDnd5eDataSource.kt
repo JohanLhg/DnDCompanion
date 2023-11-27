@@ -1,8 +1,8 @@
 package com.jlahougue.dndcompanion.data_damage_type.data.source.remote
 
 import com.jlahougue.dndcompanion.R
-import com.jlahougue.dndcompanion.core.data.source.remote.subsources.ApiEvent
-import com.jlahougue.dndcompanion.core.data.source.remote.subsources.Dnd5eDataSource
+import com.jlahougue.dndcompanion.core.data.source.remote.subsource.ApiEvent
+import com.jlahougue.dndcompanion.core.data.source.remote.subsource.Dnd5eDataSource
 import com.jlahougue.dndcompanion.core.domain.util.UiText
 import com.jlahougue.dndcompanion.core.domain.util.dispatcherProvider.DispatcherProvider
 import com.jlahougue.dndcompanion.data_damage_type.domain.model.DamageType
@@ -15,7 +15,7 @@ class DamageTypeDnd5eDataSource(
     private val dispatcherProvider: DispatcherProvider,
     private val dnd5eDataSource: Dnd5eDataSource
 ): DamageTypeRemoteDataSource {
-    override suspend fun getDamageTypes(
+    override suspend fun load(
         existingDamageTypes: List<String>,
         onApiEvent: (ApiEvent) -> Unit,
         damageTypeRemoteListener: DamageTypeRemoteListener
@@ -41,14 +41,14 @@ class DamageTypeDnd5eDataSource(
                 if (existingDamageTypes.contains(name)) {
                     return@launch onApiEvent(ApiEvent.Skip())
                 }
-                fetchDamageType(url, onApiEvent, damageTypeRemoteListener)
+                loadDamageType(url, onApiEvent, damageTypeRemoteListener)
             }
         }.joinAll()
 
         onApiEvent(ApiEvent.Finish)
     }
 
-    private suspend fun fetchDamageType(
+    private suspend fun loadDamageType(
         url: String,
         onApiEvent: (ApiEvent) -> Unit,
         damageTypeRemoteListener: DamageTypeRemoteListener

@@ -5,11 +5,19 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.jlahougue.dndcompanion.data_spell.domain.model.Spell
+import com.jlahougue.dndcompanion.data_spell.domain.model.SpellClass
+import com.jlahougue.dndcompanion.data_spell.domain.model.SpellDamageType
 
 @Dao
 interface SpellLocalDataSource {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(spell: Spell): Long
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertClasses(spellClasses: List<SpellClass>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertDamageTypes(spellDamageTypes: List<SpellDamageType>)
 
     @Query("SELECT spell_id FROM spell")
     suspend fun getIds(): List<String>

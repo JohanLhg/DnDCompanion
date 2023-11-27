@@ -1,8 +1,9 @@
-package com.jlahougue.dndcompanion.data_class.data.source.remote
+package com.jlahougue.dndcompanion.data_class.data.source.remote.subsource
 
-import com.jlahougue.dndcompanion.core.data.source.remote.subsources.Dnd5eDataSource
+import com.jlahougue.dndcompanion.core.data.source.remote.subsource.Dnd5eDataSource
 import com.jlahougue.dndcompanion.core.domain.util.dispatcherProvider.DispatcherProvider
 import com.jlahougue.dndcompanion.core.domain.util.extension.getIntIfExists
+import com.jlahougue.dndcompanion.data_class.data.source.remote.ClassRemoteListener
 import com.jlahougue.dndcompanion.data_class.domain.model.ClassLevel
 import com.jlahougue.dndcompanion.data_class.domain.model.ClassSpellSlot
 import kotlinx.coroutines.CoroutineScope
@@ -15,7 +16,7 @@ class ClassDnd5eDataSource(
     private val dispatcherProvider: DispatcherProvider,
     private val dnd5eDataSource: Dnd5eDataSource
 ) {
-    suspend fun getClassLevels(
+    suspend fun loadLevels(
         className: String,
         classRemoteListener: ClassRemoteListener
     ) {
@@ -25,12 +26,12 @@ class ClassDnd5eDataSource(
         (0..<json.length()).map {
             CoroutineScope(dispatcherProvider.io).launch {
                 classLevel = json.getJSONObject(it)
-                fetchClassLevel(className, classLevel, classRemoteListener)
+                loadLevel(className, classLevel, classRemoteListener)
             }
         }.joinAll()
     }
 
-    private suspend fun fetchClassLevel(
+    private suspend fun loadLevel(
         clazz: String,
         jsonClassLevel: JSONObject,
         classRemoteListener: ClassRemoteListener
@@ -47,7 +48,7 @@ class ClassDnd5eDataSource(
             val spellcasting = jsonClassLevel.getJSONObject("spellcasting")
             cantripsKnown = spellcasting.getIntIfExists("cantrips_known")
             spellsKnown = spellcasting.getIntIfExists("spells_known")
-            classSpellSlots = fetchClassSpellSlots(clazz, level, spellcasting)
+            classSpellSlots = loadSpellSlots(clazz, level, spellcasting)
         }
 
         val itemInserted = classRemoteListener.saveLevel(
@@ -66,7 +67,7 @@ class ClassDnd5eDataSource(
         classRemoteListener.saveSpellSlots(classSpellSlots)
     }
 
-    private fun fetchClassSpellSlots(
+    private fun loadSpellSlots(
         clazz: String,
         level: Int,
         spellcasting: JSONObject

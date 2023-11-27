@@ -1,8 +1,8 @@
 package com.jlahougue.dndcompanion.data_property.data.source.remote
 
 import com.jlahougue.dndcompanion.R
-import com.jlahougue.dndcompanion.core.data.source.remote.subsources.ApiEvent
-import com.jlahougue.dndcompanion.core.data.source.remote.subsources.Dnd5eDataSource
+import com.jlahougue.dndcompanion.core.data.source.remote.subsource.ApiEvent
+import com.jlahougue.dndcompanion.core.data.source.remote.subsource.Dnd5eDataSource
 import com.jlahougue.dndcompanion.core.domain.util.UiText
 import com.jlahougue.dndcompanion.core.domain.util.dispatcherProvider.DispatcherProvider
 import com.jlahougue.dndcompanion.data_property.domain.model.Property
@@ -15,7 +15,7 @@ class PropertyDnd5eDataSource(
     private val dispatcherProvider: DispatcherProvider,
     private val dnd5eDataSource: Dnd5eDataSource
 ): PropertyRemoteDataSource {
-    override suspend fun getProperties(
+    override suspend fun load(
         existingPropertyNames: List<String>,
         onApiEvent: (ApiEvent) -> Unit,
         propertyRemoteListener: PropertyRemoteListener
@@ -39,7 +39,7 @@ class PropertyDnd5eDataSource(
 
                 if (existingPropertyNames.contains(name))
                     onApiEvent(ApiEvent.Skip())
-                else getProperty(
+                else loadProperty(
                     url,
                     onApiEvent,
                     propertyRemoteListener
@@ -50,7 +50,7 @@ class PropertyDnd5eDataSource(
         onApiEvent(ApiEvent.Finish)
     }
 
-    private suspend fun getProperty(
+    private suspend fun loadProperty(
         url: String,
         onApiEvent: (ApiEvent) -> Unit,
         propertyRemoteListener: PropertyRemoteListener

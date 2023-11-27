@@ -2,8 +2,8 @@ package com.jlahougue.dndcompanion.data_spell.data.source.remote
 
 import android.util.Log
 import com.jlahougue.dndcompanion.R
-import com.jlahougue.dndcompanion.core.data.source.remote.subsources.ApiEvent
-import com.jlahougue.dndcompanion.core.data.source.remote.subsources.Open5eDataSource
+import com.jlahougue.dndcompanion.core.data.source.remote.subsource.ApiEvent
+import com.jlahougue.dndcompanion.core.data.source.remote.subsource.Open5eDataSource
 import com.jlahougue.dndcompanion.core.domain.util.UiText
 import com.jlahougue.dndcompanion.core.domain.util.dispatcherProvider.DispatcherProvider
 import com.jlahougue.dndcompanion.data_spell.domain.model.Spell
@@ -19,7 +19,7 @@ class SpellOpen5eDataSource(
     private val dispatcherProvider: DispatcherProvider,
     private val apiRequest: Open5eDataSource
 ): SpellRemoteDataSource {
-    override suspend fun getSpells(
+    override suspend fun load(
         existingSpellIds: List<String>,
         existingDamageTypes: List<String>,
         onApiEvent: (ApiEvent) -> Unit,
@@ -47,7 +47,7 @@ class SpellOpen5eDataSource(
                 val response = apiRequest.sendGetPage(Open5eDataSource.SPELLS_URL, itemLimit, it)
                     ?: return@launch onApiEvent(ApiEvent.Skip(itemLimit))
 
-                fetchPage(
+                loadPage(
                     JSONObject(response),
                     existingSpellIds,
                     existingDamageTypes,
@@ -60,7 +60,7 @@ class SpellOpen5eDataSource(
         onApiEvent(ApiEvent.Finish)
     }
 
-    private suspend fun fetchPage(
+    private suspend fun loadPage(
         page: JSONObject,
         existingSpellIds: List<String>,
         existingDamageTypes: List<String>,
@@ -75,7 +75,7 @@ class SpellOpen5eDataSource(
                 val id = spell.getString("slug")
 
                 if (existingSpellIds.contains(id)) onApiEvent(ApiEvent.Skip())
-                else fetchSpell(
+                else loadSpell(
                     spell,
                     existingDamageTypes,
                     onApiEvent,
@@ -85,7 +85,7 @@ class SpellOpen5eDataSource(
         }.joinAll()
     }
 
-    private suspend fun fetchSpell(
+    private suspend fun loadSpell(
         jsonSpell: JSONObject,
         existingDamageTypes: List<String>,
         onApiEvent: (ApiEvent) -> Unit,

@@ -1,25 +1,21 @@
 package com.jlahougue.dndcompanion.core.data.source.local
 
-import com.jlahougue.dndcompanion.data_class.data.source.local.ClassLevelLocalDataSource
+import com.jlahougue.dndcompanion.data_ability.data.source.local.AbilityLocalDataSource
+import com.jlahougue.dndcompanion.data_character.data.source.local.CharacterLocalDataSource
 import com.jlahougue.dndcompanion.data_class.data.source.local.ClassLocalDataSource
-import com.jlahougue.dndcompanion.data_class.data.source.local.ClassSpellSlotLocalDataSource
 import com.jlahougue.dndcompanion.data_damage_type.data.source.local.DamageTypeLocalDataSource
 import com.jlahougue.dndcompanion.data_property.data.source.local.PropertyLocalDataSource
-import com.jlahougue.dndcompanion.data_spell.data.source.local.SpellClassLocalDataSource
-import com.jlahougue.dndcompanion.data_spell.data.source.local.SpellDamageTypeLocalDataSource
+import com.jlahougue.dndcompanion.data_skill.data.source.local.SkillLocalDataSource
 import com.jlahougue.dndcompanion.data_spell.data.source.local.SpellLocalDataSource
 import com.jlahougue.dndcompanion.data_weapon.data.source.local.WeaponLocalDataSource
-import com.jlahougue.dndcompanion.data_weapon.data.source.local.WeaponPropertyLocalDataSource
 
 interface LocalDataSource {
+    fun characterDao(): CharacterLocalDataSource
+    fun abilityDao(): AbilityLocalDataSource
+    fun skillDao(): SkillLocalDataSource
     fun classDao(): ClassLocalDataSource
-    fun classLevelDao(): ClassLevelLocalDataSource
-    fun classSpellSlotDao(): ClassSpellSlotLocalDataSource
     fun damageTypeDao(): DamageTypeLocalDataSource
     fun spellDao(): SpellLocalDataSource
-    fun spellClassDao(): SpellClassLocalDataSource
-    fun spellDamageTypeDao(): SpellDamageTypeLocalDataSource
     fun propertyDao(): PropertyLocalDataSource
     fun weaponDao(): WeaponLocalDataSource
-    fun weaponPropertyDao(): WeaponPropertyLocalDataSource
 }

@@ -1,6 +1,6 @@
 package com.jlahougue.dndcompanion.data_spell.domain.repository
 
-import com.jlahougue.dndcompanion.core.data.source.remote.subsources.ApiEvent
+import com.jlahougue.dndcompanion.core.data.source.remote.subsource.ApiEvent
 import com.jlahougue.dndcompanion.data_spell.domain.model.Spell
 import com.jlahougue.dndcompanion.data_spell.domain.model.SpellClass
 import com.jlahougue.dndcompanion.data_spell.domain.model.SpellDamageType

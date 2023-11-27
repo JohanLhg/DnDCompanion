@@ -1,26 +1,30 @@
 package com.jlahougue.dndcompanion.data_ability.data.repository
 
-import com.jlahougue.dndcompanion.data_ability.data.source.AbilityFirebaseDao
-import com.jlahougue.dndcompanion.data_ability.data.source.AbilityRoomDao
+import com.jlahougue.dndcompanion.data_ability.data.source.local.AbilityLocalDataSource
+import com.jlahougue.dndcompanion.data_ability.data.source.remote.AbilityRemoteDataSource
 import com.jlahougue.dndcompanion.data_ability.domain.model.Ability
 import com.jlahougue.dndcompanion.data_ability.domain.model.AbilityName
 import com.jlahougue.dndcompanion.data_ability.domain.repository.IAbilityRepository
 
 class AbilityRepository(
-    private val abilityRoomDao: AbilityRoomDao,
-    private val abilityFirebaseDao: AbilityFirebaseDao
+    private val remoteDataSource: AbilityRemoteDataSource,
+    private val localDataSource: AbilityLocalDataSource
 ): IAbilityRepository {
     override suspend fun create(characterID: Long) {
-        abilityRoomDao.insert(Ability(cid = characterID, name = AbilityName.STRENGTH))
-        abilityRoomDao.insert(Ability(cid = characterID, name = AbilityName.DEXTERITY))
-        abilityRoomDao.insert(Ability(cid = characterID, name = AbilityName.CONSTITUTION))
-        abilityRoomDao.insert(Ability(cid = characterID, name = AbilityName.INTELLIGENCE))
-        abilityRoomDao.insert(Ability(cid = characterID, name = AbilityName.WISDOM))
-        abilityRoomDao.insert(Ability(cid = characterID, name = AbilityName.CHARISMA))
+        localDataSource.insert(Ability(cid = characterID, name = AbilityName.STRENGTH))
+        localDataSource.insert(Ability(cid = characterID, name = AbilityName.DEXTERITY))
+        localDataSource.insert(Ability(cid = characterID, name = AbilityName.CONSTITUTION))
+        localDataSource.insert(Ability(cid = characterID, name = AbilityName.INTELLIGENCE))
+        localDataSource.insert(Ability(cid = characterID, name = AbilityName.WISDOM))
+        localDataSource.insert(Ability(cid = characterID, name = AbilityName.CHARISMA))
     }
 
     override suspend fun save(ability: Ability) {
-        abilityRoomDao.insert(ability)
-        abilityFirebaseDao.save(ability)
+        localDataSource.insert(ability)
+        remoteDataSource.save(ability)
+    }
+
+    override suspend fun saveToLocal(ability: Ability) {
+        localDataSource.insert(ability)
     }
 }
