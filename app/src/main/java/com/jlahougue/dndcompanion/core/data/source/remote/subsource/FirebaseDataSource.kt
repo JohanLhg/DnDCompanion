@@ -2,6 +2,7 @@ package com.jlahougue.dndcompanion.core.data.source.remote.subsource
 
 import android.net.Uri
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.installations.FirebaseInstallations
@@ -43,6 +44,10 @@ class FirebaseDataSource {
             .addOnSuccessListener { id = it }
     }
 
+    fun characterReferences(): CollectionReference {
+        return userReference.collection(TAG_CHARACTERS)
+    }
+
     fun characterReference(characterID: Long): DocumentReference {
         return userReference.collection(TAG_CHARACTERS).document(characterID.toString())
     }
@@ -52,12 +57,19 @@ class FirebaseDataSource {
     }
 
     //region Image Functions
-    fun uploadImage(imageReference: StorageReference, uri: Uri) {
+    fun uploadImage(
+        imageReference: StorageReference,
+        uri: Uri
+    ) {
         imageReference.putFile(uri)
+            .addOnProgressListener {
+                //updateProgress(UPLOAD_IMAGE, it)
+            }
             .addOnSuccessListener {
                 //finishTask(UPLOAD_IMAGE)
             }
             .addOnFailureListener {
+                it.localizedMessage
                 //finishTask(UPLOAD_IMAGE)
             }
     }

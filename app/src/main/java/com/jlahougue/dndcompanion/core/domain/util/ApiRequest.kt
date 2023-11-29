@@ -14,10 +14,10 @@ abstract class ApiRequest(
         try {
             client.newCall(request).execute().use { response ->
                 return if (response.isSuccessful) {
-                    response.body()?.string()
+                    response.body?.string()
                 } else {
                     throw Exception(
-                        response.message().ifEmpty { "Error : " + response.code() }
+                        response.message.ifEmpty { "Error : " + response.code }
                     )
                 }
             }

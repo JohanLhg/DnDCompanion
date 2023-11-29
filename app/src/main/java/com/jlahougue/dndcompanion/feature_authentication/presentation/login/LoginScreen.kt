@@ -39,9 +39,9 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.jlahougue.dndcompanion.R
+import com.jlahougue.dndcompanion.core.presentation.theme.DnDCompanionTheme
+import com.jlahougue.dndcompanion.core.presentation.theme.spacing
 import com.jlahougue.dndcompanion.feature_authentication.presentation.util.AuthUiEvent
-import com.jlahougue.dndcompanion.ui.spacing
-import com.jlahougue.dndcompanion.ui.theme.DnDCompanionTheme
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch
 
@@ -103,7 +103,8 @@ fun LoginScreen(
                     onValueChange = { onEvent(LoginEvent.EmailChanged(it)) },
                     modifier = Modifier
                         .padding(top = MaterialTheme.spacing.small),
-                    textStyle = MaterialTheme.typography.bodyLarge
+                    textStyle = MaterialTheme.typography.bodyLarge,
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
                 )
                 OutlinedTextField(
                     label = { Text(text = stringResource(R.string.label_password)) },

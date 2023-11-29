@@ -17,13 +17,13 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.jlahougue.dndcompanion.DnDCompanionApp
 import com.jlahougue.dndcompanion.core.domain.util.extension.viewModelFactory
+import com.jlahougue.dndcompanion.core.presentation.theme.DnDCompanionTheme
 import com.jlahougue.dndcompanion.feature_authentication.presentation.login.LoginScreen
 import com.jlahougue.dndcompanion.feature_authentication.presentation.login.LoginViewModel
 import com.jlahougue.dndcompanion.feature_authentication.presentation.register.RegisterScreen
 import com.jlahougue.dndcompanion.feature_authentication.presentation.register.RegisterViewModel
 import com.jlahougue.dndcompanion.feature_authentication.presentation.util.Screen
 import com.jlahougue.dndcompanion.feature_loading_data.LoadingActivity
-import com.jlahougue.dndcompanion.ui.theme.DnDCompanionTheme
 
 class AuthActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

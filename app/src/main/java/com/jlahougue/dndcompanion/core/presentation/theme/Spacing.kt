@@ -1,4 +1,4 @@
-package com.jlahougue.dndcompanion.ui
+package com.jlahougue.dndcompanion.core.presentation.theme
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable

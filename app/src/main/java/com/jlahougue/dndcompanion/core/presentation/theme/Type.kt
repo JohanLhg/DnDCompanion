@@ -1,4 +1,4 @@
-package com.jlahougue.dndcompanion.ui.theme
+package com.jlahougue.dndcompanion.core.presentation.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.graphics.Color
