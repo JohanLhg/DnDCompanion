@@ -9,4 +9,7 @@ import com.jlahougue.dndcompanion.data_skill.domain.model.Skill
 interface SkillLocalDataSource {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(skill: Skill)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insert(skills: List<Skill>)
 }

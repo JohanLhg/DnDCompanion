@@ -24,7 +24,7 @@ class ClassOpen5eDataSource(
     ) {
         val response = open5eDataSource.sendGet(Open5eDataSource.CLASSES_URL)
         if (response == null) {
-            val errorMessage = UiText.StringResource(R.string.error_api_classes)
+            val errorMessage = UiText.StringResource(R.string.error_fetching_classes)
             return onApiEvent(ApiEvent.Error(errorMessage))
         }
 

@@ -22,7 +22,7 @@ class DamageTypeDnd5eDataSource(
     ) {
         val response = dnd5eDataSource.sendGet(Dnd5eDataSource.DAMAGE_TYPES_URL)
         if (response == null) {
-            val errorMessage = UiText.StringResource(R.string.error_api_spells)
+            val errorMessage = UiText.StringResource(R.string.error_fetching_spells)
             return onApiEvent(ApiEvent.Error(errorMessage))
         }
         val json = JSONObject(response)

@@ -22,7 +22,7 @@ class PropertyDnd5eDataSource(
     ) {
         val response = dnd5eDataSource.sendGet(Dnd5eDataSource.WEAPON_PROPERTIES_URL)
         if (response == null) {
-            val errorMessage = UiText.StringResource(R.string.error_api_properties)
+            val errorMessage = UiText.StringResource(R.string.error_fetching_properties)
             return onApiEvent(ApiEvent.Error(errorMessage))
         }
         val json = JSONObject(response)

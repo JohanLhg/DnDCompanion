@@ -3,7 +3,7 @@ package com.jlahougue.dndcompanion.core.data.source.remote.subsource
 import com.jlahougue.dndcompanion.core.domain.util.ApiRequest
 import com.jlahougue.dndcompanion.core.domain.util.dispatcherProvider.DispatcherProvider
 import com.jlahougue.dndcompanion.data_class.data.source.remote.subsource.ClassOpen5eDataSource
-import com.jlahougue.dndcompanion.data_spell.data.source.remote.SpellOpen5eDataSource
+import com.jlahougue.dndcompanion.data_spell.data.source.remote.subsource.SpellOpen5eDataSource
 import okhttp3.OkHttpClient
 
 class Open5eDataSource(

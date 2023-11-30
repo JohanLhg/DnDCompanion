@@ -2,7 +2,7 @@ package com.jlahougue.dndcompanion.feature_loading_data.domain.use_case
 
 import com.jlahougue.dndcompanion.core.domain.util.UiText
 
-data class LoadFromRemoteSate(
+data class LoadSate(
     val title: UiText,
     val progress: Int = 0,
     val progressMax: Int = 0,

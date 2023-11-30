@@ -4,43 +4,40 @@ import com.jlahougue.dndcompanion.R
 import com.jlahougue.dndcompanion.core.data.source.remote.subsource.ApiEvent
 import com.jlahougue.dndcompanion.core.domain.util.UiText
 import com.jlahougue.dndcompanion.core.domain.util.dispatcherProvider.DispatcherProvider
+import com.jlahougue.dndcompanion.data_character_sheet.domain.use_case.LoadCharacters
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.takeWhile
 import kotlinx.coroutines.launch
 
-class LoadAllFromRemote(
+class LoadAll(
     private val dispatcherProvider: DispatcherProvider,
-    loadClassesFromRemote: LoadClassesFromRemote,
-    loadSpellsFromRemote: LoadSpellsFromRemote,
-    loadDamageTypesFromRemote: LoadDamageTypesFromRemote,
-    loadPropertiesFromRemote: LoadPropertiesFromRemote,
-    loadWeaponsFromRemote: LoadWeaponsFromRemote
+    loadCharacters: LoadCharacters,
+    loadClasses: LoadClasses,
+    loadSpells: LoadSpells,
+    loadDamageTypes: LoadDamageTypes,
+    loadProperties: LoadProperties,
+    loadWeapons: LoadWeapons
 ) : LoadFromRemote(UiText.StringResource(R.string.loading)) {
 
-    private val _waitingFor = MutableStateFlow(
-        listOf(
-            CLASSES_KEY,
-            DAMAGE_TYPES_KEY,
-            SPELLS_KEY,
-            PROPERTIES_KEY,
-            WEAPONS_KEY
-        )
-    )
-    private val waitingFor = _waitingFor.asStateFlow()
-
     private val useCaseMap = mapOf(
-        CLASSES_KEY to loadClassesFromRemote,
-        DAMAGE_TYPES_KEY to loadDamageTypesFromRemote,
-        SPELLS_KEY to loadSpellsFromRemote,
-        PROPERTIES_KEY to loadPropertiesFromRemote,
-        WEAPONS_KEY to loadWeaponsFromRemote
+        CHARACTERS_KEY to loadCharacters,
+        CLASSES_KEY to loadClasses,
+        DAMAGE_TYPES_KEY to loadDamageTypes,
+        SPELLS_KEY to loadSpells,
+        PROPERTIES_KEY to loadProperties,
+        WEAPONS_KEY to loadWeapons
     )
 
     private val useCasePrerequisites = mapOf(
         SPELLS_KEY to listOf(DAMAGE_TYPES_KEY)
     )
+
+    private val _waitingFor = MutableStateFlow(
+        useCaseMap.keys.toList()
+    )
+    private val waitingFor = _waitingFor.asStateFlow()
 
     init {
         useCaseMap.keys.forEach {
@@ -49,6 +46,7 @@ class LoadAllFromRemote(
     }
 
     override operator fun invoke() {
+        super.invoke()
         CoroutineScope(dispatcherProvider.io).launch {
             waitingFor.collect {
                 if (it.isEmpty()) {
@@ -99,10 +97,11 @@ class LoadAllFromRemote(
     }
 
     companion object {
-        const val CLASSES_KEY = 0
-        const val DAMAGE_TYPES_KEY = 1
-        const val SPELLS_KEY = 2
-        const val PROPERTIES_KEY = 3
-        const val WEAPONS_KEY = 4
+        const val CHARACTERS_KEY = 0
+        const val CLASSES_KEY = 1
+        const val DAMAGE_TYPES_KEY = 2
+        const val SPELLS_KEY = 3
+        const val PROPERTIES_KEY = 4
+        const val WEAPONS_KEY = 5
     }
 }

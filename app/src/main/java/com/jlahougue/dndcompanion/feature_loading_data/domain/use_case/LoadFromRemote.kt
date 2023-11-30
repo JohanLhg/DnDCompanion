@@ -1,5 +1,6 @@
 package com.jlahougue.dndcompanion.feature_loading_data.domain.use_case
 
+import android.util.Log
 import com.jlahougue.dndcompanion.core.data.source.remote.subsource.ApiEvent
 import com.jlahougue.dndcompanion.core.domain.util.UiText
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -9,14 +10,24 @@ abstract class LoadFromRemote(
     title: UiText
 ) {
 
-    private var _state = MutableStateFlow(LoadFromRemoteSate(title))
+    private var _state = MutableStateFlow(LoadSate(title))
     val state = _state.asStateFlow()
 
-    abstract operator fun invoke()
+    open operator fun invoke() {
+        onApiEvent(ApiEvent.Start)
+    }
 
     fun onApiEvent(event: ApiEvent) {
         when(event) {
-            is ApiEvent.Error -> TODO()
+            is ApiEvent.Start -> {
+                _state.value = _state.value.copy(
+                    actionState = LoadSate.ActionState.STARTED
+                )
+            }
+            is ApiEvent.Error -> {
+                Log.e("LoadFromRemote", event.message.toString())
+                onApiEvent(ApiEvent.Finish)
+            }
             is ApiEvent.Skip -> {
                 _state.value = _state.value.copy(
                     progress = _state.value.progress + event.count
@@ -34,13 +45,13 @@ abstract class LoadFromRemote(
             }
             is ApiEvent.Finish -> {
                 _state.value = _state.value.copy(
-                    actionState = LoadFromRemoteSate.ActionState.FINISHED
+                    actionState = LoadSate.ActionState.FINISHED
                 )
             }
         }
     }
 
-    fun onStateChange(state: LoadFromRemoteSate) {
+    fun onStateChange(state: LoadSate) {
         _state.value = state
     }
 }

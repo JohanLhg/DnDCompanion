@@ -11,6 +11,9 @@ interface AbilityLocalDataSource {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(ability: Ability)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insert(abilities: List<Ability>)
+
     @Query("DELETE FROM ability WHERE cid = :characterID")
     suspend fun deleteForCharacter(characterID: Long)
 }

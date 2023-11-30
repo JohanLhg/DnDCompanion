@@ -31,8 +31,8 @@ class LoadingActivity : ComponentActivity() {
                     val viewModel = viewModel<LoadingViewModel>(
                         factory = viewModelFactory {
                             LoadingViewModel(
-                                DnDCompanionApp.appModule.dispatcher,
-                                DnDCompanionApp.loadingModule.loadAllFromRemote
+                                DnDCompanionApp.loadingModule.dispatcherProvider,
+                                DnDCompanionApp.loadingModule.loadAll
                             )
                         }
                     )

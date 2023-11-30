@@ -4,6 +4,7 @@ import com.jlahougue.dndcompanion.core.data.source.remote.subsource.ApiEvent
 import com.jlahougue.dndcompanion.data_spell.data.source.local.SpellLocalDataSource
 import com.jlahougue.dndcompanion.data_spell.data.source.remote.SpellRemoteDataSource
 import com.jlahougue.dndcompanion.data_spell.data.source.remote.SpellRemoteListener
+import com.jlahougue.dndcompanion.data_spell.domain.model.CharacterSpell
 import com.jlahougue.dndcompanion.data_spell.domain.model.Spell
 import com.jlahougue.dndcompanion.data_spell.domain.model.SpellClass
 import com.jlahougue.dndcompanion.data_spell.domain.model.SpellDamageType
@@ -37,6 +38,15 @@ class SpellRepository(
 
     override suspend fun saveDamageTypes(spellDamageTypes: List<SpellDamageType>) {
         localDataSource.insertDamageTypes(spellDamageTypes)
+    }
+
+    override suspend fun save(characterSpell: CharacterSpell) {
+        localDataSource.insert(characterSpell)
+        remoteDataSource.save(characterSpell)
+    }
+
+    override suspend fun saveToLocal(characterSpells: List<CharacterSpell>) {
+        localDataSource.insert(characterSpells)
     }
 
     override suspend fun getIds(): List<String> {

@@ -22,21 +22,21 @@ class WeaponRepository(
         )
     }
 
-    override suspend fun save(characterWeapon: CharacterWeapon) {
-        localDataSource.insert(characterWeapon)
-        remoteDataSource.save(characterWeapon)
-    }
-
-    override suspend fun saveToLocal(characterWeapon: CharacterWeapon) {
-        localDataSource.insert(characterWeapon)
-    }
-
     override suspend fun save(weapon: Weapon): Boolean {
         return localDataSource.insert(weapon) != -1L
     }
 
     override suspend fun saveProperties(weaponProperties: List<WeaponProperty>) {
         localDataSource.insertProperties(weaponProperties)
+    }
+
+    override suspend fun save(characterWeapon: CharacterWeapon) {
+        localDataSource.insert(characterWeapon)
+        remoteDataSource.save(characterWeapon)
+    }
+
+    override suspend fun saveToLocal(characterWeapons: List<CharacterWeapon>) {
+        localDataSource.insert(characterWeapons)
     }
 
     suspend fun getNames(): List<String> {

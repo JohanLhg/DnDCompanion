@@ -2,6 +2,7 @@ package com.jlahougue.dndcompanion.core.data.source.remote
 
 import com.jlahougue.dndcompanion.data_ability.data.source.remote.AbilityRemoteDataSource
 import com.jlahougue.dndcompanion.data_character.data.source.remote.CharacterRemoteDataSource
+import com.jlahougue.dndcompanion.data_character_sheet.data.source.remote.CharacterSheetRemoteDataSource
 import com.jlahougue.dndcompanion.data_class.data.source.remote.ClassRemoteDataSource
 import com.jlahougue.dndcompanion.data_damage_type.data.source.remote.DamageTypeRemoteDataSource
 import com.jlahougue.dndcompanion.data_property.data.source.remote.PropertyDnd5eDataSource
@@ -10,6 +11,7 @@ import com.jlahougue.dndcompanion.data_spell.data.source.remote.SpellRemoteDataS
 import com.jlahougue.dndcompanion.data_weapon.data.source.remote.WeaponRemoteDataSource
 
 interface RemoteDataSource {
+    val characterSheetDao: CharacterSheetRemoteDataSource
     val characterDao: CharacterRemoteDataSource
     val abilityDao: AbilityRemoteDataSource
     val skillDao: SkillRemoteDataSource

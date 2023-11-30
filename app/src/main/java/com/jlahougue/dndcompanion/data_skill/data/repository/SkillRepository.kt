@@ -37,7 +37,7 @@ class SkillRepository(
         remoteDataSource.save(skill)
     }
 
-    override suspend fun saveToLocal(skill: Skill) {
-        localDataSource.insert(skill)
+    override suspend fun saveToLocal(skills: List<Skill>) {
+        localDataSource.insert(skills)
     }
 }

@@ -3,18 +3,18 @@ package com.jlahougue.dndcompanion.feature_loading_data.domain.use_case
 import com.jlahougue.dndcompanion.R
 import com.jlahougue.dndcompanion.core.domain.util.UiText
 import com.jlahougue.dndcompanion.core.domain.util.dispatcherProvider.DispatcherProvider
-import com.jlahougue.dndcompanion.data_damage_type.domain.repository.IDamageTypeRepository
+import com.jlahougue.dndcompanion.data_weapon.domain.repository.IWeaponRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-class LoadDamageTypesFromRemote(
+class LoadWeapons(
     private val dispatcherProvider: DispatcherProvider,
-    private val damageTypeRepository: IDamageTypeRepository
-): LoadFromRemote(UiText.StringResource(R.string.loading_damage_types)) {
-
-    override operator fun invoke() {
+    private val weaponRepository: IWeaponRepository
+): LoadFromRemote(UiText.StringResource(R.string.loading_weapons)) {
+    override fun invoke() {
+        super.invoke()
         CoroutineScope(dispatcherProvider.io).launch {
-            damageTypeRepository.loadAll(::onApiEvent)
+            weaponRepository.loadAll(::onApiEvent)
         }
     }
 }

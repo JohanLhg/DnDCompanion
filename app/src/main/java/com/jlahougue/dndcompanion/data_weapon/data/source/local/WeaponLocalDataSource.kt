@@ -14,10 +14,13 @@ interface WeaponLocalDataSource {
     suspend fun insert(weapon: Weapon): Long
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertProperties(weaponProperties: List<WeaponProperty>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(characterWeapon: CharacterWeapon): Long
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertProperties(weaponProperties: List<WeaponProperty>)
+    suspend fun insert(characterWeapons: List<CharacterWeapon>)
 
     @Query("SELECT weapon_name FROM weapon")
     suspend fun getNames(): List<String>

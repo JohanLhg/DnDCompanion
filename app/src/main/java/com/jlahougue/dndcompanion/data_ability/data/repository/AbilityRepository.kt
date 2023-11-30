@@ -24,7 +24,7 @@ class AbilityRepository(
         remoteDataSource.save(ability)
     }
 
-    override suspend fun saveToLocal(ability: Ability) {
-        localDataSource.insert(ability)
+    override suspend fun saveToLocal(abilities: List<Ability>) {
+        localDataSource.insert(abilities)
     }
 }

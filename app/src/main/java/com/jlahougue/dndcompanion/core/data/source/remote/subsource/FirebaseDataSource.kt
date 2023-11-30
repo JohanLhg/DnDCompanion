@@ -10,7 +10,9 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.jlahougue.dndcompanion.data_ability.data.source.remote.AbilityFirebaseDataSource
 import com.jlahougue.dndcompanion.data_character.data.source.remote.CharacterFirebaseDataSource
+import com.jlahougue.dndcompanion.data_character_sheet.data.source.remote.CharacterSheetFirebaseDataSource
 import com.jlahougue.dndcompanion.data_skill.data.source.remote.SkillFirebaseDataSource
+import com.jlahougue.dndcompanion.data_spell.data.source.remote.subsource.SpellFirebaseDataSource
 import com.jlahougue.dndcompanion.data_weapon.data.source.remote.subsource.WeaponFirebaseDataSource
 
 class FirebaseDataSource {
@@ -25,9 +27,11 @@ class FirebaseDataSource {
         get() = firestore.collection(TAG_USERS).document(uid)
 
     //region Data Access Objects
+    val characterSheetDao by lazy { CharacterSheetFirebaseDataSource(this) }
     val characterDao by lazy { CharacterFirebaseDataSource(this) }
     val abilityDao by lazy { AbilityFirebaseDataSource(this) }
     val skillDao by lazy { SkillFirebaseDataSource(this) }
+    val spellDao by lazy { SpellFirebaseDataSource(this) }
     val weaponDao by lazy { WeaponFirebaseDataSource(this) }
     //endregion
 

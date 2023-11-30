@@ -19,6 +19,7 @@ import com.jlahougue.dndcompanion.data_property.domain.model.Property
 import com.jlahougue.dndcompanion.data_skill.data.source.local.SkillLocalDataSource
 import com.jlahougue.dndcompanion.data_skill.domain.model.Skill
 import com.jlahougue.dndcompanion.data_spell.data.source.local.SpellLocalDataSource
+import com.jlahougue.dndcompanion.data_spell.domain.model.CharacterSpell
 import com.jlahougue.dndcompanion.data_spell.domain.model.Spell
 import com.jlahougue.dndcompanion.data_spell.domain.model.SpellClass
 import com.jlahougue.dndcompanion.data_spell.domain.model.SpellDamageType
@@ -33,10 +34,10 @@ import com.jlahougue.dndcompanion.data_weapon.domain.model.WeaponProperty
         Ability::class, Skill::class,
         Class::class, ClassLevel::class, ClassSpellSlot::class,
         DamageType::class, Property::class,
-        Spell::class, SpellClass::class, SpellDamageType::class,
+        CharacterSpell::class, Spell::class, SpellClass::class, SpellDamageType::class,
         CharacterWeapon::class, Weapon::class, WeaponProperty::class
     ],
-    version = 3
+    version = 4
 )
 @TypeConverters(
     value = [AbilityNameTypeConverter::class]

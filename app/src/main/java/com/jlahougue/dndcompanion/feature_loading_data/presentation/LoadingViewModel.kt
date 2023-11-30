@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.jlahougue.dndcompanion.R
 import com.jlahougue.dndcompanion.core.domain.util.UiText
 import com.jlahougue.dndcompanion.core.domain.util.dispatcherProvider.DispatcherProvider
-import com.jlahougue.dndcompanion.feature_loading_data.domain.use_case.LoadAllFromRemote
+import com.jlahougue.dndcompanion.feature_loading_data.domain.use_case.LoadAll
 import com.jlahougue.dndcompanion.feature_loading_data.presentation.util.LoadingUiEvent
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -17,7 +17,7 @@ import kotlin.math.min
 
 class LoadingViewModel(
     val dispatcherProvider: DispatcherProvider,
-    val loadAllFromRemote: LoadAllFromRemote
+    val loadAll: LoadAll
 ) : ViewModel() {
 
     private val _state = mutableStateOf(LoadingState(title  = UiText.StringResource(R.string.loading)))
@@ -30,7 +30,7 @@ class LoadingViewModel(
         when (event) {
             is LoadingEvent.StartLoading -> {
                 viewModelScope.launch(dispatcherProvider.io) {
-                    loadAllFromRemote.state.collect {
+                    loadAll.state.collect {
                         val currentProgress = it.progress.toFloat()
                         val maxProgress = it.progressMax.toFloat()
                         val progress = if (maxProgress == 0f) 0f
@@ -45,7 +45,7 @@ class LoadingViewModel(
                         }
                     }
                 }
-                loadAllFromRemote()
+                loadAll()
             }
         }
     }

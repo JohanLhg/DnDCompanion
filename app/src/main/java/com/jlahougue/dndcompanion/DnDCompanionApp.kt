@@ -7,12 +7,18 @@ import com.jlahougue.dndcompanion.core.di.IAppModule
 import com.jlahougue.dndcompanion.core.di.IDataSourceModule
 import com.jlahougue.dndcompanion.data_ability.di.AbilityModule
 import com.jlahougue.dndcompanion.data_ability.di.IAbilityModule
+import com.jlahougue.dndcompanion.data_character.di.CharacterModule
+import com.jlahougue.dndcompanion.data_character.di.ICharacterModule
+import com.jlahougue.dndcompanion.data_character_sheet.di.CharacterSheetModule
+import com.jlahougue.dndcompanion.data_character_sheet.di.ICharacterSheetModule
 import com.jlahougue.dndcompanion.data_class.di.ClassModule
 import com.jlahougue.dndcompanion.data_class.di.IClassModule
 import com.jlahougue.dndcompanion.data_damage_type.di.DamageTypeModule
 import com.jlahougue.dndcompanion.data_damage_type.di.IDamageTypeModule
 import com.jlahougue.dndcompanion.data_property.di.IPropertyModule
 import com.jlahougue.dndcompanion.data_property.di.PropertyModule
+import com.jlahougue.dndcompanion.data_skill.di.ISkillModule
+import com.jlahougue.dndcompanion.data_skill.di.SkillModule
 import com.jlahougue.dndcompanion.data_spell.di.ISpellModule
 import com.jlahougue.dndcompanion.data_spell.di.SpellModule
 import com.jlahougue.dndcompanion.data_weapon.di.IWeaponModule
@@ -28,13 +34,17 @@ class DnDCompanionApp: Application() {
         lateinit var appModule: IAppModule
         lateinit var dataSourceModule: IDataSourceModule
 
+        lateinit var characterModule: ICharacterModule
         lateinit var abilityModule: IAbilityModule
+        lateinit var skillModule: ISkillModule
         lateinit var classModule: IClassModule
         lateinit var damageTypeModule: IDamageTypeModule
         lateinit var spellModule: ISpellModule
         lateinit var propertyModule: IPropertyModule
-        lateinit var weaponModule: IWeaponModule
 
+        lateinit var characterSheetModule: ICharacterSheetModule
+
+        lateinit var weaponModule: IWeaponModule
         lateinit var authModule: IAuthModule
         lateinit var loadingModule: ILoadingModule
     }
@@ -44,7 +54,15 @@ class DnDCompanionApp: Application() {
         appModule = AppModule()
         dataSourceModule = DataSourceModule(this, appModule.dispatcher)
 
+        characterModule = CharacterModule(
+            dataSourceModule.remoteDataSource,
+            dataSourceModule.localDataSource
+        )
         abilityModule = AbilityModule(
+            dataSourceModule.remoteDataSource,
+            dataSourceModule.localDataSource
+        )
+        skillModule = SkillModule(
             dataSourceModule.remoteDataSource,
             dataSourceModule.localDataSource
         )
@@ -69,6 +87,16 @@ class DnDCompanionApp: Application() {
             dataSourceModule.localDataSource
         )
 
+        characterSheetModule = CharacterSheetModule(
+            appModule.dispatcher,
+            dataSourceModule.remoteDataSource,
+            characterModule.characterRepository,
+            abilityModule.abilityRepository,
+            skillModule.skillRepository,
+            spellModule.spellRepository,
+            weaponModule.weaponRepository
+        )
+
         authModule = AuthModule()
         loadingModule = LoadingModule(
             appModule.dispatcher,
@@ -76,7 +104,8 @@ class DnDCompanionApp: Application() {
             damageTypeModule.damageTypeRepository,
             spellModule.spellRepository,
             propertyModule.propertyRepository,
-            weaponModule.weaponRepository
+            weaponModule.weaponRepository,
+            characterSheetModule.loadCharacterSheetUseCase
         )
     }
 }

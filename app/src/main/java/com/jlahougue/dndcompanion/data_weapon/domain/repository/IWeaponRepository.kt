@@ -7,8 +7,8 @@ import com.jlahougue.dndcompanion.data_weapon.domain.model.WeaponProperty
 
 interface IWeaponRepository {
     suspend fun loadAll(onApiEvent: (ApiEvent) -> Unit)
-    suspend fun save(characterWeapon: CharacterWeapon)
-    suspend fun saveToLocal(characterWeapon: CharacterWeapon)
     suspend fun save(weapon: Weapon): Boolean
     suspend fun saveProperties(weaponProperties: List<WeaponProperty>)
+    suspend fun save(characterWeapon: CharacterWeapon)
+    suspend fun saveToLocal(characterWeapons: List<CharacterWeapon>)
 }

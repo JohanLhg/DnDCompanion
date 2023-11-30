@@ -28,7 +28,7 @@ class WeaponDnd5eDataSource(
     ) {
         val response = dnd5eDataSource.sendGet(Dnd5eDataSource.WEAPON_URL)
         if (response == null) {
-            val errorMessage = UiText.StringResource(R.string.error_api_weapons)
+            val errorMessage = UiText.StringResource(R.string.error_fetching_weapons)
             return onApiEvent(ApiEvent.Error(errorMessage))
         }
         val json = JSONObject(response)

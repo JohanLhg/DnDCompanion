@@ -8,12 +8,13 @@ import com.jlahougue.dndcompanion.data_spell.domain.repository.ISpellRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-class LoadSpellsFromRemote(
+class LoadSpells(
     private val dispatcherProvider: DispatcherProvider,
     private val spellRepository: ISpellRepository,
     private val damageTypeRepository: IDamageTypeRepository
 ): LoadFromRemote(UiText.StringResource(R.string.loading_spells)) {
     override operator fun invoke() {
+        super.invoke()
         CoroutineScope(dispatcherProvider.io).launch {
             spellRepository.loadAll(
                 damageTypeRepository.getNames(),
