@@ -1,4 +1,4 @@
-package com.jlahougue.dndcompanion.data_character_sheet.domain.use_case
+package com.jlahougue.dndcompanion.feature_loading_data.domain.use_case
 
 import com.jlahougue.dndcompanion.R
 import com.jlahougue.dndcompanion.core.data.source.remote.subsource.ApiEvent
@@ -11,7 +11,6 @@ import com.jlahougue.dndcompanion.data_character_sheet.domain.repository.ICharac
 import com.jlahougue.dndcompanion.data_skill.domain.repository.ISkillRepository
 import com.jlahougue.dndcompanion.data_spell.domain.repository.ISpellRepository
 import com.jlahougue.dndcompanion.data_weapon.domain.repository.IWeaponRepository
-import com.jlahougue.dndcompanion.feature_loading_data.domain.use_case.LoadFromRemote
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 

@@ -19,6 +19,7 @@
     <string name="ability_charisma_short">CHA</string>
 
     <!-- Skill -->
+    <string name="skill_display">%s (%s)</string>
     <string name="skill_acrobatics">Acrobatics</string>
     <string name="skill_animal_handling">Animal Handling</string>
     <string name="skill_arcana">Arcana</string>
@@ -81,4 +82,5 @@
     <!-- CharacterSelectionActivity -->
     <string name="title_activity_character_selection">Character Selection Activity</string>
     <string name="descr_character_image">Character Image</string>
+    <string name="title_activity_combat">CombatActivity</string>
 </resources>

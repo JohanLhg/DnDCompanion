@@ -17,6 +17,11 @@
         android:theme="@style/Theme.DnDCompanion"
         tools:targetApi="31">
         <activity
+            android:name=".feature_combat.presentation.CombatActivity"
+            android:exported="false"
+            android:label="@string/title_activity_combat"
+            android:theme="@style/Theme.DnDCompanion" />
+        <activity
             android:name=".feature_character_selection.presentation.CharacterSelectionActivity"
             android:exported="false"
             android:label="@string/title_activity_character_selection"

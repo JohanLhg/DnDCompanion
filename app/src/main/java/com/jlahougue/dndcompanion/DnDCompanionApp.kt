@@ -108,16 +108,21 @@ class DnDCompanionApp: Application() {
         )
         loadingModule = LoadingModule(
             appModule.dispatcherProvider,
+            characterSheetModule.characterSheetRepository,
+            characterModule.characterRepository,
+            abilityModule.abilityRepository,
+            skillModule.skillRepository,
             classModule.classRepository,
             damageTypeModule.damageTypeRepository,
             spellModule.spellRepository,
             propertyModule.propertyRepository,
-            weaponModule.weaponRepository,
-            characterSheetModule.loadCharacterSheetUseCase
+            weaponModule.weaponRepository
         )
         characterSelectionModule = CharacterSelectionModule(
             appModule.dispatcherProvider,
-            characterModule.characterRepository
+            characterModule.characterRepository,
+            abilityModule.abilityRepository,
+            skillModule.skillRepository
         )
     }
 }

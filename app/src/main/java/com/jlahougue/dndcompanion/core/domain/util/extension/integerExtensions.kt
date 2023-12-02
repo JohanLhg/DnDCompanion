@@ -12,3 +12,8 @@ fun Int.feetToMeterString(): String {
     meter = roundedFormatter.format(meter).toDouble()
     return decimalFormatter.format(meter)
 }
+
+fun Int.toSignedString(): String {
+    return if (this >= 0) "+$this"
+    else this.toString()
+}

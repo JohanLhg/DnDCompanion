@@ -1,9 +1,11 @@
 package com.jlahougue.dndcompanion.data_skill.domain.model
 
+import android.content.Context
+import androidx.compose.runtime.Composable
 import com.jlahougue.dndcompanion.R
 import com.jlahougue.dndcompanion.core.domain.util.UiText
 
-enum class SkillName(val nameId: UiText) {
+enum class SkillName(val localName: UiText) {
     ACROBATICS(UiText.StringResource(R.string.skill_acrobatics)),
     ANIMAL_HANDLING(UiText.StringResource(R.string.skill_animal_handling)),
     ARCANA(UiText.StringResource(R.string.skill_arcana)),
@@ -24,7 +26,12 @@ enum class SkillName(val nameId: UiText) {
     SURVIVAL(UiText.StringResource(R.string.skill_survival)),
     NONE(UiText.StringResource(R.string.empty));
 
+    @Composable
+    fun getString() = localName.getString()
+
+    fun getString(context: Context) = localName.getString(context)
+
     companion object {
-        fun from(findValue: String) = values().find { it.name.equals(findValue, true) } ?: NONE
+        fun from(findValue: String) = entries.find { it.name.equals(findValue, true) } ?: NONE
     }
 }

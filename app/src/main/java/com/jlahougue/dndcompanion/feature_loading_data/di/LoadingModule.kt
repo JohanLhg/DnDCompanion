@@ -1,13 +1,17 @@
 package com.jlahougue.dndcompanion.feature_loading_data.di
 
 import com.jlahougue.dndcompanion.core.domain.util.dispatcherProvider.DispatcherProvider
-import com.jlahougue.dndcompanion.data_character_sheet.domain.use_case.LoadCharacters
+import com.jlahougue.dndcompanion.data_ability.domain.repository.IAbilityRepository
+import com.jlahougue.dndcompanion.data_character.domain.repository.ICharacterRepository
+import com.jlahougue.dndcompanion.data_character_sheet.domain.repository.ICharacterSheetRepository
 import com.jlahougue.dndcompanion.data_class.domain.repository.IClassRepository
 import com.jlahougue.dndcompanion.data_damage_type.domain.repository.IDamageTypeRepository
 import com.jlahougue.dndcompanion.data_property.domain.repository.IPropertyRepository
+import com.jlahougue.dndcompanion.data_skill.domain.repository.ISkillRepository
 import com.jlahougue.dndcompanion.data_spell.domain.repository.ISpellRepository
 import com.jlahougue.dndcompanion.data_weapon.domain.repository.IWeaponRepository
 import com.jlahougue.dndcompanion.feature_loading_data.domain.use_case.LoadAll
+import com.jlahougue.dndcompanion.feature_loading_data.domain.use_case.LoadCharacters
 import com.jlahougue.dndcompanion.feature_loading_data.domain.use_case.LoadClasses
 import com.jlahougue.dndcompanion.feature_loading_data.domain.use_case.LoadDamageTypes
 import com.jlahougue.dndcompanion.feature_loading_data.domain.use_case.LoadProperties
@@ -16,12 +20,15 @@ import com.jlahougue.dndcompanion.feature_loading_data.domain.use_case.LoadWeapo
 
 class LoadingModule(
     override val dispatcherProvider: DispatcherProvider,
+    private val characterSheetRepository: ICharacterSheetRepository,
+    private val characterRepository: ICharacterRepository,
+    private val abilityRepository: IAbilityRepository,
+    private val skillRepository: ISkillRepository,
     private val classRepository: IClassRepository,
     private val damageTypeRepository: IDamageTypeRepository,
     private val spellRepository: ISpellRepository,
     private val propertyRepository: IPropertyRepository,
-    private val weaponRepository: IWeaponRepository,
-    private val loadCharacters: LoadCharacters
+    private val weaponRepository: IWeaponRepository
 ) : ILoadingModule {
 
     private val loadClasses by lazy {
@@ -52,6 +59,17 @@ class LoadingModule(
     private val loadWeapons by lazy {
         LoadWeapons(
             dispatcherProvider,
+            weaponRepository
+        )
+    }
+    private val loadCharacters by lazy {
+        LoadCharacters(
+            dispatcherProvider,
+            characterSheetRepository,
+            characterRepository,
+            abilityRepository,
+            skillRepository,
+            spellRepository,
             weaponRepository
         )
     }

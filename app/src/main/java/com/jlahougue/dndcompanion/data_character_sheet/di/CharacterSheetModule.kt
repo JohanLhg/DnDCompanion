@@ -5,10 +5,10 @@ import com.jlahougue.dndcompanion.core.domain.util.dispatcherProvider.Dispatcher
 import com.jlahougue.dndcompanion.data_ability.domain.repository.IAbilityRepository
 import com.jlahougue.dndcompanion.data_character.domain.repository.ICharacterRepository
 import com.jlahougue.dndcompanion.data_character_sheet.data.repository.CharacterSheetRepository
-import com.jlahougue.dndcompanion.data_character_sheet.domain.use_case.LoadCharacters
 import com.jlahougue.dndcompanion.data_skill.domain.repository.ISkillRepository
 import com.jlahougue.dndcompanion.data_spell.domain.repository.ISpellRepository
 import com.jlahougue.dndcompanion.data_weapon.domain.repository.IWeaponRepository
+import com.jlahougue.dndcompanion.feature_loading_data.domain.use_case.LoadCharacters
 
 class CharacterSheetModule(
     dispatcherProvider: DispatcherProvider,
