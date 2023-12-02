@@ -1,4 +1,4 @@
-package com.jlahougue.dndcompanion.feature_loading_data
+package com.jlahougue.dndcompanion.feature_loading_data.presentation
 
 import android.content.Intent
 import android.os.Bundle
@@ -14,8 +14,6 @@ import com.jlahougue.dndcompanion.DnDCompanionApp
 import com.jlahougue.dndcompanion.core.domain.util.extension.viewModelFactory
 import com.jlahougue.dndcompanion.core.presentation.theme.DnDCompanionTheme
 import com.jlahougue.dndcompanion.feature_character_selection.presentation.CharacterSelectionActivity
-import com.jlahougue.dndcompanion.feature_loading_data.presentation.LoadingScreen
-import com.jlahougue.dndcompanion.feature_loading_data.presentation.LoadingViewModel
 
 class LoadingActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

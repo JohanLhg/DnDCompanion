@@ -6,9 +6,7 @@ import com.jlahougue.dndcompanion.core.domain.util.UiText
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
-abstract class LoadFromRemote(
-    title: UiText
-) {
+abstract class LoadFromRemote(title: UiText) {
 
     private var _state = MutableStateFlow(LoadSate(title))
     val state = _state.asStateFlow()

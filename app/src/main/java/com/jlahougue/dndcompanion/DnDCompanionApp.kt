@@ -25,6 +25,8 @@ import com.jlahougue.dndcompanion.data_weapon.di.IWeaponModule
 import com.jlahougue.dndcompanion.data_weapon.di.WeaponModule
 import com.jlahougue.dndcompanion.feature_authentication.di.AuthModule
 import com.jlahougue.dndcompanion.feature_authentication.di.IAuthModule
+import com.jlahougue.dndcompanion.feature_character_selection.di.CharacterSelectionModule
+import com.jlahougue.dndcompanion.feature_character_selection.di.ICharacterSelectionModule
 import com.jlahougue.dndcompanion.feature_loading_data.di.ILoadingModule
 import com.jlahougue.dndcompanion.feature_loading_data.di.LoadingModule
 
@@ -47,12 +49,16 @@ class DnDCompanionApp: Application() {
         lateinit var weaponModule: IWeaponModule
         lateinit var authModule: IAuthModule
         lateinit var loadingModule: ILoadingModule
+        lateinit var characterSelectionModule: ICharacterSelectionModule
     }
 
     override fun onCreate() {
         super.onCreate()
         appModule = AppModule()
-        dataSourceModule = DataSourceModule(this, appModule.dispatcher)
+        dataSourceModule = DataSourceModule(
+            this,
+            appModule.dispatcherProvider
+        )
 
         characterModule = CharacterModule(
             dataSourceModule.remoteDataSource,
@@ -88,7 +94,7 @@ class DnDCompanionApp: Application() {
         )
 
         characterSheetModule = CharacterSheetModule(
-            appModule.dispatcher,
+            appModule.dispatcherProvider,
             dataSourceModule.remoteDataSource,
             characterModule.characterRepository,
             abilityModule.abilityRepository,
@@ -97,15 +103,21 @@ class DnDCompanionApp: Application() {
             weaponModule.weaponRepository
         )
 
-        authModule = AuthModule()
+        authModule = AuthModule(
+            appModule.dispatcherProvider
+        )
         loadingModule = LoadingModule(
-            appModule.dispatcher,
+            appModule.dispatcherProvider,
             classModule.classRepository,
             damageTypeModule.damageTypeRepository,
             spellModule.spellRepository,
             propertyModule.propertyRepository,
             weaponModule.weaponRepository,
             characterSheetModule.loadCharacterSheetUseCase
+        )
+        characterSelectionModule = CharacterSelectionModule(
+            appModule.dispatcherProvider,
+            characterModule.characterRepository
         )
     }
 }

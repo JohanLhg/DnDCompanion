@@ -22,7 +22,7 @@
             android:label="@string/title_activity_character_selection"
             android:theme="@style/Theme.DnDCompanion" />
         <activity
-            android:name=".feature_loading_data.LoadingActivity"
+            android:name=".feature_loading_data.presentation.LoadingActivity"
             android:exported="false"
             android:label="@string/title_activity_loading"
             android:theme="@style/Theme.DnDCompanion" />

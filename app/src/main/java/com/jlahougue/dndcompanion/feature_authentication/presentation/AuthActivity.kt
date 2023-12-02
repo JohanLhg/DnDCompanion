@@ -1,5 +1,6 @@
 package com.jlahougue.dndcompanion.feature_authentication.presentation
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -23,7 +24,7 @@ import com.jlahougue.dndcompanion.feature_authentication.presentation.login.Logi
 import com.jlahougue.dndcompanion.feature_authentication.presentation.register.RegisterScreen
 import com.jlahougue.dndcompanion.feature_authentication.presentation.register.RegisterViewModel
 import com.jlahougue.dndcompanion.feature_authentication.presentation.util.Screen
-import com.jlahougue.dndcompanion.feature_loading_data.LoadingActivity
+import com.jlahougue.dndcompanion.feature_loading_data.presentation.LoadingActivity
 
 class AuthActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,10 +47,7 @@ class AuthActivity : ComponentActivity() {
                         ) {
                             val viewModel = viewModel<LoginViewModel>(
                                 factory = viewModelFactory {
-                                    LoginViewModel(
-                                        DnDCompanionApp.appModule,
-                                        DnDCompanionApp.authModule.authUseCases
-                                    )
+                                    LoginViewModel(DnDCompanionApp.authModule)
                                 }
                             )
                             LoginScreen(
@@ -60,8 +58,7 @@ class AuthActivity : ComponentActivity() {
                                     navController.navigate(Screen.RegisterScreen.route)
                                 },
                                 navigateToNext = {
-                                    val intent = Intent(context, LoadingActivity::class.java)
-                                    context.startActivity(intent)
+                                    navigateToLoadingScreen(context)
                                 }
                             )
                         }
@@ -70,10 +67,7 @@ class AuthActivity : ComponentActivity() {
                         ) {
                             val viewModel = viewModel<RegisterViewModel>(
                                 factory = viewModelFactory {
-                                    RegisterViewModel(
-                                        DnDCompanionApp.appModule,
-                                        DnDCompanionApp.authModule.authUseCases
-                                    )
+                                    RegisterViewModel(DnDCompanionApp.authModule)
                                 }
                             )
                             RegisterScreen(
@@ -84,8 +78,7 @@ class AuthActivity : ComponentActivity() {
                                     navController.navigate(Screen.LoginScreen.route)
                                 },
                                 navigateToNext = {
-                                    val intent = Intent(context, LoadingActivity::class.java)
-                                    context.startActivity(intent)
+                                    navigateToLoadingScreen(context)
                                 }
                             )
                         }
@@ -93,6 +86,12 @@ class AuthActivity : ComponentActivity() {
                 }
             }
         }
+    }
+
+    private fun navigateToLoadingScreen(context: Context) {
+        val intent = Intent(context, LoadingActivity::class.java)
+        context.startActivity(intent)
+        finish()
     }
 }
 

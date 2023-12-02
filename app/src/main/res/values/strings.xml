@@ -58,19 +58,25 @@
 
     <!-- LoadingActivity -->
     <string name="title_activity_loading">Loading Activity</string>
+
     <string name="loading">Loading…</string>
     <string name="loading_characters">Gathering your characters…</string>
+    <string name="loading_character_image">Fetching your character\'s image…</string>
     <string name="loading_classes">Preparing classes…</string>
     <string name="loading_damage_types">Learning about damage…</string>
     <string name="loading_weapon_properties">Inspecting gear…</string>
     <string name="loading_spells">Filling spell books…</string>
     <string name="loading_weapons">Sharpening weapons…</string>
+
     <string name="error_fetching_damage_types">Error while fetching the damage types</string>
     <string name="error_fetching_classes">Error while fetching the classes</string>
     <string name="error_fetching_spells">Error while fetching the spells</string>
     <string name="error_fetching_properties">Error while fetching the properties</string>
     <string name="error_fetching_weapons">Error while fetching the weapons</string>
     <string name="error_fetching_characters">Error while fetching your characters</string>
+    <string name="error_fetching_character_image">Error while fetching your character\'s image</string>
+
+    <string name="error_saving_character">Error while saving your character</string>
 
     <!-- CharacterSelectionActivity -->
     <string name="title_activity_character_selection">Character Selection Activity</string>

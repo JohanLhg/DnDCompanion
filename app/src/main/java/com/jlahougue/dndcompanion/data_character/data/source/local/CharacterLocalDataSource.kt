@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.jlahougue.dndcompanion.data_character.domain.model.Character
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface CharacterLocalDataSource {
@@ -13,4 +14,10 @@ interface CharacterLocalDataSource {
 
     @Query("DELETE FROM character WHERE id = :id")
     suspend fun delete(id: Long)
+
+    @Query("SELECT EXISTS(SELECT * FROM character)")
+    suspend fun exists(): Boolean
+
+    @Query("SELECT * FROM character")
+    fun get(): Flow<List<Character>>
 }

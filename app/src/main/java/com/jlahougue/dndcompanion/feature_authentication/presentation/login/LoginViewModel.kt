@@ -5,10 +5,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jlahougue.dndcompanion.R
-import com.jlahougue.dndcompanion.core.di.IAppModule
 import com.jlahougue.dndcompanion.core.domain.util.UiText
+import com.jlahougue.dndcompanion.feature_authentication.di.IAuthModule
 import com.jlahougue.dndcompanion.feature_authentication.domain.model.InvalidAuthException
-import com.jlahougue.dndcompanion.feature_authentication.domain.use_case.AuthUseCases
 import com.jlahougue.dndcompanion.feature_authentication.presentation.util.AuthUiEvent
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -16,8 +15,7 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 
 class LoginViewModel(
-    private val appModule: IAppModule,
-    private val authUseCases: AuthUseCases
+    private val module: IAuthModule
 ) : ViewModel() {
 
     private val _state = mutableStateOf(LoginState())
@@ -29,7 +27,7 @@ class LoginViewModel(
     fun onEvent(event: LoginEvent) {
         when (event) {
             is LoginEvent.CheckIfLoggedIn -> {
-                if (authUseCases.isLoggedIn()) {
+                if (module.authUseCases.isLoggedIn()) {
                     viewModelScope.launch {
                         _event.emit(AuthUiEvent.NavigateToNextScreen)
                     }
@@ -42,9 +40,9 @@ class LoginViewModel(
                 _state.value = state.value.copy(password = event.password)
             }
             is LoginEvent.Login -> {
-                viewModelScope.launch(appModule.dispatcher.io) {
+                viewModelScope.launch(module.dispatcherProvider.io) {
                     try {
-                        authUseCases.login(
+                        module.authUseCases.login(
                             state.value.email,
                             state.value.password
                         ) { success ->

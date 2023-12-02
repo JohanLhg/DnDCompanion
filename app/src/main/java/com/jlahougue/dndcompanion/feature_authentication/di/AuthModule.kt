@@ -1,6 +1,7 @@
 package com.jlahougue.dndcompanion.feature_authentication.di
 
 import com.google.firebase.auth.FirebaseAuth
+import com.jlahougue.dndcompanion.core.domain.util.dispatcherProvider.DispatcherProvider
 import com.jlahougue.dndcompanion.feature_authentication.data.repository.AuthRepositoryFirebase
 import com.jlahougue.dndcompanion.feature_authentication.domain.repository.AuthRepository
 import com.jlahougue.dndcompanion.feature_authentication.domain.use_case.AuthUseCases
@@ -8,9 +9,11 @@ import com.jlahougue.dndcompanion.feature_authentication.domain.use_case.IsLogge
 import com.jlahougue.dndcompanion.feature_authentication.domain.use_case.Login
 import com.jlahougue.dndcompanion.feature_authentication.domain.use_case.Register
 
-class AuthModule : IAuthModule {
+class AuthModule(
+    override val dispatcherProvider: DispatcherProvider
+) : IAuthModule {
 
-    override val authRepository: AuthRepository by lazy {
+    private val authRepository: AuthRepository by lazy {
         AuthRepositoryFirebase(FirebaseAuth.getInstance())
     }
 

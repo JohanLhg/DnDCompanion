@@ -4,6 +4,6 @@ import com.jlahougue.dndcompanion.core.data.source.remote.subsource.Open5eDataSo
 import com.jlahougue.dndcompanion.core.domain.util.dispatcherProvider.DispatcherProvider
 
 interface IAppModule {
-    val dispatcher: DispatcherProvider
+    val dispatcherProvider: DispatcherProvider
     val open5EDataSource: Open5eDataSource
 }

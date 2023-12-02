@@ -5,10 +5,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jlahougue.dndcompanion.R
-import com.jlahougue.dndcompanion.core.di.IAppModule
 import com.jlahougue.dndcompanion.core.domain.util.UiText
+import com.jlahougue.dndcompanion.feature_authentication.di.IAuthModule
 import com.jlahougue.dndcompanion.feature_authentication.domain.model.InvalidAuthException
-import com.jlahougue.dndcompanion.feature_authentication.domain.use_case.AuthUseCases
 import com.jlahougue.dndcompanion.feature_authentication.presentation.util.AuthUiEvent
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -16,8 +15,7 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 
 class RegisterViewModel(
-    private val appModule: IAppModule,
-    private val authUseCases: AuthUseCases
+    private val module: IAuthModule
 ) : ViewModel() {
 
     private val _state = mutableStateOf(RegisterState())
@@ -29,7 +27,7 @@ class RegisterViewModel(
     fun onEvent(event: RegisterEvent) {
         when (event) {
             is RegisterEvent.CheckIfLoggedIn -> {
-                if (authUseCases.isLoggedIn()) {
+                if (module.authUseCases.isLoggedIn()) {
                     viewModelScope.launch {
                         _event.emit(AuthUiEvent.NavigateToNextScreen)
                     }
@@ -45,9 +43,9 @@ class RegisterViewModel(
                 _state.value = state.value.copy(confirmPassword = event.confirmPassword)
             }
             is RegisterEvent.Register -> {
-                viewModelScope.launch(appModule.dispatcher.io) {
+                viewModelScope.launch(module.dispatcherProvider.io) {
                     try {
-                        authUseCases.register(
+                        module.authUseCases.register(
                             state.value.email,
                             state.value.password,
                             state.value.confirmPassword

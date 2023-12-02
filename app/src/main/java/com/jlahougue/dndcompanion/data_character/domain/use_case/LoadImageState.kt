@@ -1,13 +1,10 @@
-package com.jlahougue.dndcompanion.feature_loading_data.domain.use_case
+package com.jlahougue.dndcompanion.data_character.domain.use_case
 
-import com.jlahougue.dndcompanion.core.domain.util.UiText
-
-data class LoadSate(
-    val title: UiText,
-    val progress: Int = 0,
-    val progressMax: Int = 0,
+data class LoadImageState(
+    val uri: String = "",
     val actionState: ActionState = ActionState.WAITING
 ) {
+
     fun hasStarted() = actionState != ActionState.WAITING
 
     fun hasFinished() = actionState == ActionState.FINISHED

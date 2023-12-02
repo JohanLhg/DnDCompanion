@@ -5,7 +5,7 @@ import com.jlahougue.dndcompanion.core.domain.util.dispatcherProvider.StandardDi
 import okhttp3.OkHttpClient
 
 class AppModule: IAppModule {
-    override val dispatcher by lazy { StandardDispatcherProvider() }
+    override val dispatcherProvider by lazy { StandardDispatcherProvider() }
     private val client by lazy { OkHttpClient() }
-    override val open5EDataSource by lazy { Open5eDataSource(dispatcher, client) }
+    override val open5EDataSource by lazy { Open5eDataSource(dispatcherProvider, client) }
 }

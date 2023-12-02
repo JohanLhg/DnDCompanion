@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 
 class LoadCharacters(
     private val dispatcherProvider: DispatcherProvider,
-    private val repository: ICharacterSheetRepository,
+    private val characterSheetRepository: ICharacterSheetRepository,
     private val characterRepository: ICharacterRepository,
     private val abilityRepository: IAbilityRepository,
     private val skillRepository: ISkillRepository,
@@ -26,8 +26,9 @@ class LoadCharacters(
 ) : LoadFromRemote(UiText.StringResource(R.string.loading_characters)) {
 
     override fun invoke() {
+        super.invoke()
         CoroutineScope(dispatcherProvider.io).launch {
-            repository.load(::onEvent)
+            characterSheetRepository.load(::onEvent)
         }
     }
 
@@ -42,15 +43,36 @@ class LoadCharacters(
             is CharacterSheetFirebaseEvent.Success -> {
                 CoroutineScope(dispatcherProvider.io).launch {
                     onApiEvent(ApiEvent.SetMaxProgress(event.characterSheets.size))
+                    var noneExist = !characterRepository.exists()
                     for (characterSheet in event.characterSheets) {
-                        if (characterSheet.character == null) continue
-                        characterRepository.saveToLocal(characterSheet.character!!)
-                        abilityRepository.saveToLocal(characterSheet.abilities.values.toList())
-                        skillRepository.saveToLocal(characterSheet.skills.values.toList())
-                        spellRepository.saveToLocal(characterSheet.spells.values.toList())
-                        weaponRepository.saveToLocal(characterSheet.weapons.values.toList())
+                        if (characterSheet.character != null) {
+                            characterRepository.saveToLocal(characterSheet.character!!)
+                            abilityRepository.saveToLocal(characterSheet.abilities.values.toList())
+                            skillRepository.saveToLocal(characterSheet.skills.values.toList())
+                            spellRepository.saveToLocal(characterSheet.spells.values.toList())
+                            weaponRepository.saveToLocal(characterSheet.weapons.values.toList())
+                            noneExist = false
+                        }
                         onApiEvent(ApiEvent.UpdateProgress)
                     }
+                    /**
+                    if (noneExist) {
+                        val character = CharacterSheet()
+                        character.character = characterRepository.create()
+                        character.abilities = abilityRepository
+                            .create(character.id)
+                            .associateBy(
+                                { it.name.name },
+                                { it }
+                            )
+                        character.skills = skillRepository.create(character.id)
+                            .associateBy(
+                                { it.name.name },
+                                { it }
+                            )
+                        characterSheetRepository.save(character)
+                    }
+                    */
                     onApiEvent(ApiEvent.Finish)
                 }
             }
