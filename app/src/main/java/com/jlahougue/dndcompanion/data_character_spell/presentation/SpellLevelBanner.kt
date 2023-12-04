@@ -1,13 +1,19 @@
-package com.jlahougue.dndcompanion.data_spell.presentation
+package com.jlahougue.dndcompanion.data_character_spell.presentation
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.layoutId
@@ -21,56 +27,11 @@ import androidx.constraintlayout.compose.Dimension
 import com.jlahougue.dndcompanion.R
 import com.jlahougue.dndcompanion.core.presentation.theme.DnDCompanionTheme
 import com.jlahougue.dndcompanion.core.presentation.theme.spacing
+import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellSlotView
 
 @Composable
-fun SpellLevel() {
-    Row(
-        modifier = Modifier
-            .height(50.dp)
-    ) {
-        Image(
-            painter = painterResource(id = R.drawable.spell_background_level),
-            contentDescription = null,
-            contentScale = ContentScale.FillHeight,
-            modifier = Modifier
-                .fillMaxHeight()
-        )
-        Image(
-            painter = painterResource(id = R.drawable.spell_background_total),
-            contentDescription = null,
-            contentScale = ContentScale.FillBounds,
-            modifier = Modifier
-                .fillMaxHeight()
-        )
-        Image(
-            painter = painterResource(id = R.drawable.spell_background_middle),
-            contentDescription = null,
-            contentScale = ContentScale.FillHeight,
-            modifier = Modifier
-                .fillMaxHeight()
-        )
-        Image(
-            painter = painterResource(id = R.drawable.spell_background_left),
-            contentDescription = null,
-            contentScale = ContentScale.FillBounds,
-            modifier = Modifier
-                .fillMaxHeight()
-        )
-        Image(
-            painter = painterResource(id = R.drawable.spell_background_end),
-            contentDescription = null,
-            contentScale = ContentScale.FillHeight,
-            modifier = Modifier
-                .fillMaxHeight()
-        )
-    }
-}
-
-@Composable
-fun SpellLevelAlt(
-    level: Int,
-    total: Int,
-    left: Int,
+fun SpellLevelBanner(
+    spellSlot: SpellSlotView,
     modifier: Modifier = Modifier
 ) {
     val spacing = MaterialTheme.spacing
@@ -143,8 +104,8 @@ fun SpellLevelAlt(
         constrain(bgLeft) {
             top.linkTo(guideline)
             bottom.linkTo(parent.bottom)
-            start.linkTo(textLeft.start)
-            end.linkTo(textLeft.end)
+            start.linkTo(bgMiddle.end)
+            end.linkTo(bgEnd.start)
             width = Dimension.fillToConstraints
             height = Dimension.fillToConstraints
         }
@@ -152,16 +113,16 @@ fun SpellLevelAlt(
         constrain(textLeft) {
             top.linkTo(parent.top)
             start.linkTo(bgMiddle.end)
-            end.linkTo(bgEnd.start)
+            end.linkTo(bgEnd.end)
             width = Dimension.wrapContent
             height = Dimension.wrapContent
         }
 
         constrain(valueLeft) {
-            top.linkTo(bgLeft.top)
-            bottom.linkTo(bgLeft.bottom)
-            start.linkTo(bgLeft.start)
-            end.linkTo(bgLeft.end)
+            top.linkTo(guideline)
+            bottom.linkTo(parent.bottom)
+            start.linkTo(bgMiddle.end)
+            end.linkTo(bgEnd.end)
             width = Dimension.wrapContent
             height = Dimension.wrapContent
         }
@@ -187,8 +148,8 @@ fun SpellLevelAlt(
                 .layoutId("bgLevel")
         )
         Text(
-            text = level.toString(),
-            style = MaterialTheme.typography.bodyMedium,
+            text = spellSlot.level.toString(),
+            style = MaterialTheme.typography.titleMedium,
             modifier = Modifier
                 .layoutId("valueLevel")
                 .padding(MaterialTheme.spacing.medium)
@@ -207,8 +168,8 @@ fun SpellLevelAlt(
                 .layoutId("textTotal")
         )
         Text(
-            text = total.toString(),
-            style = MaterialTheme.typography.bodyMedium,
+            text = spellSlot.total.toString(),
+            style = MaterialTheme.typography.titleMedium,
             modifier = Modifier
                 .layoutId("valueTotal")
                 .padding(MaterialTheme.spacing.medium)
@@ -232,14 +193,51 @@ fun SpellLevelAlt(
             style = MaterialTheme.typography.labelSmall,
             modifier = Modifier
                 .layoutId("textLeft")
+                .padding(end = MaterialTheme.spacing.small)
         )
-        Text(
-            text = left.toString(),
-            style = MaterialTheme.typography.bodyMedium,
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .layoutId("valueLeft")
-                .padding(MaterialTheme.spacing.medium)
-        )
+                .padding(vertical = MaterialTheme.spacing.small)
+                .padding(end = MaterialTheme.spacing.small)
+                .height(IntrinsicSize.Min)
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.chevron_left),
+                contentDescription = null,
+                contentScale = ContentScale.FillHeight,
+                modifier = Modifier
+                    .height(35.dp)
+                    .clickable(
+                        interactionSource = remember { MutableInteractionSource() },
+                        indication = rememberRipple(bounded = false),
+                        onClick = {
+
+                        },
+                    )
+                    .padding(MaterialTheme.spacing.small)
+            )
+            Text(
+                text = spellSlot.left.toString(),
+                style = MaterialTheme.typography.titleMedium
+            )
+            Image(
+                painter = painterResource(id = R.drawable.chevron_right),
+                contentDescription = null,
+                contentScale = ContentScale.FillHeight,
+                modifier = Modifier
+                    .height(35.dp)
+                    .clickable(
+                        interactionSource = remember { MutableInteractionSource() },
+                        indication = rememberRipple(bounded = false),
+                        onClick = {
+
+                        },
+                    )
+                    .padding(MaterialTheme.spacing.small)
+            )
+        }
         Image(
             painter = painterResource(id = R.drawable.spell_background_end),
             contentDescription = null,
@@ -255,13 +253,17 @@ fun SpellLevelAlt(
     device = Devices.TABLET
 )
 @Composable
-fun SpellLevelPreview() {
+fun SpellLevelBannerPreview() {
     DnDCompanionTheme {
-        SpellLevelAlt(
-            level = 2,
-            total = 5,
-            left = 0,
-            modifier = Modifier
-        )
+        Column {
+            SpellLevelBanner(
+                SpellSlotView(
+                    cid = 1,
+                    level = 1,
+                    total = 4,
+                    left = 2
+                )
+            )
+        }
     }
 }

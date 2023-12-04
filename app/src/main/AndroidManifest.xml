@@ -14,33 +14,22 @@
         android:label="@string/app_name"
         android:roundIcon="@drawable/logo_round_dnd"
         android:supportsRtl="true"
-        android:theme="@style/Theme.DnDCompanion"
+        android:theme="@style/Theme.DnDCompanion.SplashScreen"
         tools:targetApi="31">
         <activity
-            android:name=".feature_combat.presentation.CombatActivity"
-            android:exported="false"
-            android:label="@string/title_activity_combat"
-            android:theme="@style/Theme.DnDCompanion" />
-        <activity
-            android:name=".feature_character_selection.presentation.CharacterSelectionActivity"
-            android:exported="false"
-            android:label="@string/title_activity_character_selection"
-            android:theme="@style/Theme.DnDCompanion" />
-        <activity
-            android:name=".feature_loading_data.presentation.LoadingActivity"
-            android:exported="false"
-            android:label="@string/title_activity_loading"
-            android:theme="@style/Theme.DnDCompanion" />
-        <activity
-            android:name=".feature_authentication.presentation.AuthActivity"
+            android:name=".activity.DnDCompanionActivity"
             android:exported="true"
-            android:theme="@style/Theme.DnDCompanion">
+            android:theme="@style/Theme.DnDCompanion.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".feature_combat.presentation.CombatActivity"
+            android:exported="false"
+            android:label="@string/title_activity_combat" />
     </application>
 
 </manifest>

@@ -11,6 +11,8 @@ import com.jlahougue.dndcompanion.data_character.di.CharacterModule
 import com.jlahougue.dndcompanion.data_character.di.ICharacterModule
 import com.jlahougue.dndcompanion.data_character_sheet.di.CharacterSheetModule
 import com.jlahougue.dndcompanion.data_character_sheet.di.ICharacterSheetModule
+import com.jlahougue.dndcompanion.data_character_spell.di.CharacterSpellModule
+import com.jlahougue.dndcompanion.data_character_spell.di.ICharacterSpellModule
 import com.jlahougue.dndcompanion.data_class.di.ClassModule
 import com.jlahougue.dndcompanion.data_class.di.IClassModule
 import com.jlahougue.dndcompanion.data_damage_type.di.DamageTypeModule
@@ -41,6 +43,7 @@ class DnDCompanionApp: Application() {
         lateinit var skillModule: ISkillModule
         lateinit var classModule: IClassModule
         lateinit var damageTypeModule: IDamageTypeModule
+        lateinit var characterSpellModule: ICharacterSpellModule
         lateinit var spellModule: ISpellModule
         lateinit var propertyModule: IPropertyModule
 
@@ -80,6 +83,10 @@ class DnDCompanionApp: Application() {
             dataSourceModule.remoteDataSource,
             dataSourceModule.localDataSource
         )
+        characterSpellModule = CharacterSpellModule(
+            dataSourceModule.remoteDataSource,
+            dataSourceModule.localDataSource
+        )
         spellModule = SpellModule(
             dataSourceModule.remoteDataSource,
             dataSourceModule.localDataSource
@@ -94,13 +101,7 @@ class DnDCompanionApp: Application() {
         )
 
         characterSheetModule = CharacterSheetModule(
-            appModule.dispatcherProvider,
-            dataSourceModule.remoteDataSource,
-            characterModule.characterRepository,
-            abilityModule.abilityRepository,
-            skillModule.skillRepository,
-            spellModule.spellRepository,
-            weaponModule.weaponRepository
+            dataSourceModule.remoteDataSource
         )
 
         authModule = AuthModule(
@@ -114,6 +115,7 @@ class DnDCompanionApp: Application() {
             skillModule.skillRepository,
             classModule.classRepository,
             damageTypeModule.damageTypeRepository,
+            characterSpellModule.characterSpellRepository,
             spellModule.spellRepository,
             propertyModule.propertyRepository,
             weaponModule.weaponRepository

@@ -1,4 +1,4 @@
-package com.jlahougue.dndcompanion.data_spell.domain.model
+package com.jlahougue.dndcompanion.data_character_spell.domain.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

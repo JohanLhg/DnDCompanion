@@ -2,8 +2,8 @@ package com.jlahougue.dndcompanion.feature_authentication.domain.use_case
 
 import com.jlahougue.dndcompanion.R
 import com.jlahougue.dndcompanion.core.domain.util.UiText
+import com.jlahougue.dndcompanion.data_authentication.domain.repository.AuthRepository
 import com.jlahougue.dndcompanion.feature_authentication.domain.model.InvalidAuthException
-import com.jlahougue.dndcompanion.feature_authentication.domain.repository.AuthRepository
 
 class Login(
     private val authRepository: AuthRepository

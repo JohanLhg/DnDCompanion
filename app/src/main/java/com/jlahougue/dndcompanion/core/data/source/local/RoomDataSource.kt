@@ -5,9 +5,16 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.jlahougue.dndcompanion.data_ability.data.source.local.AbilityLocalDataSource
 import com.jlahougue.dndcompanion.data_ability.domain.model.Ability
+import com.jlahougue.dndcompanion.data_ability.domain.model.AbilityModifierView
+import com.jlahougue.dndcompanion.data_ability.domain.model.AbilityView
 import com.jlahougue.dndcompanion.data_ability.domain.util.AbilityNameTypeConverter
 import com.jlahougue.dndcompanion.data_character.data.source.local.CharacterLocalDataSource
 import com.jlahougue.dndcompanion.data_character.domain.model.Character
+import com.jlahougue.dndcompanion.data_character.domain.model.ProficiencyView
+import com.jlahougue.dndcompanion.data_character_spell.data.source.local.CharacterSpellLocalDataSource
+import com.jlahougue.dndcompanion.data_character_spell.domain.model.CharacterSpell
+import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellSlot
+import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellSlotView
 import com.jlahougue.dndcompanion.data_class.data.source.local.ClassLocalDataSource
 import com.jlahougue.dndcompanion.data_class.domain.model.Class
 import com.jlahougue.dndcompanion.data_class.domain.model.ClassLevel
@@ -19,7 +26,6 @@ import com.jlahougue.dndcompanion.data_property.domain.model.Property
 import com.jlahougue.dndcompanion.data_skill.data.source.local.SkillLocalDataSource
 import com.jlahougue.dndcompanion.data_skill.domain.model.Skill
 import com.jlahougue.dndcompanion.data_spell.data.source.local.SpellLocalDataSource
-import com.jlahougue.dndcompanion.data_spell.domain.model.CharacterSpell
 import com.jlahougue.dndcompanion.data_spell.domain.model.Spell
 import com.jlahougue.dndcompanion.data_spell.domain.model.SpellClass
 import com.jlahougue.dndcompanion.data_spell.domain.model.SpellDamageType
@@ -34,10 +40,16 @@ import com.jlahougue.dndcompanion.data_weapon.domain.model.WeaponProperty
         Ability::class, Skill::class,
         Class::class, ClassLevel::class, ClassSpellSlot::class,
         DamageType::class, Property::class,
-        CharacterSpell::class, Spell::class, SpellClass::class, SpellDamageType::class,
+        Spell::class, SpellClass::class, SpellDamageType::class,
+        CharacterSpell::class, SpellSlot::class,
         CharacterWeapon::class, Weapon::class, WeaponProperty::class
     ],
-    version = 4
+    views = [
+        AbilityModifierView::class, AbilityView::class,
+        ProficiencyView::class,
+        SpellSlotView::class
+    ],
+    version = 5
 )
 @TypeConverters(
     value = [AbilityNameTypeConverter::class]
@@ -49,6 +61,7 @@ abstract class RoomDataSource : RoomDatabase(), LocalDataSource {
     abstract override fun classDao(): ClassLocalDataSource
     abstract override fun damageTypeDao(): DamageTypeLocalDataSource
     abstract override fun propertyDao(): PropertyLocalDataSource
+    abstract override fun characterSpellDao(): CharacterSpellLocalDataSource
     abstract override fun spellDao(): SpellLocalDataSource
     abstract override fun weaponDao(): WeaponLocalDataSource
 

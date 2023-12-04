@@ -53,6 +53,8 @@ android {
 
 dependencies {
     implementation(platform("androidx.compose:compose-bom:2023.08.00"))
+    implementation(platform("androidx.compose:compose-bom:2023.08.00"))
+    androidTestImplementation(platform("androidx.compose:compose-bom:2023.08.00"))
     androidTestImplementation(platform("androidx.compose:compose-bom:2023.08.00"))
     // Firebase (remote database)
     platform("com.google.firebase:firebase-bom:32.6.0")
@@ -93,6 +95,9 @@ dependencies {
     implementation("io.coil-kt:coil:2.0.0-rc02")
     implementation("io.coil-kt:coil-gif:2.0.0-rc02")
     implementation("io.coil-kt:coil-compose:2.0.0-rc01")
+
+    // Splash screen
+    implementation("androidx.core:core-splashscreen:1.0.1")
 
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")

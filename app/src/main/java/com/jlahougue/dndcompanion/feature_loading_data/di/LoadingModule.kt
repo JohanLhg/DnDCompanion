@@ -4,6 +4,7 @@ import com.jlahougue.dndcompanion.core.domain.util.dispatcherProvider.Dispatcher
 import com.jlahougue.dndcompanion.data_ability.domain.repository.IAbilityRepository
 import com.jlahougue.dndcompanion.data_character.domain.repository.ICharacterRepository
 import com.jlahougue.dndcompanion.data_character_sheet.domain.repository.ICharacterSheetRepository
+import com.jlahougue.dndcompanion.data_character_spell.domain.repository.ICharacterSpellRepository
 import com.jlahougue.dndcompanion.data_class.domain.repository.IClassRepository
 import com.jlahougue.dndcompanion.data_damage_type.domain.repository.IDamageTypeRepository
 import com.jlahougue.dndcompanion.data_property.domain.repository.IPropertyRepository
@@ -26,6 +27,7 @@ class LoadingModule(
     private val skillRepository: ISkillRepository,
     private val classRepository: IClassRepository,
     private val damageTypeRepository: IDamageTypeRepository,
+    private val characterSpellRepository: ICharacterSpellRepository,
     private val spellRepository: ISpellRepository,
     private val propertyRepository: IPropertyRepository,
     private val weaponRepository: IWeaponRepository
@@ -69,7 +71,7 @@ class LoadingModule(
             characterRepository,
             abilityRepository,
             skillRepository,
-            spellRepository,
+            characterSpellRepository,
             weaponRepository
         )
     }

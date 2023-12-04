@@ -1,7 +1,6 @@
 package com.jlahougue.dndcompanion.data_spell.domain.repository
 
 import com.jlahougue.dndcompanion.core.data.source.remote.subsource.ApiEvent
-import com.jlahougue.dndcompanion.data_spell.domain.model.CharacterSpell
 import com.jlahougue.dndcompanion.data_spell.domain.model.Spell
 import com.jlahougue.dndcompanion.data_spell.domain.model.SpellClass
 import com.jlahougue.dndcompanion.data_spell.domain.model.SpellDamageType
@@ -14,7 +13,5 @@ interface ISpellRepository {
     suspend fun save(spell: Spell): Boolean
     suspend fun saveClasses(spellClasses: List<SpellClass>)
     suspend fun saveDamageTypes(spellDamageTypes: List<SpellDamageType>)
-    suspend fun save(characterSpell: CharacterSpell)
-    suspend fun saveToLocal(characterSpells: List<CharacterSpell>)
     suspend fun getIds(): List<String>
 }

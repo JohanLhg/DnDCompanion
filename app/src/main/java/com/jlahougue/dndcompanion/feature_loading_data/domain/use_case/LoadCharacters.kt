@@ -8,8 +8,8 @@ import com.jlahougue.dndcompanion.data_ability.domain.repository.IAbilityReposit
 import com.jlahougue.dndcompanion.data_character.domain.repository.ICharacterRepository
 import com.jlahougue.dndcompanion.data_character_sheet.data.source.remote.CharacterSheetFirebaseEvent
 import com.jlahougue.dndcompanion.data_character_sheet.domain.repository.ICharacterSheetRepository
+import com.jlahougue.dndcompanion.data_character_spell.domain.repository.ICharacterSpellRepository
 import com.jlahougue.dndcompanion.data_skill.domain.repository.ISkillRepository
-import com.jlahougue.dndcompanion.data_spell.domain.repository.ISpellRepository
 import com.jlahougue.dndcompanion.data_weapon.domain.repository.IWeaponRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -20,7 +20,7 @@ class LoadCharacters(
     private val characterRepository: ICharacterRepository,
     private val abilityRepository: IAbilityRepository,
     private val skillRepository: ISkillRepository,
-    private val spellRepository: ISpellRepository,
+    private val characterSpellRepository: ICharacterSpellRepository,
     private val weaponRepository: IWeaponRepository
 ) : LoadFromRemote(UiText.StringResource(R.string.loading_characters)) {
 
@@ -48,7 +48,7 @@ class LoadCharacters(
                             characterRepository.saveToLocal(characterSheet.character!!)
                             abilityRepository.saveToLocal(characterSheet.abilities.values.toList())
                             skillRepository.saveToLocal(characterSheet.skills.values.toList())
-                            spellRepository.saveToLocal(characterSheet.spells.values.toList())
+                            characterSpellRepository.saveToLocal(characterSheet.spells.values.toList())
                             weaponRepository.saveToLocal(characterSheet.weapons.values.toList())
                             noneExist = false
                         }

@@ -1,4 +1,4 @@
-package com.jlahougue.dndcompanion.data_spell.data.source.remote.subsource
+package com.jlahougue.dndcompanion.data_spell.data.source.remote
 
 import android.util.Log
 import com.jlahougue.dndcompanion.R
@@ -6,7 +6,6 @@ import com.jlahougue.dndcompanion.core.data.source.remote.subsource.ApiEvent
 import com.jlahougue.dndcompanion.core.data.source.remote.subsource.Open5eDataSource
 import com.jlahougue.dndcompanion.core.domain.util.UiText
 import com.jlahougue.dndcompanion.core.domain.util.dispatcherProvider.DispatcherProvider
-import com.jlahougue.dndcompanion.data_spell.data.source.remote.SpellRemoteListener
 import com.jlahougue.dndcompanion.data_spell.domain.model.Spell
 import com.jlahougue.dndcompanion.data_spell.domain.model.SpellClass
 import com.jlahougue.dndcompanion.data_spell.domain.model.SpellDamageType
@@ -19,8 +18,8 @@ import org.json.JSONObject
 class SpellOpen5eDataSource(
     private val dispatcherProvider: DispatcherProvider,
     private val apiRequest: Open5eDataSource
-) {
-    suspend fun load(
+) : SpellRemoteDataSource {
+    override suspend fun load(
         existingSpellIds: List<String>,
         existingDamageTypes: List<String>,
         onApiEvent: (ApiEvent) -> Unit,

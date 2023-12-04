@@ -2,8 +2,8 @@ package com.jlahougue.dndcompanion.data_character_sheet.domain.model
 
 import com.jlahougue.dndcompanion.data_ability.domain.model.Ability
 import com.jlahougue.dndcompanion.data_character.domain.model.Character
+import com.jlahougue.dndcompanion.data_character_spell.domain.model.CharacterSpell
 import com.jlahougue.dndcompanion.data_skill.domain.model.Skill
-import com.jlahougue.dndcompanion.data_spell.domain.model.CharacterSpell
 import com.jlahougue.dndcompanion.data_weapon.domain.model.CharacterWeapon
 
 data class CharacterSheet(

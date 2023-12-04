@@ -14,14 +14,13 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
@@ -46,7 +45,6 @@ import com.jlahougue.dndcompanion.feature_authentication.presentation.util.AuthU
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RegisterScreen(
     state: RegisterState,
@@ -129,7 +127,7 @@ fun RegisterScreen(
                 )
                 Button(
                     onClick = { onEvent(RegisterEvent.Register) },
-                    shape = TextFieldDefaults.outlinedShape,
+                    shape = OutlinedTextFieldDefaults.shape,
                     modifier = Modifier
                         .padding(top = MaterialTheme.spacing.medium)
                         .fillMaxWidth()

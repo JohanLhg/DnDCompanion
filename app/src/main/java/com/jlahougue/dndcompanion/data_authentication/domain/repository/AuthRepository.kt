@@ -1,4 +1,4 @@
-package com.jlahougue.dndcompanion.feature_authentication.domain.repository
+package com.jlahougue.dndcompanion.data_authentication.domain.repository
 
 interface AuthRepository {
     fun isLoggedIn(): Boolean

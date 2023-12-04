@@ -2,6 +2,7 @@ package com.jlahougue.dndcompanion.core.data.source.local
 
 import com.jlahougue.dndcompanion.data_ability.data.source.local.AbilityLocalDataSource
 import com.jlahougue.dndcompanion.data_character.data.source.local.CharacterLocalDataSource
+import com.jlahougue.dndcompanion.data_character_spell.data.source.local.CharacterSpellLocalDataSource
 import com.jlahougue.dndcompanion.data_class.data.source.local.ClassLocalDataSource
 import com.jlahougue.dndcompanion.data_damage_type.data.source.local.DamageTypeLocalDataSource
 import com.jlahougue.dndcompanion.data_property.data.source.local.PropertyLocalDataSource
@@ -15,6 +16,7 @@ interface LocalDataSource {
     fun skillDao(): SkillLocalDataSource
     fun classDao(): ClassLocalDataSource
     fun damageTypeDao(): DamageTypeLocalDataSource
+    fun characterSpellDao(): CharacterSpellLocalDataSource
     fun spellDao(): SpellLocalDataSource
     fun propertyDao(): PropertyLocalDataSource
     fun weaponDao(): WeaponLocalDataSource

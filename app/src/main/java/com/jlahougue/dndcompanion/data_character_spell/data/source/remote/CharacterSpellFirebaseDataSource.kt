@@ -1,12 +1,12 @@
-package com.jlahougue.dndcompanion.data_spell.data.source.remote.subsource
+package com.jlahougue.dndcompanion.data_character_spell.data.source.remote
 
 import com.jlahougue.dndcompanion.core.data.source.remote.subsource.FirebaseDataSource
-import com.jlahougue.dndcompanion.data_spell.domain.model.CharacterSpell
+import com.jlahougue.dndcompanion.data_character_spell.domain.model.CharacterSpell
 
-class SpellFirebaseDataSource(
+class CharacterSpellFirebaseDataSource(
     private val firebaseDataSource: FirebaseDataSource
-) {
-    fun save(characterSpell: CharacterSpell) {
+) : CharacterSpellRemoteDataSource {
+    override fun save(characterSpell: CharacterSpell) {
         firebaseDataSource.updateCharacterSheet(
             characterSpell.cid,
             mapOf("spells.${characterSpell.sid}" to characterSpell)

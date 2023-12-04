@@ -2,4 +2,9 @@
 <resources>
 
     <style name="Theme.DnDCompanion" parent="android:Theme.Material.Light.NoActionBar" />
+
+    <style name="Theme.DnDCompanion.SplashScreen" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/white</item>
+        <item name="postSplashScreenTheme">@style/Theme.DnDCompanion</item>
+    </style>
 </resources>

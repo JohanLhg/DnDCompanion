@@ -1,7 +1,7 @@
 package com.jlahougue.dndcompanion.feature_authentication.data.repository
 
 import com.google.firebase.auth.FirebaseAuth
-import com.jlahougue.dndcompanion.feature_authentication.domain.repository.AuthRepository
+import com.jlahougue.dndcompanion.data_authentication.domain.repository.AuthRepository
 
 class AuthRepositoryFirebase(
     private val firebaseAuth: FirebaseAuth
