@@ -85,7 +85,7 @@ fun CharacterSelectionPreview() {
         )
         CharacterSelectionScreen(
             characters = characters,
-            getImage = { id -> MutableStateFlow(LoadImageState()) },
+            getImage = { _ -> MutableStateFlow(LoadImageState()) },
             onCharacterClicked = {},
             onCharacterAddClicked = {},
             modifier = Modifier

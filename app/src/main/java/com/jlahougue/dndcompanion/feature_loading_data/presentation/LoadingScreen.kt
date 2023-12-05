@@ -32,7 +32,6 @@ import kotlinx.coroutines.launch
 @Composable
 fun LoadingScreen(
     state: LoadingState,
-    onEvent: (LoadingEvent) -> Unit,
     events: SharedFlow<LoadingUiEvent>,
     navigateToNext: () -> Unit
 ) {
@@ -44,7 +43,6 @@ fun LoadingScreen(
         snackbarHost = { SnackbarHost(snackbarHostState) }
     ) { paddingValues ->
         LaunchedEffect(Unit) {
-            onEvent(LoadingEvent.StartLoading)
             events.collect { event ->
                 when (event) {
                     is LoadingUiEvent.NavigateToNextScreen -> {
@@ -94,7 +92,6 @@ fun LoadingPreview() {
                 title = UiText.StringResource(R.string.loading),
                 progress = 0.5f
             ),
-            onEvent = {},
             events = MutableSharedFlow<LoadingUiEvent>().asSharedFlow(),
             navigateToNext = {}
         )

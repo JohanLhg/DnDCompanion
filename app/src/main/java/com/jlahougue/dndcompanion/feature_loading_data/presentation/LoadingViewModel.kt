@@ -49,6 +49,11 @@ class LoadingViewModel(
                 }
                 module.loadAll()
             }
+            is LoadingEvent.UserAuthenticated -> {
+                viewModelScope.launch(module.dispatcherProvider.io) {
+                    module.loadAll.onUserAuthenticated()
+                }
+            }
         }
     }
 }

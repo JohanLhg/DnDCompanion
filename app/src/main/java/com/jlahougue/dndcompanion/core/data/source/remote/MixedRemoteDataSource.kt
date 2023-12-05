@@ -11,6 +11,7 @@ class MixedRemoteDataSource(
     private val dnd5eDataSource: Dnd5eDataSource,
     private val open5eDataSource: Open5eDataSource
 ): RemoteDataSource {
+    override val authDao by lazy { firebaseDataSource.authDao }
     override val characterSheetDao by lazy { firebaseDataSource.characterSheetDao }
     override val characterDao by lazy { firebaseDataSource.characterDao }
     override val abilityDao by lazy { firebaseDataSource.abilityDao }

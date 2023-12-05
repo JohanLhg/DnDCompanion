@@ -13,6 +13,7 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
+import com.jlahougue.dndcompanion.DnDCompanionApp
 import com.jlahougue.dndcompanion.activity.navigation.authenticationNavigation
 import com.jlahougue.dndcompanion.activity.navigation.characterSelectionNavigation
 import com.jlahougue.dndcompanion.core.domain.util.extension.viewModelFactory
@@ -28,7 +29,9 @@ class DnDCompanionActivity : ComponentActivity() {
 
         val splashScreenViewModel by viewModels<SplashScreenViewModel> {
             viewModelFactory {
-                SplashScreenViewModel()
+                SplashScreenViewModel(
+                    isLoggedIn = DnDCompanionApp.authModule.authUseCases.isLoggedIn
+                )
             }
         }
         installSplashScreen().apply {
@@ -55,7 +58,7 @@ class DnDCompanionActivity : ComponentActivity() {
                             coroutineScope = scope,
                             isUserAuthenticated = splashScreenViewModel.isUserAuthenticated(),
                             navigateToNext = {
-                                onNavigationToGroup(ScreenGroup.CharacterSelection)
+                                onNavigateToGroup(ScreenGroup.CharacterSelection)
                             }
                         )
                         characterSelectionNavigation(
@@ -71,7 +74,7 @@ class DnDCompanionActivity : ComponentActivity() {
         }
     }
 
-    fun onNavigationToGroup(screenGroup: ScreenGroup) {
+    private fun onNavigateToGroup(screenGroup: ScreenGroup) {
         when (screenGroup) {
             ScreenGroup.Authentication -> {
                 navController.navigate(ScreenGroup.Authentication.route)

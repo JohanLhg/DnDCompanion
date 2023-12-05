@@ -1,6 +1,6 @@
 package com.jlahougue.dndcompanion.data_authentication.domain.repository
 
-interface AuthRepository {
+interface IAuthRepository {
     fun isLoggedIn(): Boolean
     suspend fun register(email: String, password: String, callback: (Boolean) -> Unit)
     suspend fun login(email: String, password: String, callback: (Boolean) -> Unit)

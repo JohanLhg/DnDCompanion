@@ -1,12 +1,12 @@
-package com.jlahougue.dndcompanion.feature_authentication.domain.use_case
+package com.jlahougue.dndcompanion.data_authentication.domain.use_case
 
 import com.jlahougue.dndcompanion.R
 import com.jlahougue.dndcompanion.core.domain.util.UiText
-import com.jlahougue.dndcompanion.data_authentication.domain.repository.AuthRepository
-import com.jlahougue.dndcompanion.feature_authentication.domain.model.InvalidAuthException
+import com.jlahougue.dndcompanion.data_authentication.domain.model.InvalidAuthException
+import com.jlahougue.dndcompanion.data_authentication.domain.repository.IAuthRepository
 
 class Register(
-    private val authRepository: AuthRepository
+    private val authRepository: IAuthRepository
 ) {
 
     @Throws(InvalidAuthException::class)

@@ -7,6 +7,8 @@ import com.jlahougue.dndcompanion.core.di.IAppModule
 import com.jlahougue.dndcompanion.core.di.IDataSourceModule
 import com.jlahougue.dndcompanion.data_ability.di.AbilityModule
 import com.jlahougue.dndcompanion.data_ability.di.IAbilityModule
+import com.jlahougue.dndcompanion.data_authentication.di.AuthModule
+import com.jlahougue.dndcompanion.data_authentication.di.IAuthModule
 import com.jlahougue.dndcompanion.data_character.di.CharacterModule
 import com.jlahougue.dndcompanion.data_character.di.ICharacterModule
 import com.jlahougue.dndcompanion.data_character_sheet.di.CharacterSheetModule
@@ -25,8 +27,8 @@ import com.jlahougue.dndcompanion.data_spell.di.ISpellModule
 import com.jlahougue.dndcompanion.data_spell.di.SpellModule
 import com.jlahougue.dndcompanion.data_weapon.di.IWeaponModule
 import com.jlahougue.dndcompanion.data_weapon.di.WeaponModule
-import com.jlahougue.dndcompanion.feature_authentication.di.AuthModule
-import com.jlahougue.dndcompanion.feature_authentication.di.IAuthModule
+import com.jlahougue.dndcompanion.feature_authentication.di.AuthenticationModule
+import com.jlahougue.dndcompanion.feature_authentication.di.IAuthenticationModule
 import com.jlahougue.dndcompanion.feature_character_selection.di.CharacterSelectionModule
 import com.jlahougue.dndcompanion.feature_character_selection.di.ICharacterSelectionModule
 import com.jlahougue.dndcompanion.feature_loading_data.di.ILoadingModule
@@ -38,6 +40,7 @@ class DnDCompanionApp: Application() {
         lateinit var appModule: IAppModule
         lateinit var dataSourceModule: IDataSourceModule
 
+        lateinit var authModule: IAuthModule
         lateinit var characterModule: ICharacterModule
         lateinit var abilityModule: IAbilityModule
         lateinit var skillModule: ISkillModule
@@ -50,7 +53,7 @@ class DnDCompanionApp: Application() {
         lateinit var characterSheetModule: ICharacterSheetModule
 
         lateinit var weaponModule: IWeaponModule
-        lateinit var authModule: IAuthModule
+        lateinit var authenticationModule: IAuthenticationModule
         lateinit var loadingModule: ILoadingModule
         lateinit var characterSelectionModule: ICharacterSelectionModule
     }
@@ -63,6 +66,10 @@ class DnDCompanionApp: Application() {
             appModule.dispatcherProvider
         )
 
+        authModule = AuthModule(
+            appModule.dispatcherProvider,
+            dataSourceModule.remoteDataSource
+        )
         characterModule = CharacterModule(
             dataSourceModule.remoteDataSource,
             dataSourceModule.localDataSource
@@ -104,8 +111,9 @@ class DnDCompanionApp: Application() {
             dataSourceModule.remoteDataSource
         )
 
-        authModule = AuthModule(
-            appModule.dispatcherProvider
+        authenticationModule = AuthenticationModule(
+            appModule.dispatcherProvider,
+            authModule.authUseCases
         )
         loadingModule = LoadingModule(
             appModule.dispatcherProvider,

@@ -51,7 +51,7 @@ fun NavGraphBuilder.authenticationNavigation(
             }
             val viewModel = viewModel<LoginViewModel>(
                 factory = viewModelFactory {
-                    LoginViewModel(DnDCompanionApp.authModule)
+                    LoginViewModel(DnDCompanionApp.authenticationModule)
                 }
             )
             LoginScreen(
@@ -82,7 +82,7 @@ fun NavGraphBuilder.authenticationNavigation(
             }
             val viewModel = viewModel<RegisterViewModel>(
                 factory = viewModelFactory {
-                    RegisterViewModel(DnDCompanionApp.authModule)
+                    RegisterViewModel(DnDCompanionApp.authenticationModule)
                 }
             )
             RegisterScreen(
@@ -109,11 +109,11 @@ fun NavGraphBuilder.authenticationNavigation(
             LaunchedEffect(Unit) {
                 coroutineScope.launch {
                     viewModel.onEvent(LoadingEvent.StartLoading)
+                    viewModel.onEvent(LoadingEvent.UserAuthenticated)
                 }
             }
             LoadingScreen(
                 state = viewModel.state.value,
-                onEvent = viewModel::onEvent,
                 events = viewModel.event,
                 navigateToNext = navigateToNext
             )
