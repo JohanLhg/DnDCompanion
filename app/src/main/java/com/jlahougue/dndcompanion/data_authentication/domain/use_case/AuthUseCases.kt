@@ -1,4 +1,4 @@
-package com.jlahougue.dndcompanion.feature_authentication.domain.use_case
+package com.jlahougue.dndcompanion.data_authentication.domain.use_case
 
 data class AuthUseCases(
     val isLoggedIn: IsLoggedIn,

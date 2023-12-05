@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.ClickableText
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
@@ -30,6 +31,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
@@ -60,7 +62,6 @@ fun LoginScreen(
         snackbarHost = { SnackbarHost(snackbarHostState) }
     ) { paddingValues ->
         LaunchedEffect(Unit) {
-            onEvent(LoginEvent.CheckIfLoggedIn)
             events.collect { event ->
                 when (event) {
                     is AuthUiEvent.ShowSnackbar -> {
@@ -68,7 +69,6 @@ fun LoginScreen(
                             snackbarHostState.showSnackbar(event.message.getString(context))
                         }
                     }
-
                     is AuthUiEvent.NavigateToNextScreen -> {
                         navigateToNext()
                     }
@@ -102,7 +102,10 @@ fun LoginScreen(
                     modifier = Modifier
                         .padding(top = MaterialTheme.spacing.small),
                     textStyle = MaterialTheme.typography.bodyLarge,
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Email,
+                        imeAction = ImeAction.Next
+                    ),
                 )
                 OutlinedTextField(
                     label = { Text(text = stringResource(R.string.label_password)) },
@@ -112,7 +115,13 @@ fun LoginScreen(
                         .padding(top = MaterialTheme.spacing.small),
                     textStyle = MaterialTheme.typography.bodyLarge,
                     visualTransformation = PasswordVisualTransformation(),
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Password,
+                        imeAction = ImeAction.Done
+                    ),
+                    keyboardActions = KeyboardActions(
+                        onDone = { onEvent(LoginEvent.Login) }
+                    )
                 )
                 Button(
                     onClick = { onEvent(LoginEvent.Login) },

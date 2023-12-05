@@ -5,10 +5,10 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.installations.FirebaseInstallations
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.jlahougue.dndcompanion.data_ability.data.source.remote.AbilityFirebaseDataSource
+import com.jlahougue.dndcompanion.data_authentication.data.source.AuthFirebaseDataSource
 import com.jlahougue.dndcompanion.data_character.data.source.remote.CharacterFirebaseDataSource
 import com.jlahougue.dndcompanion.data_character_sheet.data.source.remote.CharacterSheetFirebaseDataSource
 import com.jlahougue.dndcompanion.data_character_spell.data.source.remote.CharacterSpellFirebaseDataSource
@@ -17,16 +17,16 @@ import com.jlahougue.dndcompanion.data_weapon.data.source.remote.subsource.Weapo
 
 class FirebaseDataSource {
 
-    private val firestore: FirebaseFirestore
-    private val auth: FirebaseAuth
-    val storage: FirebaseStorage
-    var id = ""
+    private val firestore by lazy { FirebaseFirestore.getInstance() }
+    private val auth by lazy { FirebaseAuth.getInstance() }
+    val storage: FirebaseStorage by lazy { FirebaseStorage.getInstance() }
     val uid
         get() = auth.uid.toString()
-    val userReference: DocumentReference
+    private val userReference: DocumentReference
         get() = firestore.collection(TAG_USERS).document(uid)
 
     //region Data Access Objects
+    val authDao by lazy { AuthFirebaseDataSource(auth) }
     val characterSheetDao by lazy { CharacterSheetFirebaseDataSource(this) }
     val characterDao by lazy { CharacterFirebaseDataSource(this) }
     val abilityDao by lazy { AbilityFirebaseDataSource(this) }
@@ -34,19 +34,6 @@ class FirebaseDataSource {
     val characterSpellDao by lazy { CharacterSpellFirebaseDataSource(this) }
     val weaponDao by lazy { WeaponFirebaseDataSource(this) }
     //endregion
-
-    init {
-        setID()
-        firestore = FirebaseFirestore.getInstance()
-        auth = FirebaseAuth.getInstance()
-        storage = FirebaseStorage.getInstance()
-    }
-
-    private fun setID() {
-        id = ""
-        FirebaseInstallations.getInstance().id
-            .addOnSuccessListener { id = it }
-    }
 
     fun characterReferences(): CollectionReference {
         return userReference.collection(TAG_CHARACTERS)

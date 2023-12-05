@@ -1,9 +1,9 @@
 package com.jlahougue.dndcompanion.feature_authentication.di
 
 import com.jlahougue.dndcompanion.core.domain.util.dispatcherProvider.DispatcherProvider
-import com.jlahougue.dndcompanion.feature_authentication.domain.use_case.AuthUseCases
+import com.jlahougue.dndcompanion.data_authentication.domain.use_case.AuthUseCases
 
-interface IAuthModule {
+interface IAuthenticationModule {
     val dispatcherProvider: DispatcherProvider
     val authUseCases: AuthUseCases
 }

@@ -1,11 +1,10 @@
-package com.jlahougue.dndcompanion.feature_authentication.data.repository
+package com.jlahougue.dndcompanion.data_authentication.data.source
 
 import com.google.firebase.auth.FirebaseAuth
-import com.jlahougue.dndcompanion.data_authentication.domain.repository.AuthRepository
 
-class AuthRepositoryFirebase(
+class AuthFirebaseDataSource(
     private val firebaseAuth: FirebaseAuth
-) : AuthRepository {
+) : AuthRemoteDataSource {
 
     override fun isLoggedIn() = firebaseAuth.currentUser != null
 
