@@ -16,8 +16,13 @@ class CharacterSelectionViewModel(
 ) : ViewModel() {
 
     var characters by mutableStateOf(emptyList<Character>())
+        private set
 
-    fun getCharacters() {
+    fun setCharacter(characterId: Long) {
+        module.userInfoRepository.updateCharacterId(characterId)
+    }
+
+    fun getCharacterList() {
         viewModelScope.launch {
             module.characterRepository.get().collect { list ->
                 characters = list

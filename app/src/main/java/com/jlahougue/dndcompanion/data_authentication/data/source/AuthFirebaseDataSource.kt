@@ -6,19 +6,19 @@ class AuthFirebaseDataSource(
     private val firebaseAuth: FirebaseAuth
 ) : AuthRemoteDataSource {
 
-    override fun isLoggedIn() = firebaseAuth.currentUser != null
+    override fun getUserId() = firebaseAuth.currentUser?.uid
 
-    override suspend fun register(email: String, password: String, callback: (Boolean) -> Unit) {
+    override suspend fun register(email: String, password: String, callback: (String?) -> Unit) {
         firebaseAuth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
-                callback(task.isSuccessful)
+                callback(task.result?.user?.uid)
             }
     }
 
-    override suspend fun login(email: String, password: String, callback: (Boolean) -> Unit) {
+    override suspend fun login(email: String, password: String, callback: (String?) -> Unit) {
         firebaseAuth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
-                callback(task.isSuccessful)
+                callback(task.result?.user?.uid)
             }
     }
 

@@ -7,13 +7,13 @@ class AuthRepository(
     private val remote: AuthRemoteDataSource
 ) : IAuthRepository {
 
-    override fun isLoggedIn() = remote.isLoggedIn()
+    override fun getUserId() = remote.getUserId()
 
-    override suspend fun register(email: String, password: String, callback: (Boolean) -> Unit) {
+    override suspend fun register(email: String, password: String, callback: (String?) -> Unit) {
         remote.register(email, password, callback)
     }
 
-    override suspend fun login(email: String, password: String, callback: (Boolean) -> Unit) {
+    override suspend fun login(email: String, password: String, callback: (String?) -> Unit) {
         remote.login(email, password, callback)
     }
 

@@ -11,9 +11,6 @@ class SplashScreenViewModel(
     private val _isLoading = MutableStateFlow(true)
     val isLoading = _isLoading.asStateFlow()
 
-    private val _isAuthenticated = MutableStateFlow(false)
-    val isAuthenticated = _isAuthenticated.asStateFlow()
-
     fun isUserAuthenticated(): Boolean {
         val isAuthenticated = isLoggedIn()
         _isLoading.value = false

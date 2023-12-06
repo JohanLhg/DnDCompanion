@@ -25,6 +25,8 @@ import com.jlahougue.dndcompanion.data_skill.di.ISkillModule
 import com.jlahougue.dndcompanion.data_skill.di.SkillModule
 import com.jlahougue.dndcompanion.data_spell.di.ISpellModule
 import com.jlahougue.dndcompanion.data_spell.di.SpellModule
+import com.jlahougue.dndcompanion.data_user_info.di.IUserInfoModule
+import com.jlahougue.dndcompanion.data_user_info.di.UserInfoModule
 import com.jlahougue.dndcompanion.data_weapon.di.IWeaponModule
 import com.jlahougue.dndcompanion.data_weapon.di.WeaponModule
 import com.jlahougue.dndcompanion.feature_authentication.di.AuthenticationModule
@@ -39,6 +41,8 @@ class DnDCompanionApp: Application() {
     companion object {
         lateinit var appModule: IAppModule
         lateinit var dataSourceModule: IDataSourceModule
+
+        lateinit var userInfoModule: IUserInfoModule
 
         lateinit var authModule: IAuthModule
         lateinit var characterModule: ICharacterModule
@@ -66,9 +70,15 @@ class DnDCompanionApp: Application() {
             appModule.dispatcherProvider
         )
 
+        userInfoModule = UserInfoModule(
+            this,
+            appModule.dispatcherProvider
+        )
+
         authModule = AuthModule(
             appModule.dispatcherProvider,
-            dataSourceModule.remoteDataSource
+            dataSourceModule.remoteDataSource,
+            userInfoModule.userInfoRepository
         )
         characterModule = CharacterModule(
             dataSourceModule.remoteDataSource,
@@ -131,6 +141,7 @@ class DnDCompanionApp: Application() {
         characterSelectionModule = CharacterSelectionModule(
             appModule.dispatcherProvider,
             characterModule.characterRepository,
+            userInfoModule.userInfoRepository,
             abilityModule.abilityRepository,
             skillModule.skillRepository
         )

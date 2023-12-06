@@ -4,9 +4,11 @@ import com.jlahougue.dndcompanion.R
 import com.jlahougue.dndcompanion.core.domain.util.UiText
 import com.jlahougue.dndcompanion.data_authentication.domain.model.InvalidAuthException
 import com.jlahougue.dndcompanion.data_authentication.domain.repository.IAuthRepository
+import com.jlahougue.dndcompanion.data_user_info.domain.repository.IUserInfoRepository
 
 class Register(
-    private val authRepository: IAuthRepository
+    private val authRepository: IAuthRepository,
+    private val userInfoRepository: IUserInfoRepository
 ) {
 
     @Throws(InvalidAuthException::class)
@@ -26,6 +28,9 @@ class Register(
                 UiText.StringResource(R.string.error_passwords_do_not_match)
             )
         }
-        authRepository.register(email, password, callback)
+        authRepository.register(email, password) {
+            userInfoRepository.updateUserId(it)
+            callback(it != null)
+        }
     }
 }

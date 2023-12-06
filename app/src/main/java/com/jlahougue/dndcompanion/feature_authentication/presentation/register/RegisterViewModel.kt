@@ -26,13 +26,6 @@ class RegisterViewModel(
 
     fun onEvent(event: RegisterEvent) {
         when (event) {
-            is RegisterEvent.CheckIfLoggedIn -> {
-                if (module.authUseCases.isLoggedIn()) {
-                    viewModelScope.launch {
-                        _event.emit(AuthUiEvent.NavigateToNextScreen)
-                    }
-                }
-            }
             is RegisterEvent.EmailChanged -> {
                 _state.value = state.value.copy(email = event.email)
             }

@@ -14,8 +14,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.jlahougue.dndcompanion.DnDCompanionApp
-import com.jlahougue.dndcompanion.activity.navigation.authenticationNavigation
-import com.jlahougue.dndcompanion.activity.navigation.characterSelectionNavigation
+import com.jlahougue.dndcompanion.activity.navigation.authenticationSection
+import com.jlahougue.dndcompanion.activity.navigation.characterSelectionSection
+import com.jlahougue.dndcompanion.activity.navigation.combatSection
 import com.jlahougue.dndcompanion.core.domain.util.extension.viewModelFactory
 import com.jlahougue.dndcompanion.core.presentation.theme.DnDCompanionTheme
 import com.jlahougue.dndcompanion.feature_splash_screen.presentation.SplashScreenViewModel
@@ -52,7 +53,7 @@ class DnDCompanionActivity : ComponentActivity() {
                         navController = navController,
                         startDestination = ScreenGroup.Authentication.route
                     ) {
-                        authenticationNavigation(
+                        authenticationSection(
                             navController = navController,
                             route = ScreenGroup.Authentication.route,
                             coroutineScope = scope,
@@ -61,10 +62,14 @@ class DnDCompanionActivity : ComponentActivity() {
                                 onNavigateToGroup(ScreenGroup.CharacterSelection)
                             }
                         )
-                        characterSelectionNavigation(
-                            navController = navController,
+                        characterSelectionSection(
                             route = ScreenGroup.CharacterSelection.route,
-                            coroutineScope = scope,
+                            navigateToNext = {
+                                onNavigateToGroup(ScreenGroup.Combat)
+                            }
+                        )
+                        combatSection(
+                            route = ScreenGroup.Combat.route,
                             navigateToNext = {
                             }
                         )
@@ -76,15 +81,15 @@ class DnDCompanionActivity : ComponentActivity() {
 
     private fun onNavigateToGroup(screenGroup: ScreenGroup) {
         when (screenGroup) {
-            ScreenGroup.Authentication -> {
-                navController.navigate(ScreenGroup.Authentication.route)
-            }
             ScreenGroup.CharacterSelection -> {
                 navController.navigate(ScreenGroup.CharacterSelection.route) {
                     popUpTo(ScreenGroup.Authentication.route) {
                         inclusive = true
                     }
                 }
+            }
+            else -> {
+                navController.navigate(screenGroup.route)
             }
         }
     }

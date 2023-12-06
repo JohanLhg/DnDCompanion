@@ -19,7 +19,7 @@ import com.jlahougue.dndcompanion.feature_loading_data.presentation.LoadingViewM
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-fun NavGraphBuilder.authenticationNavigation(
+fun NavGraphBuilder.authenticationSection(
     navController: NavHostController,
     coroutineScope: CoroutineScope,
     route: String,
@@ -27,16 +27,16 @@ fun NavGraphBuilder.authenticationNavigation(
     navigateToNext: () -> Unit = { }
 ) {
     val startDestination = if (isUserAuthenticated) {
-        AuthScreen.LoadingScreen.route
+        AuthScreen.Loading.route
     } else {
-        AuthScreen.LoginScreen.route
+        AuthScreen.Login.route
     }
     navigation(
         route = route,
         startDestination = startDestination
     ) {
         composable(
-            route = AuthScreen.LoginScreen.route
+            route = AuthScreen.Login.route
         ) { entry ->
             val loadingViewModel = entry.sharedViewModel<LoadingViewModel>(
                 navController = navController,
@@ -59,15 +59,15 @@ fun NavGraphBuilder.authenticationNavigation(
                 onEvent = viewModel::onEvent,
                 events = viewModel.event,
                 navigateToRegister = {
-                    navigateTo(navController, AuthScreen.RegisterScreen)
+                    navigateTo(navController, AuthScreen.Register)
                 },
                 navigateToNext = {
-                    navigateTo(navController, AuthScreen.LoadingScreen)
+                    navigateTo(navController, AuthScreen.Loading)
                 }
             )
         }
         composable(
-            route = AuthScreen.RegisterScreen.route
+            route = AuthScreen.Register.route
         ) { entry ->
             val loadingViewModel = entry.sharedViewModel<LoadingViewModel>(
                 navController = navController,
@@ -90,15 +90,15 @@ fun NavGraphBuilder.authenticationNavigation(
                 onEvent = viewModel::onEvent,
                 events = viewModel.event,
                 navigateToLogin = {
-                    navigateTo(navController, AuthScreen.LoginScreen)
+                    navigateTo(navController, AuthScreen.Login)
                 },
                 navigateToNext = {
-                    navigateTo(navController, AuthScreen.LoadingScreen)
+                    navigateTo(navController, AuthScreen.Loading)
                 }
             )
         }
         composable(
-            route = AuthScreen.LoadingScreen.route
+            route = AuthScreen.Loading.route
         ) { entry ->
             val viewModel = entry.sharedViewModel<LoadingViewModel>(
                 navController = navController,
@@ -122,9 +122,9 @@ fun NavGraphBuilder.authenticationNavigation(
 }
 
 sealed class AuthScreen(val route: String) {
-    data object LoginScreen : AuthScreen("login_screen")
-    data object RegisterScreen : AuthScreen("register_screen")
-    data object LoadingScreen : AuthScreen("loading_screen")
+    data object Login : AuthScreen("login")
+    data object Register : AuthScreen("register")
+    data object Loading : AuthScreen("loading")
 }
 
 private fun navigateTo(
@@ -132,13 +132,13 @@ private fun navigateTo(
     screen: AuthScreen
 ) {
     when (screen) {
-        is AuthScreen.LoginScreen -> {
+        is AuthScreen.Login -> {
             navController.navigate(screen.route)
         }
-        is AuthScreen.RegisterScreen -> {
+        is AuthScreen.Register -> {
             navController.navigate(screen.route)
         }
-        is AuthScreen.LoadingScreen -> {
+        is AuthScreen.Loading -> {
             navController.navigate(screen.route)
         }
     }

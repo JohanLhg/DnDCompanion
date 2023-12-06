@@ -7,10 +7,12 @@ import com.jlahougue.dndcompanion.data_authentication.domain.use_case.AuthUseCas
 import com.jlahougue.dndcompanion.data_authentication.domain.use_case.IsLoggedIn
 import com.jlahougue.dndcompanion.data_authentication.domain.use_case.Login
 import com.jlahougue.dndcompanion.data_authentication.domain.use_case.Register
+import com.jlahougue.dndcompanion.data_user_info.domain.repository.IUserInfoRepository
 
 class AuthModule(
     override val dispatcherProvider: DispatcherProvider,
-    val remoteDataSource: RemoteDataSource
+    val remoteDataSource: RemoteDataSource,
+    val userInfoRepository: IUserInfoRepository
 ) : IAuthModule {
 
     override val authRepository by lazy {
@@ -19,9 +21,18 @@ class AuthModule(
 
     override val authUseCases by lazy {
         AuthUseCases(
-            isLoggedIn = IsLoggedIn(authRepository),
-            login = Login(authRepository),
-            register = Register(authRepository)
+            isLoggedIn = IsLoggedIn(
+                authRepository,
+                userInfoRepository
+            ),
+            login = Login(
+                authRepository,
+                userInfoRepository
+            ),
+            register = Register(
+                authRepository,
+                userInfoRepository
+            )
         )
     }
 }

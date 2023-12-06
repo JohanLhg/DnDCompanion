@@ -63,7 +63,6 @@ fun RegisterScreen(
         snackbarHost = { SnackbarHost(snackbarHostState) }
     ) { paddingValues ->
         LaunchedEffect(Unit) {
-            onEvent(RegisterEvent.CheckIfLoggedIn)
             events.collect { event ->
                 when (event) {
                     is AuthUiEvent.ShowSnackbar -> {
