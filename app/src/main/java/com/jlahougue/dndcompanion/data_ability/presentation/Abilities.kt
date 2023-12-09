@@ -9,12 +9,14 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
@@ -22,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import com.jlahougue.dndcompanion.core.domain.util.extension.toSignedString
 import com.jlahougue.dndcompanion.core.presentation.components.FramedBox
 import com.jlahougue.dndcompanion.core.presentation.theme.DnDCompanionTheme
+import com.jlahougue.dndcompanion.core.presentation.theme.spacing
 import com.jlahougue.dndcompanion.data_ability.domain.model.AbilityName
 import com.jlahougue.dndcompanion.data_ability.domain.model.AbilityView
 
@@ -57,29 +60,37 @@ fun Abilities(
 
 @Composable
 fun AbilityRow(ability: AbilityView) {
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
-        Text(
-            text = ability.name.getShortString(),
-            style = MaterialTheme.typography.titleSmall
+    Column {
+        Divider(
+            modifier = Modifier
+                .padding(vertical = MaterialTheme.spacing.extraSmall)
         )
-        Spacer(modifier = Modifier
-            .width(0.dp)
-            .weight(1f)
-        )
-        Text(
-            text = ability.modifier.toSignedString(),
-            modifier = Modifier.width(50.dp),
-            textAlign = TextAlign.Center,
-            style = MaterialTheme.typography.bodySmall
-        )
-        Text(
-            text = ability.savingThrow.toSignedString(),
-            modifier = Modifier.width(50.dp),
-            textAlign = TextAlign.Center,
-            style = MaterialTheme.typography.bodySmall
-        )
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Text(
+                text = ability.name.getShortString(),
+                style = MaterialTheme.typography.titleSmall
+            )
+            Spacer(modifier = Modifier
+                .width(0.dp)
+                .weight(1f)
+            )
+            Text(
+                text = ability.modifier.toSignedString(),
+                modifier = Modifier.width(50.dp),
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.bodySmall,
+                fontWeight = if (ability.proficiency) FontWeight.Bold else FontWeight.Normal
+            )
+            Text(
+                text = ability.savingThrow.toSignedString(),
+                modifier = Modifier.width(50.dp),
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.bodySmall,
+                fontWeight = if (ability.proficiency) FontWeight.Bold else FontWeight.Normal
+            )
+        }
     }
 }
 

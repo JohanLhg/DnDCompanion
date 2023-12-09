@@ -26,10 +26,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".feature_combat.presentation.CombatActivity"
-            android:exported="false"
-            android:label="@string/title_activity_combat" />
     </application>
 
 </manifest>

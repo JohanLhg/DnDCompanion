@@ -20,6 +20,7 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.jlahougue.dndcompanion.core.presentation.theme.DnDCompanionTheme
+import com.jlahougue.dndcompanion.core.presentation.theme.spacing
 import java.util.Locale
 
 @Composable
@@ -30,7 +31,7 @@ fun FramedBox(
 ) {
     Box(
         modifier = modifier
-            .padding(5.dp)
+            .padding(MaterialTheme.spacing.small)
     ) {
         Box(
             modifier = Modifier
@@ -47,9 +48,9 @@ fun FramedBox(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(
-                    start = 7.dp,
-                    end = 7.dp,
-                    bottom = 7.dp
+                    start = MaterialTheme.spacing.medium,
+                    end = MaterialTheme.spacing.medium,
+                    bottom = MaterialTheme.spacing.medium
                 )
         ) {
             Text(
@@ -57,7 +58,7 @@ fun FramedBox(
                 style = MaterialTheme.typography.titleMedium,
                 modifier = Modifier
                     .background(Color.White)
-                    .padding(horizontal = 15.dp)
+                    .padding(horizontal = MaterialTheme.spacing.medium)
             )
             content()
         }

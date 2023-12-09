@@ -2,6 +2,7 @@ package com.jlahougue.dndcompanion.activity.navigation
 
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import com.jlahougue.dndcompanion.data_ability.presentation.getAbilitiesPreviewData
 import com.jlahougue.dndcompanion.feature_combat.presentation.CombatScreen
 
 fun NavGraphBuilder.combatSection(
@@ -12,7 +13,7 @@ fun NavGraphBuilder.combatSection(
         route = route
     ) {
         CombatScreen(
-            abilities = listOf(),
+            abilities = getAbilitiesPreviewData()
         )
     }
 }

@@ -21,6 +21,9 @@ import com.jlahougue.dndcompanion.data_class.domain.model.ClassLevel
 import com.jlahougue.dndcompanion.data_class.domain.model.ClassSpellSlot
 import com.jlahougue.dndcompanion.data_damage_type.data.source.local.DamageTypeLocalDataSource
 import com.jlahougue.dndcompanion.data_damage_type.domain.model.DamageType
+import com.jlahougue.dndcompanion.data_health.data.source.local.HealthLocalDataSource
+import com.jlahougue.dndcompanion.data_health.domain.model.DeathSaves
+import com.jlahougue.dndcompanion.data_health.domain.model.Health
 import com.jlahougue.dndcompanion.data_property.data.source.local.PropertyLocalDataSource
 import com.jlahougue.dndcompanion.data_property.domain.model.Property
 import com.jlahougue.dndcompanion.data_skill.data.source.local.SkillLocalDataSource
@@ -37,6 +40,7 @@ import com.jlahougue.dndcompanion.data_weapon.domain.model.WeaponProperty
 @Database(
     entities = [
         Character::class,
+        Health::class, DeathSaves::class,
         Ability::class, Skill::class,
         Class::class, ClassLevel::class, ClassSpellSlot::class,
         DamageType::class, Property::class,
@@ -49,13 +53,14 @@ import com.jlahougue.dndcompanion.data_weapon.domain.model.WeaponProperty
         ProficiencyView::class,
         SpellSlotView::class
     ],
-    version = 5
+    version = 6
 )
 @TypeConverters(
     value = [AbilityNameTypeConverter::class]
 )
 abstract class RoomDataSource : RoomDatabase(), LocalDataSource {
     abstract override fun characterDao(): CharacterLocalDataSource
+    abstract override fun healthDao(): HealthLocalDataSource
     abstract override fun abilityDao(): AbilityLocalDataSource
     abstract override fun skillDao(): SkillLocalDataSource
     abstract override fun classDao(): ClassLocalDataSource

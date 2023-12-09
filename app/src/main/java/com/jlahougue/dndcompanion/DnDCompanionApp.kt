@@ -19,6 +19,8 @@ import com.jlahougue.dndcompanion.data_class.di.ClassModule
 import com.jlahougue.dndcompanion.data_class.di.IClassModule
 import com.jlahougue.dndcompanion.data_damage_type.di.DamageTypeModule
 import com.jlahougue.dndcompanion.data_damage_type.di.IDamageTypeModule
+import com.jlahougue.dndcompanion.data_health.di.HealthModule
+import com.jlahougue.dndcompanion.data_health.di.IHealthModule
 import com.jlahougue.dndcompanion.data_property.di.IPropertyModule
 import com.jlahougue.dndcompanion.data_property.di.PropertyModule
 import com.jlahougue.dndcompanion.data_skill.di.ISkillModule
@@ -46,6 +48,7 @@ class DnDCompanionApp: Application() {
 
         lateinit var authModule: IAuthModule
         lateinit var characterModule: ICharacterModule
+        lateinit var healthModule: IHealthModule
         lateinit var abilityModule: IAbilityModule
         lateinit var skillModule: ISkillModule
         lateinit var classModule: IClassModule
@@ -81,6 +84,10 @@ class DnDCompanionApp: Application() {
             userInfoModule.userInfoRepository
         )
         characterModule = CharacterModule(
+            dataSourceModule.remoteDataSource,
+            dataSourceModule.localDataSource
+        )
+        healthModule = HealthModule(
             dataSourceModule.remoteDataSource,
             dataSourceModule.localDataSource
         )

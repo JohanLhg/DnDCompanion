@@ -23,6 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.jlahougue.dndcompanion.core.presentation.components.FramedBox
 import com.jlahougue.dndcompanion.core.presentation.theme.DnDCompanionTheme
+import com.jlahougue.dndcompanion.core.presentation.theme.spacing
 
 @Composable
 fun Stats(modifier: Modifier = Modifier) {
@@ -37,13 +38,13 @@ fun Stats(modifier: Modifier = Modifier) {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(vertical = 2.dp)
+                    .padding(bottom = MaterialTheme.spacing.small)
             ) {
                 Text(
                     text = "Initiative",
                     style = MaterialTheme.typography.titleSmall,
                     modifier = Modifier
-                        .padding(horizontal = 5.dp)
+                        .padding(end = MaterialTheme.spacing.small)
                 )
                 Spacer(modifier = Modifier
                     .width(0.dp)
@@ -53,21 +54,20 @@ fun Stats(modifier: Modifier = Modifier) {
                     style = MaterialTheme.typography.bodySmall,
                     textAlign = TextAlign.Center,
                     modifier = Modifier
-                        .width(50.dp)
-                        .padding(horizontal = 5.dp)
+                        .width(40.dp)
                 )
             }
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(vertical = 2.dp)
+                    .padding(bottom = MaterialTheme.spacing.small)
             ) {
                 Text(
                     text = "Armor",
                     style = MaterialTheme.typography.titleSmall,
                     modifier = Modifier
-                        .padding(horizontal = 5.dp)
+                        .padding(end = MaterialTheme.spacing.small)
                 )
                 Spacer(modifier = Modifier
                     .width(0.dp)
@@ -79,27 +79,25 @@ fun Stats(modifier: Modifier = Modifier) {
                         textAlign = TextAlign.Center
                     ),
                     modifier = Modifier
-                        .width(50.dp)
-                        .padding(horizontal = 5.dp)
+                        .width(40.dp)
                         .border(
                             1.dp,
                             Color.Gray,
                             RoundedCornerShape(5.dp)
                         )
-                        .padding(horizontal = 5.dp)
+                        .padding(horizontal = MaterialTheme.spacing.small)
                 )
             }
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(vertical = 2.dp)
             ) {
                 Text(
                     text = "Speed",
                     style = MaterialTheme.typography.titleSmall,
                     modifier = Modifier
-                        .padding(horizontal = 5.dp)
+                        .padding(end = MaterialTheme.spacing.small)
                 )
                 Spacer(modifier = Modifier
                     .width(0.dp)
@@ -111,14 +109,13 @@ fun Stats(modifier: Modifier = Modifier) {
                         textAlign = TextAlign.Center
                     ),
                     modifier = Modifier
-                        .width(50.dp)
-                        .padding(horizontal = 5.dp)
+                        .width(40.dp)
                         .border(
                             1.dp,
                             Color.Gray,
                             RoundedCornerShape(5.dp)
                         )
-                        .padding(horizontal = 5.dp)
+                        .padding(horizontal = MaterialTheme.spacing.small)
                 )
             }
         }
