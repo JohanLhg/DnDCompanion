@@ -27,6 +27,8 @@ import com.jlahougue.dndcompanion.data_skill.di.ISkillModule
 import com.jlahougue.dndcompanion.data_skill.di.SkillModule
 import com.jlahougue.dndcompanion.data_spell.di.ISpellModule
 import com.jlahougue.dndcompanion.data_spell.di.SpellModule
+import com.jlahougue.dndcompanion.data_stats.di.IStatsModule
+import com.jlahougue.dndcompanion.data_stats.di.StatsModule
 import com.jlahougue.dndcompanion.data_user_info.di.IUserInfoModule
 import com.jlahougue.dndcompanion.data_user_info.di.UserInfoModule
 import com.jlahougue.dndcompanion.data_weapon.di.IWeaponModule
@@ -35,6 +37,8 @@ import com.jlahougue.dndcompanion.feature_authentication.di.AuthenticationModule
 import com.jlahougue.dndcompanion.feature_authentication.di.IAuthenticationModule
 import com.jlahougue.dndcompanion.feature_character_selection.di.CharacterSelectionModule
 import com.jlahougue.dndcompanion.feature_character_selection.di.ICharacterSelectionModule
+import com.jlahougue.dndcompanion.feature_combat.di.CombatModule
+import com.jlahougue.dndcompanion.feature_combat.di.ICombatModule
 import com.jlahougue.dndcompanion.feature_loading_data.di.ILoadingModule
 import com.jlahougue.dndcompanion.feature_loading_data.di.LoadingModule
 
@@ -51,6 +55,7 @@ class DnDCompanionApp: Application() {
         lateinit var healthModule: IHealthModule
         lateinit var abilityModule: IAbilityModule
         lateinit var skillModule: ISkillModule
+        lateinit var statsModule: IStatsModule
         lateinit var classModule: IClassModule
         lateinit var damageTypeModule: IDamageTypeModule
         lateinit var characterSpellModule: ICharacterSpellModule
@@ -63,6 +68,7 @@ class DnDCompanionApp: Application() {
         lateinit var authenticationModule: IAuthenticationModule
         lateinit var loadingModule: ILoadingModule
         lateinit var characterSelectionModule: ICharacterSelectionModule
+        lateinit var combatModule: ICombatModule
     }
 
     override fun onCreate() {
@@ -96,6 +102,10 @@ class DnDCompanionApp: Application() {
             dataSourceModule.localDataSource
         )
         skillModule = SkillModule(
+            dataSourceModule.remoteDataSource,
+            dataSourceModule.localDataSource
+        )
+        statsModule = StatsModule(
             dataSourceModule.remoteDataSource,
             dataSourceModule.localDataSource
         )
@@ -151,6 +161,10 @@ class DnDCompanionApp: Application() {
             userInfoModule.userInfoRepository,
             abilityModule.abilityRepository,
             skillModule.skillRepository
+        )
+        combatModule = CombatModule(
+            appModule.dispatcherProvider,
+            statsModule.statsUseCase
         )
     }
 }

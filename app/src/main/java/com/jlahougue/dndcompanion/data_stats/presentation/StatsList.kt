@@ -26,9 +26,14 @@ import com.jlahougue.dndcompanion.R
 import com.jlahougue.dndcompanion.core.presentation.components.FramedBox
 import com.jlahougue.dndcompanion.core.presentation.theme.DnDCompanionTheme
 import com.jlahougue.dndcompanion.core.presentation.theme.spacing
+import com.jlahougue.dndcompanion.data_stats.domain.model.Stats
 
 @Composable
-fun Stats(modifier: Modifier = Modifier) {
+fun StatsList(
+    stats: Stats,
+    onEvent: (StatsEvent) -> Unit,
+    modifier: Modifier = Modifier
+) {
     FramedBox(
         title = stringResource(id = R.string.stats),
         modifier = modifier
@@ -48,9 +53,11 @@ fun Stats(modifier: Modifier = Modifier) {
                     modifier = Modifier
                         .padding(end = MaterialTheme.spacing.small)
                 )
-                Spacer(modifier = Modifier
-                    .width(0.dp)
-                    .weight(1f))
+                Spacer(
+                    modifier = Modifier
+                        .width(0.dp)
+                        .weight(1f)
+                )
                 Text(
                     text = "+2",
                     style = MaterialTheme.typography.bodySmall,
@@ -71,12 +78,20 @@ fun Stats(modifier: Modifier = Modifier) {
                     modifier = Modifier
                         .padding(end = MaterialTheme.spacing.small)
                 )
-                Spacer(modifier = Modifier
-                    .width(0.dp)
-                    .weight(1f))
+                Spacer(
+                    modifier = Modifier
+                        .width(0.dp)
+                        .weight(1f)
+                )
                 BasicTextField(
-                    value = "0",
-                    onValueChange = {},
+                    value = stats.armorClass.toString(),
+                    onValueChange = {
+                        try {
+                            onEvent(StatsEvent.OnArmorClassChange(it.toInt()))
+                        } catch (e: Exception) {
+                            onEvent(StatsEvent.OnArmorClassChange(0))
+                        }
+                    },
                     textStyle = MaterialTheme.typography.bodySmall.copy(
                         textAlign = TextAlign.Center
                     ),
@@ -101,12 +116,20 @@ fun Stats(modifier: Modifier = Modifier) {
                     modifier = Modifier
                         .padding(end = MaterialTheme.spacing.small)
                 )
-                Spacer(modifier = Modifier
-                    .width(0.dp)
-                    .weight(1f))
+                Spacer(
+                    modifier = Modifier
+                        .width(0.dp)
+                        .weight(1f)
+                )
                 BasicTextField(
-                    value = "0",
-                    onValueChange = {},
+                    value = stats.speed.toString(),
+                    onValueChange = {
+                        try {
+                            onEvent(StatsEvent.OnSpeedChange(it.toInt()))
+                        } catch (e: Exception) {
+                            onEvent(StatsEvent.OnSpeedChange(0))
+                        }
+                    },
                     textStyle = MaterialTheme.typography.bodySmall.copy(
                         textAlign = TextAlign.Center
                     ),
@@ -131,7 +154,13 @@ fun Stats(modifier: Modifier = Modifier) {
 @Composable
 fun StatsPreview() {
     DnDCompanionTheme {
-        Stats(
+        StatsList(
+            stats = Stats(
+                cid = 1,
+                armorClass = 10,
+                speed = 30
+            ),
+            onEvent = {},
             modifier = Modifier
                 .fillMaxWidth()
                 .height(IntrinsicSize.Max)

@@ -16,7 +16,8 @@ import com.jlahougue.dndcompanion.data_ability.presentation.getAbilitiesPreviewD
 import com.jlahougue.dndcompanion.data_character_spell.presentation.SpellLevel
 import com.jlahougue.dndcompanion.data_health.domain.model.Health
 import com.jlahougue.dndcompanion.data_health.presentation.HealthBox
-import com.jlahougue.dndcompanion.data_stats.presentation.Stats
+import com.jlahougue.dndcompanion.data_stats.domain.model.Stats
+import com.jlahougue.dndcompanion.data_stats.presentation.StatsList
 
 @Composable
 fun CombatScreen(
@@ -32,7 +33,13 @@ fun CombatScreen(
                 modifier = Modifier
                     .height(IntrinsicSize.Max)
             )
-            Stats(
+            StatsList(
+                stats = Stats(
+                    cid = 1,
+                    armorClass = 10,
+                    speed = 30
+                ),
+                onEvent = {},
                 modifier = Modifier
                     .height(IntrinsicSize.Max)
             )
