@@ -32,6 +32,8 @@ import com.jlahougue.dndcompanion.data_spell.data.source.local.SpellLocalDataSou
 import com.jlahougue.dndcompanion.data_spell.domain.model.Spell
 import com.jlahougue.dndcompanion.data_spell.domain.model.SpellClass
 import com.jlahougue.dndcompanion.data_spell.domain.model.SpellDamageType
+import com.jlahougue.dndcompanion.data_stats.data.source.local.StatsLocalDataSource
+import com.jlahougue.dndcompanion.data_stats.domain.model.Stats
 import com.jlahougue.dndcompanion.data_weapon.data.source.local.WeaponLocalDataSource
 import com.jlahougue.dndcompanion.data_weapon.domain.model.CharacterWeapon
 import com.jlahougue.dndcompanion.data_weapon.domain.model.Weapon
@@ -41,7 +43,7 @@ import com.jlahougue.dndcompanion.data_weapon.domain.model.WeaponProperty
     entities = [
         Character::class,
         Health::class, DeathSaves::class,
-        Ability::class, Skill::class,
+        Ability::class, Skill::class, Stats::class,
         Class::class, ClassLevel::class, ClassSpellSlot::class,
         DamageType::class, Property::class,
         Spell::class, SpellClass::class, SpellDamageType::class,
@@ -63,6 +65,7 @@ abstract class RoomDataSource : RoomDatabase(), LocalDataSource {
     abstract override fun healthDao(): HealthLocalDataSource
     abstract override fun abilityDao(): AbilityLocalDataSource
     abstract override fun skillDao(): SkillLocalDataSource
+    abstract override fun statsDao(): StatsLocalDataSource
     abstract override fun classDao(): ClassLocalDataSource
     abstract override fun damageTypeDao(): DamageTypeLocalDataSource
     abstract override fun propertyDao(): PropertyLocalDataSource

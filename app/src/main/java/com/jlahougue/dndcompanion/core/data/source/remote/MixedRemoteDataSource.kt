@@ -17,6 +17,7 @@ class MixedRemoteDataSource(
     override val healthDao by lazy { firebaseDataSource.healthDao }
     override val abilityDao by lazy { firebaseDataSource.abilityDao }
     override val skillDao by lazy { firebaseDataSource.skillDao }
+    override val statsDao by lazy { firebaseDataSource.statsDao }
     override val classDao by lazy {
         ClassMixedRemoteDataSource(
             open5eDataSource.classDao,

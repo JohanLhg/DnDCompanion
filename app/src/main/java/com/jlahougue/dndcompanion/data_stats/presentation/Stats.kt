@@ -1,4 +1,4 @@
-package com.jlahougue.dndcompanion.feature_combat.presentation.components
+package com.jlahougue.dndcompanion.data_stats.presentation
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
@@ -17,10 +17,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.jlahougue.dndcompanion.R
 import com.jlahougue.dndcompanion.core.presentation.components.FramedBox
 import com.jlahougue.dndcompanion.core.presentation.theme.DnDCompanionTheme
 import com.jlahougue.dndcompanion.core.presentation.theme.spacing
@@ -28,7 +30,7 @@ import com.jlahougue.dndcompanion.core.presentation.theme.spacing
 @Composable
 fun Stats(modifier: Modifier = Modifier) {
     FramedBox(
-        title = "Stats",
+        title = stringResource(id = R.string.stats),
         modifier = modifier
     ) {
         Column(
@@ -41,7 +43,7 @@ fun Stats(modifier: Modifier = Modifier) {
                     .padding(bottom = MaterialTheme.spacing.small)
             ) {
                 Text(
-                    text = "Initiative",
+                    text = stringResource(id = R.string.stats_initiative),
                     style = MaterialTheme.typography.titleSmall,
                     modifier = Modifier
                         .padding(end = MaterialTheme.spacing.small)
@@ -64,7 +66,7 @@ fun Stats(modifier: Modifier = Modifier) {
                     .padding(bottom = MaterialTheme.spacing.small)
             ) {
                 Text(
-                    text = "Armor",
+                    text = stringResource(id = R.string.stats_armor_class),
                     style = MaterialTheme.typography.titleSmall,
                     modifier = Modifier
                         .padding(end = MaterialTheme.spacing.small)
@@ -94,7 +96,7 @@ fun Stats(modifier: Modifier = Modifier) {
                     .fillMaxWidth()
             ) {
                 Text(
-                    text = "Speed",
+                    text = stringResource(id = R.string.stats_speed),
                     style = MaterialTheme.typography.titleSmall,
                     modifier = Modifier
                         .padding(end = MaterialTheme.spacing.small)

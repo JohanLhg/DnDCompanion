@@ -52,6 +52,12 @@
     <string name="skill_stealth">Stealth</string>
     <string name="skill_survival">Survival</string>
 
+    <!-- Stats -->
+    <string name="stats">Stats</string>
+    <string name="stats_initiative">Initiative</string>
+    <string name="stats_armor_class">Armor Class</string>
+    <string name="stats_speed">Speed</string>
+
     <!-- AuthActivity -->
     <string name="title_activity_auth">Auth Activity</string>
     <string name="label_logo">App Logo</string>

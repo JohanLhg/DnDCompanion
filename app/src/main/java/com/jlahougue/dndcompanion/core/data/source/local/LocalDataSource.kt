@@ -9,6 +9,7 @@ import com.jlahougue.dndcompanion.data_health.data.source.local.HealthLocalDataS
 import com.jlahougue.dndcompanion.data_property.data.source.local.PropertyLocalDataSource
 import com.jlahougue.dndcompanion.data_skill.data.source.local.SkillLocalDataSource
 import com.jlahougue.dndcompanion.data_spell.data.source.local.SpellLocalDataSource
+import com.jlahougue.dndcompanion.data_stats.data.source.local.StatsLocalDataSource
 import com.jlahougue.dndcompanion.data_weapon.data.source.local.WeaponLocalDataSource
 
 interface LocalDataSource {
@@ -16,6 +17,7 @@ interface LocalDataSource {
     fun healthDao(): HealthLocalDataSource
     fun abilityDao(): AbilityLocalDataSource
     fun skillDao(): SkillLocalDataSource
+    fun statsDao(): StatsLocalDataSource
     fun classDao(): ClassLocalDataSource
     fun damageTypeDao(): DamageTypeLocalDataSource
     fun characterSpellDao(): CharacterSpellLocalDataSource

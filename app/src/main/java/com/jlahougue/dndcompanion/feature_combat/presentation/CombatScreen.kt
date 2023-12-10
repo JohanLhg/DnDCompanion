@@ -16,7 +16,7 @@ import com.jlahougue.dndcompanion.data_ability.presentation.getAbilitiesPreviewD
 import com.jlahougue.dndcompanion.data_character_spell.presentation.SpellLevel
 import com.jlahougue.dndcompanion.data_health.domain.model.Health
 import com.jlahougue.dndcompanion.data_health.presentation.HealthBox
-import com.jlahougue.dndcompanion.feature_combat.presentation.components.Stats
+import com.jlahougue.dndcompanion.data_stats.presentation.Stats
 
 @Composable
 fun CombatScreen(

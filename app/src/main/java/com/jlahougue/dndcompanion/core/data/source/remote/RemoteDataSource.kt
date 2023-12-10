@@ -11,6 +11,7 @@ import com.jlahougue.dndcompanion.data_health.data.source.remote.HealthRemoteDat
 import com.jlahougue.dndcompanion.data_property.data.source.remote.PropertyDnd5eDataSource
 import com.jlahougue.dndcompanion.data_skill.data.source.remote.SkillRemoteDataSource
 import com.jlahougue.dndcompanion.data_spell.data.source.remote.SpellRemoteDataSource
+import com.jlahougue.dndcompanion.data_stats.data.source.remote.StatsRemoteDataSource
 import com.jlahougue.dndcompanion.data_weapon.data.source.remote.WeaponRemoteDataSource
 
 interface RemoteDataSource {
@@ -20,6 +21,7 @@ interface RemoteDataSource {
     val healthDao: HealthRemoteDataSource
     val abilityDao: AbilityRemoteDataSource
     val skillDao: SkillRemoteDataSource
+    val statsDao: StatsRemoteDataSource
     val classDao: ClassRemoteDataSource
     val damageTypeDao: DamageTypeRemoteDataSource
     val characterSpellDao: CharacterSpellRemoteDataSource
