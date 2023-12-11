@@ -4,7 +4,9 @@ import com.jlahougue.dndcompanion.data_ability.data.source.local.AbilityLocalDat
 import com.jlahougue.dndcompanion.data_ability.data.source.remote.AbilityRemoteDataSource
 import com.jlahougue.dndcompanion.data_ability.domain.model.Ability
 import com.jlahougue.dndcompanion.data_ability.domain.model.AbilityName
+import com.jlahougue.dndcompanion.data_ability.domain.model.AbilityView
 import com.jlahougue.dndcompanion.data_ability.domain.repository.IAbilityRepository
+import kotlinx.coroutines.flow.Flow
 
 class AbilityRepository(
     private val remoteDataSource: AbilityRemoteDataSource,
@@ -30,5 +32,9 @@ class AbilityRepository(
 
     override suspend fun saveToLocal(abilities: List<Ability>) {
         localDataSource.insert(abilities)
+    }
+
+    override fun get(characterID: Long): Flow<List<AbilityView>> {
+        return localDataSource.get(characterID)
     }
 }

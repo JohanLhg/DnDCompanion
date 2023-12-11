@@ -5,6 +5,8 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.jlahougue.dndcompanion.data_ability.domain.model.Ability
+import com.jlahougue.dndcompanion.data_ability.domain.model.AbilityView
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface AbilityLocalDataSource {
@@ -16,4 +18,7 @@ interface AbilityLocalDataSource {
 
     @Query("DELETE FROM ability WHERE cid = :characterID")
     suspend fun deleteForCharacter(characterID: Long)
+
+    @Query("SELECT * FROM ability_view WHERE cid = :characterID")
+    fun get(characterID: Long): Flow<List<AbilityView>>
 }

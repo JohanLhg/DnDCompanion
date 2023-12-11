@@ -27,6 +27,7 @@ import com.jlahougue.dndcompanion.core.presentation.components.FramedBox
 import com.jlahougue.dndcompanion.core.presentation.theme.DnDCompanionTheme
 import com.jlahougue.dndcompanion.core.presentation.theme.spacing
 import com.jlahougue.dndcompanion.data_stats.domain.model.Stats
+import com.jlahougue.dndcompanion.data_stats.domain.use_case.StatsEvent
 
 @Composable
 fun StatsList(

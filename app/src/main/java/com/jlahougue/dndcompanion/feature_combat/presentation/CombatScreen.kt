@@ -21,7 +21,9 @@ import com.jlahougue.dndcompanion.data_stats.presentation.StatsList
 
 @Composable
 fun CombatScreen(
-    abilities: List<AbilityView>
+    abilities: List<AbilityView>,
+    stats: Stats,
+    health: Health,
 ) {
     Row {
         Column(
@@ -34,18 +36,14 @@ fun CombatScreen(
                     .height(IntrinsicSize.Max)
             )
             StatsList(
-                stats = Stats(
-                    cid = 1,
-                    armorClass = 10,
-                    speed = 30
-                ),
+                stats = stats,
                 onEvent = {},
                 modifier = Modifier
                     .height(IntrinsicSize.Max)
             )
         }
         HealthBox(
-            health = Health(),
+            health = health,
             modifier = Modifier
                 .width(IntrinsicSize.Max)
                 .height(IntrinsicSize.Max)
@@ -62,7 +60,9 @@ fun CombatScreen(
 fun CombatScreenPreview() {
     DnDCompanionTheme {
         CombatScreen(
-            abilities = getAbilitiesPreviewData()
+            abilities = getAbilitiesPreviewData(),
+            stats = Stats(),
+            health = Health()
         )
     }
 }
