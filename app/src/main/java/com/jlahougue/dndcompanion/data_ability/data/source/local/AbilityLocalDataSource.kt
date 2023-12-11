@@ -19,6 +19,18 @@ interface AbilityLocalDataSource {
     @Query("DELETE FROM ability WHERE cid = :characterID")
     suspend fun deleteForCharacter(characterID: Long)
 
-    @Query("SELECT * FROM ability_view WHERE cid = :characterID")
+    @Query(
+        """
+            SELECT * 
+            FROM ability_view 
+            WHERE cid = :characterID 
+            ORDER BY name = 'CHA', 
+            name = 'WIS', 
+            name = 'INT',
+            name = 'CON',
+            name = 'DEX',
+            name = 'STR'
+        """
+    )
     fun get(characterID: Long): Flow<List<AbilityView>>
 }

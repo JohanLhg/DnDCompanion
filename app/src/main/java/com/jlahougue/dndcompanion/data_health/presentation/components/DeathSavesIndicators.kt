@@ -20,10 +20,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.jlahougue.dndcompanion.R
 import com.jlahougue.dndcompanion.core.presentation.theme.DnDCompanionTheme
+import com.jlahougue.dndcompanion.core.presentation.theme.Green
+import com.jlahougue.dndcompanion.core.presentation.theme.Red
 import com.jlahougue.dndcompanion.core.presentation.theme.spacing
+import com.jlahougue.dndcompanion.data_health.domain.model.DeathSaves
 
 @Composable
-fun DeathSaves(modifier: Modifier = Modifier) {
+fun DeathSavesIndicators(
+    deathSaves: DeathSaves,
+    modifier: Modifier = Modifier
+) {
     Column(
         modifier = modifier
     ) {
@@ -33,18 +39,28 @@ fun DeathSaves(modifier: Modifier = Modifier) {
         )
         DeathSavesRow(
             name = stringResource(R.string.successes),
-            color = Color(0xFF3E9400),
+            rolls = deathSaves.successes,
+            setRolls = {},
+            color = Green,
             modifier = Modifier.padding(bottom = MaterialTheme.spacing.small)
         )
         DeathSavesRow(
             name = stringResource(R.string.failures),
-            color = Color(0xFFBC0606)
+            rolls = deathSaves.failures,
+            setRolls = {},
+            color = Red
         )
     }
 }
 
 @Composable
-fun DeathSavesRow(name: String, color: Color, modifier: Modifier = Modifier) {
+fun DeathSavesRow(
+    name: String,
+    rolls: Int,
+    setRolls: (Int) -> Unit,
+    color: Color,
+    modifier: Modifier = Modifier
+) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
@@ -58,7 +74,7 @@ fun DeathSavesRow(name: String, color: Color, modifier: Modifier = Modifier) {
             .height(0.dp)
             .weight(1f))
         Checkbox(
-            checked = false,
+            checked = rolls >= 1,
             colors = CheckboxDefaults.colors(
                 uncheckedColor = color,
                 checkedColor = color
@@ -66,10 +82,13 @@ fun DeathSavesRow(name: String, color: Color, modifier: Modifier = Modifier) {
             modifier = Modifier
                 .height(20.dp)
                 .width(25.dp),
-            onCheckedChange = {}
+            onCheckedChange = {
+                if (rolls == 1) setRolls(0)
+                else setRolls(1)
+            }
         )
         Checkbox(
-            checked = false,
+            checked = rolls >= 2,
             colors = CheckboxDefaults.colors(
                 uncheckedColor = color,
                 checkedColor = color
@@ -77,10 +96,13 @@ fun DeathSavesRow(name: String, color: Color, modifier: Modifier = Modifier) {
             modifier = Modifier
                 .height(20.dp)
                 .width(25.dp),
-            onCheckedChange = {}
+            onCheckedChange = {
+                if (rolls == 2) setRolls(1)
+                else setRolls(2)
+            }
         )
         Checkbox(
-            checked = false,
+            checked = rolls >= 3,
             colors = CheckboxDefaults.colors(
                 uncheckedColor = color,
                 checkedColor = color
@@ -88,7 +110,10 @@ fun DeathSavesRow(name: String, color: Color, modifier: Modifier = Modifier) {
             modifier = Modifier
                 .height(20.dp)
                 .width(25.dp),
-            onCheckedChange = {}
+            onCheckedChange = {
+                if (rolls >= 3) setRolls(2)
+                else setRolls(3)
+            }
         )
     }
 }
@@ -99,6 +124,10 @@ fun DeathSavesRow(name: String, color: Color, modifier: Modifier = Modifier) {
 @Composable
 fun DeathSavesPreview() {
     DnDCompanionTheme {
-        DeathSaves()
+        DeathSavesIndicators(
+            deathSaves = DeathSaves(),
+            modifier = Modifier
+                .width(200.dp)
+        )
     }
 }

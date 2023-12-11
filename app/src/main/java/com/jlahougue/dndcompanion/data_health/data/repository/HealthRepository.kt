@@ -21,9 +21,17 @@ class HealthRepository(
         remote.save(health)
     }
 
+    override suspend fun saveToLocal(health: Health) {
+        local.insert(health)
+    }
+
     override suspend fun save(deathSaves: DeathSaves) {
         local.insert(deathSaves)
         remote.save(deathSaves)
+    }
+
+    override suspend fun saveToLocal(deathSaves: DeathSaves) {
+        local.insert(deathSaves)
     }
 
     override fun getHealth(characterId: Long) = local.getHealth(characterId)

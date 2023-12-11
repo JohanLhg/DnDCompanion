@@ -9,7 +9,9 @@ import com.jlahougue.dndcompanion.data_character.domain.repository.ICharacterRep
 import com.jlahougue.dndcompanion.data_character_sheet.data.source.remote.CharacterSheetFirebaseEvent
 import com.jlahougue.dndcompanion.data_character_sheet.domain.repository.ICharacterSheetRepository
 import com.jlahougue.dndcompanion.data_character_spell.domain.repository.ICharacterSpellRepository
+import com.jlahougue.dndcompanion.data_health.domain.repository.IHealthRepository
 import com.jlahougue.dndcompanion.data_skill.domain.repository.ISkillRepository
+import com.jlahougue.dndcompanion.data_stats.domain.repository.IStatsRepository
 import com.jlahougue.dndcompanion.data_weapon.domain.repository.IWeaponRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -20,6 +22,8 @@ class LoadCharacters(
     private val characterRepository: ICharacterRepository,
     private val abilityRepository: IAbilityRepository,
     private val skillRepository: ISkillRepository,
+    private val statsRepository: IStatsRepository,
+    private val healthRepository: IHealthRepository,
     private val characterSpellRepository: ICharacterSpellRepository,
     private val weaponRepository: IWeaponRepository
 ) : LoadFromRemote(UiText.StringResource(R.string.loading_characters)) {
@@ -48,6 +52,8 @@ class LoadCharacters(
                             characterRepository.saveToLocal(characterSheet.character!!)
                             abilityRepository.saveToLocal(characterSheet.abilities.values.toList())
                             skillRepository.saveToLocal(characterSheet.skills.values.toList())
+                            statsRepository.saveToLocal(characterSheet.stats!!)
+                            healthRepository.saveToLocal(characterSheet.health!!)
                             characterSpellRepository.saveToLocal(characterSheet.spells.values.toList())
                             weaponRepository.saveToLocal(characterSheet.weapons.values.toList())
                             noneExist = false

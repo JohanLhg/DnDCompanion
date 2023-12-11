@@ -14,15 +14,17 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.jlahougue.dndcompanion.R
 import com.jlahougue.dndcompanion.core.presentation.components.FramedBox
 import com.jlahougue.dndcompanion.core.presentation.theme.DnDCompanionTheme
+import com.jlahougue.dndcompanion.data_health.domain.model.DeathSaves
 import com.jlahougue.dndcompanion.data_health.domain.model.Health
 import com.jlahougue.dndcompanion.data_health.presentation.components.CurrentHealth
-import com.jlahougue.dndcompanion.data_health.presentation.components.DeathSaves
+import com.jlahougue.dndcompanion.data_health.presentation.components.DeathSavesIndicators
 import com.jlahougue.dndcompanion.data_health.presentation.components.MaxHealth
 import com.jlahougue.dndcompanion.data_health.presentation.components.TemporaryHealth
 
 @Composable
 fun HealthBox(
     health: Health,
+    deathSaves: DeathSaves,
     modifier: Modifier = Modifier
 ) {
     FramedBox(
@@ -44,9 +46,9 @@ fun HealthBox(
                 health = health,
                 modifier = Modifier.fillMaxWidth()
             )
-            DeathSaves(
-                modifier = Modifier
-                    .fillMaxWidth()
+            DeathSavesIndicators(
+                deathSaves = deathSaves,
+                modifier = Modifier.fillMaxWidth()
             )
         }
     }
@@ -61,6 +63,7 @@ fun HealthPreview() {
     DnDCompanionTheme {
         HealthBox(
             health = Health(),
+            deathSaves = DeathSaves(),
             modifier = Modifier
                 .width(IntrinsicSize.Max)
                 .height(IntrinsicSize.Max)

@@ -20,9 +20,19 @@ class CombatViewModel(
     val health
         get() = module.manageHealthUseCase.health
 
+    val deathSaves
+        get() = module.manageHealthUseCase.deathSaves
+
     init {
         viewModelScope.launch(module.dispatcherProvider.io) {
+            module.manageAbilitiesUseCase()
+        }
+
+        viewModelScope.launch(module.dispatcherProvider.io) {
             module.manageStatsUseCase()
+        }
+
+        viewModelScope.launch(module.dispatcherProvider.io) {
             module.manageHealthUseCase()
         }
     }

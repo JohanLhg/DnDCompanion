@@ -152,6 +152,8 @@ class DnDCompanionApp: Application() {
             abilityModule.abilityRepository,
             skillModule.skillRepository,
             classModule.classRepository,
+            statsModule.statsRepository,
+            healthModule.healthRepository,
             damageTypeModule.damageTypeRepository,
             characterSpellModule.characterSpellRepository,
             spellModule.spellRepository,

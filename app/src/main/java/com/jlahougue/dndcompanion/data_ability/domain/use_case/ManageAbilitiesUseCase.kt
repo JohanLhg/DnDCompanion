@@ -1,6 +1,5 @@
 package com.jlahougue.dndcompanion.data_ability.domain.use_case
 
-import com.jlahougue.dndcompanion.data_ability.domain.model.Ability
 import com.jlahougue.dndcompanion.data_ability.domain.model.AbilityView
 import com.jlahougue.dndcompanion.data_ability.domain.repository.IAbilityRepository
 import com.jlahougue.dndcompanion.data_user_info.domain.repository.IUserInfoRepository

@@ -7,9 +7,11 @@ import com.jlahougue.dndcompanion.data_character_sheet.domain.repository.ICharac
 import com.jlahougue.dndcompanion.data_character_spell.domain.repository.ICharacterSpellRepository
 import com.jlahougue.dndcompanion.data_class.domain.repository.IClassRepository
 import com.jlahougue.dndcompanion.data_damage_type.domain.repository.IDamageTypeRepository
+import com.jlahougue.dndcompanion.data_health.domain.repository.IHealthRepository
 import com.jlahougue.dndcompanion.data_property.domain.repository.IPropertyRepository
 import com.jlahougue.dndcompanion.data_skill.domain.repository.ISkillRepository
 import com.jlahougue.dndcompanion.data_spell.domain.repository.ISpellRepository
+import com.jlahougue.dndcompanion.data_stats.domain.repository.IStatsRepository
 import com.jlahougue.dndcompanion.data_weapon.domain.repository.IWeaponRepository
 import com.jlahougue.dndcompanion.feature_loading_data.domain.use_case.LoadAll
 import com.jlahougue.dndcompanion.feature_loading_data.domain.use_case.LoadCharacters
@@ -26,6 +28,8 @@ class LoadingModule(
     private val abilityRepository: IAbilityRepository,
     private val skillRepository: ISkillRepository,
     private val classRepository: IClassRepository,
+    private val statsRepository: IStatsRepository,
+    private val healthRepository: IHealthRepository,
     private val damageTypeRepository: IDamageTypeRepository,
     private val characterSpellRepository: ICharacterSpellRepository,
     private val spellRepository: ISpellRepository,
@@ -71,6 +75,8 @@ class LoadingModule(
             characterRepository,
             abilityRepository,
             skillRepository,
+            statsRepository,
+            healthRepository,
             characterSpellRepository,
             weaponRepository
         )

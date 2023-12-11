@@ -14,6 +14,7 @@ import com.jlahougue.dndcompanion.data_ability.domain.model.AbilityView
 import com.jlahougue.dndcompanion.data_ability.presentation.Abilities
 import com.jlahougue.dndcompanion.data_ability.presentation.getAbilitiesPreviewData
 import com.jlahougue.dndcompanion.data_character_spell.presentation.SpellLevel
+import com.jlahougue.dndcompanion.data_health.domain.model.DeathSaves
 import com.jlahougue.dndcompanion.data_health.domain.model.Health
 import com.jlahougue.dndcompanion.data_health.presentation.HealthBox
 import com.jlahougue.dndcompanion.data_stats.domain.model.Stats
@@ -24,6 +25,7 @@ fun CombatScreen(
     abilities: List<AbilityView>,
     stats: Stats,
     health: Health,
+    deathSaves: DeathSaves
 ) {
     Row {
         Column(
@@ -44,6 +46,7 @@ fun CombatScreen(
         }
         HealthBox(
             health = health,
+            deathSaves = deathSaves,
             modifier = Modifier
                 .width(IntrinsicSize.Max)
                 .height(IntrinsicSize.Max)
@@ -62,7 +65,8 @@ fun CombatScreenPreview() {
         CombatScreen(
             abilities = getAbilitiesPreviewData(),
             stats = Stats(),
-            health = Health()
+            health = Health(),
+            deathSaves = DeathSaves()
         )
     }
 }

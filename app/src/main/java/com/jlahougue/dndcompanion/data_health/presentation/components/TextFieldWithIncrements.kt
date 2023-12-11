@@ -6,6 +6,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -31,9 +32,94 @@ import com.jlahougue.dndcompanion.core.presentation.theme.Green
 import com.jlahougue.dndcompanion.core.presentation.theme.Red
 import com.jlahougue.dndcompanion.core.presentation.theme.spacing
 
-
 @Composable
 fun TextFieldWithIncrements(
+    value: String,
+    onValueChange: (String) -> Unit,
+    onPlusClick: () -> Unit,
+    plusDescription: String,
+    onMinusClick: () -> Unit,
+    minusDescription: String,
+    modifier: Modifier = Modifier
+) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = modifier
+            .height(IntrinsicSize.Min)
+    ) {
+        Image(
+            painter = painterResource(id = R.drawable.arrow_left),
+            colorFilter = ColorFilter.tint(Red),
+            contentDescription = minusDescription,
+            modifier = Modifier
+                .width(50.dp)
+                .height(29.dp)
+                .padding(end = MaterialTheme.spacing.extraSmall)
+                .border(
+                    1.dp,
+                    Red,
+                    RoundedCornerShape(MaterialTheme.spacing.extraSmall)
+                )
+                .clickable(
+                    interactionSource = remember { MutableInteractionSource() },
+                    indication = rememberRipple(
+                        bounded = true,
+                        color = Red
+                    ),
+                    onClick = onMinusClick,
+                )
+                .padding(MaterialTheme.spacing.extraSmall)
+        )
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = Modifier
+                .weight(1f)
+        ) {
+            BasicTextField(
+                value = value,
+                onValueChange = onValueChange,
+                textStyle = MaterialTheme.typography.bodyLarge.copy(
+                    textAlign = TextAlign.Center
+                ),
+                modifier = Modifier
+                    .width(75.dp)
+                    .padding(horizontal = MaterialTheme.spacing.small)
+                    .border(
+                        1.dp,
+                        Color.Gray,
+                        RoundedCornerShape(MaterialTheme.spacing.extraSmall)
+                    )
+                    .padding(horizontal = MaterialTheme.spacing.small)
+            )
+        }
+        Image(
+            painter = painterResource(id = R.drawable.arrow_right),
+            colorFilter = ColorFilter.tint(Green),
+            contentDescription = plusDescription,
+            modifier = Modifier
+                .width(50.dp)
+                .height(29.dp)
+                .padding(start = MaterialTheme.spacing.extraSmall)
+                .border(
+                    1.dp,
+                    Green,
+                    RoundedCornerShape(MaterialTheme.spacing.extraSmall)
+                )
+                .clickable(
+                    interactionSource = remember { MutableInteractionSource() },
+                    indication = rememberRipple(
+                        bounded = true,
+                        color = Green
+                    ),
+                    onClick = onPlusClick,
+                )
+                .padding(MaterialTheme.spacing.extraSmall)
+        )
+    }
+}
+
+@Composable
+fun TextFieldWithIncrementsAlt(
     value: String,
     onValueChange: (String) -> Unit,
     onPlusClick: () -> Unit,
@@ -133,7 +219,9 @@ fun TextFieldWithIncrementsPreview() {
             onPlusClick = {},
             plusDescription = "plus",
             onMinusClick = {},
-            minusDescription = "minus"
+            minusDescription = "minus",
+            modifier = Modifier
+                .width(IntrinsicSize.Min)
         )
     }
 }
