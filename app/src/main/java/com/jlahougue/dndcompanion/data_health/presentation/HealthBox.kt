@@ -16,6 +16,7 @@ import com.jlahougue.dndcompanion.core.presentation.components.FramedBox
 import com.jlahougue.dndcompanion.core.presentation.theme.DnDCompanionTheme
 import com.jlahougue.dndcompanion.data_health.domain.model.DeathSaves
 import com.jlahougue.dndcompanion.data_health.domain.model.Health
+import com.jlahougue.dndcompanion.data_health.domain.use_case.HealthEvent
 import com.jlahougue.dndcompanion.data_health.presentation.components.CurrentHealth
 import com.jlahougue.dndcompanion.data_health.presentation.components.DeathSavesIndicators
 import com.jlahougue.dndcompanion.data_health.presentation.components.MaxHealth
@@ -25,6 +26,7 @@ import com.jlahougue.dndcompanion.data_health.presentation.components.TemporaryH
 fun HealthBox(
     health: Health,
     deathSaves: DeathSaves,
+    onEvent: (HealthEvent) -> Unit,
     modifier: Modifier = Modifier
 ) {
     FramedBox(
@@ -36,18 +38,22 @@ fun HealthBox(
         ) {
             MaxHealth(
                 health = health,
+                onEvent = onEvent,
                 modifier = Modifier.fillMaxWidth()
             )
             CurrentHealth(
                 health = health,
+                onEvent = onEvent,
                 modifier = Modifier.fillMaxWidth()
             )
             TemporaryHealth(
                 health = health,
+                onEvent = onEvent,
                 modifier = Modifier.fillMaxWidth()
             )
             DeathSavesIndicators(
                 deathSaves = deathSaves,
+                onEvent = onEvent,
                 modifier = Modifier.fillMaxWidth()
             )
         }
@@ -64,6 +70,7 @@ fun HealthPreview() {
         HealthBox(
             health = Health(),
             deathSaves = DeathSaves(),
+            onEvent = {},
             modifier = Modifier
                 .width(IntrinsicSize.Max)
                 .height(IntrinsicSize.Max)

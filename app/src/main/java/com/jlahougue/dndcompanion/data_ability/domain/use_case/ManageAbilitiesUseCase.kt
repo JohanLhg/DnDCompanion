@@ -22,4 +22,25 @@ class ManageAbilitiesUseCase(
             }
         }
     }
+
+    suspend fun onEvent(event: AbilityEvent) {
+        when (event) {
+            is AbilityEvent.OnValueChange -> {
+                val ability = abilities.value
+                    .find { it.name == event.name }
+                    ?.copy(
+                        value = event.value
+                    ) ?: return
+                abilityRepository.save(ability.toAbility())
+            }
+            is AbilityEvent.OnProficiencyChange -> {
+                val ability = abilities.value
+                    .find { it.name == event.name }
+                    ?.copy(
+                        proficiency = event.isProficient
+                    ) ?: return
+                abilityRepository.save(ability.toAbility())
+            }
+        }
+    }
 }

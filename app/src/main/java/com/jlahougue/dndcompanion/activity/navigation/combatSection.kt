@@ -10,10 +10,7 @@ import com.jlahougue.dndcompanion.core.domain.util.extension.viewModelFactory
 import com.jlahougue.dndcompanion.feature_combat.presentation.CombatScreen
 import com.jlahougue.dndcompanion.feature_combat.presentation.CombatViewModel
 
-fun NavGraphBuilder.combatSection(
-    route: String,
-    navigateToNext: () -> Unit = { }
-) {
+fun NavGraphBuilder.combatSection(route: String) {
     composable(
         route = route
     ) {
@@ -30,9 +27,12 @@ fun NavGraphBuilder.combatSection(
         val deathSaves by viewModel.deathSaves.collectAsState()
         CombatScreen(
             abilities = abilities,
+            onAbilityEvent = viewModel::onAbilityEvent,
             stats = stats,
+            onStatsEvent = viewModel::onStatsEvent,
             health = health,
-            deathSaves = deathSaves
+            deathSaves = deathSaves,
+            onHealthEvent = viewModel::onHealthEvent
         )
     }
 }

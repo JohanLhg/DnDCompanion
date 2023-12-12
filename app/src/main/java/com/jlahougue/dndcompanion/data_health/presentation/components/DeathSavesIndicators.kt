@@ -24,10 +24,12 @@ import com.jlahougue.dndcompanion.core.presentation.theme.Green
 import com.jlahougue.dndcompanion.core.presentation.theme.Red
 import com.jlahougue.dndcompanion.core.presentation.theme.spacing
 import com.jlahougue.dndcompanion.data_health.domain.model.DeathSaves
+import com.jlahougue.dndcompanion.data_health.domain.use_case.HealthEvent
 
 @Composable
 fun DeathSavesIndicators(
     deathSaves: DeathSaves,
+    onEvent: (HealthEvent) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -40,14 +42,18 @@ fun DeathSavesIndicators(
         DeathSavesRow(
             name = stringResource(R.string.successes),
             rolls = deathSaves.successes,
-            setRolls = {},
+            setRolls = {
+                onEvent(HealthEvent.OnDeathSavesSuccessChange(it))
+            },
             color = Green,
             modifier = Modifier.padding(bottom = MaterialTheme.spacing.small)
         )
         DeathSavesRow(
             name = stringResource(R.string.failures),
             rolls = deathSaves.failures,
-            setRolls = {},
+            setRolls = {
+                onEvent(HealthEvent.OnDeathSavesFailureChange(it))
+            },
             color = Red
         )
     }
@@ -125,7 +131,8 @@ fun DeathSavesRow(
 fun DeathSavesPreview() {
     DnDCompanionTheme {
         DeathSavesIndicators(
-            deathSaves = DeathSaves(),
+            deathSaves = DeathSaves(successes = 2),
+            onEvent = {},
             modifier = Modifier
                 .width(200.dp)
         )

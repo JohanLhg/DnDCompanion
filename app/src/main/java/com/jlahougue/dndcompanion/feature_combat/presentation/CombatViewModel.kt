@@ -2,6 +2,7 @@ package com.jlahougue.dndcompanion.feature_combat.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.jlahougue.dndcompanion.data_ability.domain.use_case.AbilityEvent
 import com.jlahougue.dndcompanion.data_health.domain.use_case.HealthEvent
 import com.jlahougue.dndcompanion.data_stats.domain.use_case.StatsEvent
 import com.jlahougue.dndcompanion.feature_combat.di.ICombatModule
@@ -37,13 +38,19 @@ class CombatViewModel(
         }
     }
 
-    fun onEvent(event: StatsEvent) {
+    fun onAbilityEvent(event: AbilityEvent) {
+        viewModelScope.launch(module.dispatcherProvider.io) {
+            module.manageAbilitiesUseCase.onEvent(event)
+        }
+    }
+
+    fun onStatsEvent(event: StatsEvent) {
         viewModelScope.launch(module.dispatcherProvider.io) {
             module.manageStatsUseCase.onEvent(event)
         }
     }
 
-    fun onEvent(event: HealthEvent) {
+    fun onHealthEvent(event: HealthEvent) {
         viewModelScope.launch(module.dispatcherProvider.io) {
             module.manageHealthUseCase.onEvent(event)
         }

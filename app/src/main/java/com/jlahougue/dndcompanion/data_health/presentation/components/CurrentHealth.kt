@@ -7,10 +7,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.jlahougue.dndcompanion.R
 import com.jlahougue.dndcompanion.data_health.domain.model.Health
+import com.jlahougue.dndcompanion.data_health.domain.use_case.HealthEvent
 
 @Composable
 fun CurrentHealth(
     health: Health,
+    onEvent: (HealthEvent) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -22,11 +24,22 @@ fun CurrentHealth(
         )
         TextFieldWithIncrements(
             value = health.currentHp.toString(),
-            onValueChange = {},
-            onPlusClick = { /*TODO*/ },
+            onValueChange = {
+                try {
+                    onEvent(HealthEvent.OnCurrentHealthChange(it.toInt()))
+                } catch (e: NumberFormatException) {
+                    onEvent(HealthEvent.OnCurrentHealthChange(0))
+                }
+            },
+            onPlusClick = {
+                onEvent(HealthEvent.OnCurrentHealthChangeBy(1))
+            },
             plusDescription = stringResource(id = R.string.health_current_add),
-            onMinusClick = { /*TODO*/ },
-            minusDescription = stringResource(id = R.string.health_current_subtract)
+            onMinusClick = {
+                onEvent(HealthEvent.OnCurrentHealthChangeBy(-1))
+            },
+            minusDescription = stringResource(id = R.string.health_current_subtract),
+            modifier = Modifier.fillMaxWidth()
         )
     }
 }

@@ -31,6 +31,12 @@
     <string name="ability_wisdom_short">WIS</string>
     <string name="ability_charisma_short">CHA</string>
 
+    <string name="abilities">Abilities</string>
+    <string name="ability_modifier">Modifier</string>
+    <string name="ability_modifier_short">Mod.</string>
+    <string name="ability_saving_throws">Saving Throws</string>
+    <string name="ability_saving_throws_short">S.T.</string>
+
     <!-- Skill -->
     <string name="skill_display">%s (%s)</string>
     <string name="skill_acrobatics">Acrobatics</string>

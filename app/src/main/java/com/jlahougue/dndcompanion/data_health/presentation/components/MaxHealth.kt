@@ -18,10 +18,12 @@ import androidx.compose.ui.unit.dp
 import com.jlahougue.dndcompanion.R
 import com.jlahougue.dndcompanion.core.presentation.theme.spacing
 import com.jlahougue.dndcompanion.data_health.domain.model.Health
+import com.jlahougue.dndcompanion.data_health.domain.use_case.HealthEvent
 
 @Composable
 fun MaxHealth(
     health: Health,
+    onEvent: (HealthEvent) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -34,7 +36,13 @@ fun MaxHealth(
         )
         BasicTextField(
             value = health.maxHp.toString(),
-            onValueChange = {},
+            onValueChange = {
+                try {
+                    onEvent(HealthEvent.OnMaxHealthChange(it.toInt()))
+                } catch (e: NumberFormatException) {
+                    onEvent(HealthEvent.OnMaxHealthChange(0))
+                }
+            },
             textStyle = MaterialTheme.typography.bodyLarge.copy(
                 textAlign = TextAlign.Center
             ),

@@ -35,6 +35,8 @@ data class AbilityView(
     @ColumnInfo(name = ABILITY_PROFICIENCY)
     var proficiency: Boolean
 ) {
+    fun toAbility() = Ability(cid, name, value, proficiency)
+
     companion object {
         const val VIEW_ABILITY = "ability_view"
         const val ABILITY_CID = "cid"

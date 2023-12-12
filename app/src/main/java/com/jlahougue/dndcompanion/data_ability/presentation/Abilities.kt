@@ -16,37 +16,44 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.jlahougue.dndcompanion.R
 import com.jlahougue.dndcompanion.core.domain.util.extension.toSignedString
 import com.jlahougue.dndcompanion.core.presentation.components.FramedBox
 import com.jlahougue.dndcompanion.core.presentation.theme.DnDCompanionTheme
 import com.jlahougue.dndcompanion.core.presentation.theme.spacing
 import com.jlahougue.dndcompanion.data_ability.domain.model.AbilityName
 import com.jlahougue.dndcompanion.data_ability.domain.model.AbilityView
+import com.jlahougue.dndcompanion.data_ability.domain.use_case.AbilityEvent
 
 @Composable
 fun Abilities(
     abilities: List<AbilityView>,
+    onEvent: (AbilityEvent) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    FramedBox(title = "Abilities", modifier = modifier) {
+    FramedBox(
+        title = stringResource(id = R.string.abilities),
+        modifier = modifier
+    ) {
         Column {
             Row {
                 Spacer(modifier = Modifier
                     .width(0.dp)
                     .weight(1f))
                 Text(
-                    text = "Mod.",
+                    text = stringResource(id = R.string.ability_modifier_short),
                     modifier = Modifier.width(50.dp),
                     textAlign = TextAlign.Center,
                     style = MaterialTheme.typography.bodySmall
                 )
                 Text(
-                    text = "S.T.",
+                    text = stringResource(id = R.string.ability_saving_throws_short),
                     modifier = Modifier.width(50.dp),
                     textAlign = TextAlign.Center,
                     style = MaterialTheme.typography.bodySmall
@@ -131,6 +138,7 @@ fun AbilitiesPreview() {
     DnDCompanionTheme {
         Abilities(
             abilities = getAbilitiesPreviewData(),
+            onEvent = {},
             modifier = Modifier
                 .width(IntrinsicSize.Max)
                 .height(IntrinsicSize.Max)

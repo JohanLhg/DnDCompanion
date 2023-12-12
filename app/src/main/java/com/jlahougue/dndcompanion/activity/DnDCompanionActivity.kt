@@ -69,9 +69,7 @@ class DnDCompanionActivity : ComponentActivity() {
                             }
                         )
                         combatSection(
-                            route = ScreenGroup.Combat.route,
-                            navigateToNext = {
-                            }
+                            route = ScreenGroup.Combat.route
                         )
                     }
                 }

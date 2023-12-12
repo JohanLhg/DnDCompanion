@@ -94,6 +94,7 @@ class DnDCompanionApp: Application() {
             dataSourceModule.localDataSource
         )
         healthModule = HealthModule(
+            appModule.dispatcherProvider,
             userInfoModule.userInfoRepository,
             dataSourceModule.remoteDataSource,
             dataSourceModule.localDataSource

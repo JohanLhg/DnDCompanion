@@ -8,8 +8,10 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.requiredWidth
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -17,11 +19,17 @@ import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.layout.onSizeChanged
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -45,21 +53,26 @@ fun TextFieldWithIncrements(
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
-            .height(IntrinsicSize.Min)
     ) {
+        var rowH by remember { mutableStateOf(0.dp) }
+        val density = LocalDensity.current
+        fun Int.asDp() = density.run {
+            this@asDp.toDp()
+        }
         Image(
             painter = painterResource(id = R.drawable.arrow_left),
             colorFilter = ColorFilter.tint(Red),
             contentDescription = minusDescription,
             modifier = Modifier
                 .width(50.dp)
-                .height(29.dp)
+                .height(rowH)
                 .padding(end = MaterialTheme.spacing.extraSmall)
                 .border(
                     1.dp,
                     Red,
-                    RoundedCornerShape(MaterialTheme.spacing.extraSmall)
+                    MaterialTheme.shapes.extraSmall
                 )
+                .clip(MaterialTheme.shapes.extraSmall)
                 .clickable(
                     interactionSource = remember { MutableInteractionSource() },
                     indication = rememberRipple(
@@ -74,6 +87,7 @@ fun TextFieldWithIncrements(
             contentAlignment = Alignment.Center,
             modifier = Modifier
                 .weight(1f)
+                .height(IntrinsicSize.Min)
         ) {
             BasicTextField(
                 value = value,
@@ -82,12 +96,15 @@ fun TextFieldWithIncrements(
                     textAlign = TextAlign.Center
                 ),
                 modifier = Modifier
+                    .onSizeChanged {
+                        rowH = it.height.asDp()
+                    }
                     .width(75.dp)
                     .padding(horizontal = MaterialTheme.spacing.small)
                     .border(
                         1.dp,
                         Color.Gray,
-                        RoundedCornerShape(MaterialTheme.spacing.extraSmall)
+                        MaterialTheme.shapes.extraSmall
                     )
                     .padding(horizontal = MaterialTheme.spacing.small)
             )
@@ -98,13 +115,14 @@ fun TextFieldWithIncrements(
             contentDescription = plusDescription,
             modifier = Modifier
                 .width(50.dp)
-                .height(29.dp)
+                .height(rowH)
                 .padding(start = MaterialTheme.spacing.extraSmall)
                 .border(
                     1.dp,
                     Green,
-                    RoundedCornerShape(MaterialTheme.spacing.extraSmall)
+                    MaterialTheme.shapes.extraSmall
                 )
+                .clip(MaterialTheme.shapes.extraSmall)
                 .clickable(
                     interactionSource = remember { MutableInteractionSource() },
                     indication = rememberRipple(
