@@ -2,6 +2,8 @@
     <!-- General -->
     <string name="app_name">DnD Companion</string>
     <string name="empty">-</string>
+    <string name="amount">%d X</string>
+    <string name="parenthesis">(%s)</string>
 
     <!-- Health -->
     <string name="health">Health</string>
@@ -63,6 +65,10 @@
     <string name="stats_initiative">Initiative</string>
     <string name="stats_armor_class">Armor Class</string>
     <string name="stats_speed">Speed</string>
+
+    <!-- Weapon -->
+    <string name="weapon">Weapon</string>
+    <string name="weapon_test">Test : %s</string>
 
     <!-- AuthActivity -->
     <string name="title_activity_auth">Auth Activity</string>
