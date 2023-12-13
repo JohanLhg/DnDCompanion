@@ -2,6 +2,8 @@
     <!-- General -->
     <string name="app_name">D&amp;D Companion</string>
     <string name="empty">-</string>
+    <string name="amount">%d X</string>
+    <string name="parenthesis">(%s)</string>
     <string name="quota">%d/%d</string>
     <string name="edit">Edit</string>
     <string name="done">Done</string>
@@ -106,6 +108,10 @@
     <string name="prepared_spells">Prepared Spells</string>
 
     <string name="highlight_spell">Highlight Spell</string>
+
+    <!-- Weapon -->
+    <string name="weapon">Weapon</string>
+    <string name="weapon_test">Test : %s</string>
 
     <!-- AuthActivity -->
     <string name="title_activity_auth">Auth Activity</string>
