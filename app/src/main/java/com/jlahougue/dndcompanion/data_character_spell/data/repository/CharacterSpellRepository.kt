@@ -3,6 +3,7 @@ package com.jlahougue.dndcompanion.data_character_spell.data.repository
 import com.jlahougue.dndcompanion.data_character_spell.data.source.local.CharacterSpellLocalDataSource
 import com.jlahougue.dndcompanion.data_character_spell.data.source.remote.CharacterSpellRemoteDataSource
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.CharacterSpell
+import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellSlot
 import com.jlahougue.dndcompanion.data_character_spell.domain.repository.ICharacterSpellRepository
 
 class CharacterSpellRepository(
@@ -17,5 +18,9 @@ class CharacterSpellRepository(
 
     override suspend fun saveToLocal(characterSpells: List<CharacterSpell>) {
         localDataSource.insert(characterSpells)
+    }
+
+    override suspend fun saveSpellSlotsToLocal(spellSlots: List<SpellSlot>) {
+        localDataSource.insertSpellSlots(spellSlots)
     }
 }
