@@ -54,6 +54,7 @@ class LoadCharacters(
                             skillRepository.saveToLocal(characterSheet.skills.values.toList())
                             statsRepository.saveToLocal(characterSheet.stats!!)
                             healthRepository.saveToLocal(characterSheet.health!!)
+                            healthRepository.saveToLocal(characterSheet.deathSaves!!)
                             characterSpellRepository.saveToLocal(characterSheet.spells.values.toList())
                             weaponRepository.saveToLocal(characterSheet.weapons.values.toList())
                             noneExist = false
