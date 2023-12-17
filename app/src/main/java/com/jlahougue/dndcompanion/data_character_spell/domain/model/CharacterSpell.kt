@@ -2,7 +2,6 @@ package com.jlahougue.dndcompanion.data_character_spell.domain.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
-import com.jlahougue.dndcompanion.data_character_spell.domain.enum.SpellState
 
 @Entity(
     tableName = CharacterSpell.TABLE_CHARACTER_SPELL,

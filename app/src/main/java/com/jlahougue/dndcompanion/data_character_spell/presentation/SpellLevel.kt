@@ -15,6 +15,7 @@ import com.jlahougue.dndcompanion.core.presentation.theme.DnDCompanionTheme
 import com.jlahougue.dndcompanion.core.presentation.theme.spacing
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellInfo
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellSlotView
+import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellState
 
 @Composable
 fun SpellLevel(
@@ -43,7 +44,7 @@ fun SpellLevel(
                     spell = SpellInfo(
                         cid = 1,
                         name = "Fireball",
-                        unlocked = true
+                        state = SpellState.UNLOCKED,
                     )
                 )
             }

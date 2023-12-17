@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import com.jlahougue.dndcompanion.core.presentation.theme.DnDCompanionTheme
 import com.jlahougue.dndcompanion.core.presentation.theme.spacing
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellInfo
+import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellState
 
 @Composable
 fun Spell(
@@ -36,12 +37,12 @@ fun Spell(
                 .height(IntrinsicSize.Min)
         ) {
             Checkbox(
-                checked = spell.unlocked,
+                checked = spell.state.isUnlocked(),
                 modifier = Modifier
                     .padding(MaterialTheme.spacing.small)
                     .size(20.dp),
                 onCheckedChange = {
-                    spell.unlocked = it
+                    spell.state = if (it) SpellState.UNLOCKED else SpellState.LOCKED
                 }
             )
             Text(
