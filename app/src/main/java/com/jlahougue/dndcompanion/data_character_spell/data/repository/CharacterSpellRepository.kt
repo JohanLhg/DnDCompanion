@@ -10,8 +10,8 @@ import com.jlahougue.dndcompanion.data_character_spell.domain.repository.ICharac
 import kotlinx.coroutines.flow.Flow
 
 class CharacterSpellRepository(
-    private val localDataSource: CharacterSpellLocalDataSource,
-    private val remoteDataSource: CharacterSpellRemoteDataSource
+    private val remoteDataSource: CharacterSpellRemoteDataSource,
+    private val localDataSource: CharacterSpellLocalDataSource
 ) : ICharacterSpellRepository {
 
     override suspend fun save(characterSpell: CharacterSpell) {
@@ -27,19 +27,15 @@ class CharacterSpellRepository(
         localDataSource.insertSpellSlots(spellSlots)
     }
 
-    override fun getSpells(characterId: Long): Flow<Map<SpellSlotView, List<SpellInfo>>> {
-        return localDataSource.getSpells(characterId)
-    }
-
-    override fun getAllSpells(characterId: Long): Flow<List<SpellInfo>> {
+    override fun getAllSpells(characterId: Long): Flow<Map<SpellSlotView, List<SpellInfo>>> {
         return localDataSource.getAllSpells(characterId)
     }
 
-    override fun getKnownSpells(characterId: Long): Flow<List<SpellInfo>> {
+    override fun getKnownSpells(characterId: Long): Flow<Map<SpellSlotView, List<SpellInfo>>> {
         return localDataSource.getKnownSpells(characterId)
     }
 
-    override fun getPreparedSpells(characterId: Long): Flow<List<SpellInfo>> {
+    override fun getPreparedSpells(characterId: Long): Flow<Map<SpellSlotView, List<SpellInfo>>> {
         return localDataSource.getPreparedSpells(characterId)
     }
 }

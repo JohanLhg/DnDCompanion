@@ -38,49 +38,45 @@ interface CharacterSpellLocalDataSource {
         FROM spell_slot_view
         JOIN spellInfo ON spellInfo.level = spell_slot_view.level
     """)
-    fun getSpells(characterId: Long): Flow<Map<SpellSlotView, List<SpellInfo>>>
+    fun getAllSpells(characterId: Long): Flow<Map<SpellSlotView, List<SpellInfo>>>
 
     @Query("""
-        SELECT 
-            :characterId as cid,
-            spell.*,
-            cs.state
-        FROM spell
-        LEFT JOIN (
-            SELECT * 
-            FROM character_spell 
-            WHERE cid = :characterId
-        ) cs ON spell.spell_id = cs.spell_id
+        WITH spellInfo AS (
+            SELECT 
+                :characterId as cid,
+                spell.*,
+                cs.state
+            FROM spell
+            INNER JOIN (
+                SELECT * 
+                FROM character_spell 
+                WHERE cid = :characterId
+            ) cs ON spell.spell_id = cs.spell_id
+            WHERE cs.state IN ('UNLOCKED', 'PREPARED', 'ALWAYS_PREPARED')
+        )
+        SELECT *
+        FROM spell_slot_view
+        INNER JOIN spellInfo ON spellInfo.level = spell_slot_view.level
     """)
-    fun getAllSpells(characterId: Long): Flow<List<SpellInfo>>
+    fun getKnownSpells(characterId: Long): Flow<Map<SpellSlotView, List<SpellInfo>>>
 
     @Query("""
-        SELECT 
-            :characterId as cid,
-            spell.*,
-            cs.state
-        FROM spell
-        LEFT JOIN (
-            SELECT * 
-            FROM character_spell
-            WHERE cid = :characterId
-        ) cs ON spell.spell_id = cs.spell_id
-        WHERE cs.state IN ('UNLOCKED', 'PREPARED', 'ALWAYS_PREPARED')
+        WITH spellInfo AS (
+            SELECT 
+                :characterId as cid,
+                spell.*,
+                cs.state
+            FROM spell
+            INNER JOIN (
+                SELECT * 
+                FROM character_spell 
+                WHERE cid = :characterId
+            ) cs ON spell.spell_id = cs.spell_id
+            WHERE cs.state IN ('PREPARED', 'ALWAYS_PREPARED')
+        )
+        SELECT *
+        FROM spell_slot_view
+        INNER JOIN spellInfo ON spellInfo.level = spell_slot_view.level
     """)
-    fun getKnownSpells(characterId: Long): Flow<List<SpellInfo>>
-
-    @Query("""
-        SELECT 
-            :characterId as cid,
-            spell.*,
-            cs.state
-        FROM spell
-        LEFT JOIN (
-            SELECT * 
-            FROM character_spell 
-            WHERE cid = :characterId
-        ) cs ON spell.spell_id = cs.spell_id
-        WHERE cs.state IN ('PREPARED', 'ALWAYS_PREPARED')
-    """)
-    fun getPreparedSpells(characterId: Long): Flow<List<SpellInfo>>
+    fun getPreparedSpells(characterId: Long): Flow<Map<SpellSlotView, List<SpellInfo>>>
 }
