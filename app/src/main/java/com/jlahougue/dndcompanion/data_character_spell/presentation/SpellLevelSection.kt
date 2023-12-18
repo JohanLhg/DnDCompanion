@@ -23,6 +23,7 @@ import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellState
 @Composable
 fun SpellLevelSection(
     spellLevel: SpellLevel,
+    setSpellState: (SpellInfo, SpellState) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -45,7 +46,8 @@ fun SpellLevelSection(
                 key = { it.id }
             ) {
                 Spell(
-                    spell = it
+                    spell = it,
+                    setSpellState = setSpellState
                 )
             }
         }
@@ -100,6 +102,7 @@ fun SpellLevelPreview() {
                     ),
                 )
             ),
+            setSpellState = { _, _ -> },
             modifier = Modifier.width(2560.dp)
         )
     }

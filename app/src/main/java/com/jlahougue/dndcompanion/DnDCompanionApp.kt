@@ -174,7 +174,7 @@ class DnDCompanionApp: Application() {
             abilityModule.manageAbilitiesUseCase,
             statsModule.manageStatsUseCase,
             healthModule.manageHealthUseCase,
-            characterSpellModule.getSpells
+            characterSpellModule.spellUseCases
         )
     }
 }

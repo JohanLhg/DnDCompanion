@@ -1,10 +1,11 @@
 package com.jlahougue.dndcompanion.feature_combat.presentation
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jlahougue.dndcompanion.data_ability.domain.use_case.AbilityEvent
+import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellInfo
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellLevel
+import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellState
 import com.jlahougue.dndcompanion.data_character_spell.domain.use_case.SpellFilter
 import com.jlahougue.dndcompanion.data_health.domain.use_case.HealthEvent
 import com.jlahougue.dndcompanion.data_stats.domain.use_case.StatsEvent
@@ -35,11 +36,10 @@ class CombatViewModel(
     init {
         viewModelScope.launch(module.dispatcherProvider.io) {
             module.getCurrentCharacterId().collectLatest { characterId ->
-                module.getSpells(
+                module.spellUseCases.getSpells(
                     characterId,
-                    SpellFilter.All
+                    SpellFilter.Prepared
                 ).collectLatest { spells ->
-                    Log.d("CombatViewModel", "spells: $spells")
                     _spells.value = spells
                 }
             }
@@ -73,6 +73,12 @@ class CombatViewModel(
     fun onHealthEvent(event: HealthEvent) {
         viewModelScope.launch(module.dispatcherProvider.io) {
             module.manageHealthUseCase.onEvent(event)
+        }
+    }
+
+    fun setSpellState(spell: SpellInfo, state: SpellState) {
+        viewModelScope.launch(module.dispatcherProvider.io) {
+            module.spellUseCases.saveSpell(spell.getCharacterSpell(state))
         }
     }
 }

@@ -25,6 +25,7 @@ import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellState
 @Composable
 fun Spell(
     spell: SpellInfo,
+    setSpellState: (SpellInfo, SpellState) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -42,7 +43,11 @@ fun Spell(
                     .padding(MaterialTheme.spacing.small)
                     .size(20.dp),
                 onCheckedChange = {
-                    spell.state = if (it) SpellState.UNLOCKED else SpellState.LOCKED
+                    setSpellState(
+                        spell,
+                        if (it) SpellState.UNLOCKED
+                        else SpellState.PREPARED
+                    )
                 }
             )
             Text(
@@ -70,7 +75,8 @@ fun SpellPreview() {
             spell = SpellInfo(
                 cid = 1,
                 name = "Fireball",
-            )
+            ),
+            setSpellState = { _, _ -> }
         )
     }
 }

@@ -4,6 +4,8 @@ import com.jlahougue.dndcompanion.core.data.source.local.LocalDataSource
 import com.jlahougue.dndcompanion.core.data.source.remote.RemoteDataSource
 import com.jlahougue.dndcompanion.data_character_spell.data.repository.CharacterSpellRepository
 import com.jlahougue.dndcompanion.data_character_spell.domain.use_case.GetSpells
+import com.jlahougue.dndcompanion.data_character_spell.domain.use_case.SaveSpell
+import com.jlahougue.dndcompanion.data_character_spell.domain.use_case.SpellUseCases
 
 class CharacterSpellModule(
     private val remoteDataSource: RemoteDataSource,
@@ -17,5 +19,10 @@ class CharacterSpellModule(
         )
     }
 
-    override val getSpells by lazy { GetSpells(characterSpellRepository) }
+    override val spellUseCases by lazy {
+        SpellUseCases(
+            GetSpells(characterSpellRepository),
+            SaveSpell(characterSpellRepository)
+        )
+    }
 }

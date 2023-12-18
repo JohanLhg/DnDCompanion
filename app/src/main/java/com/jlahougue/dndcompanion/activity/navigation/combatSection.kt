@@ -34,7 +34,8 @@ fun NavGraphBuilder.combatSection(route: String) {
             health = health,
             deathSaves = deathSaves,
             onHealthEvent = viewModel::onHealthEvent,
-            spells = spells
+            spells = spells,
+            setSpellState = viewModel::setSpellState
         )
     }
 }

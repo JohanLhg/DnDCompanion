@@ -73,6 +73,14 @@ data class SpellInfo(
         )
     }
 
+    fun getCharacterSpell(
+        state: SpellState = this.state
+    ) = CharacterSpell(
+        cid = cid,
+        sid = id,
+        state = state
+    )
+
     override fun toString() = "$name ($level)"
 
     override fun equals(other: Any?): Boolean {
