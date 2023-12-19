@@ -64,6 +64,12 @@
     <string name="stats_armor_class">Armor Class</string>
     <string name="stats_speed">Speed</string>
 
+    <!-- Spells -->
+    <string name="spells">Spells</string>
+    <string name="spell_total_slots">Total Slots</string>
+    <string name="spell_slots_left">Slots Left</string>
+    <string name="cantrips">Cantrips</string>
+
     <!-- AuthActivity -->
     <string name="title_activity_auth">Auth Activity</string>
     <string name="label_logo">App Logo</string>
