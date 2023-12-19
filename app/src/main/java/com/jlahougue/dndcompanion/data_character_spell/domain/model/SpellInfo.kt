@@ -36,17 +36,8 @@ data class SpellInfo(
     @ColumnInfo(name = Spell.SPELL_HIGHER_LEVELS)
     var higherLevels: String = "",
 
-    @JvmField
-    @ColumnInfo(name = CharacterSpell.CHARACTER_SPELL_UNLOCKED)
-    var unlocked: Boolean = false,
-    @JvmField
-    @ColumnInfo(name = CharacterSpell.CHARACTER_SPELL_PREPARED)
-    var prepared: Boolean = false,
-    @JvmField
-    @ColumnInfo(name = CharacterSpell.CHARACTER_SPELL_ALWAYS_PREPARED)
-    var alwaysPrepared: Boolean = false,
-    @ColumnInfo(name = CharacterSpell.CHARACTER_SPELL_HIGHLIGHTED)
-    var highlighted: Boolean = false,
+    @ColumnInfo(name = CharacterSpell.CHARACTER_SPELL_STATE)
+    var state: SpellState = SpellState.LOCKED,
 
     @Relation(
         parentColumn = Spell.SPELL_ID,
@@ -61,25 +52,6 @@ data class SpellInfo(
     )
     var damageTypes: List<SpellDamageType> = listOf()
 ) {
-    fun setUnlocked(unlocked: Boolean) {
-        this.unlocked = unlocked
-        if (unlocked) highlighted = false
-        else {
-            prepared = false
-            alwaysPrepared = false
-        }
-    }
-
-    fun setPrepared(prepared: Boolean) {
-        this.prepared = prepared
-        if (prepared) alwaysPrepared = false
-    }
-
-    fun setAlwaysPrepared(alwaysPrepared: Boolean) {
-        this.alwaysPrepared = alwaysPrepared
-        if (alwaysPrepared) prepared = false
-    }
-
     fun copy(): SpellInfo {
         return SpellInfo(
             cid = cid,
@@ -95,14 +67,19 @@ data class SpellInfo(
             duration = duration,
             description = description,
             higherLevels = higherLevels,
-            unlocked = unlocked,
-            prepared = prepared,
-            alwaysPrepared = alwaysPrepared,
-            highlighted = highlighted,
+            state = state,
             classes = classes,
             damageTypes = damageTypes
         )
     }
+
+    fun getCharacterSpell(
+        state: SpellState = this.state
+    ) = CharacterSpell(
+        cid = cid,
+        sid = id,
+        state = state
+    )
 
     override fun toString() = "$name ($level)"
 
@@ -122,10 +99,7 @@ data class SpellInfo(
                 duration == other.duration &&
                 description == other.description &&
                 higherLevels == other.higherLevels &&
-                unlocked == other.unlocked &&
-                prepared == other.prepared &&
-                alwaysPrepared == other.alwaysPrepared &&
-                highlighted == other.highlighted &&
+                state == other.state &&
                 classes == other.classes &&
                 damageTypes == other.damageTypes
     }
@@ -143,10 +117,7 @@ data class SpellInfo(
         result = 31 * result + duration.hashCode()
         result = 31 * result + description.hashCode()
         result = 31 * result + higherLevels.hashCode()
-        result = 31 * result + unlocked.hashCode()
-        result = 31 * result + prepared.hashCode()
-        result = 31 * result + alwaysPrepared.hashCode()
-        result = 31 * result + highlighted.hashCode()
+        result = 31 * result + state.hashCode()
         result = 31 * result + classes.hashCode()
         result = 31 * result + damageTypes.hashCode()
         return result

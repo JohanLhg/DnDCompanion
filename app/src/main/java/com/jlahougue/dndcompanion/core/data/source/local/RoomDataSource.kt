@@ -55,7 +55,7 @@ import com.jlahougue.dndcompanion.data_weapon.domain.model.WeaponProperty
         ProficiencyView::class,
         SpellSlotView::class
     ],
-    version = 6
+    version = 7
 )
 @TypeConverters(
     value = [AbilityNameTypeConverter::class]

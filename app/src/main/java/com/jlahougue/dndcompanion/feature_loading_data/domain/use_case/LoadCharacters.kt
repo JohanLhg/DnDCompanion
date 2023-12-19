@@ -8,6 +8,7 @@ import com.jlahougue.dndcompanion.data_ability.domain.repository.IAbilityReposit
 import com.jlahougue.dndcompanion.data_character.domain.repository.ICharacterRepository
 import com.jlahougue.dndcompanion.data_character_sheet.data.source.remote.CharacterSheetFirebaseEvent
 import com.jlahougue.dndcompanion.data_character_sheet.domain.repository.ICharacterSheetRepository
+import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellSlot
 import com.jlahougue.dndcompanion.data_character_spell.domain.repository.ICharacterSpellRepository
 import com.jlahougue.dndcompanion.data_health.domain.repository.IHealthRepository
 import com.jlahougue.dndcompanion.data_skill.domain.repository.ISkillRepository
@@ -55,6 +56,11 @@ class LoadCharacters(
                             statsRepository.saveToLocal(characterSheet.stats!!)
                             healthRepository.saveToLocal(characterSheet.health!!)
                             healthRepository.saveToLocal(characterSheet.deathSaves!!)
+                            characterSpellRepository.saveSpellSlotsToLocal(
+                                characterSheet.spellSlots.map { (key, value) ->
+                                    SpellSlot(characterSheet.id, key.toInt(), value)
+                                }
+                            )
                             characterSpellRepository.saveToLocal(characterSheet.spells.values.toList())
                             weaponRepository.saveToLocal(characterSheet.weapons.values.toList())
                             noneExist = false
@@ -63,22 +69,22 @@ class LoadCharacters(
                     }
                     /**
                     if (noneExist) {
-                        val character = CharacterSheet()
-                        character.character = characterRepository.create()
-                        character.abilities = abilityRepository
-                            .create(character.id)
-                            .associateBy(
-                                { it.name.name },
-                                { it }
-                            )
-                        character.skills = skillRepository.create(character.id)
-                            .associateBy(
-                                { it.name.name },
-                                { it }
-                            )
-                        characterSheetRepository.save(character)
+                    val character = CharacterSheet()
+                    character.character = characterRepository.create()
+                    character.abilities = abilityRepository
+                    .create(character.id)
+                    .associateBy(
+                    { it.name.name },
+                    { it }
+                    )
+                    character.skills = skillRepository.create(character.id)
+                    .associateBy(
+                    { it.name.name },
+                    { it }
+                    )
+                    characterSheetRepository.save(character)
                     }
-                    */
+                     */
                     onApiEvent(ApiEvent.Finish)
                 }
             }

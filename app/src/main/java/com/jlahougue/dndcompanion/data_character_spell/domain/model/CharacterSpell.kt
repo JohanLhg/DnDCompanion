@@ -12,22 +12,13 @@ data class CharacterSpell(
     var cid: Long = 0,
     @ColumnInfo(name = CHARACTER_SPELL_SID)
     var sid: String = "",
-    @ColumnInfo(name = CHARACTER_SPELL_UNLOCKED)
-    var unlocked: Boolean = false,
-    @ColumnInfo(name = CHARACTER_SPELL_PREPARED)
-    var prepared: Boolean = false,
-    @ColumnInfo(name = CHARACTER_SPELL_ALWAYS_PREPARED)
-    var alwaysPrepared: Boolean = false,
-    @ColumnInfo(name = CHARACTER_SPELL_HIGHLIGHTED)
-    var highlighted: Boolean = false
+    @ColumnInfo(name = CHARACTER_SPELL_STATE)
+    var state: SpellState = SpellState.LOCKED
 ) {
     companion object {
         const val TABLE_CHARACTER_SPELL = "character_spell"
         const val CHARACTER_SPELL_CID = "cid"
         const val CHARACTER_SPELL_SID = "spell_id"
-        const val CHARACTER_SPELL_UNLOCKED = "unlocked"
-        const val CHARACTER_SPELL_PREPARED = "prepared"
-        const val CHARACTER_SPELL_ALWAYS_PREPARED = "always_prepared"
-        const val CHARACTER_SPELL_HIGHLIGHTED = "highlighted"
+        const val CHARACTER_SPELL_STATE = "state"
     }
 }

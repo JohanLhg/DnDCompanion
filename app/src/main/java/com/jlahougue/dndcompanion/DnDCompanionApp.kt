@@ -170,9 +170,11 @@ class DnDCompanionApp: Application() {
         )
         combatModule = CombatModule(
             appModule.dispatcherProvider,
+            userInfoModule.getCurrentCharacterId,
             abilityModule.manageAbilitiesUseCase,
             statsModule.manageStatsUseCase,
-            healthModule.manageHealthUseCase
+            healthModule.manageHealthUseCase,
+            characterSpellModule.spellUseCases
         )
     }
 }

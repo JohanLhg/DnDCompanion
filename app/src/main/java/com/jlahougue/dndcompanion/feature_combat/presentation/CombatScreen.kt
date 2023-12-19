@@ -3,6 +3,7 @@ package com.jlahougue.dndcompanion.feature_combat.presentation
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
@@ -14,7 +15,8 @@ import com.jlahougue.dndcompanion.data_ability.domain.model.AbilityView
 import com.jlahougue.dndcompanion.data_ability.domain.use_case.AbilityEvent
 import com.jlahougue.dndcompanion.data_ability.presentation.Abilities
 import com.jlahougue.dndcompanion.data_ability.presentation.getAbilitiesPreviewData
-import com.jlahougue.dndcompanion.data_character_spell.presentation.SpellLevel
+import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellLevel
+import com.jlahougue.dndcompanion.data_character_spell.presentation.SpellList
 import com.jlahougue.dndcompanion.data_health.domain.model.DeathSaves
 import com.jlahougue.dndcompanion.data_health.domain.model.Health
 import com.jlahougue.dndcompanion.data_health.domain.use_case.HealthEvent
@@ -31,7 +33,8 @@ fun CombatScreen(
     onStatsEvent: (StatsEvent) -> Unit,
     health: Health,
     deathSaves: DeathSaves,
-    onHealthEvent: (HealthEvent) -> Unit
+    onHealthEvent: (HealthEvent) -> Unit,
+    spells: List<SpellLevel> = listOf()
 ) {
     Row {
         Column(
@@ -59,7 +62,10 @@ fun CombatScreen(
                 .width(IntrinsicSize.Max)
                 .height(IntrinsicSize.Max)
         )
-        SpellLevel()
+        SpellList(
+            spells = spells,
+            modifier = Modifier.fillMaxHeight()
+        )
     }
 }
 
