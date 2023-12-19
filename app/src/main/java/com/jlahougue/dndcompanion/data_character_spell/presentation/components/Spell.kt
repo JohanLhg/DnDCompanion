@@ -1,8 +1,9 @@
-package com.jlahougue.dndcompanion.data_character_spell.presentation
+package com.jlahougue.dndcompanion.data_character_spell.presentation.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -25,8 +26,8 @@ import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellState
 @Composable
 fun Spell(
     spell: SpellInfo,
-    setSpellState: (SpellInfo, SpellState) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    setSpellState: ((SpellInfo, SpellState) -> Unit)? = null
 ) {
     Column(
         modifier = modifier
@@ -37,24 +38,31 @@ fun Spell(
                 .fillMaxWidth()
                 .height(IntrinsicSize.Min)
         ) {
-            Checkbox(
-                checked = spell.state.isUnlocked(),
-                modifier = Modifier
-                    .padding(MaterialTheme.spacing.small)
-                    .size(20.dp),
-                onCheckedChange = {
-                    setSpellState(
-                        spell,
-                        if (it) SpellState.UNLOCKED
-                        else SpellState.PREPARED
-                    )
-                }
-            )
+            if (setSpellState != null) {
+                Checkbox(
+                    checked = spell.state.isUnlocked(),
+                    modifier = Modifier
+                        .padding(MaterialTheme.spacing.small)
+                        .size(20.dp),
+                    onCheckedChange = {
+                        setSpellState(
+                            spell,
+                            if (it) SpellState.UNLOCKED
+                            else SpellState.PREPARED
+                        )
+                    }
+                )
+            } else {
+                Spacer(
+                    modifier = Modifier
+                        .size(MaterialTheme.spacing.small)
+                )
+            }
             Text(
                 text = spell.name,
                 style = MaterialTheme.typography.bodySmall,
                 modifier = Modifier
-                    .padding(vertical =MaterialTheme.spacing.small)
+                    .padding(vertical = MaterialTheme.spacing.small)
                     .fillMaxWidth()
             )
         }
@@ -75,8 +83,7 @@ fun SpellPreview() {
             spell = SpellInfo(
                 cid = 1,
                 name = "Fireball",
-            ),
-            setSpellState = { _, _ -> }
+            )
         )
     }
 }

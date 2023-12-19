@@ -1,4 +1,4 @@
-package com.jlahougue.dndcompanion.data_character_spell.presentation
+package com.jlahougue.dndcompanion.data_character_spell.presentation.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.heightIn
@@ -19,22 +19,31 @@ import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellInfo
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellLevel
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellSlotView
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellState
+import com.jlahougue.dndcompanion.data_character_spell.presentation.components.cantrips.CantripsBanner
 
 @Composable
 fun SpellLevelSection(
     spellLevel: SpellLevel,
-    setSpellState: (SpellInfo, SpellState) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    setSpellState: ((SpellInfo, SpellState) -> Unit)? = null
 ) {
     Column(
         modifier = modifier
     ) {
-        SpellLevelBanner(
-            spellLevel.spellSlot,
-            modifier = Modifier
-                .width(300.dp)
-                .padding(MaterialTheme.spacing.small)
-        )
+        if (spellLevel.spellSlot.level == 0) {
+            CantripsBanner(
+                modifier = Modifier
+                    .width(300.dp)
+                    .padding(MaterialTheme.spacing.small)
+            )
+        } else {
+            SpellLevelBanner(
+                spellLevel.spellSlot,
+                modifier = Modifier
+                    .width(300.dp)
+                    .padding(MaterialTheme.spacing.small)
+            )
+        }
         LazyVerticalGrid(
             columns = GridCells.Adaptive(200.dp),
             modifier = Modifier
@@ -102,7 +111,6 @@ fun SpellLevelPreview() {
                     ),
                 )
             ),
-            setSpellState = { _, _ -> },
             modifier = Modifier.width(2560.dp)
         )
     }

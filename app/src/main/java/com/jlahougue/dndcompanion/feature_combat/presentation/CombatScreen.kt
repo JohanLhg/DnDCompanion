@@ -15,9 +15,7 @@ import com.jlahougue.dndcompanion.data_ability.domain.model.AbilityView
 import com.jlahougue.dndcompanion.data_ability.domain.use_case.AbilityEvent
 import com.jlahougue.dndcompanion.data_ability.presentation.Abilities
 import com.jlahougue.dndcompanion.data_ability.presentation.getAbilitiesPreviewData
-import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellInfo
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellLevel
-import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellState
 import com.jlahougue.dndcompanion.data_character_spell.presentation.SpellList
 import com.jlahougue.dndcompanion.data_health.domain.model.DeathSaves
 import com.jlahougue.dndcompanion.data_health.domain.model.Health
@@ -36,8 +34,7 @@ fun CombatScreen(
     health: Health,
     deathSaves: DeathSaves,
     onHealthEvent: (HealthEvent) -> Unit,
-    spells: List<SpellLevel> = listOf(),
-    setSpellState: (SpellInfo, SpellState) -> Unit = { _, _ -> }
+    spells: List<SpellLevel> = listOf()
 ) {
     Row {
         Column(
@@ -67,7 +64,6 @@ fun CombatScreen(
         )
         SpellList(
             spells = spells,
-            setSpellState = setSpellState,
             modifier = Modifier.fillMaxHeight()
         )
     }

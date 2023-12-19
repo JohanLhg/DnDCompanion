@@ -73,10 +73,12 @@ interface CharacterSpellLocalDataSource {
                 WHERE cid = :characterId
             ) cs ON spell.spell_id = cs.spell_id
             WHERE cs.state IN ('PREPARED', 'ALWAYS_PREPARED')
+            OR (spell.level = 0 AND cs.state = 'UNLOCKED')
         )
         SELECT *
         FROM spell_slot_view
         INNER JOIN spellInfo ON spellInfo.level = spell_slot_view.level
+        WHERE spell_slot_view.cid = :characterId
     """)
     fun getPreparedSpells(characterId: Long): Flow<Map<SpellSlotView, List<SpellInfo>>>
 }

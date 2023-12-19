@@ -7,12 +7,13 @@ import androidx.compose.ui.Modifier
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellInfo
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellLevel
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellState
+import com.jlahougue.dndcompanion.data_character_spell.presentation.components.SpellLevelSection
 
 @Composable
 fun SpellList(
     spells: List<SpellLevel>,
-    setSpellState: (SpellInfo, SpellState) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    setSpellState: ((SpellInfo, SpellState) -> Unit)? = null
 ) {
     LazyColumn(
         modifier = modifier
