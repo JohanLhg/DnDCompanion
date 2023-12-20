@@ -22,7 +22,7 @@ import com.jlahougue.dndcompanion.data_health.domain.model.Health
 import com.jlahougue.dndcompanion.data_health.domain.use_case.HealthEvent
 import com.jlahougue.dndcompanion.data_health.presentation.HealthBox
 import com.jlahougue.dndcompanion.data_stats.domain.model.Stats
-import com.jlahougue.dndcompanion.data_stats.domain.use_case.StatsEvent
+import com.jlahougue.dndcompanion.data_stats.presentation.StatsEvent
 import com.jlahougue.dndcompanion.data_stats.presentation.StatsList
 
 @Composable

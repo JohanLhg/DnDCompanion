@@ -3,11 +3,11 @@ package com.jlahougue.dndcompanion.data_stats.di
 import com.jlahougue.dndcompanion.core.data.source.local.LocalDataSource
 import com.jlahougue.dndcompanion.core.data.source.remote.RemoteDataSource
 import com.jlahougue.dndcompanion.data_stats.data.repository.StatsRepository
-import com.jlahougue.dndcompanion.data_stats.domain.use_case.ManageStatsUseCase
-import com.jlahougue.dndcompanion.data_user_info.domain.repository.IUserInfoRepository
+import com.jlahougue.dndcompanion.data_stats.domain.use_case.GetStats
+import com.jlahougue.dndcompanion.data_stats.domain.use_case.SaveStats
+import com.jlahougue.dndcompanion.data_stats.domain.use_case.StatsUseCases
 
 class StatsModule(
-    userInfoRepository: IUserInfoRepository,
     remoteDataSource: RemoteDataSource,
     localDataSource: LocalDataSource
 ) : IStatsModule {
@@ -19,10 +19,10 @@ class StatsModule(
         )
     }
 
-    override val manageStatsUseCase by lazy {
-        ManageStatsUseCase(
-            userInfoRepository,
-            statsRepository
+    override val statsUseCases by lazy {
+        StatsUseCases(
+            GetStats(statsRepository),
+            SaveStats(statsRepository)
         )
     }
 }
