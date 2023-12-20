@@ -29,7 +29,6 @@ import com.jlahougue.dndcompanion.core.presentation.theme.DnDCompanionTheme
 import com.jlahougue.dndcompanion.core.presentation.theme.spacing
 import com.jlahougue.dndcompanion.data_ability.domain.model.AbilityName
 import com.jlahougue.dndcompanion.data_ability.domain.model.AbilityView
-import com.jlahougue.dndcompanion.data_ability.domain.use_case.AbilityEvent
 
 @Composable
 fun Abilities(

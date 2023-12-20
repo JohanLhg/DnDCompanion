@@ -100,7 +100,7 @@ class DnDCompanionApp: Application() {
             dataSourceModule.localDataSource
         )
         abilityModule = AbilityModule(
-            userInfoModule.userInfoRepository,
+            appModule.dispatcherProvider,
             dataSourceModule.remoteDataSource,
             dataSourceModule.localDataSource
         )
@@ -170,7 +170,7 @@ class DnDCompanionApp: Application() {
         combatModule = CombatModule(
             appModule.dispatcherProvider,
             userInfoModule.getCurrentCharacterId,
-            abilityModule.manageAbilitiesUseCase,
+            abilityModule.abilityUseCases,
             statsModule.statsUseCases,
             healthModule.manageHealthUseCase,
             characterSpellModule.spellUseCases

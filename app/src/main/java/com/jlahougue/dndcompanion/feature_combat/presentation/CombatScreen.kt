@@ -12,8 +12,8 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import com.jlahougue.dndcompanion.core.presentation.theme.DnDCompanionTheme
 import com.jlahougue.dndcompanion.data_ability.domain.model.AbilityView
-import com.jlahougue.dndcompanion.data_ability.domain.use_case.AbilityEvent
 import com.jlahougue.dndcompanion.data_ability.presentation.Abilities
+import com.jlahougue.dndcompanion.data_ability.presentation.AbilityEvent
 import com.jlahougue.dndcompanion.data_ability.presentation.getAbilitiesPreviewData
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellLevel
 import com.jlahougue.dndcompanion.data_character_spell.presentation.SpellList
