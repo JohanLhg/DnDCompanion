@@ -27,7 +27,6 @@ import com.jlahougue.dndcompanion.core.presentation.components.FramedBox
 import com.jlahougue.dndcompanion.core.presentation.theme.DnDCompanionTheme
 import com.jlahougue.dndcompanion.core.presentation.theme.spacing
 import com.jlahougue.dndcompanion.data_stats.domain.model.Stats
-import com.jlahougue.dndcompanion.data_stats.domain.use_case.StatsEvent
 
 @Composable
 fun StatsList(
@@ -88,9 +87,9 @@ fun StatsList(
                     value = stats.armorClass.toString(),
                     onValueChange = {
                         try {
-                            onEvent(StatsEvent.OnArmorClassChange(it.toInt()))
+                            onEvent(StatsEvent.OnArmorClassChanged(it.toInt()))
                         } catch (e: Exception) {
-                            onEvent(StatsEvent.OnArmorClassChange(0))
+                            onEvent(StatsEvent.OnArmorClassChanged(0))
                         }
                     },
                     textStyle = MaterialTheme.typography.bodySmall.copy(
@@ -126,9 +125,9 @@ fun StatsList(
                     value = stats.speed.toString(),
                     onValueChange = {
                         try {
-                            onEvent(StatsEvent.OnSpeedChange(it.toInt()))
+                            onEvent(StatsEvent.OnSpeedChanged(it.toInt()))
                         } catch (e: Exception) {
-                            onEvent(StatsEvent.OnSpeedChange(0))
+                            onEvent(StatsEvent.OnSpeedChanged(0))
                         }
                     },
                     textStyle = MaterialTheme.typography.bodySmall.copy(
