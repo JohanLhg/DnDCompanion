@@ -95,7 +95,6 @@ class DnDCompanionApp: Application() {
         )
         healthModule = HealthModule(
             appModule.dispatcherProvider,
-            userInfoModule.userInfoRepository,
             dataSourceModule.remoteDataSource,
             dataSourceModule.localDataSource
         )
@@ -172,7 +171,7 @@ class DnDCompanionApp: Application() {
             userInfoModule.getCurrentCharacterId,
             abilityModule.manageAbilitiesUseCase,
             statsModule.statsUseCases,
-            healthModule.manageHealthUseCase,
+            healthModule.healthUseCases,
             characterSpellModule.spellUseCases
         )
     }

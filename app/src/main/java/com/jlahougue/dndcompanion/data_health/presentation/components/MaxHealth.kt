@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 import com.jlahougue.dndcompanion.R
 import com.jlahougue.dndcompanion.core.presentation.theme.spacing
 import com.jlahougue.dndcompanion.data_health.domain.model.Health
-import com.jlahougue.dndcompanion.data_health.domain.use_case.HealthEvent
+import com.jlahougue.dndcompanion.data_health.presentation.HealthEvent
 
 @Composable
 fun MaxHealth(
