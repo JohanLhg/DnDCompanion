@@ -2,6 +2,7 @@ package com.jlahougue.dndcompanion.feature_combat.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.common.primitives.Ints.min
 import com.jlahougue.dndcompanion.data_ability.domain.use_case.AbilityEvent
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellLevel
 import com.jlahougue.dndcompanion.data_character_spell.domain.use_case.SpellFilter
@@ -15,6 +16,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import kotlin.math.max
 
 class CombatViewModel(
     private val module: ICombatModule
@@ -99,33 +101,41 @@ class CombatViewModel(
 
     fun onHealthEvent(event: HealthEvent) {
         when (event) {
+            is HealthEvent.OnMaxHealthChange -> {
+                val health = _health.value.copy(
+                    maxHp = event.maxHealth
+                )
+                saveHealth(health)
+            }
             is HealthEvent.OnCurrentHealthChange -> {
-                val health = _health.value
-                var currentHealth = event.currentHealth
-                if (currentHealth > health.maxHp) {
-                    health.temporaryHp = health.temporaryHp + currentHealth - health.maxHp
-                    currentHealth = health.maxHp
-                }
-                health.currentHp = currentHealth
+                val health = _health.value.copy(
+                    currentHp = min(event.currentHealth, health.value.maxHp)
+                )
                 saveHealth(health)
             }
             is HealthEvent.OnCurrentHealthChangeBy -> {
-                val health = _health.value
-                var currentHealth = health.currentHp + event.value
-                if (currentHealth > health.maxHp) {
-                    health.temporaryHp = health.temporaryHp + currentHealth - health.maxHp
-                    currentHealth = health.maxHp
-                }
-                health.currentHp = currentHealth
+                val health = _health.value.copy(
+                    currentHp = min(this.health.value.currentHp + event.value, health.value.maxHp)
+                )
                 saveHealth(health)
             }
-            is HealthEvent.OnDeathSavesFailureChange -> {
-                val deathSaves = _deathSaves.value.copy(
-                    failures = event.failures
+            is HealthEvent.OnTemporaryHealthChange -> {
+                val health = _health.value.copy(
+                    temporaryHp = max(event.temporaryHealth, 0)
                 )
-                viewModelScope.launch(module.dispatcherProvider.io) {
-                    module.healthUseCases.saveDeathSaves(deathSaves)
-                }
+                saveHealth(health)
+            }
+            is HealthEvent.OnTemporaryHealthChangeBy -> {
+                val health = _health.value.copy(
+                    temporaryHp = max(this.health.value.temporaryHp + event.value, 0)
+                )
+                saveHealth(health)
+            }
+            is HealthEvent.OnHitDiceChange -> {
+                val health = _health.value.copy(
+                    hitDice = event.hitDice
+                )
+                saveHealth(health)
             }
             is HealthEvent.OnDeathSavesSuccessChange -> {
                 val deathSaves = _deathSaves.value.copy(
@@ -135,29 +145,13 @@ class CombatViewModel(
                     module.healthUseCases.saveDeathSaves(deathSaves)
                 }
             }
-            is HealthEvent.OnHitDiceChange -> {
-                val health = _health.value.copy(
-                    hitDice = event.hitDice
+            is HealthEvent.OnDeathSavesFailureChange -> {
+                val deathSaves = _deathSaves.value.copy(
+                    failures = event.failures
                 )
-                saveHealth(health)
-            }
-            is HealthEvent.OnMaxHealthChange -> {
-                val health = _health.value.copy(
-                    maxHp = event.maxHealth
-                )
-                saveHealth(health)
-            }
-            is HealthEvent.OnTemporaryHealthChange -> {
-                val health = _health.value.copy(
-                    temporaryHp = event.temporaryHealth
-                )
-                saveHealth(health)
-            }
-            is HealthEvent.OnTemporaryHealthChangeBy -> {
-                val health = _health.value.copy(
-                    temporaryHp = this.health.value.temporaryHp + event.value
-                )
-                saveHealth(health)
+                viewModelScope.launch(module.dispatcherProvider.io) {
+                    module.healthUseCases.saveDeathSaves(deathSaves)
+                }
             }
         }
     }
