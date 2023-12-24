@@ -1,4 +1,4 @@
-package com.jlahougue.dndcompanion.data_health.domain.use_case
+package com.jlahougue.dndcompanion.data_health.presentation
 
 sealed class HealthEvent {
     data class OnMaxHealthChange(val maxHealth: Int) : HealthEvent()
