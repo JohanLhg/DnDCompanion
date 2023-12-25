@@ -15,8 +15,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import kotlin.math.min
 import kotlin.math.max
+import kotlin.math.min
 
 class CombatViewModel(
     private val module: ICombatModule
@@ -80,10 +80,6 @@ class CombatViewModel(
                     }
                 }
             }
-        }
-
-        viewModelScope.launch(module.dispatcherProvider.io) {
-            module.manageAbilitiesUseCase()
         }
     }
 
