@@ -20,14 +20,14 @@ import com.jlahougue.dndcompanion.data_health.domain.model.DeathSaves
 import com.jlahougue.dndcompanion.data_health.domain.model.Health
 import com.jlahougue.dndcompanion.data_health.presentation.HealthBox
 import com.jlahougue.dndcompanion.data_health.presentation.HealthEvent
-import com.jlahougue.dndcompanion.data_stats.domain.model.Stats
+import com.jlahougue.dndcompanion.data_stats.domain.model.StatsView
 import com.jlahougue.dndcompanion.data_stats.presentation.StatsEvent
 import com.jlahougue.dndcompanion.data_stats.presentation.StatsList
 
 @Composable
 fun CombatScreen(
     abilities: List<AbilityView>,
-    stats: Stats,
+    stats: StatsView,
     onStatsEvent: (StatsEvent) -> Unit,
     health: Health,
     deathSaves: DeathSaves,
@@ -75,7 +75,7 @@ fun CombatScreenPreview() {
     DnDCompanionTheme {
         CombatScreen(
             abilities = getAbilitiesPreviewData(),
-            stats = Stats(),
+            stats = StatsView(),
             onStatsEvent = {},
             health = Health(),
             deathSaves = DeathSaves(),

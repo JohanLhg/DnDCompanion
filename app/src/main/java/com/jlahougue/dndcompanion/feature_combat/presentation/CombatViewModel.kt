@@ -8,7 +8,7 @@ import com.jlahougue.dndcompanion.data_character_spell.domain.use_case.SpellFilt
 import com.jlahougue.dndcompanion.data_health.domain.model.DeathSaves
 import com.jlahougue.dndcompanion.data_health.domain.model.Health
 import com.jlahougue.dndcompanion.data_health.presentation.HealthEvent
-import com.jlahougue.dndcompanion.data_stats.domain.model.Stats
+import com.jlahougue.dndcompanion.data_stats.domain.model.StatsView
 import com.jlahougue.dndcompanion.data_stats.presentation.StatsEvent
 import com.jlahougue.dndcompanion.feature_combat.di.ICombatModule
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -25,7 +25,7 @@ class CombatViewModel(
     private val _abilities = MutableStateFlow(listOf<AbilityView>())
     val abilities = _abilities.asStateFlow()
 
-    private val _stats = MutableStateFlow(Stats())
+    private val _stats = MutableStateFlow(StatsView())
     val stats = _stats.asStateFlow()
 
     private val _health = MutableStateFlow(Health())
@@ -44,12 +44,6 @@ class CombatViewModel(
                 viewModelScope.launch(module.dispatcherProvider.io) {
                     module.abilityUseCases.getAbilities(characterId).collectLatest { abilities ->
                         _abilities.value = abilities
-                    }
-                }
-
-                viewModelScope.launch(module.dispatcherProvider.io) {
-                    module.statsUseCases.getStats(characterId).collectLatest { stats ->
-                        _stats.value = stats
                     }
                 }
 
@@ -86,12 +80,12 @@ class CombatViewModel(
     fun onStatsEvent(event: StatsEvent) {
         val stats = when (event) {
             is StatsEvent.OnArmorClassChanged -> {
-                _stats.value.copy(
+                _stats.value.toStats(
                     armorClass = event.armorClass
                 )
             }
             is StatsEvent.OnSpeedChanged -> {
-                _stats.value.copy(
+                _stats.value.toStats(
                     speed = event.speed
                 )
             }

@@ -4,7 +4,6 @@ import com.jlahougue.dndcompanion.data_stats.data.source.local.StatsLocalDataSou
 import com.jlahougue.dndcompanion.data_stats.data.source.remote.StatsRemoteDataSource
 import com.jlahougue.dndcompanion.data_stats.domain.model.Stats
 import com.jlahougue.dndcompanion.data_stats.domain.repository.IStatsRepository
-import kotlinx.coroutines.flow.Flow
 
 class StatsRepository(
     private val remote: StatsRemoteDataSource,
@@ -23,7 +22,5 @@ class StatsRepository(
         local.insert(stats)
     }
 
-    override fun get(characterId: Long): Flow<Stats> {
-        return local.get(characterId)
-    }
+    override fun get(characterId: Long) = local.get(characterId)
 }
