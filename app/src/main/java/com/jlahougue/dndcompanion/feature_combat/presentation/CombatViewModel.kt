@@ -3,7 +3,6 @@ package com.jlahougue.dndcompanion.feature_combat.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jlahougue.dndcompanion.data_ability.domain.model.AbilityView
-import com.jlahougue.dndcompanion.data_ability.presentation.AbilityEvent
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellLevel
 import com.jlahougue.dndcompanion.data_character_spell.domain.use_case.SpellFilter
 import com.jlahougue.dndcompanion.data_health.domain.use_case.HealthEvent
@@ -62,26 +61,6 @@ class CombatViewModel(
 
         viewModelScope.launch(module.dispatcherProvider.io) {
             module.manageHealthUseCase()
-        }
-    }
-
-    fun onAbilityEvent(event: AbilityEvent) {
-        val ability = when (event) {
-            is AbilityEvent.OnValueChange -> {
-                _abilities.value.find { it.name == event.name }?.copy(
-                    value = event.value
-                )
-            }
-
-            is AbilityEvent.OnProficiencyChange -> {
-                _abilities.value.find { it.name == event.name }?.copy(
-                    proficiency = event.isProficient
-                )
-            }
-        } ?: return
-
-        viewModelScope.launch(module.dispatcherProvider.io) {
-            module.abilityUseCases.saveAbility(ability.toAbility())
         }
     }
 
