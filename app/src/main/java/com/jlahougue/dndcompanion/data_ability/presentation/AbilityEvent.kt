@@ -1,4 +1,4 @@
-package com.jlahougue.dndcompanion.data_ability.domain.use_case
+package com.jlahougue.dndcompanion.data_ability.presentation
 
 import com.jlahougue.dndcompanion.data_ability.domain.model.AbilityName
 

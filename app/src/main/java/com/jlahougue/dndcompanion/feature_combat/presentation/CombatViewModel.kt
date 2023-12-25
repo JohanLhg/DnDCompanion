@@ -2,8 +2,7 @@ package com.jlahougue.dndcompanion.feature_combat.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.common.primitives.Ints.min
-import com.jlahougue.dndcompanion.data_ability.domain.use_case.AbilityEvent
+import com.jlahougue.dndcompanion.data_ability.domain.model.AbilityView
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellLevel
 import com.jlahougue.dndcompanion.data_character_spell.domain.use_case.SpellFilter
 import com.jlahougue.dndcompanion.data_health.domain.model.DeathSaves
@@ -16,13 +15,15 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import kotlin.math.min
 import kotlin.math.max
 
 class CombatViewModel(
     private val module: ICombatModule
 ) : ViewModel() {
-    val abilities
-        get() = module.manageAbilitiesUseCase.abilities
+
+    private val _abilities = MutableStateFlow(listOf<AbilityView>())
+    val abilities = _abilities.asStateFlow()
 
     private val _stats = MutableStateFlow(Stats())
     val stats = _stats.asStateFlow()
@@ -41,11 +42,14 @@ class CombatViewModel(
             module.getCurrentCharacterId().collectLatest { characterId ->
 
                 viewModelScope.launch(module.dispatcherProvider.io) {
-                    module.spellUseCases.getSpells(
-                        characterId,
-                        SpellFilter.Prepared
-                    ).collectLatest { spells ->
-                        _spells.value = spells
+                    module.abilityUseCases.getAbilities(characterId).collectLatest { abilities ->
+                        _abilities.value = abilities
+                    }
+                }
+
+                viewModelScope.launch(module.dispatcherProvider.io) {
+                    module.statsUseCases.getStats(characterId).collectLatest { stats ->
+                        _stats.value = stats
                     }
                 }
 
@@ -66,6 +70,15 @@ class CombatViewModel(
                         _deathSaves.value = deathSaves
                     }
                 }
+
+                viewModelScope.launch(module.dispatcherProvider.io) {
+                    module.spellUseCases.getSpells(
+                        characterId,
+                        SpellFilter.Prepared
+                    ).collectLatest { spells ->
+                        _spells.value = spells
+                    }
+                }
             }
         }
 
@@ -74,14 +87,8 @@ class CombatViewModel(
         }
     }
 
-    fun onAbilityEvent(event: AbilityEvent) {
-        viewModelScope.launch(module.dispatcherProvider.io) {
-            module.manageAbilitiesUseCase.onEvent(event)
-        }
-    }
-
     fun onStatsEvent(event: StatsEvent) {
-        _stats.value = when (event) {
+        val stats = when (event) {
             is StatsEvent.OnArmorClassChanged -> {
                 _stats.value.copy(
                     armorClass = event.armorClass
@@ -95,7 +102,7 @@ class CombatViewModel(
         }
 
         viewModelScope.launch(module.dispatcherProvider.io) {
-            module.statsUseCases.saveStats(stats.value)
+            module.statsUseCases.saveStats(stats)
         }
     }
 

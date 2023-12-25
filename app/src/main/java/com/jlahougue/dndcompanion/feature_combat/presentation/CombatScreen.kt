@@ -12,7 +12,6 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import com.jlahougue.dndcompanion.core.presentation.theme.DnDCompanionTheme
 import com.jlahougue.dndcompanion.data_ability.domain.model.AbilityView
-import com.jlahougue.dndcompanion.data_ability.domain.use_case.AbilityEvent
 import com.jlahougue.dndcompanion.data_ability.presentation.Abilities
 import com.jlahougue.dndcompanion.data_ability.presentation.getAbilitiesPreviewData
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellLevel
@@ -28,7 +27,6 @@ import com.jlahougue.dndcompanion.data_stats.presentation.StatsList
 @Composable
 fun CombatScreen(
     abilities: List<AbilityView>,
-    onAbilityEvent: (AbilityEvent) -> Unit,
     stats: Stats,
     onStatsEvent: (StatsEvent) -> Unit,
     health: Health,
@@ -43,7 +41,6 @@ fun CombatScreen(
         ) {
             Abilities(
                 abilities = abilities,
-                onEvent = onAbilityEvent,
                 modifier = Modifier
                     .height(IntrinsicSize.Max)
             )
@@ -78,7 +75,6 @@ fun CombatScreenPreview() {
     DnDCompanionTheme {
         CombatScreen(
             abilities = getAbilitiesPreviewData(),
-            onAbilityEvent = {},
             stats = Stats(),
             onStatsEvent = {},
             health = Health(),
