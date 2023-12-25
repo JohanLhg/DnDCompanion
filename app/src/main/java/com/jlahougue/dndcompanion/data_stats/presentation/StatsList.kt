@@ -22,15 +22,16 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.jlahougue.dndcompanion.R
+import com.jlahougue.dndcompanion.core.domain.util.extension.toSignedString
 import com.jlahougue.dndcompanion.core.presentation.components.CustomOutlinedTextField
 import com.jlahougue.dndcompanion.core.presentation.components.FramedBox
 import com.jlahougue.dndcompanion.core.presentation.theme.DnDCompanionTheme
 import com.jlahougue.dndcompanion.core.presentation.theme.spacing
-import com.jlahougue.dndcompanion.data_stats.domain.model.Stats
+import com.jlahougue.dndcompanion.data_stats.domain.model.StatsView
 
 @Composable
 fun StatsList(
-    stats: Stats,
+    stats: StatsView,
     onEvent: (StatsEvent) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -59,7 +60,7 @@ fun StatsList(
                         .weight(1f)
                 )
                 Text(
-                    text = "+2",
+                    text = stats.initiative.toSignedString(),
                     style = MaterialTheme.typography.bodySmall,
                     textAlign = TextAlign.Center,
                     modifier = Modifier
@@ -150,8 +151,9 @@ fun StatsList(
 fun StatsPreview() {
     DnDCompanionTheme {
         StatsList(
-            stats = Stats(
+            stats = StatsView(
                 cid = 1,
+                initiative = 2,
                 armorClass = 10,
                 speed = 30
             ),
