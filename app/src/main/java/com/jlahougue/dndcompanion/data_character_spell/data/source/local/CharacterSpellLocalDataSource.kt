@@ -6,10 +6,11 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.CharacterSpell
+import com.jlahougue.dndcompanion.data_character_spell.domain.model.CharacterSpellsStatsView
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellInfo
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellSlot
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellSlotView
-import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellcastingView
+import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellcasterView
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -87,6 +88,9 @@ interface CharacterSpellLocalDataSource {
     """)
     fun getPreparedSpells(characterId: Long): Flow<Map<SpellSlotView, List<SpellInfo>>>
 
-    @Query("SELECT * FROM spellcasting_view WHERE cid = :characterId")
-    fun getSpellcastingStats(characterId: Long): Flow<SpellcastingView>
+    @Query("SELECT * FROM spellcaster_view WHERE cid = :characterId")
+    fun getSpellcasterStats(characterId: Long): Flow<SpellcasterView>
+
+    @Query("SELECT * FROM character_spells_stats_view WHERE cid = :characterId")
+    fun getCharacterSpellsStats(characterId: Long): Flow<CharacterSpellsStatsView>
 }

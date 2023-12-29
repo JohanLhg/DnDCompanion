@@ -19,26 +19,26 @@ import com.jlahougue.dndcompanion.data_ability.domain.model.AbilityName
         INNER JOIN proficiency_view AS proficiency
         ON character.id = proficiency.cid
     """,
-    viewName = SpellcastingView.VIEW_SPELLCASTING
+    viewName = SpellcasterView.VIEW_SPELLCASTER
 )
-data class SpellcastingView(
-    @ColumnInfo(name = SPELLCASTING_CID)
+data class SpellcasterView(
+    @ColumnInfo(name = SPELLCASTER_CID)
     var cid: Long = 0,
-    @ColumnInfo(name = SPELLCASTING_ABILITY)
+    @ColumnInfo(name = SPELLCASTER_ABILITY)
     var ability: AbilityName = AbilityName.NONE,
-    @ColumnInfo(name = SPELLCASTING_MODIFIER)
+    @ColumnInfo(name = SPELLCASTER_MODIFIER)
     var modifier: Int = 0,
-    @ColumnInfo(name = SPELLCASTING_SAVE_DC)
+    @ColumnInfo(name = SPELLCASTER_SAVE_DC)
     var saveDC: Int = 0,
-    @ColumnInfo(name = SPELLCASTING_ATTACK_BONUS)
+    @ColumnInfo(name = SPELLCASTER_ATTACK_BONUS)
     var attackBonus: Int = 0
 ) {
     companion object {
-        const val VIEW_SPELLCASTING = "spellcasting_view"
-        const val SPELLCASTING_CID = "cid"
-        const val SPELLCASTING_ABILITY = "ability"
-        const val SPELLCASTING_MODIFIER = "modifier"
-        const val SPELLCASTING_SAVE_DC = "save_dc"
-        const val SPELLCASTING_ATTACK_BONUS = "attack_bonus"
+        const val VIEW_SPELLCASTER = "spellcaster_view"
+        const val SPELLCASTER_CID = "cid"
+        const val SPELLCASTER_ABILITY = "ability"
+        const val SPELLCASTER_MODIFIER = "modifier"
+        const val SPELLCASTER_SAVE_DC = "save_dc"
+        const val SPELLCASTER_ATTACK_BONUS = "attack_bonus"
     }
 }

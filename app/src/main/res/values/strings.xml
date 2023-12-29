@@ -2,6 +2,7 @@
     <!-- General -->
     <string name="app_name">DnD Companion</string>
     <string name="empty">-</string>
+    <string name="quota">%d/%d</string>
 
     <!-- Health -->
     <string name="health">Health</string>
@@ -73,6 +74,12 @@
     <string name="spellcasting_ability">Spellcasting Ability</string>
     <string name="spell_save_dc">Spell Save DC</string>
     <string name="spell_attack_bonus">Spell Attack Bonus</string>
+
+    <string name="highlighted_spells">Highlighted Spells</string>
+    <string name="unlocked_spells">Unlocked Spells</string>
+    <string name="prepared_spells">Prepared Spells</string>
+
+    <string name="highlight_spell">Highlight Spell</string>
 
     <!-- AuthActivity -->
     <string name="title_activity_auth">Auth Activity</string>

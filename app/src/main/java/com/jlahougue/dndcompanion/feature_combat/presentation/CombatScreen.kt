@@ -16,6 +16,7 @@ import com.jlahougue.dndcompanion.data_ability.presentation.Abilities
 import com.jlahougue.dndcompanion.data_ability.presentation.getAbilitiesPreviewData
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellLevel
 import com.jlahougue.dndcompanion.data_character_spell.presentation.SpellList
+import com.jlahougue.dndcompanion.data_character_spell.presentation.components.SpellListMode
 import com.jlahougue.dndcompanion.data_health.domain.model.DeathSaves
 import com.jlahougue.dndcompanion.data_health.domain.model.Health
 import com.jlahougue.dndcompanion.data_health.presentation.HealthBox
@@ -61,6 +62,7 @@ fun CombatScreen(
         )
         SpellList(
             spells = spells,
+            mode = SpellListMode.Prepared,
             modifier = Modifier.fillMaxHeight()
         )
     }

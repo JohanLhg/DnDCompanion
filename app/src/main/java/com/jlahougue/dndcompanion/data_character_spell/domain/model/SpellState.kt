@@ -3,6 +3,7 @@ package com.jlahougue.dndcompanion.data_character_spell.domain.model
 /**
  * When states are changed, make sure to update the following files:
  * - com.jlahougue.dndcompanion.data_character_spell.data.source.local.CharacterSpellLocalDataSource
+ * - com.jlahougue.dndcompanion.data_character_spell.domain.model.CharacterSpellsStats
  */
 enum class SpellState {
     LOCKED,

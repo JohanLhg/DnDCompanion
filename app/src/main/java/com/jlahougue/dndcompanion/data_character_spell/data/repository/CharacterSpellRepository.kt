@@ -39,6 +39,9 @@ class CharacterSpellRepository(
         return localDataSource.getPreparedSpells(characterId)
     }
 
-    override fun getSpellcastingStats(characterId: Long)
-            = localDataSource.getSpellcastingStats(characterId)
+    override fun getSpellcasterStats(characterId: Long)
+            = localDataSource.getSpellcasterStats(characterId)
+
+    override fun getCharacterSpellsStats(characterId: Long)
+            = localDataSource.getCharacterSpellsStats(characterId)
 }

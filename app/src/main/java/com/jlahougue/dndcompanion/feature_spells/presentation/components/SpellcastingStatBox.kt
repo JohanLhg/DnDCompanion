@@ -31,7 +31,7 @@ import com.jlahougue.dndcompanion.core.presentation.theme.DnDCompanionTheme
 import com.jlahougue.dndcompanion.core.presentation.theme.spacing
 
 @Composable
-fun SpellStatBox(
+fun SpellcastingStatBox(
     label: String,
     modifier: Modifier = Modifier,
     textStyle: TextStyle = MaterialTheme.typography.bodySmall,
@@ -97,9 +97,9 @@ fun SpellStatBox(
 
 @Preview
 @Composable
-fun SpellStatBoxPreview() {
+fun SpellcastingStatBoxPreview() {
     DnDCompanionTheme {
-        SpellStatBox(
+        SpellcastingStatBox(
             label = "SPELL SAVE DC"
         ) {
             Text(

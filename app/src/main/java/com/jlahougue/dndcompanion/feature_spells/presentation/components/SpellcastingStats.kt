@@ -21,18 +21,18 @@ import com.jlahougue.dndcompanion.core.domain.util.extension.toSignedString
 import com.jlahougue.dndcompanion.core.presentation.theme.DnDCompanionTheme
 import com.jlahougue.dndcompanion.core.presentation.theme.spacing
 import com.jlahougue.dndcompanion.data_ability.domain.model.AbilityName
-import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellcastingView
+import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellcasterView
 
 @Composable
-fun SpellStats(
-    spellcasting: SpellcastingView,
+fun SpellcastingStats(
+    spellcasting: SpellcasterView,
     modifier: Modifier = Modifier
 ) {
     Column(
         modifier = modifier
             .width(IntrinsicSize.Max)
     ) {
-        SpellStatBox(
+        SpellcastingStatBox(
             label = stringResource(id = R.string.spellcasting_ability).uppercase(),
             modifier = Modifier
                 .fillMaxWidth()
@@ -59,7 +59,7 @@ fun SpellStats(
             }
         }
         Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
-        SpellStatBox(
+        SpellcastingStatBox(
             label = stringResource(id = R.string.spell_save_dc).uppercase(),
             modifier = Modifier
                 .fillMaxWidth()
@@ -75,7 +75,7 @@ fun SpellStats(
             )
         }
         Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
-        SpellStatBox(
+        SpellcastingStatBox(
             label = stringResource(id = R.string.spell_attack_bonus).uppercase(),
             modifier = Modifier
                 .fillMaxWidth()
@@ -95,10 +95,10 @@ fun SpellStats(
 
 @Preview
 @Composable
-fun SpellStatsPreview() {
+fun SpellcastingStatsPreview() {
     DnDCompanionTheme {
-        SpellStats(
-            spellcasting = SpellcastingView(
+        SpellcastingStats(
+            spellcasting = SpellcasterView(
                 ability = AbilityName.STRENGTH,
                 modifier = 3,
                 saveDC = 13,

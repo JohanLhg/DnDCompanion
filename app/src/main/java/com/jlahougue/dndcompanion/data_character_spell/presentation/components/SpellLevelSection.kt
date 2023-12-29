@@ -24,8 +24,8 @@ import com.jlahougue.dndcompanion.data_character_spell.presentation.components.c
 @Composable
 fun SpellLevelSection(
     spellLevel: SpellLevel,
-    modifier: Modifier = Modifier,
-    setSpellState: ((SpellInfo, SpellState) -> Unit)? = null
+    mode: SpellListMode,
+    modifier: Modifier = Modifier
 ) {
     Column(
         modifier = modifier
@@ -56,7 +56,7 @@ fun SpellLevelSection(
             ) {
                 Spell(
                     spell = it,
-                    setSpellState = setSpellState
+                    mode = mode
                 )
             }
         }
@@ -111,7 +111,10 @@ fun SpellLevelPreview() {
                     ),
                 )
             ),
-            modifier = Modifier.width(2560.dp)
+            mode = SpellListMode.Prepared,
+            modifier = Modifier
+                .width(500.dp)
+                .padding(MaterialTheme.spacing.small)
         )
     }
 }
