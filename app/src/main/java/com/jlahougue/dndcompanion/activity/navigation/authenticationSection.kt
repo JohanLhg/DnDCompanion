@@ -1,6 +1,8 @@
 package com.jlahougue.dndcompanion.activity.navigation
 
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
@@ -54,8 +56,9 @@ fun NavGraphBuilder.authenticationSection(
                     LoginViewModel(DnDCompanionApp.authenticationModule)
                 }
             )
+            val state by viewModel.state.collectAsState()
             LoginScreen(
-                state = viewModel.state.value,
+                state = state,
                 onEvent = viewModel::onEvent,
                 events = viewModel.event,
                 navigateToRegister = {
@@ -85,8 +88,9 @@ fun NavGraphBuilder.authenticationSection(
                     RegisterViewModel(DnDCompanionApp.authenticationModule)
                 }
             )
+            val state by viewModel.state.collectAsState()
             RegisterScreen(
-                state = viewModel.state.value,
+                state = state,
                 onEvent = viewModel::onEvent,
                 events = viewModel.event,
                 navigateToLogin = {
@@ -106,6 +110,7 @@ fun NavGraphBuilder.authenticationSection(
                     LoadingViewModel(DnDCompanionApp.loadingModule)
                 }
             )
+            val state by viewModel.state.collectAsState()
             LaunchedEffect(Unit) {
                 coroutineScope.launch {
                     viewModel.onEvent(LoadingEvent.StartLoading)
@@ -113,7 +118,7 @@ fun NavGraphBuilder.authenticationSection(
                 }
             }
             LoadingScreen(
-                state = viewModel.state.value,
+                state = state,
                 events = viewModel.event,
                 navigateToNext = navigateToNext
             )
