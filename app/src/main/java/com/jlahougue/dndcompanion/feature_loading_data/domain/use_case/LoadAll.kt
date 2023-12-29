@@ -9,7 +9,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.takeWhile
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class LoadAll(
@@ -53,25 +55,16 @@ class LoadAll(
     override operator fun invoke() {
         super.invoke()
         CoroutineScope(dispatcherProvider.io).launch {
-            waitingFor.collectLatest {
-                if (it.isEmpty()) {
+            waitingFor.combine(isUserAuthenticated) { waitingFor, _ ->
+                if (waitingFor.isEmpty()) {
                     onApiEvent(ApiEvent.Finish)
-                    return@collectLatest
+                    return@combine
                 }
-                it.forEach { identifier ->
+                Log.d("LoadAll", "Waiting for : $waitingFor")
+                waitingFor.forEach { identifier ->
                     startIfPossible(identifier)
                 }
-            }
-        }
-        CoroutineScope(dispatcherProvider.io).launch {
-            isUserAuthenticated.collectLatest {
-                Log.d("LoadAll", "User is authenticated : $it")
-                val identifiers = waitingFor.value
-                Log.d("LoadAll", "Waiting for : $identifiers")
-                identifiers.forEach { identifier ->
-                    startIfPossible(identifier)
-                }
-            }
+            }.collectLatest { }
         }
     }
 
@@ -101,7 +94,7 @@ class LoadAll(
     }
 
     private fun finished(identifier: Int) {
-        _waitingFor.value = _waitingFor.value.filter { it != identifier }
+        _waitingFor.update { waitingFor.value.filter { it != identifier } }
     }
 
     private fun startIfPossible(identifier: Int) {

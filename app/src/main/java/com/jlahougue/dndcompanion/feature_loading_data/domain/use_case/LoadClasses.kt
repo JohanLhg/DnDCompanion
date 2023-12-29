@@ -8,10 +8,10 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 class LoadClasses(
-
     private val dispatcherProvider: DispatcherProvider,
     private val classRepository: IClassRepository
 ): LoadFromRemote(title = UiText.StringResource(R.string.loading_classes)) {
+
     override operator fun invoke() {
         super.invoke()
         CoroutineScope(dispatcherProvider.io).launch {
