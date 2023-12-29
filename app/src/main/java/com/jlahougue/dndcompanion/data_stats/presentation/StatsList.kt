@@ -1,6 +1,5 @@
 package com.jlahougue.dndcompanion.data_stats.presentation
 
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
@@ -9,29 +8,30 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.jlahougue.dndcompanion.R
+import com.jlahougue.dndcompanion.core.domain.util.extension.toSignedString
+import com.jlahougue.dndcompanion.core.presentation.components.CustomOutlinedTextField
 import com.jlahougue.dndcompanion.core.presentation.components.FramedBox
 import com.jlahougue.dndcompanion.core.presentation.theme.DnDCompanionTheme
 import com.jlahougue.dndcompanion.core.presentation.theme.spacing
-import com.jlahougue.dndcompanion.data_stats.domain.model.Stats
-import com.jlahougue.dndcompanion.data_stats.domain.use_case.StatsEvent
+import com.jlahougue.dndcompanion.data_stats.domain.model.StatsView
 
 @Composable
 fun StatsList(
-    stats: Stats,
+    stats: StatsView,
     onEvent: (StatsEvent) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -60,7 +60,7 @@ fun StatsList(
                         .weight(1f)
                 )
                 Text(
-                    text = "+2",
+                    text = stats.initiative.toSignedString(),
                     style = MaterialTheme.typography.bodySmall,
                     textAlign = TextAlign.Center,
                     modifier = Modifier
@@ -84,26 +84,24 @@ fun StatsList(
                         .width(0.dp)
                         .weight(1f)
                 )
-                BasicTextField(
+                CustomOutlinedTextField(
                     value = stats.armorClass.toString(),
                     onValueChange = {
                         try {
-                            onEvent(StatsEvent.OnArmorClassChange(it.toInt()))
+                            onEvent(StatsEvent.OnArmorClassChanged(it.toInt()))
                         } catch (e: Exception) {
-                            onEvent(StatsEvent.OnArmorClassChange(0))
+                            onEvent(StatsEvent.OnArmorClassChanged(0))
                         }
                     },
                     textStyle = MaterialTheme.typography.bodySmall.copy(
                         textAlign = TextAlign.Center
                     ),
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Number,
+                        imeAction = ImeAction.Next
+                    ),
                     modifier = Modifier
                         .width(40.dp)
-                        .border(
-                            1.dp,
-                            Color.Gray,
-                            RoundedCornerShape(5.dp)
-                        )
-                        .padding(horizontal = MaterialTheme.spacing.small)
                 )
             }
             Row(
@@ -122,26 +120,23 @@ fun StatsList(
                         .width(0.dp)
                         .weight(1f)
                 )
-                BasicTextField(
+                CustomOutlinedTextField(
                     value = stats.speed.toString(),
                     onValueChange = {
                         try {
-                            onEvent(StatsEvent.OnSpeedChange(it.toInt()))
+                            onEvent(StatsEvent.OnSpeedChanged(it.toInt()))
                         } catch (e: Exception) {
-                            onEvent(StatsEvent.OnSpeedChange(0))
+                            onEvent(StatsEvent.OnSpeedChanged(0))
                         }
                     },
                     textStyle = MaterialTheme.typography.bodySmall.copy(
                         textAlign = TextAlign.Center
                     ),
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Number
+                    ),
                     modifier = Modifier
                         .width(40.dp)
-                        .border(
-                            1.dp,
-                            Color.Gray,
-                            RoundedCornerShape(5.dp)
-                        )
-                        .padding(horizontal = MaterialTheme.spacing.small)
                 )
             }
         }
@@ -156,8 +151,9 @@ fun StatsList(
 fun StatsPreview() {
     DnDCompanionTheme {
         StatsList(
-            stats = Stats(
+            stats = StatsView(
                 cid = 1,
+                initiative = 2,
                 armorClass = 10,
                 speed = 30
             ),

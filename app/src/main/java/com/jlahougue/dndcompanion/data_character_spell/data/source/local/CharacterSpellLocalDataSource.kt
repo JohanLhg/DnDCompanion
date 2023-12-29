@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Transaction
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.CharacterSpell
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellInfo
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellSlot
@@ -21,6 +22,7 @@ interface CharacterSpellLocalDataSource {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertSpellSlots(spellSlots: List<SpellSlot>)
 
+    @Transaction
     @Query("""
         WITH spellInfo AS (
             SELECT 
@@ -40,6 +42,7 @@ interface CharacterSpellLocalDataSource {
     """)
     fun getAllSpells(characterId: Long): Flow<Map<SpellSlotView, List<SpellInfo>>>
 
+    @Transaction
     @Query("""
         WITH spellInfo AS (
             SELECT 
@@ -60,6 +63,7 @@ interface CharacterSpellLocalDataSource {
     """)
     fun getKnownSpells(characterId: Long): Flow<Map<SpellSlotView, List<SpellInfo>>>
 
+    @Transaction
     @Query("""
         WITH spellInfo AS (
             SELECT 

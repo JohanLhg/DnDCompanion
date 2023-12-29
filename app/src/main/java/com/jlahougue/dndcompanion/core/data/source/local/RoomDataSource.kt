@@ -34,6 +34,7 @@ import com.jlahougue.dndcompanion.data_spell.domain.model.SpellClass
 import com.jlahougue.dndcompanion.data_spell.domain.model.SpellDamageType
 import com.jlahougue.dndcompanion.data_stats.data.source.local.StatsLocalDataSource
 import com.jlahougue.dndcompanion.data_stats.domain.model.Stats
+import com.jlahougue.dndcompanion.data_stats.domain.model.StatsView
 import com.jlahougue.dndcompanion.data_weapon.data.source.local.WeaponLocalDataSource
 import com.jlahougue.dndcompanion.data_weapon.domain.model.CharacterWeapon
 import com.jlahougue.dndcompanion.data_weapon.domain.model.Weapon
@@ -52,10 +53,11 @@ import com.jlahougue.dndcompanion.data_weapon.domain.model.WeaponProperty
     ],
     views = [
         AbilityModifierView::class, AbilityView::class,
+        StatsView::class,
         ProficiencyView::class,
         SpellSlotView::class
     ],
-    version = 7
+    version = 8
 )
 @TypeConverters(
     value = [AbilityNameTypeConverter::class]

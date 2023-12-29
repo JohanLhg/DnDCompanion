@@ -7,7 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.jlahougue.dndcompanion.R
 import com.jlahougue.dndcompanion.data_health.domain.model.Health
-import com.jlahougue.dndcompanion.data_health.domain.use_case.HealthEvent
+import com.jlahougue.dndcompanion.data_health.presentation.HealthEvent
 
 @Composable
 fun TemporaryHealth(

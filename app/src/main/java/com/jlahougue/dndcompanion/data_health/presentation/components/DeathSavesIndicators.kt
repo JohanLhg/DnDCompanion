@@ -24,7 +24,7 @@ import com.jlahougue.dndcompanion.core.presentation.theme.Green
 import com.jlahougue.dndcompanion.core.presentation.theme.Red
 import com.jlahougue.dndcompanion.core.presentation.theme.spacing
 import com.jlahougue.dndcompanion.data_health.domain.model.DeathSaves
-import com.jlahougue.dndcompanion.data_health.domain.use_case.HealthEvent
+import com.jlahougue.dndcompanion.data_health.presentation.HealthEvent
 
 @Composable
 fun DeathSavesIndicators(

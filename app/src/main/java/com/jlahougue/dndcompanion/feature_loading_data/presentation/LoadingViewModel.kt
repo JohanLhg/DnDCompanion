@@ -1,7 +1,5 @@
 package com.jlahougue.dndcompanion.feature_loading_data.presentation
 
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jlahougue.dndcompanion.R
@@ -9,8 +7,11 @@ import com.jlahougue.dndcompanion.core.domain.util.UiText
 import com.jlahougue.dndcompanion.feature_loading_data.di.ILoadingModule
 import com.jlahougue.dndcompanion.feature_loading_data.presentation.util.LoadingUiEvent
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlin.math.min
 
@@ -18,8 +19,8 @@ class LoadingViewModel(
     private val module: ILoadingModule
 ) : ViewModel() {
 
-    private val _state = mutableStateOf(LoadingState(title  = UiText.StringResource(R.string.loading)))
-    val state: State<LoadingState> = _state
+    private val _state = MutableStateFlow(LoadingState(title  = UiText.StringResource(R.string.loading)))
+    val state = _state.asStateFlow()
 
     private val _event = MutableSharedFlow<LoadingUiEvent>()
     val event: SharedFlow<LoadingUiEvent> = _event.asSharedFlow()
@@ -32,7 +33,7 @@ class LoadingViewModel(
                 if (loadingStarted) return
                 loadingStarted = true
                 viewModelScope.launch(module.dispatcherProvider.io) {
-                    module.loadAll.state.collect {
+                    module.loadAll.state.collectLatest {
                         val currentProgress = it.progress.toFloat()
                         val maxProgress = it.progressMax.toFloat()
                         val progress = if (maxProgress == 0f) 0f
