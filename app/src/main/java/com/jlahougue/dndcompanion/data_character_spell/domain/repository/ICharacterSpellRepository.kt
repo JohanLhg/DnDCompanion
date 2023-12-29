@@ -4,6 +4,7 @@ import com.jlahougue.dndcompanion.data_character_spell.domain.model.CharacterSpe
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellInfo
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellSlot
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellSlotView
+import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellcastingView
 import kotlinx.coroutines.flow.Flow
 
 interface ICharacterSpellRepository {
@@ -13,4 +14,5 @@ interface ICharacterSpellRepository {
     fun getAllSpells(characterId: Long): Flow<Map<SpellSlotView, List<SpellInfo>>>
     fun getKnownSpells(characterId: Long): Flow<Map<SpellSlotView, List<SpellInfo>>>
     fun getPreparedSpells(characterId: Long): Flow<Map<SpellSlotView, List<SpellInfo>>>
+    fun getSpellcastingStats(characterId: Long): Flow<SpellcastingView>
 }

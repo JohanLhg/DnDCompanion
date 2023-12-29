@@ -15,6 +15,7 @@ import com.jlahougue.dndcompanion.data_character_spell.data.source.local.Charact
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.CharacterSpell
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellSlot
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellSlotView
+import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellcastingView
 import com.jlahougue.dndcompanion.data_class.data.source.local.ClassLocalDataSource
 import com.jlahougue.dndcompanion.data_class.domain.model.Class
 import com.jlahougue.dndcompanion.data_class.domain.model.ClassLevel
@@ -55,9 +56,9 @@ import com.jlahougue.dndcompanion.data_weapon.domain.model.WeaponProperty
         AbilityModifierView::class, AbilityView::class,
         StatsView::class,
         ProficiencyView::class,
-        SpellSlotView::class
+        SpellcastingView::class, SpellSlotView::class
     ],
-    version = 8
+    version = 9
 )
 @TypeConverters(
     value = [AbilityNameTypeConverter::class]

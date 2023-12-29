@@ -38,4 +38,7 @@ class CharacterSpellRepository(
     override fun getPreparedSpells(characterId: Long): Flow<Map<SpellSlotView, List<SpellInfo>>> {
         return localDataSource.getPreparedSpells(characterId)
     }
+
+    override fun getSpellcastingStats(characterId: Long)
+            = localDataSource.getSpellcastingStats(characterId)
 }
