@@ -23,17 +23,22 @@ import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellLevel
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellSlotView
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellState
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellcasterView
-import com.jlahougue.dndcompanion.data_character_spell.presentation.SpellList
+import com.jlahougue.dndcompanion.data_character_spell.presentation.SpellLevelList
 import com.jlahougue.dndcompanion.data_character_spell.presentation.components.SpellListMode
+import com.jlahougue.dndcompanion.feature_spells.presentation.components.FilteredSpellList
+import com.jlahougue.dndcompanion.feature_spells.presentation.components.SpellStats
 import com.jlahougue.dndcompanion.feature_spells.presentation.components.SpellcastingStats
-import com.jlahougue.dndcompanion.feature_spells.presentation.components.SpellsStats
 
 @Composable
 fun SpellsScreen(
     spellcasting: SpellcasterView,
     spellsStats: CharacterSpellsStatsView,
+    search: String,
+    classes: List<String>,
+    selectedClasses: List<String>,
     spellLevels: List<SpellLevel>,
-    mode: SpellListMode
+    mode: SpellListMode,
+    onEvent: (SpellEvent) -> Unit
 ) {
     Row(
         modifier = Modifier
@@ -50,7 +55,7 @@ fun SpellsScreen(
                     .width(125.dp)
             )
             Spacer(modifier = Modifier.weight(1f))
-            SpellsStats(
+            SpellStats(
                 stats = spellsStats,
                 modifier = Modifier
                     .padding(MaterialTheme.spacing.small)
@@ -61,10 +66,27 @@ fun SpellsScreen(
                 .fillMaxHeight()
                 .width(1.dp)
         )
-        SpellList(
-            spells = spellLevels,
-            mode = mode
-        )
+        if (mode is SpellListMode.All) {
+            FilteredSpellList(
+                search = search,
+                classes = classes,
+                selectedClasses = selectedClasses,
+                levels = spellLevels.map { it.spellSlot.level },
+                selectedLevel = mode.selectedLevel,
+                spells = spellLevels
+                    .find { it.spellSlot.level == mode.selectedLevel }
+                    ?.spells ?: emptyList(),
+                onEvent = onEvent,
+                mode = mode,
+                modifier = Modifier
+                    .fillMaxHeight()
+            )
+        } else {
+            SpellLevelList(
+                spells = spellLevels,
+                mode = mode
+            )
+        }
     }
 }
 
@@ -85,6 +107,20 @@ fun SpellsScreenPreview() {
                 totalPrepared = 4,
                 maxPrepared = 5
             ),
+            search = "",
+            classes = listOf(
+                "Bard",
+                "Cleric",
+                "Druid",
+                "Paladin",
+                "Ranger",
+                "Sorcerer",
+                "Warlock",
+                "Wizard"
+            ),
+            selectedClasses = listOf(
+                "Wizard"
+            ),
             spellLevels = listOf(
                 SpellLevel(
                     spellSlot = SpellSlotView(
@@ -96,8 +132,8 @@ fun SpellsScreenPreview() {
                     spells = listOf(
                         SpellInfo(
                             cid = 1,
-                            id = "acid-splash",
-                            name = "Acid Splash",
+                            id = "mage-hand",
+                            name = "Mage Hand",
                             state = SpellState.PREPARED
                         ),
                     )
@@ -148,7 +184,8 @@ fun SpellsScreenPreview() {
                     )
                 )
             ),
-            mode = SpellListMode.Known { _, _ -> }
+            mode = SpellListMode.All(selectedLevel = 0) { _, _ -> },
+            onEvent = {}
         )
     }
 }

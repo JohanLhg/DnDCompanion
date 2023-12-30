@@ -128,7 +128,7 @@ fun SpellPreview() {
                 level = 0,
                 name = "Fireball",
             ),
-            mode = SpellListMode.All { _, _ -> },
+            mode = SpellListMode.All(selectedLevel = 0) { _, _ -> },
             modifier = Modifier
                 .width(200.dp)
         )

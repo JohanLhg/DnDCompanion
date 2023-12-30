@@ -21,7 +21,7 @@ import com.jlahougue.dndcompanion.core.presentation.theme.spacing
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.CharacterSpellsStatsView
 
 @Composable
-fun SpellsStats(
+fun SpellStats(
     stats: CharacterSpellsStatsView,
     modifier: Modifier = Modifier
 ) {
@@ -87,7 +87,7 @@ private fun SpellsStat(
 @Composable
 fun SpellsStatsPreview() {
     DnDCompanionTheme {
-        SpellsStats(
+        SpellStats(
             stats = CharacterSpellsStatsView(
                 totalHighlighted = 2,
                 totalUnlocked = 10,

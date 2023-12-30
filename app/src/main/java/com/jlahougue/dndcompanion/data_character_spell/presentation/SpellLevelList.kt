@@ -9,7 +9,7 @@ import com.jlahougue.dndcompanion.data_character_spell.presentation.components.S
 import com.jlahougue.dndcompanion.data_character_spell.presentation.components.SpellListMode
 
 @Composable
-fun SpellList(
+fun SpellLevelList(
     spells: List<SpellLevel>,
     modifier: Modifier = Modifier,
     mode: SpellListMode

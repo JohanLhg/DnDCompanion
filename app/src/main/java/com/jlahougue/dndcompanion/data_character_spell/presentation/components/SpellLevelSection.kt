@@ -4,9 +4,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -44,22 +41,13 @@ fun SpellLevelSection(
                     .padding(MaterialTheme.spacing.small)
             )
         }
-        LazyVerticalGrid(
-            columns = GridCells.Adaptive(200.dp),
+        SpellList(
+            spells = spellLevel.spells,
+            mode = mode,
             modifier = Modifier
                 .heightIn(max = 200.dp)
                 .padding(horizontal = MaterialTheme.spacing.small)
-        ) {
-            items(
-                items = spellLevel.spells,
-                key = { it.id }
-            ) {
-                Spell(
-                    spell = it,
-                    mode = mode
-                )
-            }
-        }
+        )
     }
 }
 
