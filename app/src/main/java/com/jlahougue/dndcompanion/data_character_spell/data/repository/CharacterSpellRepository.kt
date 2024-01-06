@@ -3,11 +3,8 @@ package com.jlahougue.dndcompanion.data_character_spell.data.repository
 import com.jlahougue.dndcompanion.data_character_spell.data.source.local.CharacterSpellLocalDataSource
 import com.jlahougue.dndcompanion.data_character_spell.data.source.remote.CharacterSpellRemoteDataSource
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.CharacterSpell
-import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellInfo
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellSlot
-import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellSlotView
 import com.jlahougue.dndcompanion.data_character_spell.domain.repository.ICharacterSpellRepository
-import kotlinx.coroutines.flow.Flow
 
 class CharacterSpellRepository(
     private val remoteDataSource: CharacterSpellRemoteDataSource,
@@ -27,17 +24,19 @@ class CharacterSpellRepository(
         localDataSource.insertSpellSlots(spellSlots)
     }
 
-    override fun getAllSpells(characterId: Long): Flow<Map<SpellSlotView, List<SpellInfo>>> {
-        return localDataSource.getAllSpells(characterId)
-    }
+    override suspend fun getFilteredLevels(
+        search: String,
+        clazz: String
+    ) = localDataSource.getFilteredLevels(search, clazz)
 
-    override fun getKnownSpells(characterId: Long): Flow<Map<SpellSlotView, List<SpellInfo>>> {
-        return localDataSource.getKnownSpells(characterId)
-    }
+    override fun getAllSpells(characterId: Long, level: Int)
+        = localDataSource.getAllSpells(characterId, level)
 
-    override fun getPreparedSpells(characterId: Long): Flow<Map<SpellSlotView, List<SpellInfo>>> {
-        return localDataSource.getPreparedSpells(characterId)
-    }
+    override fun getKnownSpells(characterId: Long)
+        = localDataSource.getKnownSpells(characterId)
+
+    override fun getPreparedSpells(characterId: Long)
+        = localDataSource.getPreparedSpells(characterId)
 
     override fun getSpellcasterStats(characterId: Long)
             = localDataSource.getSpellcasterStats(characterId)

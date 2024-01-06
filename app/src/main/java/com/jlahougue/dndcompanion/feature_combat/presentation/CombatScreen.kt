@@ -62,8 +62,9 @@ fun CombatScreen(
         )
         SpellLevelList(
             spells = spells,
+            modifier = Modifier.fillMaxHeight(),
             mode = SpellListMode.Prepared,
-            modifier = Modifier.fillMaxHeight()
+            onEvent = {}
         )
     }
 }

@@ -21,4 +21,7 @@ interface ClassLocalDataSource {
 
     @Query("SELECT class_name FROM class")
     suspend fun getNames(): List<String>
+
+    @Query("SELECT class_name FROM class WHERE spellcasting_ability <> 'NONE'")
+    suspend fun getSpellcasterClasses(): List<String>
 }

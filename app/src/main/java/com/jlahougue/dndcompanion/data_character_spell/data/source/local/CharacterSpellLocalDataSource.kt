@@ -24,25 +24,42 @@ interface CharacterSpellLocalDataSource {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertSpellSlots(spellSlots: List<SpellSlot>)
 
-    @Transaction
     @Query("""
-        WITH spellInfo AS (
-            SELECT 
-                :characterId as cid,
-                spell.*,
-                COALESCE(cs.state, 'LOCKED') as state
-            FROM spell
-            LEFT JOIN (
+        SELECT DISTINCT level 
+        FROM spell
+        WHERE (
+            :search = ''
+            OR name LIKE '%' || :search || '%')
+        AND (
+            :clazz = '' 
+            OR EXISTS (
                 SELECT * 
-                FROM character_spell 
-                WHERE cid = :characterId
-            ) cs ON spell.spell_id = cs.spell_id
+                FROM spell_class 
+                WHERE spell_class.spell_id = spell.spell_id 
+                AND spell_class.class_name = :clazz
+            )
         )
-        SELECT *
-        FROM spell_slot_view
-        JOIN spellInfo ON spellInfo.level = spell_slot_view.level
+        ORDER BY level ASC
     """)
-    fun getAllSpells(characterId: Long): Flow<Map<SpellSlotView, List<SpellInfo>>>
+    suspend fun getFilteredLevels(
+        search: String,
+        clazz: String
+    ): List<Int>
+
+    @Query("""
+        SELECT 
+            :characterId as cid,
+            spell.*,
+            COALESCE(cs.state, 'LOCKED') as state
+        FROM spell
+        LEFT JOIN (
+            SELECT * 
+            FROM character_spell 
+            WHERE cid = :characterId
+        ) cs ON spell.spell_id = cs.spell_id
+        WHERE spell.level = :level
+    """)
+    fun getAllSpells(characterId: Long, level: Int): Flow<List<SpellInfo>>
 
     @Transaction
     @Query("""
@@ -62,6 +79,7 @@ interface CharacterSpellLocalDataSource {
         SELECT *
         FROM spell_slot_view
         INNER JOIN spellInfo ON spellInfo.level = spell_slot_view.level
+        WHERE spell_slot_view.cid = :characterId
     """)
     fun getKnownSpells(characterId: Long): Flow<Map<SpellSlotView, List<SpellInfo>>>
 

@@ -1,19 +1,33 @@
 package com.jlahougue.dndcompanion.feature_spells.presentation
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Done
+import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material3.Button
 import androidx.compose.material3.Divider
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.jlahougue.dndcompanion.R
 import com.jlahougue.dndcompanion.core.presentation.theme.DnDCompanionTheme
 import com.jlahougue.dndcompanion.core.presentation.theme.spacing
 import com.jlahougue.dndcompanion.data_ability.domain.model.AbilityName
@@ -35,8 +49,11 @@ fun SpellsScreen(
     spellsStats: CharacterSpellsStatsView,
     search: String,
     classes: List<String>,
-    selectedClasses: List<String>,
-    spellLevels: List<SpellLevel>,
+    selectedClass: String,
+    spellLevels: List<Int>,
+    selectedLevel: Int,
+    allSpells: List<SpellInfo>,
+    knownSpells: List<SpellLevel>,
     mode: SpellListMode,
     onEvent: (SpellEvent) -> Unit
 ) {
@@ -47,6 +64,7 @@ fun SpellsScreen(
         Column(
             modifier = Modifier
                 .fillMaxHeight()
+                .width(IntrinsicSize.Max)
         ) {
             SpellcastingStats(
                 spellcasting = spellcasting,
@@ -60,6 +78,34 @@ fun SpellsScreen(
                 modifier = Modifier
                     .padding(MaterialTheme.spacing.small)
             )
+            Button(
+                onClick = { onEvent(SpellEvent.OnModeChanged) },
+                shape = OutlinedTextFieldDefaults.shape,
+                contentPadding = PaddingValues(
+                    vertical = MaterialTheme.spacing.small,
+                    horizontal = MaterialTheme.spacing.small
+                ),
+                modifier = Modifier
+                    .padding(MaterialTheme.spacing.extraSmall)
+                    .fillMaxWidth()
+            ) {
+                Box(modifier = Modifier.fillMaxWidth()) {
+                    Icon(
+                        imageVector = if (mode is SpellListMode.All) Icons.Filled.Done
+                        else Icons.Filled.Edit,
+                        contentDescription = null
+                    )
+                    Text(
+                        text = stringResource(
+                            id = if (mode is SpellListMode.All) R.string.done
+                            else R.string.edit
+                        ).uppercase(),
+                        style = MaterialTheme.typography.bodyMedium,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                }
+            }
         }
         Divider(
             modifier = Modifier
@@ -70,12 +116,10 @@ fun SpellsScreen(
             FilteredSpellList(
                 search = search,
                 classes = classes,
-                selectedClasses = selectedClasses,
-                levels = spellLevels.map { it.spellSlot.level },
-                selectedLevel = mode.selectedLevel,
-                spells = spellLevels
-                    .find { it.spellSlot.level == mode.selectedLevel }
-                    ?.spells ?: emptyList(),
+                selectedClass = selectedClass,
+                levels = spellLevels,
+                selectedLevel = selectedLevel,
+                spells = allSpells,
                 onEvent = onEvent,
                 mode = mode,
                 modifier = Modifier
@@ -83,8 +127,11 @@ fun SpellsScreen(
             )
         } else {
             SpellLevelList(
-                spells = spellLevels,
-                mode = mode
+                spells = knownSpells,
+                onEvent = onEvent,
+                mode = mode,
+                modifier = Modifier
+                    .fillMaxHeight()
             )
         }
     }
@@ -118,10 +165,96 @@ fun SpellsScreenPreview() {
                 "Warlock",
                 "Wizard"
             ),
-            selectedClasses = listOf(
-                "Wizard"
+            selectedClass = "Wizard",
+            spellLevels = listOf(0, 1, 2, 3, 4, 5, 6, 7, 8, 9),
+            selectedLevel = 0,
+            allSpells = listOf(
+                SpellInfo(
+                    cid = 1,
+                    level = 0,
+                    id = "acid-splash",
+                    name = "Acid Splash",
+                    state = SpellState.PREPARED
+                ),
+                SpellInfo(
+                    cid = 2,
+                    level = 0,
+                    id = "blade-ward",
+                    name = "Blade Ward",
+                    state = SpellState.PREPARED
+                ),
+                SpellInfo(
+                    cid = 3,
+                    level = 0,
+                    id = "chill-touch",
+                    name = "Chill Touch",
+                    state = SpellState.HIGHLIGHTED
+                ),
+                SpellInfo(
+                    cid = 4,
+                    level = 0,
+                    id = "dancing-lights",
+                    name = "Dancing Lights",
+                    state = SpellState.LOCKED
+                ),
+                SpellInfo(
+                    cid = 5,
+                    level = 0,
+                    id = "fire-bolt",
+                    name = "Fire Bolt",
+                    state = SpellState.PREPARED
+                ),
+                SpellInfo(
+                    cid = 6,
+                    level = 1,
+                    id = "burning-hands",
+                    name = "Burning Hands",
+                    state = SpellState.PREPARED
+                ),
+                SpellInfo(
+                    cid = 7,
+                    level = 1,
+                    id = "charm-person",
+                    name = "Charm Person",
+                    state = SpellState.PREPARED
+                ),
+                SpellInfo(
+                    cid = 8,
+                    level = 1,
+                    id = "color-spray",
+                    name = "Color Spray",
+                    state = SpellState.PREPARED
+                ),
+                SpellInfo(
+                    cid = 9,
+                    level = 1,
+                    id = "comprehend-languages",
+                    name = "Comprehend Languages",
+                    state = SpellState.PREPARED
+                ),
+                SpellInfo(
+                    cid = 10,
+                    level = 1,
+                    id = "detect-magic",
+                    name = "Detect Magic",
+                    state = SpellState.PREPARED
+                ),
+                SpellInfo(
+                    cid = 11,
+                    level = 1,
+                    id = "disguise-self",
+                    name = "Disguise Self",
+                    state = SpellState.PREPARED
+                ),
+                SpellInfo(
+                    cid = 12,
+                    level = 1,
+                    id = "expeditious-retreat",
+                    name = "Expeditious Retreat",
+                    state = SpellState.PREPARED
+                )
             ),
-            spellLevels = listOf(
+            knownSpells = listOf(
                 SpellLevel(
                     spellSlot = SpellSlotView(
                         cid = 1,
@@ -184,7 +317,7 @@ fun SpellsScreenPreview() {
                     )
                 )
             ),
-            mode = SpellListMode.All(selectedLevel = 0) { _, _ -> },
+            mode = SpellListMode.All(selectedLevel = 0),
             onEvent = {}
         )
     }

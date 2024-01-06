@@ -17,10 +17,12 @@ import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellLevel
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellSlotView
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellState
 import com.jlahougue.dndcompanion.data_character_spell.presentation.components.cantrips.CantripsBanner
+import com.jlahougue.dndcompanion.feature_spells.presentation.SpellEvent
 
 @Composable
 fun SpellLevelSection(
     spellLevel: SpellLevel,
+    onEvent: (SpellEvent) -> Unit,
     mode: SpellListMode,
     modifier: Modifier = Modifier
 ) {
@@ -35,7 +37,8 @@ fun SpellLevelSection(
             )
         } else {
             SpellLevelBanner(
-                spellLevel.spellSlot,
+                spellSlot = spellLevel.spellSlot,
+                onEvent = onEvent,
                 modifier = Modifier
                     .width(300.dp)
                     .padding(MaterialTheme.spacing.small)
@@ -43,6 +46,7 @@ fun SpellLevelSection(
         }
         SpellList(
             spells = spellLevel.spells,
+            onEvent = onEvent,
             mode = mode,
             modifier = Modifier
                 .heightIn(max = 200.dp)
@@ -99,6 +103,7 @@ fun SpellLevelPreview() {
                     ),
                 )
             ),
+            onEvent = {},
             mode = SpellListMode.Prepared,
             modifier = Modifier
                 .width(500.dp)

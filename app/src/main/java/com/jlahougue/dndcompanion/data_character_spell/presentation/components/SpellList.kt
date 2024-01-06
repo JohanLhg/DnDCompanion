@@ -7,10 +7,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellInfo
+import com.jlahougue.dndcompanion.feature_spells.presentation.SpellEvent
 
 @Composable
 fun SpellList(
     spells: List<SpellInfo>,
+    onEvent: (SpellEvent) -> Unit,
     mode: SpellListMode,
     modifier: Modifier = Modifier
 ) {
@@ -24,6 +26,7 @@ fun SpellList(
         ) {
             Spell(
                 spell = it,
+                onEvent = onEvent,
                 mode = mode
             )
         }

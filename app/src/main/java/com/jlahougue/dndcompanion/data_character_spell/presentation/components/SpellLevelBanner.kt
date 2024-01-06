@@ -29,10 +29,12 @@ import com.jlahougue.dndcompanion.R
 import com.jlahougue.dndcompanion.core.presentation.theme.DnDCompanionTheme
 import com.jlahougue.dndcompanion.core.presentation.theme.spacing
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellSlotView
+import com.jlahougue.dndcompanion.feature_spells.presentation.SpellEvent
 
 @Composable
 fun SpellLevelBanner(
     spellSlot: SpellSlotView,
+    onEvent: (SpellEvent) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val spacing = MaterialTheme.spacing
@@ -214,7 +216,7 @@ fun SpellLevelBanner(
                         interactionSource = remember { MutableInteractionSource() },
                         indication = rememberRipple(bounded = false),
                         onClick = {
-
+                            onEvent(SpellEvent.OnSlotUsed(spellSlot))
                         },
                     )
                     .padding(MaterialTheme.spacing.small)
@@ -233,7 +235,7 @@ fun SpellLevelBanner(
                         interactionSource = remember { MutableInteractionSource() },
                         indication = rememberRipple(bounded = false),
                         onClick = {
-
+                            onEvent(SpellEvent.OnSlotRestored(spellSlot))
                         },
                     )
                     .padding(MaterialTheme.spacing.small)
@@ -258,12 +260,13 @@ fun SpellLevelBannerPreview() {
     DnDCompanionTheme {
         Column {
             SpellLevelBanner(
-                SpellSlotView(
+                spellSlot = SpellSlotView(
                     cid = 1,
                     level = 1,
                     total = 4,
                     left = 2
-                )
+                ),
+                onEvent = {},
             )
         }
     }

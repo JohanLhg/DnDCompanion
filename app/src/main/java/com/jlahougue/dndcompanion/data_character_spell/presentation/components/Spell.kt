@@ -27,10 +27,12 @@ import com.jlahougue.dndcompanion.core.presentation.theme.DnDCompanionTheme
 import com.jlahougue.dndcompanion.core.presentation.theme.spacing
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellInfo
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellState
+import com.jlahougue.dndcompanion.feature_spells.presentation.SpellEvent
 
 @Composable
 fun Spell(
     spell: SpellInfo,
+    onEvent: (SpellEvent) -> Unit,
     mode: SpellListMode,
     modifier: Modifier = Modifier
 ) {
@@ -52,10 +54,12 @@ fun Spell(
                             modifier = Modifier
                                 .size(28.dp),
                             onCheckedChange = {
-                                mode.setSpellState(
-                                    spell,
-                                    if (it) SpellState.UNLOCKED
-                                    else SpellState.PREPARED
+                                onEvent(
+                                    SpellEvent.OnSpellStateChanged(
+                                        spell,
+                                        if (it) SpellState.PREPARED
+                                        else SpellState.UNLOCKED
+                                    )
                                 )
                             }
                         )
@@ -68,16 +72,18 @@ fun Spell(
                             .size(28.dp),
                         onCheckedChange = {
                             val state = if (it) {
-                                SpellState.LOCKED
-                            } else {
                                 if (spell.level == 0)
                                     SpellState.PREPARED
                                 else
                                     SpellState.UNLOCKED
+                            } else {
+                                SpellState.LOCKED
                             }
-                            mode.setSpellState(
-                                spell,
-                                state
+                            onEvent(
+                                SpellEvent.OnSpellStateChanged(
+                                    spell,
+                                    state
+                                )
                             )
                         }
                     )
@@ -88,6 +94,11 @@ fun Spell(
                 text = spell.name,
                 style = MaterialTheme.typography.bodySmall,
                 modifier = Modifier
+                    .clickable(
+                        onClick = {
+                            onEvent(SpellEvent.OnSpellClicked(spell))
+                        }
+                    )
                     .padding(vertical = MaterialTheme.spacing.small)
                     .padding(horizontal = MaterialTheme.spacing.extraSmall)
                     .weight(1f)
@@ -98,10 +109,12 @@ fun Spell(
                     contentDescription = stringResource(id = R.string.highlighted_spells),
                     modifier = Modifier
                         .clickable {
-                            mode.setSpellState(
-                                spell,
-                                if (spell.state == SpellState.HIGHLIGHTED) SpellState.LOCKED
-                                else SpellState.HIGHLIGHTED
+                            onEvent(
+                                SpellEvent.OnSpellStateChanged(
+                                    spell,
+                                    if (spell.state == SpellState.HIGHLIGHTED) SpellState.LOCKED
+                                    else SpellState.HIGHLIGHTED
+                                )
                             )
                         }
                         .size(28.dp)
@@ -128,7 +141,8 @@ fun SpellPreview() {
                 level = 0,
                 name = "Fireball",
             ),
-            mode = SpellListMode.All(selectedLevel = 0) { _, _ -> },
+            onEvent = {},
+            mode = SpellListMode.All(selectedLevel = 0),
             modifier = Modifier
                 .width(200.dp)
         )

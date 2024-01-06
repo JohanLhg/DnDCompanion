@@ -1,4 +1,4 @@
-package com.jlahougue.dndcompanion.activity.navigation
+package com.jlahougue.dndcompanion.activity.navigation.character_sheet.screens
 
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue

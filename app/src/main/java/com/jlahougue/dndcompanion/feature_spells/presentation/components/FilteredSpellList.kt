@@ -33,7 +33,7 @@ import com.jlahougue.dndcompanion.feature_spells.presentation.SpellEvent
 fun FilteredSpellList(
     search: String,
     classes: List<String>,
-    selectedClasses: List<String>,
+    selectedClass: String,
     levels: List<Int>,
     selectedLevel: Int,
     spells: List<SpellInfo>,
@@ -51,7 +51,7 @@ fun FilteredSpellList(
             CustomSearchBar(
                 value = search,
                 onValueChange = {
-                    onEvent(SpellEvent.OnSearchChange(it))
+                    onEvent(SpellEvent.OnSearchChanged(it))
                 },
                 modifier = Modifier
                     .width(200.dp)
@@ -62,7 +62,7 @@ fun FilteredSpellList(
                     key = { it }
                 ) {
                     FilterChip(
-                        selected = selectedClasses.contains(it),
+                        selected = selectedClass == it,
                         label = {
                             Text(
                                 text = it,
@@ -70,7 +70,7 @@ fun FilteredSpellList(
                             )
                         },
                         onClick = {
-                            onEvent(SpellEvent.OnClassFilterClick(it))
+                            onEvent(SpellEvent.OnClassFilterClicked(it))
                         },
                         modifier = Modifier
                             .padding(horizontal = MaterialTheme.spacing.extraSmall)
@@ -110,6 +110,7 @@ fun FilteredSpellList(
         SpellList(
             spells = spells,
             mode = mode,
+            onEvent = onEvent,
             modifier = Modifier
                 .fillMaxSize()
                 .padding(MaterialTheme.spacing.small)
@@ -133,14 +134,12 @@ fun FilteredSpellListPreview() {
                 "Warlock",
                 "Wizard"
             ),
-            selectedClasses = listOf(
-                "Wizard"
-            ),
+            selectedClass = "Wizard",
             levels = listOf(0, 1, 2, 3, 4, 5, 6, 7, 8, 9),
             selectedLevel = 0,
             spells = listOf(),
             onEvent = {},
-            mode = SpellListMode.All(selectedLevel = 0) { _, _ -> }
+            mode = SpellListMode.All(selectedLevel = 0)
         )
     }
 }

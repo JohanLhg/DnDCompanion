@@ -7,11 +7,13 @@ import androidx.compose.ui.Modifier
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellLevel
 import com.jlahougue.dndcompanion.data_character_spell.presentation.components.SpellLevelSection
 import com.jlahougue.dndcompanion.data_character_spell.presentation.components.SpellListMode
+import com.jlahougue.dndcompanion.feature_spells.presentation.SpellEvent
 
 @Composable
 fun SpellLevelList(
     spells: List<SpellLevel>,
     modifier: Modifier = Modifier,
+    onEvent: (SpellEvent) -> Unit,
     mode: SpellListMode
 ) {
     LazyColumn(
@@ -23,6 +25,7 @@ fun SpellLevelList(
         ) {
             SpellLevelSection(
                 spellLevel = it,
+                onEvent = onEvent,
                 mode = mode
             )
         }
