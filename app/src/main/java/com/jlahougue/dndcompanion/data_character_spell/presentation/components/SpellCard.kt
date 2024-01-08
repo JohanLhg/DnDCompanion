@@ -2,6 +2,7 @@ package com.jlahougue.dndcompanion.data_character_spell.presentation.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
@@ -10,13 +11,16 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
@@ -39,6 +43,11 @@ fun SpellCard(
 ) {
     Column(
         modifier = modifier
+            .clickable(
+                onClick = {
+                    onEvent(SpellEvent.OnSpellClicked(spell))
+                }
+            )
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -91,29 +100,53 @@ fun SpellCard(
                 }
                 else -> {}
             }
-            Text(
-                text = spell.name,
-                style = MaterialTheme.typography.titleMedium,
-                color = if (spell.state == SpellState.HIGHLIGHTED)
-                    MaterialTheme.colorScheme.primary
-                else
-                    MaterialTheme.colorScheme.onSurface,
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
-                    .clickable(
-                        onClick = {
-                            onEvent(SpellEvent.OnSpellClicked(spell))
-                        }
-                    )
-                    .padding(vertical = MaterialTheme.spacing.small)
-                    .padding(horizontal = MaterialTheme.spacing.extraSmall)
                     .weight(1f)
-            )
+            ) {
+                Text(
+                    text = spell.name,
+                    style = MaterialTheme.typography.titleMedium,
+                    color = if (spell.state == SpellState.HIGHLIGHTED)
+                        MaterialTheme.colorScheme.primary
+                    else
+                        MaterialTheme.colorScheme.onSurface,
+                    modifier = Modifier
+                        .padding(vertical = MaterialTheme.spacing.small)
+                        .padding(horizontal = MaterialTheme.spacing.extraSmall)
+                )
+                if (spell.components.contains('V')) {
+                    ComponentImage(
+                        painter = painterResource(id = R.drawable.vocal),
+                        contentDescription = stringResource(id = R.string.vocal_component)
+                    )
+                }
+                if (spell.components.contains('S')) {
+                    ComponentImage(
+                        painter = painterResource(id = R.drawable.somatic),
+                        contentDescription = stringResource(id = R.string.somatic_component)
+                    )
+                }
+                if (spell.components.contains('M')) {
+                    ComponentImage(
+                        painter = painterResource(id = R.drawable.materials),
+                        contentDescription = stringResource(id = R.string.material_component)
+                    )
+                }
+            }
             if (mode is SpellListMode.All && !spell.state.isUnlocked()) {
                 Image(
-                    painter = painterResource(id = R.drawable.highlight),
+                    painter = painterResource(
+                        id = if (spell.state == SpellState.HIGHLIGHTED) R.drawable.eraser
+                        else R.drawable.highlight
+                    ),
                     contentDescription = stringResource(id = R.string.highlighted_spells),
                     modifier = Modifier
-                        .clickable {
+                        .clickable(
+                            interactionSource = remember { MutableInteractionSource() },
+                            indication = rememberRipple(bounded = false)
+                        ) {
                             onEvent(
                                 SpellEvent.OnSpellStateChanged(
                                     spell,
@@ -187,26 +220,6 @@ fun SpellCard(
                     maxLines = 1
                 )
             }
-            if (spell.materials.isNotEmpty()) {
-                Row {
-                    Text(
-                        text = stringResource(id = R.string.spell_materials),
-                        style = MaterialTheme.typography.titleSmall.copy(
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                        ),
-                        modifier = Modifier
-                            .padding(start = MaterialTheme.spacing.small)
-                    )
-                    Text(
-                        text = spell.materials,
-                        style = MaterialTheme.typography.bodySmall,
-                        modifier = Modifier
-                            .padding(start = MaterialTheme.spacing.extraSmall),
-                        overflow = TextOverflow.Ellipsis,
-                        maxLines = 1
-                    )
-                }
-            }
             Text(
                 text = stringResource(id = R.string.spell_description),
                 style = MaterialTheme.typography.titleSmall.copy(
@@ -227,6 +240,20 @@ fun SpellCard(
     }
 }
 
+@Composable
+fun ComponentImage(
+    painter: Painter,
+    contentDescription: String
+) {
+    Image(
+        painter = painter,
+        contentDescription = contentDescription,
+        modifier = Modifier
+            .size(28.dp)
+            .padding(MaterialTheme.spacing.extraSmall)
+    )
+}
+
 @Preview(
     showBackground = true,
     device = Devices.TABLET
@@ -241,6 +268,7 @@ fun SpellCardPreview() {
                 name = "Fireball",
                 castingTime = "1 action",
                 range = "150 feet",
+                components = "V, S",
                 duration = "Instantaneous",
                 description = "A bright streak flashes from your pointing finger to a point you choose within range and then blossoms with a low roar into an explosion of flame. Each creature in a 20-foot-radius sphere centered on that point must make a Dexterity saving throw. A target takes 8d6 fire damage on a failed save, or half as much damage on a successful one.\n" +
                         "\n" +

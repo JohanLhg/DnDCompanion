@@ -5,6 +5,7 @@ data class SpellUseCases(
     val getSpells: GetSpells,
     val getAllSpells: GetAllSpells,
     val saveSpell: SaveSpell,
+    val saveSpellSlot: SaveSpellSlot,
     val getSpellcasterStats: GetSpellcasterStats,
     val getCharacterSpellsStats: GetCharacterSpellsStats,
 )

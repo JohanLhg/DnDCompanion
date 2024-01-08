@@ -1,17 +1,18 @@
 package com.jlahougue.dndcompanion.data_character_spell.domain.use_case
 
 import com.jlahougue.dndcompanion.core.domain.util.dispatcherProvider.DispatcherProvider
-import com.jlahougue.dndcompanion.data_character_spell.domain.model.CharacterSpell
+import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellSlot
 import com.jlahougue.dndcompanion.data_character_spell.domain.repository.ICharacterSpellRepository
 import kotlinx.coroutines.withContext
 
-class SaveSpell(
+class SaveSpellSlot(
     private val dispatcherProvider: DispatcherProvider,
-    private val repository: ICharacterSpellRepository
+    private val characterSpellRepository: ICharacterSpellRepository
 ) {
-    suspend operator fun invoke(characterSpell: CharacterSpell) {
+
+    suspend operator fun invoke(spellSlot: SpellSlot) {
         withContext(dispatcherProvider.io) {
-            repository.save(characterSpell)
+            characterSpellRepository.save(spellSlot)
         }
     }
 }

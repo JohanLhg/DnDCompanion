@@ -124,6 +124,7 @@ class DnDCompanionApp: Application() {
             dataSourceModule.localDataSource
         )
         characterSpellModule = CharacterSpellModule(
+            appModule.dispatcherProvider,
             dataSourceModule.remoteDataSource,
             dataSourceModule.localDataSource
         )

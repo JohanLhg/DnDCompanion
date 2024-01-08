@@ -1,5 +1,6 @@
 package com.jlahougue.dndcompanion.data_character_spell.presentation.components
 
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
@@ -38,7 +39,10 @@ fun SpellLevelSection(
         } else {
             SpellLevelBanner(
                 spellSlot = spellLevel.spellSlot,
-                onEvent = onEvent,
+                onEvent = {
+                    Log.d("SpellLevelSection", "SpellLevelBanner event")
+                    onEvent(it)
+                          },
                 modifier = Modifier
                     .width(300.dp)
                     .padding(MaterialTheme.spacing.small)

@@ -210,9 +210,11 @@ fun SpellLevelBanner(
                 painter = painterResource(id = R.drawable.chevron_left),
                 contentDescription = null,
                 contentScale = ContentScale.FillHeight,
+                alpha = if (spellSlot.left <= 0) 0.2f else 1f,
                 modifier = Modifier
                     .height(35.dp)
                     .clickable(
+                        enabled = spellSlot.left > 0,
                         interactionSource = remember { MutableInteractionSource() },
                         indication = rememberRipple(bounded = false),
                         onClick = {
@@ -229,9 +231,11 @@ fun SpellLevelBanner(
                 painter = painterResource(id = R.drawable.chevron_right),
                 contentDescription = null,
                 contentScale = ContentScale.FillHeight,
+                alpha = if (spellSlot.left >= spellSlot.total) 0.2f else 1f,
                 modifier = Modifier
                     .height(35.dp)
                     .clickable(
+                        enabled = spellSlot.left < spellSlot.total,
                         interactionSource = remember { MutableInteractionSource() },
                         indication = rememberRipple(bounded = false),
                         onClick = {
@@ -262,9 +266,9 @@ fun SpellLevelBannerPreview() {
             SpellLevelBanner(
                 spellSlot = SpellSlotView(
                     cid = 1,
-                    level = 1,
+                    level = 2,
                     total = 4,
-                    left = 2
+                    left = 4
                 ),
                 onEvent = {},
             )

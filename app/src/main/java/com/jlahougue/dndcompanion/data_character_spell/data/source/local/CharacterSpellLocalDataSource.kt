@@ -24,6 +24,9 @@ interface CharacterSpellLocalDataSource {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertSpellSlots(spellSlots: List<SpellSlot>)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insert(spellSlot: SpellSlot)
+
     @Query("""
         SELECT DISTINCT level 
         FROM spell

@@ -24,6 +24,11 @@ class CharacterSpellRepository(
         localDataSource.insertSpellSlots(spellSlots)
     }
 
+    override suspend fun save(spellSlot: SpellSlot) {
+        localDataSource.insert(spellSlot)
+        remoteDataSource.save(spellSlot)
+    }
+
     override suspend fun getFilteredLevels(
         search: String,
         clazz: String

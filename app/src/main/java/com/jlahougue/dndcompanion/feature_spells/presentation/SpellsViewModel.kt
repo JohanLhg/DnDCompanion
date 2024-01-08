@@ -149,9 +149,25 @@ class SpellsViewModel(
                 )
             }
             is SpellEvent.OnSlotRestored -> {
-
+                if (event.spellSlot.left == event.spellSlot.total) return
+                viewModelScope.launch(module.dispatcherProvider.io) {
+                    module.spellUseCases.saveSpellSlot(
+                        event.spellSlot.getSpellSlot(
+                            left = event.spellSlot.left + 1
+                        )
+                    )
+                }
             }
-            is SpellEvent.OnSlotUsed -> TODO()
+            is SpellEvent.OnSlotUsed -> {
+                if (event.spellSlot.left == 0) return
+                viewModelScope.launch(module.dispatcherProvider.io) {
+                    module.spellUseCases.saveSpellSlot(
+                        event.spellSlot.getSpellSlot(
+                            left = event.spellSlot.left - 1
+                        )
+                    )
+                }
+            }
             is SpellEvent.OnSpellClicked -> TODO()
             is SpellEvent.OnSpellStateChanged -> {
                 viewModelScope.launch(module.dispatcherProvider.io) {
