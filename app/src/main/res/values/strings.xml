@@ -75,6 +75,12 @@
     <string name="spell_slots_left">Slots Left</string>
     <string name="cantrips">Cantrips</string>
     <string name="spell_level">Level %d</string>
+    <string name="spell_casting_time">Casting time :</string>
+    <string name="spell_range">Range :</string>
+    <string name="spell_duration">Duration :</string>
+    <string name="spell_materials">Materials :</string>
+    <string name="spell_description">Description :</string>
+    <string name="spell_higher_levels">At higher levels :</string>
 
     <string name="spellcasting_ability">Spellcasting Ability</string>
     <string name="spell_save_dc">Spell Save DC</string>

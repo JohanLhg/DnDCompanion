@@ -58,6 +58,7 @@ interface CharacterSpellLocalDataSource {
             WHERE cid = :characterId
         ) cs ON spell.spell_id = cs.spell_id
         WHERE spell.level = :level
+        ORDER BY spell.level, spell.name
     """)
     fun getAllSpells(characterId: Long, level: Int): Flow<List<SpellInfo>>
 
@@ -80,6 +81,7 @@ interface CharacterSpellLocalDataSource {
         FROM spell_slot_view
         INNER JOIN spellInfo ON spellInfo.level = spell_slot_view.level
         WHERE spell_slot_view.cid = :characterId
+        ORDER BY level, name
     """)
     fun getKnownSpells(characterId: Long): Flow<Map<SpellSlotView, List<SpellInfo>>>
 
@@ -103,6 +105,7 @@ interface CharacterSpellLocalDataSource {
         FROM spell_slot_view
         INNER JOIN spellInfo ON spellInfo.level = spell_slot_view.level
         WHERE spell_slot_view.cid = :characterId
+        ORDER BY level, name
     """)
     fun getPreparedSpells(characterId: Long): Flow<Map<SpellSlotView, List<SpellInfo>>>
 

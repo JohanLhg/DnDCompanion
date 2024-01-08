@@ -15,4 +15,5 @@ interface ICharacterRepository {
         characterId: Long,
         onEvent: (CharacterImageFirebaseEvent) -> Unit
     )
+    suspend fun getClass(characterId: Long): String
 }

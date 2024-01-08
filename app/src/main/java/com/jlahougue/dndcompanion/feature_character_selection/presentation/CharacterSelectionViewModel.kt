@@ -31,6 +31,6 @@ class CharacterSelectionViewModel(
     }
 
     fun getCharacterImage(characterId: Long): StateFlow<LoadImageState> {
-        return module.loadCharacterImage(characterId)
+        return module.characterUseCases.loadCharacterImage(characterId)
     }
 }

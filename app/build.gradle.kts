@@ -54,11 +54,11 @@ android {
 
 dependencies {
     // Firebase (remote database)
-    platform("com.google.firebase:firebase-bom:32.7.0")
-    implementation("com.google.firebase:firebase-auth")
-    implementation("com.google.firebase:firebase-firestore")
-    implementation("com.google.firebase:firebase-storage")
-    implementation("com.google.firebase:firebase-installations")
+    //platform("com.google.firebase:firebase-bom:32.7.0")
+    implementation("com.google.firebase:firebase-auth:22.3.0")
+    implementation("com.google.firebase:firebase-firestore:24.10.0")
+    implementation("com.google.firebase:firebase-storage:20.3.0")
+    implementation("com.google.firebase:firebase-installations:17.2.0")
     implementation("com.firebaseui:firebase-ui-storage:8.0.2")
     implementation("com.google.firebase:firebase-storage-ktx:20.3.0")
 

@@ -19,7 +19,7 @@ interface ClassLocalDataSource {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertSpellSlots(classSpellSlots: List<ClassSpellSlot>)
 
-    @Query("SELECT class_name FROM class")
+    @Query("SELECT class_name FROM class ORDER BY class_name ASC")
     suspend fun getNames(): List<String>
 
     @Query("SELECT class_name FROM class WHERE spellcasting_ability <> 'NONE'")

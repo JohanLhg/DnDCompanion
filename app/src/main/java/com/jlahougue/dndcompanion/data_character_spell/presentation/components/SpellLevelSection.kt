@@ -49,7 +49,7 @@ fun SpellLevelSection(
             onEvent = onEvent,
             mode = mode,
             modifier = Modifier
-                .heightIn(max = 200.dp)
+                .heightIn(max = 9999.dp)
                 .padding(horizontal = MaterialTheme.spacing.small)
         )
     }

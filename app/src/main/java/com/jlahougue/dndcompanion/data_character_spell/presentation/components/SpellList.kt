@@ -17,14 +17,14 @@ fun SpellList(
     modifier: Modifier = Modifier
 ) {
     LazyVerticalGrid(
-        columns = GridCells.Adaptive(200.dp),
+        columns = GridCells.Adaptive(300.dp),
         modifier = modifier
     ) {
         items(
             items = spells,
             key = { it.id }
         ) {
-            Spell(
+            SpellCard(
                 spell = it,
                 onEvent = onEvent,
                 mode = mode

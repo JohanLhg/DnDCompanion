@@ -54,6 +54,12 @@ class SpellsViewModel(
         viewModelScope.launch(module.dispatcherProvider.io) {
             module.getCurrentCharacterId().collectLatest { characterId ->
                 viewModelScope.launch(module.dispatcherProvider.io) {
+                    _searchState.value = _searchState.value.copy(
+                        selectedClass = module.characterUseCases.getCharacterClass(characterId)
+                    )
+                }
+
+                viewModelScope.launch(module.dispatcherProvider.io) {
                     module.spellUseCases.getSpellcasterStats(characterId)
                         .collectLatest { spellcasterStats ->
                             _spellcasting.value = spellcasterStats
