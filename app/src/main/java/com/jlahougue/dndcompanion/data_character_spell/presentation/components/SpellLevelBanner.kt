@@ -29,10 +29,12 @@ import com.jlahougue.dndcompanion.R
 import com.jlahougue.dndcompanion.core.presentation.theme.DnDCompanionTheme
 import com.jlahougue.dndcompanion.core.presentation.theme.spacing
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellSlotView
+import com.jlahougue.dndcompanion.data_character_spell.presentation.SpellEvent
 
 @Composable
 fun SpellLevelBanner(
     spellSlot: SpellSlotView,
+    onEvent: (SpellEvent) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val spacing = MaterialTheme.spacing
@@ -208,13 +210,15 @@ fun SpellLevelBanner(
                 painter = painterResource(id = R.drawable.chevron_left),
                 contentDescription = null,
                 contentScale = ContentScale.FillHeight,
+                alpha = if (spellSlot.left <= 0) 0.2f else 1f,
                 modifier = Modifier
                     .height(35.dp)
                     .clickable(
+                        enabled = spellSlot.left > 0,
                         interactionSource = remember { MutableInteractionSource() },
                         indication = rememberRipple(bounded = false),
                         onClick = {
-
+                            onEvent(SpellEvent.OnSlotUsed(spellSlot))
                         },
                     )
                     .padding(MaterialTheme.spacing.small)
@@ -227,13 +231,15 @@ fun SpellLevelBanner(
                 painter = painterResource(id = R.drawable.chevron_right),
                 contentDescription = null,
                 contentScale = ContentScale.FillHeight,
+                alpha = if (spellSlot.left >= spellSlot.total) 0.2f else 1f,
                 modifier = Modifier
                     .height(35.dp)
                     .clickable(
+                        enabled = spellSlot.left < spellSlot.total,
                         interactionSource = remember { MutableInteractionSource() },
                         indication = rememberRipple(bounded = false),
                         onClick = {
-
+                            onEvent(SpellEvent.OnSlotRestored(spellSlot))
                         },
                     )
                     .padding(MaterialTheme.spacing.small)
@@ -258,12 +264,13 @@ fun SpellLevelBannerPreview() {
     DnDCompanionTheme {
         Column {
             SpellLevelBanner(
-                SpellSlotView(
+                spellSlot = SpellSlotView(
                     cid = 1,
-                    level = 1,
+                    level = 2,
                     total = 4,
-                    left = 2
-                )
+                    left = 4
+                ),
+                onEvent = {},
             )
         }
     }

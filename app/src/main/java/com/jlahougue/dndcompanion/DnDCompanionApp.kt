@@ -41,6 +41,8 @@ import com.jlahougue.dndcompanion.feature_combat.di.CombatModule
 import com.jlahougue.dndcompanion.feature_combat.di.ICombatModule
 import com.jlahougue.dndcompanion.feature_loading_data.di.ILoadingModule
 import com.jlahougue.dndcompanion.feature_loading_data.di.LoadingModule
+import com.jlahougue.dndcompanion.feature_spells.di.ISpellsModule
+import com.jlahougue.dndcompanion.feature_spells.di.SpellsModule
 
 class DnDCompanionApp: Application() {
 
@@ -69,6 +71,7 @@ class DnDCompanionApp: Application() {
         lateinit var loadingModule: ILoadingModule
         lateinit var characterSelectionModule: ICharacterSelectionModule
         lateinit var combatModule: ICombatModule
+        lateinit var spellsModule: ISpellsModule
     }
 
     override fun onCreate() {
@@ -90,6 +93,7 @@ class DnDCompanionApp: Application() {
             userInfoModule.userInfoRepository
         )
         characterModule = CharacterModule(
+            appModule.dispatcherProvider,
             dataSourceModule.remoteDataSource,
             dataSourceModule.localDataSource
         )
@@ -120,6 +124,7 @@ class DnDCompanionApp: Application() {
             dataSourceModule.localDataSource
         )
         characterSpellModule = CharacterSpellModule(
+            appModule.dispatcherProvider,
             dataSourceModule.remoteDataSource,
             dataSourceModule.localDataSource
         )
@@ -164,7 +169,8 @@ class DnDCompanionApp: Application() {
             characterModule.characterRepository,
             userInfoModule.userInfoRepository,
             abilityModule.abilityRepository,
-            skillModule.skillRepository
+            skillModule.skillRepository,
+            characterModule.characterUseCases
         )
         combatModule = CombatModule(
             appModule.dispatcherProvider,
@@ -173,6 +179,13 @@ class DnDCompanionApp: Application() {
             statsModule.statsUseCases,
             healthModule.healthUseCases,
             characterSpellModule.spellUseCases
+        )
+        spellsModule = SpellsModule(
+            appModule.dispatcherProvider,
+            userInfoModule.getCurrentCharacterId,
+            characterSpellModule.spellUseCases,
+            classModule.classUseCases,
+            characterModule.characterUseCases
         )
     }
 }

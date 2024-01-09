@@ -1,7 +1,12 @@
 <resources>
     <!-- General -->
-    <string name="app_name">DnD Companion</string>
+    <string name="app_name">D&amp;D Companion</string>
     <string name="empty">-</string>
+    <string name="quota">%d/%d</string>
+    <string name="edit">Edit</string>
+    <string name="done">Done</string>
+    <string name="search">Search…</string>
+    <string name="clear">Clear</string>
 
     <!-- Health -->
     <string name="health">Health</string>
@@ -69,6 +74,26 @@
     <string name="spell_total_slots">Total Slots</string>
     <string name="spell_slots_left">Slots Left</string>
     <string name="cantrips">Cantrips</string>
+    <string name="spell_level">Level %d</string>
+    <string name="spell_casting_time">Casting time :</string>
+    <string name="spell_range">Range :</string>
+    <string name="spell_duration">Duration :</string>
+    <string name="vocal_component">Vocal</string>
+    <string name="somatic_component">Somatic</string>
+    <string name="material_component">Material</string>
+    <string name="spell_materials">Materials :</string>
+    <string name="spell_description">Description :</string>
+    <string name="spell_higher_levels">At higher levels :</string>
+
+    <string name="spellcasting_ability">Spellcasting Ability</string>
+    <string name="spell_save_dc">Spell Save DC</string>
+    <string name="spell_attack_bonus">Spell Attack Bonus</string>
+
+    <string name="highlighted_spells">Highlighted Spells</string>
+    <string name="unlocked_spells">Unlocked Spells</string>
+    <string name="prepared_spells">Prepared Spells</string>
+
+    <string name="highlight_spell">Highlight Spell</string>
 
     <!-- AuthActivity -->
     <string name="title_activity_auth">Auth Activity</string>
@@ -113,6 +138,8 @@
     <!-- CharacterSelectionActivity -->
     <string name="title_activity_character_selection">Character Selection Activity</string>
     <string name="descr_character_image">Character Image</string>
-    <string name="title_activity_combat">CombatActivity</string>
-    <string name="title_activity_dn_dcompanion">DnDCompanionActivity</string>
+
+    <!-- Character Sheet -->
+    <string name="title_combat_screen">Combat</string>
+    <string name="title_spells_screen">Spells</string>
 </resources>

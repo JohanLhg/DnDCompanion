@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.jlahougue.dndcompanion.data_ability.domain.model.AbilityView
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellLevel
 import com.jlahougue.dndcompanion.data_character_spell.domain.use_case.SpellFilter
+import com.jlahougue.dndcompanion.data_character_spell.presentation.SpellEvent
 import com.jlahougue.dndcompanion.data_health.domain.model.DeathSaves
 import com.jlahougue.dndcompanion.data_health.domain.model.Health
 import com.jlahougue.dndcompanion.data_health.presentation.HealthEvent
@@ -156,6 +157,35 @@ class CombatViewModel(
     private fun saveHealth(health: Health) {
         viewModelScope.launch(module.dispatcherProvider.io) {
             module.healthUseCases.saveHealth(health)
+        }
+    }
+
+    fun onSpellEvent(event: SpellEvent) {
+        when(event) {
+            is SpellEvent.OnSlotRestored -> {
+                if (event.spellSlot.left == event.spellSlot.total) return
+                viewModelScope.launch(module.dispatcherProvider.io) {
+                    module.spellUseCases.saveSpellSlot(
+                        event.spellSlot.getSpellSlot(
+                            left = event.spellSlot.left + 1
+                        )
+                    )
+                }
+            }
+            is SpellEvent.OnSlotUsed -> {
+                if (event.spellSlot.left == 0) return
+                viewModelScope.launch(module.dispatcherProvider.io) {
+                    module.spellUseCases.saveSpellSlot(
+                        event.spellSlot.getSpellSlot(
+                            left = event.spellSlot.left - 1
+                        )
+                    )
+                }
+            }
+            is SpellEvent.OnSpellClicked -> TODO()
+            is SpellEvent.OnSpellStateChanged -> {
+                // No changes in combat screen
+            }
         }
     }
 }
