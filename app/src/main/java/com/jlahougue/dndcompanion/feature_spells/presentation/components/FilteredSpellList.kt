@@ -36,9 +36,10 @@ import com.jlahougue.dndcompanion.core.presentation.components.CustomSearchBar
 import com.jlahougue.dndcompanion.core.presentation.theme.DnDCompanionTheme
 import com.jlahougue.dndcompanion.core.presentation.theme.spacing
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellInfo
+import com.jlahougue.dndcompanion.data_character_spell.presentation.SpellEvent
 import com.jlahougue.dndcompanion.data_character_spell.presentation.components.SpellList
 import com.jlahougue.dndcompanion.data_character_spell.presentation.components.SpellListMode
-import com.jlahougue.dndcompanion.feature_spells.presentation.SpellEvent
+import com.jlahougue.dndcompanion.feature_spells.presentation.SpellSearchEvent
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -49,7 +50,8 @@ fun FilteredSpellList(
     levels: List<Int>,
     selectedLevel: Int,
     spells: List<SpellInfo>,
-    onEvent: (SpellEvent) -> Unit,
+    onSearchEvent: (SpellSearchEvent) -> Unit,
+    onSpellEvent: (SpellEvent) -> Unit,
     mode: SpellListMode,
     modifier: Modifier = Modifier
 ) {
@@ -72,7 +74,7 @@ fun FilteredSpellList(
             CustomSearchBar(
                 value = search,
                 onValueChange = {
-                    onEvent(SpellEvent.OnSearchChanged(it))
+                    onSearchEvent(SpellSearchEvent.OnSearchChanged(it))
                 },
                 modifier = Modifier
                     .width(200.dp)
@@ -98,7 +100,7 @@ fun FilteredSpellList(
                             )
                         },
                         onClick = {
-                            onEvent(SpellEvent.OnClassFilterClicked(it))
+                            onSearchEvent(SpellSearchEvent.OnClassFilterClicked(it))
                         },
                         modifier = Modifier
                             .padding(horizontal = MaterialTheme.spacing.extraSmall)
@@ -134,7 +136,7 @@ fun FilteredSpellList(
                         )
                     },
                     onClick = {
-                        onEvent(SpellEvent.OnLevelSelected(it))
+                        onSearchEvent(SpellSearchEvent.OnLevelSelected(it))
                     },
                     modifier = Modifier
                         .padding(horizontal = MaterialTheme.spacing.extraSmall)
@@ -145,7 +147,7 @@ fun FilteredSpellList(
         SpellList(
             spells = spells,
             mode = mode,
-            onEvent = onEvent,
+            onEvent = onSpellEvent,
             modifier = Modifier
                 .fillMaxSize()
                 .padding(MaterialTheme.spacing.small)
@@ -176,7 +178,8 @@ fun FilteredSpellListPreview() {
             levels = listOf(0, 1, 2, 3, 4, 5, 6, 7, 8, 9),
             selectedLevel = 0,
             spells = listOf(),
-            onEvent = {},
+            onSearchEvent = {},
+            onSpellEvent = {},
             mode = SpellListMode.All(selectedLevel = 0)
         )
     }

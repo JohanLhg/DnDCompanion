@@ -41,7 +41,8 @@ fun NavGraphBuilder.spellsSection(route: String) {
             allSpells = allSpells,
             knownSpells = knownSpells,
             mode = mode,
-            onEvent = viewModel::onEvent
+            onSearchEvent = viewModel::onSearchEvent,
+            onSpellEvent = viewModel::onSpellEvent
         )
     }
 }

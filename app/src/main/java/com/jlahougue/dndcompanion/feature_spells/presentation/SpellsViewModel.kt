@@ -7,6 +7,7 @@ import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellInfo
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellLevel
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellcasterView
 import com.jlahougue.dndcompanion.data_character_spell.domain.use_case.SpellFilter
+import com.jlahougue.dndcompanion.data_character_spell.presentation.SpellEvent
 import com.jlahougue.dndcompanion.data_character_spell.presentation.components.SpellListMode
 import com.jlahougue.dndcompanion.feature_spells.di.ISpellsModule
 import kotlinx.coroutines.Job
@@ -117,16 +118,17 @@ class SpellsViewModel(
         }
     }
 
-    fun onEvent(event: SpellEvent) {
-        when(event) {
-            SpellEvent.OnModeChanged -> {
+    fun onSearchEvent(event: SpellSearchEvent) {
+        when (event) {
+            SpellSearchEvent.OnModeChanged -> {
                 _mode.value = when (mode.value) {
                     is SpellListMode.Known -> SpellListMode.All(0)
                     is SpellListMode.All -> SpellListMode.Known
                     else -> SpellListMode.Known
                 }
             }
-            is SpellEvent.OnClassFilterClicked -> {
+
+            is SpellSearchEvent.OnClassFilterClicked -> {
                 val selectedClass = searchState.value.selectedClass
                 if (selectedClass == event.clazz) {
                     _searchState.value = searchState.value.copy(
@@ -138,16 +140,23 @@ class SpellsViewModel(
                     )
                 }
             }
-            is SpellEvent.OnLevelSelected -> {
+
+            is SpellSearchEvent.OnLevelSelected -> {
                 _searchState.value = searchState.value.copy(
                     selectedLevel = event.level
                 )
             }
-            is SpellEvent.OnSearchChanged -> {
+
+            is SpellSearchEvent.OnSearchChanged -> {
                 _searchState.value = searchState.value.copy(
                     search = event.search
                 )
             }
+        }
+    }
+
+    fun onSpellEvent(event: SpellEvent) {
+        when(event) {
             is SpellEvent.OnSlotRestored -> {
                 if (event.spellSlot.left == event.spellSlot.total) return
                 viewModelScope.launch(module.dispatcherProvider.io) {

@@ -29,7 +29,7 @@ import com.jlahougue.dndcompanion.R
 import com.jlahougue.dndcompanion.core.presentation.theme.DnDCompanionTheme
 import com.jlahougue.dndcompanion.core.presentation.theme.spacing
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellSlotView
-import com.jlahougue.dndcompanion.feature_spells.presentation.SpellEvent
+import com.jlahougue.dndcompanion.data_character_spell.presentation.SpellEvent
 
 @Composable
 fun SpellLevelBanner(

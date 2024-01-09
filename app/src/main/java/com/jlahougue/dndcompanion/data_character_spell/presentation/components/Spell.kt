@@ -27,7 +27,7 @@ import com.jlahougue.dndcompanion.core.presentation.theme.DnDCompanionTheme
 import com.jlahougue.dndcompanion.core.presentation.theme.spacing
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellInfo
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellState
-import com.jlahougue.dndcompanion.feature_spells.presentation.SpellEvent
+import com.jlahougue.dndcompanion.data_character_spell.presentation.SpellEvent
 
 @Composable
 fun Spell(

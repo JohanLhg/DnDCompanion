@@ -7,7 +7,6 @@ import androidx.compose.ui.Modifier
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellLevel
 import com.jlahougue.dndcompanion.data_character_spell.presentation.components.SpellLevelSection
 import com.jlahougue.dndcompanion.data_character_spell.presentation.components.SpellListMode
-import com.jlahougue.dndcompanion.feature_spells.presentation.SpellEvent
 
 @Composable
 fun SpellLevelList(

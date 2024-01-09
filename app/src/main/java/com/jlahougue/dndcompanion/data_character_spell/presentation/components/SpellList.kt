@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellInfo
-import com.jlahougue.dndcompanion.feature_spells.presentation.SpellEvent
+import com.jlahougue.dndcompanion.data_character_spell.presentation.SpellEvent
 
 @Composable
 fun SpellList(

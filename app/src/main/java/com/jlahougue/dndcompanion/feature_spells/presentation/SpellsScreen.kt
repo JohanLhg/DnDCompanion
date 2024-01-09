@@ -37,6 +37,7 @@ import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellLevel
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellSlotView
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellState
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellcasterView
+import com.jlahougue.dndcompanion.data_character_spell.presentation.SpellEvent
 import com.jlahougue.dndcompanion.data_character_spell.presentation.SpellLevelList
 import com.jlahougue.dndcompanion.data_character_spell.presentation.components.SpellListMode
 import com.jlahougue.dndcompanion.feature_spells.presentation.components.FilteredSpellList
@@ -55,7 +56,8 @@ fun SpellsScreen(
     allSpells: List<SpellInfo>,
     knownSpells: List<SpellLevel>,
     mode: SpellListMode,
-    onEvent: (SpellEvent) -> Unit
+    onSearchEvent: (SpellSearchEvent) -> Unit,
+    onSpellEvent: (SpellEvent) -> Unit
 ) {
     Row(
         modifier = Modifier
@@ -79,7 +81,7 @@ fun SpellsScreen(
                     .padding(MaterialTheme.spacing.small)
             )
             Button(
-                onClick = { onEvent(SpellEvent.OnModeChanged) },
+                onClick = { onSearchEvent(SpellSearchEvent.OnModeChanged) },
                 shape = OutlinedTextFieldDefaults.shape,
                 contentPadding = PaddingValues(
                     vertical = MaterialTheme.spacing.small,
@@ -120,7 +122,8 @@ fun SpellsScreen(
                 levels = spellLevels,
                 selectedLevel = selectedLevel,
                 spells = allSpells,
-                onEvent = onEvent,
+                onSearchEvent = onSearchEvent,
+                onSpellEvent = onSpellEvent,
                 mode = mode,
                 modifier = Modifier
                     .fillMaxHeight()
@@ -128,7 +131,7 @@ fun SpellsScreen(
         } else {
             SpellLevelList(
                 spells = knownSpells,
-                onEvent = onEvent,
+                onEvent = onSpellEvent,
                 mode = mode,
                 modifier = Modifier
                     .fillMaxHeight()
@@ -318,7 +321,8 @@ fun SpellsScreenPreview() {
                 )
             ),
             mode = SpellListMode.All(selectedLevel = 0),
-            onEvent = {}
+            onSearchEvent = {},
+            onSpellEvent = {}
         )
     }
 }

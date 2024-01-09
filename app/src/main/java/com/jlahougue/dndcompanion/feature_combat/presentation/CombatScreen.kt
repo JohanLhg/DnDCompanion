@@ -15,6 +15,7 @@ import com.jlahougue.dndcompanion.data_ability.domain.model.AbilityView
 import com.jlahougue.dndcompanion.data_ability.presentation.Abilities
 import com.jlahougue.dndcompanion.data_ability.presentation.getAbilitiesPreviewData
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellLevel
+import com.jlahougue.dndcompanion.data_character_spell.presentation.SpellEvent
 import com.jlahougue.dndcompanion.data_character_spell.presentation.SpellLevelList
 import com.jlahougue.dndcompanion.data_character_spell.presentation.components.SpellListMode
 import com.jlahougue.dndcompanion.data_health.domain.model.DeathSaves
@@ -33,7 +34,8 @@ fun CombatScreen(
     health: Health,
     deathSaves: DeathSaves,
     onHealthEvent: (HealthEvent) -> Unit,
-    spells: List<SpellLevel> = listOf()
+    spells: List<SpellLevel>,
+    onSpellEvent: (SpellEvent) -> Unit
 ) {
     Row {
         Column(
@@ -64,7 +66,7 @@ fun CombatScreen(
             spells = spells,
             modifier = Modifier.fillMaxHeight(),
             mode = SpellListMode.Prepared,
-            onEvent = {}
+            onEvent = onSpellEvent
         )
     }
 }
@@ -82,7 +84,9 @@ fun CombatScreenPreview() {
             onStatsEvent = {},
             health = Health(),
             deathSaves = DeathSaves(),
-            onHealthEvent = {}
+            onHealthEvent = {},
+            spells = listOf(),
+            onSpellEvent = {}
         )
     }
 }
