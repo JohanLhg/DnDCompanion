@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Junction
 import androidx.room.Relation
 import com.jlahougue.dndcompanion.data_class.domain.model.Class
+import com.jlahougue.dndcompanion.data_damage_type.domain.model.DamageType
 import com.jlahougue.dndcompanion.data_spell.domain.model.Spell
 import com.jlahougue.dndcompanion.data_spell.domain.model.SpellClass
 import com.jlahougue.dndcompanion.data_spell.domain.model.SpellDamageType
@@ -48,9 +49,10 @@ data class SpellInfo(
 
     @Relation(
         parentColumn = Spell.SPELL_ID,
-        entityColumn = SpellDamageType.SPELL_DAMAGE_TYPE_SPELL
+        entityColumn = DamageType.DAMAGE_TYPE_NAME,
+        associateBy = Junction(SpellDamageType::class)
     )
-    var damageTypes: List<SpellDamageType> = listOf()
+    var damageTypes: List<DamageType> = listOf()
 ) {
     fun copy(): SpellInfo {
         return SpellInfo(

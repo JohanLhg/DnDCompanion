@@ -26,6 +26,7 @@ fun NavGraphBuilder.combatSection(route: String) {
         val health by viewModel.health.collectAsState()
         val deathSaves by viewModel.deathSaves.collectAsState()
         val spells by viewModel.spells.collectAsState()
+        val spellDialogState by viewModel.spellDialogState.collectAsState()
         CombatScreen(
             abilities = abilities,
             stats = stats,
@@ -34,7 +35,9 @@ fun NavGraphBuilder.combatSection(route: String) {
             deathSaves = deathSaves,
             onHealthEvent = viewModel::onHealthEvent,
             spells = spells,
-            onSpellEvent = viewModel::onSpellEvent
+            onSpellEvent = viewModel::onSpellEvent,
+            spellDialogState = spellDialogState,
+            onSpellDialogEvent = viewModel::onSpellDialogEvent
         )
     }
 }

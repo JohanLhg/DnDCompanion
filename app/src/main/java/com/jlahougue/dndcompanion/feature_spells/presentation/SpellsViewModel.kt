@@ -9,6 +9,8 @@ import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellcasterV
 import com.jlahougue.dndcompanion.data_character_spell.domain.use_case.SpellFilter
 import com.jlahougue.dndcompanion.data_character_spell.presentation.SpellEvent
 import com.jlahougue.dndcompanion.data_character_spell.presentation.components.SpellListMode
+import com.jlahougue.dndcompanion.data_character_spell.presentation.dialog.SpellDialogEvent
+import com.jlahougue.dndcompanion.data_character_spell.presentation.dialog.SpellDialogState
 import com.jlahougue.dndcompanion.feature_spells.di.ISpellsModule
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -46,6 +48,9 @@ class SpellsViewModel(
 
     private val _mode = MutableStateFlow<SpellListMode>(SpellListMode.Known)
     val mode = _mode.asStateFlow()
+
+    private val _spellDialogState = MutableStateFlow(SpellDialogState())
+    val spellDialogState = _spellDialogState.asStateFlow()
 
     init {
         viewModelScope.launch(module.dispatcherProvider.io) {
@@ -177,7 +182,12 @@ class SpellsViewModel(
                     )
                 }
             }
-            is SpellEvent.OnSpellClicked -> TODO()
+            is SpellEvent.OnSpellClicked -> {
+                _spellDialogState.value = SpellDialogState(
+                    isShown = true,
+                    spell = event.spell
+                )
+            }
             is SpellEvent.OnSpellStateChanged -> {
                 viewModelScope.launch(module.dispatcherProvider.io) {
                     val spell = event.spell.getCharacterSpell(
@@ -185,6 +195,27 @@ class SpellsViewModel(
                     )
                     module.spellUseCases.saveSpell(spell)
                 }
+            }
+        }
+    }
+
+    fun onSpellDialogEvent(event: SpellDialogEvent) {
+        when (event) {
+            is SpellDialogEvent.OnClassClick -> TODO()
+            is SpellDialogEvent.OnDamageTypeClick -> TODO()
+            SpellDialogEvent.OnDismiss -> {
+                _spellDialogState.value = SpellDialogState()
+            }
+            is SpellDialogEvent.OnStateDropdownOpen -> {
+                _spellDialogState.value = spellDialogState.value.copy(
+                    isStateDropdownOpened = event.opened
+                )
+            }
+            is SpellDialogEvent.OnStateChange -> {
+                _spellDialogState.value = spellDialogState.value.copy(
+                    spell = event.spell.copy(state = event.state)
+                )
+                onSpellEvent(SpellEvent.OnSpellStateChanged(event.spell, event.state))
             }
         }
     }

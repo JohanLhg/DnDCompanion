@@ -1,4 +1,4 @@
-package com.jlahougue.dndcompanion.data_character_spell.presentation.components.cantrips
+package com.jlahougue.dndcompanion.data_character_spell.presentation.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column

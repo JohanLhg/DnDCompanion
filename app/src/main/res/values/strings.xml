@@ -77,13 +77,23 @@
     <string name="spell_level">Level %d</string>
     <string name="spell_casting_time">Casting time :</string>
     <string name="spell_range">Range :</string>
-    <string name="spell_duration">Duration :</string>
     <string name="vocal_component">Vocal</string>
     <string name="somatic_component">Somatic</string>
     <string name="material_component">Material</string>
     <string name="spell_materials">Materials :</string>
+    <string name="spell_duration">Duration :</string>
+    <string name="spell_concentration_duration">Concentration, %s</string>
+    <string name="spell_ritual">This spell can be cast as a ritual, but will take an additional 10 min to cast.</string>
     <string name="spell_description">Description :</string>
     <string name="spell_higher_levels">At higher levels :</string>
+    <string name="spell_damage_types">Damage Types :</string>
+    <string name="spell_classes">Classes :</string>
+
+    <string name="spell_state_unlocked">Unlocked</string>
+    <string name="spell_state_highlighted">Highlighted</string>
+    <string name="spell_state_locked">Locked</string>
+    <string name="spell_state_prepared">Prepared</string>
+    <string name="spell_state_always_prepared">Always prepared</string>
 
     <string name="spellcasting_ability">Spellcasting Ability</string>
     <string name="spell_save_dc">Spell Save DC</string>
