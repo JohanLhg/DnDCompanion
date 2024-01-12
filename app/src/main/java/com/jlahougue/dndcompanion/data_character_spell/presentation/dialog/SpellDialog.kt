@@ -5,28 +5,17 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
-import androidx.compose.material3.DropdownMenuItem
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ExposedDropdownMenuBox
-import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
@@ -40,11 +29,10 @@ import com.jlahougue.dndcompanion.core.presentation.theme.spacing
 import com.jlahougue.dndcompanion.data_ability.domain.model.AbilityName
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellInfo
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellState
-import com.jlahougue.dndcompanion.data_character_spell.presentation.components.ComponentImage
+import com.jlahougue.dndcompanion.data_character_spell.presentation.dialog.component.SpellDialogHeader
 import com.jlahougue.dndcompanion.data_class.domain.model.Class
 import com.jlahougue.dndcompanion.data_damage_type.domain.model.DamageType
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SpellDialog(
     state: SpellDialogState,
@@ -73,92 +61,10 @@ fun SpellDialog(
                 )
             ) {
                 Column {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(start = MaterialTheme.spacing.small)
-                    ) {
-                        Text(
-                            text = spell.name,
-                            style = MaterialTheme.typography.titleMedium,
-                            color = if (spell.state == SpellState.HIGHLIGHTED)
-                                MaterialTheme.colorScheme.primary
-                            else
-                                MaterialTheme.colorScheme.onSurface,
-                            modifier = Modifier
-                                .padding(vertical = MaterialTheme.spacing.medium)
-                                .padding(horizontal = MaterialTheme.spacing.extraSmall)
-                        )
-                        if (spell.components.contains('V')) {
-                            ComponentImage(
-                                painter = painterResource(id = R.drawable.vocal),
-                                contentDescription = stringResource(id = R.string.vocal_component)
-                            )
-                        }
-                        if (spell.components.contains('S')) {
-                            ComponentImage(
-                                painter = painterResource(id = R.drawable.somatic),
-                                contentDescription = stringResource(id = R.string.somatic_component)
-                            )
-                        }
-                        if (spell.components.contains('M')) {
-                            ComponentImage(
-                                painter = painterResource(id = R.drawable.materials),
-                                contentDescription = stringResource(id = R.string.material_component)
-                            )
-                        }
-                        if (spell.level > 0) {
-                            Spacer(modifier = Modifier.weight(1f))
-                            val context = LocalContext.current
-                            ExposedDropdownMenuBox(
-                                expanded = state.isStateDropdownOpened,
-                                onExpandedChange = { onEvent(SpellDialogEvent.OnStateDropdownOpen(it)) },
-                                modifier = Modifier
-                                    .width(200.dp)
-                            ) {
-                                TextField(
-                                    value = spell.state.label.getString(),
-                                    onValueChange = {},
-                                    textStyle = MaterialTheme.typography.bodySmall,
-                                    readOnly = true,
-                                    trailingIcon = {
-                                        ExposedDropdownMenuDefaults.TrailingIcon(
-                                            expanded = state.isStateDropdownOpened
-                                        )
-                                    },
-                                    modifier = Modifier.menuAnchor()
-                                )
-
-                                ExposedDropdownMenu(
-                                    expanded = state.isStateDropdownOpened,
-                                    onDismissRequest = {
-                                        onEvent(SpellDialogEvent.OnStateDropdownOpen(false))
-                                    }
-                                ) {
-                                    SpellState.entries.forEach { state ->
-                                        DropdownMenuItem(
-                                            text = {
-                                                Text(
-                                                    text = state.label.getString(context),
-                                                    style = MaterialTheme.typography.bodySmall
-                                                )
-                                            },
-                                            onClick = {
-                                                onEvent(
-                                                    SpellDialogEvent.OnStateChange(
-                                                        spell,
-                                                        state
-                                                    )
-                                                )
-                                                onEvent(SpellDialogEvent.OnStateDropdownOpen(false))
-                                            }
-                                        )
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    SpellDialogHeader(
+                        state = state,
+                        onEvent = onEvent
+                    )
                     Divider(
                         modifier = Modifier.padding(horizontal = MaterialTheme.spacing.small)
                     )

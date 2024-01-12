@@ -75,6 +75,8 @@
     <string name="spell_slots_left">Slots Left</string>
     <string name="cantrips">Cantrips</string>
     <string name="spell_level">Level %d</string>
+    <string name="spell_hdr_name">Lvl %d : %s</string>
+    <string name="spell_hdr_name_cantrip">Cantrip : %s</string>
     <string name="spell_casting_time">Casting time :</string>
     <string name="spell_range">Range :</string>
     <string name="vocal_component">Vocal</string>

@@ -49,7 +49,7 @@ class SpellsViewModel(
     private val _mode = MutableStateFlow<SpellListMode>(SpellListMode.Known)
     val mode = _mode.asStateFlow()
 
-    private val _spellDialogState = MutableStateFlow(SpellDialogState())
+    private val _spellDialogState = MutableStateFlow(SpellDialogState(mode = SpellDialogState.Mode.Edit))
     val spellDialogState = _spellDialogState.asStateFlow()
 
     init {
@@ -183,7 +183,7 @@ class SpellsViewModel(
                 }
             }
             is SpellEvent.OnSpellClicked -> {
-                _spellDialogState.value = SpellDialogState(
+                _spellDialogState.value = spellDialogState.value.copy(
                     isShown = true,
                     spell = event.spell
                 )
@@ -204,7 +204,9 @@ class SpellsViewModel(
             is SpellDialogEvent.OnClassClick -> TODO()
             is SpellDialogEvent.OnDamageTypeClick -> TODO()
             SpellDialogEvent.OnDismiss -> {
-                _spellDialogState.value = SpellDialogState()
+                _spellDialogState.value = SpellDialogState(
+                    mode = SpellDialogState.Mode.Edit
+                )
             }
             is SpellDialogEvent.OnStateDropdownOpen -> {
                 _spellDialogState.value = spellDialogState.value.copy(

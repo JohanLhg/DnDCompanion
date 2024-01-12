@@ -83,7 +83,7 @@ fun SpellCard(
                         onCheckedChange = {
                             val state = if (it) {
                                 if (spell.level == 0)
-                                    SpellState.PREPARED
+                                    SpellState.ALWAYS_PREPARED
                                 else
                                     SpellState.UNLOCKED
                             } else {

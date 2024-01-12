@@ -6,4 +6,10 @@ data class SpellDialogState(
     var isShown: Boolean = false,
     var spell: SpellInfo? = null,
     var isStateDropdownOpened: Boolean = false,
-)
+    var mode: Mode = Mode.Display
+) {
+    enum class Mode {
+        Edit,
+        Display
+    }
+}

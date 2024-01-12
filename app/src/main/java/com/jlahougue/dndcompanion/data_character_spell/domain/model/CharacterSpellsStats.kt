@@ -28,7 +28,7 @@ import androidx.room.DatabaseView
     """,
     viewName = CharacterSpellsStatsView.VIEW_CHARACTER_SPELLS_STATS
 )
-class CharacterSpellsStatsView(
+data class CharacterSpellsStatsView(
     @ColumnInfo(name = CHAR_SPELL_STATS_CID)
     var cid: Long = 0,
     @ColumnInfo(name = CHAR_SPELL_STATS_TOTAL_UNLOCKED)
