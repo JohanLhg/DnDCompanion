@@ -29,6 +29,7 @@ fun NavGraphBuilder.spellsSection(route: String) {
         val allSpells by viewModel.allSpells.collectAsState()
         val knownSpells by viewModel.knownSpells.collectAsState()
         val mode by viewModel.mode.collectAsState()
+        val dialogState by viewModel.spellDialogState.collectAsState()
 
         SpellsScreen(
             spellcasting = spellcasting,
@@ -42,7 +43,9 @@ fun NavGraphBuilder.spellsSection(route: String) {
             knownSpells = knownSpells,
             mode = mode,
             onSearchEvent = viewModel::onSearchEvent,
-            onSpellEvent = viewModel::onSpellEvent
+            onSpellEvent = viewModel::onSpellEvent,
+            dialogState = dialogState,
+            onDialogEvent = viewModel::onSpellDialogEvent,
         )
     }
 }

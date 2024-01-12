@@ -6,6 +6,8 @@ import com.jlahougue.dndcompanion.data_ability.domain.model.AbilityView
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellLevel
 import com.jlahougue.dndcompanion.data_character_spell.domain.use_case.SpellFilter
 import com.jlahougue.dndcompanion.data_character_spell.presentation.SpellEvent
+import com.jlahougue.dndcompanion.data_character_spell.presentation.dialog.SpellDialogEvent
+import com.jlahougue.dndcompanion.data_character_spell.presentation.dialog.SpellDialogState
 import com.jlahougue.dndcompanion.data_health.domain.model.DeathSaves
 import com.jlahougue.dndcompanion.data_health.domain.model.Health
 import com.jlahougue.dndcompanion.data_health.presentation.HealthEvent
@@ -37,6 +39,9 @@ class CombatViewModel(
 
     private val _spells = MutableStateFlow<List<SpellLevel>>(listOf())
     val spells = _spells.asStateFlow()
+
+    private val _spellDialogState = MutableStateFlow(SpellDialogState())
+    val spellDialogState = _spellDialogState.asStateFlow()
 
     init {
         viewModelScope.launch(module.dispatcherProvider.io) {
@@ -182,10 +187,27 @@ class CombatViewModel(
                     )
                 }
             }
-            is SpellEvent.OnSpellClicked -> TODO()
+            is SpellEvent.OnSpellClicked -> {
+                _spellDialogState.value = SpellDialogState(
+                    isShown = true,
+                    spell = event.spell
+                )
+            }
             is SpellEvent.OnSpellStateChanged -> {
                 // No changes in combat screen
             }
+        }
+    }
+
+    fun onSpellDialogEvent(event: SpellDialogEvent) {
+        when (event) {
+            is SpellDialogEvent.OnClassClick -> TODO()
+            is SpellDialogEvent.OnDamageTypeClick -> TODO()
+            SpellDialogEvent.OnDismiss -> {
+                _spellDialogState.value = SpellDialogState()
+            }
+            is SpellDialogEvent.OnStateChange -> { }
+            is SpellDialogEvent.OnStateDropdownOpen -> { }
         }
     }
 }

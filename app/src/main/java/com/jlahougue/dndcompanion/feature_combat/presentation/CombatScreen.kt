@@ -18,6 +18,9 @@ import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellLevel
 import com.jlahougue.dndcompanion.data_character_spell.presentation.SpellEvent
 import com.jlahougue.dndcompanion.data_character_spell.presentation.SpellLevelList
 import com.jlahougue.dndcompanion.data_character_spell.presentation.components.SpellListMode
+import com.jlahougue.dndcompanion.data_character_spell.presentation.dialog.SpellDialog
+import com.jlahougue.dndcompanion.data_character_spell.presentation.dialog.SpellDialogEvent
+import com.jlahougue.dndcompanion.data_character_spell.presentation.dialog.SpellDialogState
 import com.jlahougue.dndcompanion.data_health.domain.model.DeathSaves
 import com.jlahougue.dndcompanion.data_health.domain.model.Health
 import com.jlahougue.dndcompanion.data_health.presentation.HealthBox
@@ -35,7 +38,9 @@ fun CombatScreen(
     deathSaves: DeathSaves,
     onHealthEvent: (HealthEvent) -> Unit,
     spells: List<SpellLevel>,
-    onSpellEvent: (SpellEvent) -> Unit
+    onSpellEvent: (SpellEvent) -> Unit,
+    spellDialogState: SpellDialogState,
+    onSpellDialogEvent: (SpellDialogEvent) -> Unit
 ) {
     Row {
         Column(
@@ -69,6 +74,10 @@ fun CombatScreen(
             onEvent = onSpellEvent
         )
     }
+    SpellDialog(
+        state = spellDialogState,
+        onEvent = onSpellDialogEvent
+    )
 }
 
 @Preview(
@@ -86,7 +95,9 @@ fun CombatScreenPreview() {
             deathSaves = DeathSaves(),
             onHealthEvent = {},
             spells = listOf(),
-            onSpellEvent = {}
+            onSpellEvent = {},
+            spellDialogState = SpellDialogState(),
+            onSpellDialogEvent = {}
         )
     }
 }

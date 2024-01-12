@@ -20,14 +20,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.jlahougue.dndcompanion.R
+import com.jlahougue.dndcompanion.core.presentation.components.PropertyColumn
+import com.jlahougue.dndcompanion.core.presentation.components.PropertyRow
 import com.jlahougue.dndcompanion.core.presentation.theme.DnDCompanionTheme
 import com.jlahougue.dndcompanion.core.presentation.theme.spacing
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellInfo
@@ -83,7 +83,7 @@ fun SpellCard(
                         onCheckedChange = {
                             val state = if (it) {
                                 if (spell.level == 0)
-                                    SpellState.PREPARED
+                                    SpellState.ALWAYS_PREPARED
                                 else
                                     SpellState.UNLOCKED
                             } else {
@@ -166,92 +166,28 @@ fun SpellCard(
         Column (
             modifier = Modifier.padding(horizontal = MaterialTheme.spacing.extraSmall)
         ) {
-            Row {
-                Text(
-                    text = stringResource(id = R.string.spell_casting_time),
-                    style = MaterialTheme.typography.titleSmall.copy(
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    ),
-                    modifier = Modifier
-                        .padding(start = MaterialTheme.spacing.small)
-                )
-                Text(
-                    text = spell.castingTime,
-                    style = MaterialTheme.typography.bodySmall,
-                    modifier = Modifier
-                        .padding(start = MaterialTheme.spacing.extraSmall),
-                    overflow = TextOverflow.Ellipsis,
-                    maxLines = 1
-                )
-            }
-            Row {
-                Text(
-                    text = stringResource(id = R.string.spell_range),
-                    style = MaterialTheme.typography.titleSmall.copy(
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    ),
-                    modifier = Modifier
-                        .padding(start = MaterialTheme.spacing.small)
-                )
-                Text(
-                    text = spell.range,
-                    style = MaterialTheme.typography.bodySmall,
-                    modifier = Modifier
-                        .padding(start = MaterialTheme.spacing.extraSmall),
-                    overflow = TextOverflow.Ellipsis,
-                    maxLines = 1
-                )
-            }
-            Row {
-                Text(
-                    text = stringResource(id = R.string.spell_duration),
-                    style = MaterialTheme.typography.titleSmall.copy(
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    ),
-                    modifier = Modifier
-                        .padding(start = MaterialTheme.spacing.small)
-                )
-                Text(
-                    text = spell.duration,
-                    style = MaterialTheme.typography.bodySmall,
-                    modifier = Modifier
-                        .padding(start = MaterialTheme.spacing.extraSmall),
-                    overflow = TextOverflow.Ellipsis,
-                    maxLines = 1
-                )
-            }
-            Text(
-                text = stringResource(id = R.string.spell_description),
-                style = MaterialTheme.typography.titleSmall.copy(
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                ),
-                modifier = Modifier
-                    .padding(horizontal = MaterialTheme.spacing.small)
+            PropertyRow(
+                label = stringResource(id = R.string.spell_casting_time),
+                value = spell.castingTime,
+                maxLines = 1
             )
-            Text(
-                text = spell.description,
-                style = MaterialTheme.typography.bodySmall,
-                modifier = Modifier
-                    .padding(horizontal = MaterialTheme.spacing.small),
-                overflow = TextOverflow.Ellipsis,
+            PropertyRow(
+                label = stringResource(id = R.string.spell_range),
+                value = spell.range,
+                maxLines = 1
+            )
+            PropertyRow(
+                label = stringResource(id = R.string.spell_duration),
+                value = spell.duration,
+                maxLines = 1
+            )
+            PropertyColumn(
+                label = stringResource(id = R.string.spell_description),
+                value = spell.description,
                 maxLines = 4
             )
         }
     }
-}
-
-@Composable
-fun ComponentImage(
-    painter: Painter,
-    contentDescription: String
-) {
-    Image(
-        painter = painter,
-        contentDescription = contentDescription,
-        modifier = Modifier
-            .size(28.dp)
-            .padding(MaterialTheme.spacing.extraSmall)
-    )
 }
 
 @Preview(

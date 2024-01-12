@@ -40,6 +40,9 @@ import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellcasterV
 import com.jlahougue.dndcompanion.data_character_spell.presentation.SpellEvent
 import com.jlahougue.dndcompanion.data_character_spell.presentation.SpellLevelList
 import com.jlahougue.dndcompanion.data_character_spell.presentation.components.SpellListMode
+import com.jlahougue.dndcompanion.data_character_spell.presentation.dialog.SpellDialog
+import com.jlahougue.dndcompanion.data_character_spell.presentation.dialog.SpellDialogEvent
+import com.jlahougue.dndcompanion.data_character_spell.presentation.dialog.SpellDialogState
 import com.jlahougue.dndcompanion.feature_spells.presentation.components.FilteredSpellList
 import com.jlahougue.dndcompanion.feature_spells.presentation.components.SpellStats
 import com.jlahougue.dndcompanion.feature_spells.presentation.components.SpellcastingStats
@@ -57,7 +60,9 @@ fun SpellsScreen(
     knownSpells: List<SpellLevel>,
     mode: SpellListMode,
     onSearchEvent: (SpellSearchEvent) -> Unit,
-    onSpellEvent: (SpellEvent) -> Unit
+    onSpellEvent: (SpellEvent) -> Unit,
+    dialogState: SpellDialogState,
+    onDialogEvent: (SpellDialogEvent) -> Unit,
 ) {
     Row(
         modifier = Modifier
@@ -138,6 +143,10 @@ fun SpellsScreen(
             )
         }
     }
+    SpellDialog(
+        state = dialogState,
+        onEvent = onDialogEvent
+    )
 }
 
 @Preview(
@@ -322,7 +331,14 @@ fun SpellsScreenPreview() {
             ),
             mode = SpellListMode.All(selectedLevel = 0),
             onSearchEvent = {},
-            onSpellEvent = {}
+            onSpellEvent = {},
+            dialogState = SpellDialogState(
+                isShown = true,
+                spell = SpellInfo(
+                    name = "Acid Splash",
+                )
+            ),
+            onDialogEvent = {}
         )
     }
 }

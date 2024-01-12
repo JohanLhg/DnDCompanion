@@ -18,7 +18,6 @@ import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellLevel
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellSlotView
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellState
 import com.jlahougue.dndcompanion.data_character_spell.presentation.SpellEvent
-import com.jlahougue.dndcompanion.data_character_spell.presentation.components.cantrips.CantripsBanner
 
 @Composable
 fun SpellLevelSection(
