@@ -9,6 +9,8 @@
     <string name="done">Done</string>
     <string name="search">Search…</string>
     <string name="clear">Clear</string>
+    <string name="amount">%d X</string>
+    <string name="parenthesis">(%s)</string>
 
     <!-- Health -->
     <string name="health">Health</string>
@@ -70,6 +72,10 @@
     <string name="stats_initiative">Initiative</string>
     <string name="stats_armor_class">Armor Class</string>
     <string name="stats_speed">Speed</string>
+
+    <!-- Weapon -->
+    <string name="weapon">Weapon</string>
+    <string name="weapon_test">Test : %s</string>
 
     <!-- Spells -->
     <string name="spells">Spells</string>
@@ -156,8 +162,6 @@
     <!-- CharacterSelectionActivity -->
     <string name="title_activity_character_selection">Character Selection Activity</string>
     <string name="descr_character_image">Character Image</string>
-
-    <!-- Character Sheet -->
-    <string name="title_combat_screen">Combat</string>
-    <string name="title_spells_screen">Spells</string>
+    <string name="title_activity_combat">CombatActivity</string>
+    <string name="title_activity_dn_dcompanion">DnDCompanionActivity</string>
 </resources>
