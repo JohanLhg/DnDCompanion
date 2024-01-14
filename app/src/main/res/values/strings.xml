@@ -2,15 +2,13 @@
     <!-- General -->
     <string name="app_name">D&amp;D Companion</string>
     <string name="empty">-</string>
-    <string name="amount">%d X</string>
+    <string name="amount">%d X %s</string>
     <string name="parenthesis">(%s)</string>
     <string name="quota">%d/%d</string>
     <string name="edit">Edit</string>
     <string name="done">Done</string>
     <string name="search">Search…</string>
     <string name="clear">Clear</string>
-    <string name="amount">%d X</string>
-    <string name="parenthesis">(%s)</string>
 
     <!-- Health -->
     <string name="health">Health</string>
@@ -75,7 +73,12 @@
 
     <!-- Weapon -->
     <string name="weapon">Weapon</string>
-    <string name="weapon_test">Test : %s</string>
+    <string name="weapon_test">Test :</string>
+    <string name="weapon_test_value">%s (%s)</string>
+    <string name="weapon_damage">Normal damage :</string>
+    <string name="weapon_damage_special">Special damage :</string>
+    <string name="weapon_description">Description :</string>
+    <string name="weapon_properties">Properties :</string>
 
     <!-- Spells -->
     <string name="spells">Spells</string>
@@ -114,10 +117,6 @@
     <string name="prepared_spells">Prepared Spells</string>
 
     <string name="highlight_spell">Highlight Spell</string>
-
-    <!-- Weapon -->
-    <string name="weapon">Weapon</string>
-    <string name="weapon_test">Test : %s</string>
 
     <!-- AuthActivity -->
     <string name="title_activity_auth">Auth Activity</string>
@@ -162,6 +161,8 @@
     <!-- CharacterSelectionActivity -->
     <string name="title_activity_character_selection">Character Selection Activity</string>
     <string name="descr_character_image">Character Image</string>
-    <string name="title_activity_combat">CombatActivity</string>
-    <string name="title_activity_dn_dcompanion">DnDCompanionActivity</string>
+
+    <!-- Character Sheet -->
+    <string name="title_combat_screen">Combat</string>
+    <string name="title_spells_screen">Spells</string>
 </resources>

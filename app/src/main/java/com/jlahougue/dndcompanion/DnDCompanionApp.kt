@@ -137,6 +137,7 @@ class DnDCompanionApp: Application() {
             dataSourceModule.localDataSource
         )
         weaponModule = WeaponModule(
+            appModule.dispatcherProvider,
             dataSourceModule.remoteDataSource,
             dataSourceModule.localDataSource
         )
@@ -174,10 +175,11 @@ class DnDCompanionApp: Application() {
         )
         combatModule = CombatModule(
             appModule.dispatcherProvider,
-            userInfoModule.getCurrentCharacterId,
+            userInfoModule.getUserInfo,
             abilityModule.abilityUseCases,
             statsModule.statsUseCases,
             healthModule.healthUseCases,
+            weaponModule.weaponUseCases,
             characterSpellModule.spellUseCases
         )
         spellsModule = SpellsModule(

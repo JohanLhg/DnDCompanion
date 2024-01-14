@@ -4,9 +4,12 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Transaction
 import com.jlahougue.dndcompanion.data_weapon.domain.model.CharacterWeapon
 import com.jlahougue.dndcompanion.data_weapon.domain.model.Weapon
+import com.jlahougue.dndcompanion.data_weapon.domain.model.WeaponInfo
 import com.jlahougue.dndcompanion.data_weapon.domain.model.WeaponProperty
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface WeaponLocalDataSource {
@@ -24,4 +27,36 @@ interface WeaponLocalDataSource {
 
     @Query("SELECT weapon_name FROM weapon")
     suspend fun getNames(): List<String>
+
+    @Transaction
+    @Query("""
+        SELECT
+            cw.cid AS cid,
+            w.weapon_name AS weapon_name,
+            cw.count AS count,
+            cw.proficiency AS proficiency,
+            w.test AS test,
+            COALESCE(
+                CASE 
+                    WHEN cw.proficiency THEN ability.modifier + proficiency.bonus 
+                    ELSE ability.modifier 
+                END
+            , 0) AS modifier,
+            w.damage AS damage,
+            w.damage_type AS damage_type,
+            w.two_handed_damage AS two_handed_damage,
+            w.two_handed_damage_type AS two_handed_damage_type,
+            w.range AS range,
+            w.throw_range_min AS throw_range_min,
+            w.throw_range_max AS throw_range_max,
+            w.weight AS weight,
+            w.cost AS cost,
+            w.description AS description
+        FROM weapon w
+        INNER JOIN character_weapon cw ON cw.name = w.weapon_name
+        LEFT JOIN proficiency_view AS proficiency ON proficiency.cid = cw.cid
+        LEFT JOIN ability_modifier_view AS ability ON ability.cid = cw.cid AND ability.name = w.test
+        WHERE cw.cid = :characterId
+    """)
+    fun get(characterId: Long): Flow<List<WeaponInfo>>
 }

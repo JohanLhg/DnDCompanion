@@ -39,7 +39,7 @@ class WeaponRepository(
         localDataSource.insert(characterWeapons)
     }
 
-    suspend fun getNames(): List<String> {
-        return localDataSource.getNames()
-    }
+    private suspend fun getNames() = localDataSource.getNames()
+
+    override fun get(characterId: Long) = localDataSource.get(characterId)
 }

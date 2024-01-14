@@ -15,6 +15,7 @@ fun PropertyColumn(
     modifier: Modifier = Modifier,
     maxLines: Int = Int.MAX_VALUE
 ) {
+    if (value.isBlank()) return
     Column(
         modifier = modifier
     ) {
