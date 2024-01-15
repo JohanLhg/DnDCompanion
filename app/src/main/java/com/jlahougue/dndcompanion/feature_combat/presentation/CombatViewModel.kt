@@ -2,6 +2,8 @@ package com.jlahougue.dndcompanion.feature_combat.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.jlahougue.dndcompanion.R
+import com.jlahougue.dndcompanion.core.domain.util.UiText
 import com.jlahougue.dndcompanion.data_ability.domain.model.AbilityView
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellLevel
 import com.jlahougue.dndcompanion.data_character_spell.domain.use_case.SpellFilter
@@ -19,9 +21,12 @@ import com.jlahougue.dndcompanion.data_weapon.presentation.WeaponEvent
 import com.jlahougue.dndcompanion.data_weapon.presentation.dialog.WeaponDialogEvent
 import com.jlahougue.dndcompanion.data_weapon.presentation.dialog.WeaponDialogState
 import com.jlahougue.dndcompanion.feature_combat.di.ICombatModule
+import com.jlahougue.dndcompanion.feature_combat.presentation.component.TabItem
+import com.jlahougue.dndcompanion.feature_combat.presentation.component.TabState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlin.math.max
 import kotlin.math.min
@@ -42,8 +47,22 @@ class CombatViewModel(
     private val _deathSaves = MutableStateFlow(DeathSaves())
     val deathSaves = _deathSaves.asStateFlow()
 
-    private val _mode = MutableStateFlow(CombatMode.SPELLS)
-    val mode = _mode.asStateFlow()
+    private val _tabState = MutableStateFlow(
+        TabState(
+            tabs = listOf(
+                TabItem(
+                    title = UiText.StringResource(R.string.spells),
+                    icon = R.drawable.spell_book
+                ),
+                TabItem(
+                    title = UiText.StringResource(R.string.weapons),
+                    icon = R.drawable.weapons
+                )
+            ),
+            selectedTabIndex = 0
+        )
+    )
+    val tabState = _tabState.asStateFlow()
 
     private val _unitSystem = MutableStateFlow(UnitSystem.METRIC)
     val unitSystem = _unitSystem.asStateFlow()
@@ -64,7 +83,7 @@ class CombatViewModel(
         viewModelScope.launch(module.dispatcherProvider.io) {
             module.getUserInfo().collectLatest { userInfo ->
 
-                _unitSystem.value = userInfo.unitSystem
+                _unitSystem.update { userInfo.unitSystem }
 
                 viewModelScope.launch(module.dispatcherProvider.io) {
                     module.abilityUseCases.getAbilities(userInfo.characterId).collectLatest { abilities ->
@@ -92,7 +111,7 @@ class CombatViewModel(
 
                 viewModelScope.launch(module.dispatcherProvider.io) {
                     module.weaponUseCases.getWeapons(userInfo.characterId).collectLatest { weapons ->
-                        _weapons.value = weapons
+                        _weapons.update { weapons }
                     }
                 }
 
@@ -109,15 +128,17 @@ class CombatViewModel(
 
         viewModelScope.launch(module.dispatcherProvider.io) {
             unitSystem.collectLatest { unitSystem ->
-                _weaponDialogState.value = _weaponDialogState.value.copy(
-                    unitSystem = unitSystem
-                )
+                _weaponDialogState.update {
+                    it.copy(unitSystem = unitSystem)
+                }
             }
         }
     }
 
-    fun onModeChanged(mode: CombatMode) {
-        _mode.value = mode
+    fun onTabSelected(index: Int) {
+        _tabState.update {
+            it.copy(selectedTabIndex = index)
+        }
     }
 
     fun onStatsEvent(event: StatsEvent) {
@@ -205,10 +226,12 @@ class CombatViewModel(
     fun onWeaponEvent(event: WeaponEvent) {
         when (event) {
             is WeaponEvent.OnWeaponClicked -> {
-                _weaponDialogState.value = WeaponDialogState(
-                    isShown = true,
-                    weapon = event.weapon
-                )
+                _weaponDialogState.update {
+                    it.copy(
+                        isShown = true,
+                        weapon = event.weapon
+                    )
+                }
             }
         }
     }
@@ -216,7 +239,12 @@ class CombatViewModel(
     fun onWeaponDialogEvent(event: WeaponDialogEvent) {
         when (event) {
             is WeaponDialogEvent.OnDismiss -> {
-                _weaponDialogState.value = WeaponDialogState()
+                _weaponDialogState.update {
+                    it.copy(
+                        isShown = false,
+                        weapon = null
+                    )
+                }
             }
             is WeaponDialogEvent.OnPropertyClick -> TODO()
         }

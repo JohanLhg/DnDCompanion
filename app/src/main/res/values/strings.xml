@@ -72,6 +72,7 @@
     <string name="stats_speed">Speed</string>
 
     <!-- Weapon -->
+    <string name="weapons">Weapons</string>
     <string name="weapon">Weapon</string>
     <string name="weapon_test">Test :</string>
     <string name="weapon_test_value">%s (%s)</string>

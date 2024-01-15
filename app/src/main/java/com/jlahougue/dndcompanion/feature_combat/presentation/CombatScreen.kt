@@ -7,22 +7,20 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
-import androidx.compose.material3.Button
 import androidx.compose.material3.Divider
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.jlahougue.dndcompanion.R
+import com.jlahougue.dndcompanion.core.domain.util.UiText
 import com.jlahougue.dndcompanion.core.presentation.theme.DnDCompanionTheme
 import com.jlahougue.dndcompanion.data_ability.domain.model.AbilityView
 import com.jlahougue.dndcompanion.data_ability.presentation.Abilities
 import com.jlahougue.dndcompanion.data_ability.presentation.getAbilitiesPreviewData
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellLevel
 import com.jlahougue.dndcompanion.data_character_spell.presentation.SpellEvent
-import com.jlahougue.dndcompanion.data_character_spell.presentation.SpellLevelList
-import com.jlahougue.dndcompanion.data_character_spell.presentation.components.SpellListMode
 import com.jlahougue.dndcompanion.data_character_spell.presentation.dialog.SpellDialog
 import com.jlahougue.dndcompanion.data_character_spell.presentation.dialog.SpellDialogEvent
 import com.jlahougue.dndcompanion.data_character_spell.presentation.dialog.SpellDialogState
@@ -36,10 +34,12 @@ import com.jlahougue.dndcompanion.data_stats.presentation.StatsEvent
 import com.jlahougue.dndcompanion.data_stats.presentation.StatsList
 import com.jlahougue.dndcompanion.data_weapon.domain.model.WeaponInfo
 import com.jlahougue.dndcompanion.data_weapon.presentation.WeaponEvent
-import com.jlahougue.dndcompanion.data_weapon.presentation.WeaponList
 import com.jlahougue.dndcompanion.data_weapon.presentation.dialog.WeaponDialog
 import com.jlahougue.dndcompanion.data_weapon.presentation.dialog.WeaponDialogEvent
 import com.jlahougue.dndcompanion.data_weapon.presentation.dialog.WeaponDialogState
+import com.jlahougue.dndcompanion.feature_combat.presentation.component.CombatTabs
+import com.jlahougue.dndcompanion.feature_combat.presentation.component.TabItem
+import com.jlahougue.dndcompanion.feature_combat.presentation.component.TabState
 
 @Composable
 fun CombatScreen(
@@ -49,8 +49,9 @@ fun CombatScreen(
     health: Health,
     deathSaves: DeathSaves,
     onHealthEvent: (HealthEvent) -> Unit,
-    mode: CombatMode,
-    onModeChanged: (CombatMode) -> Unit,
+    tabState: TabState,
+    onTabSelected: (Int) -> Unit,
+    unitSystem: UnitSystem,
     weapons: List<WeaponInfo>,
     onWeaponEvent: (WeaponEvent) -> Unit,
     weaponDialogState: WeaponDialogState,
@@ -90,43 +91,16 @@ fun CombatScreen(
                 .fillMaxHeight()
                 .width(1.dp)
         )
-        Column(
+        CombatTabs(
+            tabState = tabState,
+            onTabSelected = onTabSelected,
+            spells = spells,
+            onSpellEvent = onSpellEvent,
+            unitSystem = unitSystem,
+            weapons = weapons,
+            onWeaponEvent = onWeaponEvent,
             modifier = Modifier.fillMaxSize()
-        ) {
-            Row {
-                Button(
-                    onClick = { onModeChanged(CombatMode.SPELLS) },
-                    modifier = Modifier.weight(1f)
-                ) {
-                    Text(text = "Spells")
-                }
-                Button(
-                    onClick = { onModeChanged(CombatMode.WEAPONS_HEALTH) },
-                    modifier = Modifier.weight(1f)
-                ) {
-                    Text(text = "Weapons")
-                }
-            }
-            when (mode) {
-                CombatMode.SPELLS -> {
-                    SpellLevelList(
-                        spells = spells,
-                        modifier = Modifier
-                            .fillMaxHeight(),
-                        mode = SpellListMode.Prepared,
-                        onEvent = onSpellEvent
-                    )
-                }
-                CombatMode.WEAPONS_HEALTH -> {
-                    WeaponList(
-                        weapons = weapons,
-                        unitSystem = UnitSystem.METRIC,
-                        onEvent = onWeaponEvent,
-                        modifier = Modifier.weight(1f)
-                    )
-                }
-            }
-        }
+        )
     }
     SpellDialog(
         state = spellDialogState,
@@ -152,8 +126,21 @@ fun CombatScreenPreview() {
             health = Health(),
             deathSaves = DeathSaves(),
             onHealthEvent = {},
-            mode = CombatMode.SPELLS,
-            onModeChanged = {},
+            tabState = TabState(
+                tabs = listOf(
+                    TabItem(
+                        title = UiText.StringResource(R.string.spells),
+                        icon = R.drawable.spell_book
+                    ),
+                    TabItem(
+                        title = UiText.StringResource(R.string.weapons),
+                        icon = R.drawable.weapons
+                    )
+                ),
+                selectedTabIndex = 0
+            ),
+            onTabSelected = {},
+            unitSystem = UnitSystem.METRIC,
             weapons = listOf(),
             onWeaponEvent = {},
             weaponDialogState = WeaponDialogState(),

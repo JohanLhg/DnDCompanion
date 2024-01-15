@@ -64,7 +64,7 @@ fun WeaponCard(
             modifier = Modifier.padding(horizontal = MaterialTheme.spacing.small)
         )
         Column (
-            modifier = Modifier.padding(horizontal = MaterialTheme.spacing.extraSmall)
+            modifier = Modifier.padding(MaterialTheme.spacing.extraSmall)
         ) {
             PropertyRow(
                 label = stringResource(id = R.string.weapon_test),
