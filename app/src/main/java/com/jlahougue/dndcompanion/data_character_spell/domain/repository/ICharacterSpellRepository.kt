@@ -13,6 +13,7 @@ interface ICharacterSpellRepository {
     suspend fun saveToLocal(characterSpells: List<CharacterSpell>)
     suspend fun saveSpellSlotsToLocal(spellSlots: List<SpellSlot>)
     suspend fun save(spellSlot: SpellSlot)
+    fun get(characterId: Long, spellId: String): Flow<SpellInfo>
     suspend fun getFilteredLevels(search: String, clazz: String): List<Int>
     fun getAllSpells(characterId: Long, level: Int): Flow<List<SpellInfo>>
     fun getKnownSpells(characterId: Long): Flow<Map<SpellSlotView, List<SpellInfo>>>

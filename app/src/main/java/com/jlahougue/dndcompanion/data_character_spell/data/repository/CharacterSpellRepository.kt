@@ -29,6 +29,11 @@ class CharacterSpellRepository(
         remoteDataSource.save(spellSlot)
     }
 
+    override fun get(
+        characterId: Long,
+        spellId: String
+    ) = localDataSource.get(characterId, spellId)
+
     override suspend fun getFilteredLevels(
         search: String,
         clazz: String

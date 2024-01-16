@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlin.math.min
 
@@ -38,10 +39,12 @@ class LoadingViewModel(
                         val maxProgress = it.progressMax.toFloat()
                         val progress = if (maxProgress == 0f) 0f
                         else min((currentProgress / maxProgress), 1f)
-                        _state.value = LoadingState(
-                            title = it.title,
-                            progress = progress
-                        )
+                        _state.update { _ ->
+                            LoadingState(
+                                title = it.title,
+                                progress = progress
+                            )
+                        }
 
                         if (it.hasFinished()) {
                             _event.emit(LoadingUiEvent.NavigateToNextScreen)

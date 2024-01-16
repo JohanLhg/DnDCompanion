@@ -45,7 +45,7 @@ fun SpellCard(
         modifier = modifier
             .clickable(
                 onClick = {
-                    onEvent(SpellEvent.OnSpellClicked(spell))
+                    onEvent(SpellEvent.OnSpellClicked(spell.id))
                 }
             )
     ) {
