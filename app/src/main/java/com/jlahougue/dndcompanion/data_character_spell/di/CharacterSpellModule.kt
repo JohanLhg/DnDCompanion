@@ -7,6 +7,7 @@ import com.jlahougue.dndcompanion.data_character_spell.data.repository.Character
 import com.jlahougue.dndcompanion.data_character_spell.domain.use_case.GetAllSpells
 import com.jlahougue.dndcompanion.data_character_spell.domain.use_case.GetCharacterSpellsStats
 import com.jlahougue.dndcompanion.data_character_spell.domain.use_case.GetFilteredLevels
+import com.jlahougue.dndcompanion.data_character_spell.domain.use_case.GetSpell
 import com.jlahougue.dndcompanion.data_character_spell.domain.use_case.GetSpellcasterStats
 import com.jlahougue.dndcompanion.data_character_spell.domain.use_case.GetSpells
 import com.jlahougue.dndcompanion.data_character_spell.domain.use_case.SaveSpell
@@ -28,6 +29,7 @@ class CharacterSpellModule(
 
     override val spellUseCases by lazy {
         SpellUseCases(
+            GetSpell(characterSpellRepository),
             GetFilteredLevels(characterSpellRepository),
             GetSpells(characterSpellRepository),
             GetAllSpells(characterSpellRepository),

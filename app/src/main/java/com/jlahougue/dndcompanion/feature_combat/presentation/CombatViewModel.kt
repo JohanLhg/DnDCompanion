@@ -81,6 +81,7 @@ class CombatViewModel(
     private val _spells = MutableStateFlow<List<SpellLevel>>(listOf())
     val spells = _spells.asStateFlow()
 
+    private var spellDialogJob: Job? = null
     private val _spellDialogState = MutableStateFlow(SpellDialogState())
     val spellDialogState = _spellDialogState.asStateFlow()
 
@@ -94,25 +95,25 @@ class CombatViewModel(
 
                 viewModelScope.launch(module.dispatcherProvider.io) {
                     module.abilityUseCases.getAbilities(userInfo.characterId).collectLatest { abilities ->
-                        _abilities.value = abilities
+                        _abilities.update { abilities }
                     }
                 }
 
                 viewModelScope.launch(module.dispatcherProvider.io) {
                     module.statsUseCases.getStats(userInfo.characterId).collectLatest { stats ->
-                        _stats.value = stats
+                        _stats.update { stats }
                     }
                 }
 
                 viewModelScope.launch(module.dispatcherProvider.io) {
                     module.healthUseCases.getHealth(userInfo.characterId).collectLatest { health ->
-                        _health.value = health
+                        _health.update { health }
                     }
                 }
 
                 viewModelScope.launch(module.dispatcherProvider.io) {
                     module.healthUseCases.getDeathSaves(userInfo.characterId).collectLatest { deathSaves ->
-                        _deathSaves.value = deathSaves
+                        _deathSaves.update { deathSaves }
                     }
                 }
 
@@ -127,7 +128,7 @@ class CombatViewModel(
                         userInfo.characterId,
                         SpellFilter.Prepared
                     ).collectLatest { spells ->
-                        _spells.value = spells
+                        _spells.update { spells }
                     }
                 }
             }
@@ -300,10 +301,21 @@ class CombatViewModel(
                 }
             }
             is SpellEvent.OnSpellClicked -> {
-                _spellDialogState.value = SpellDialogState(
-                    isShown = true,
-                    spell = event.spell
-                )
+                _spellDialogState.update {
+                    it.copy(isShown = true)
+                }
+
+                spellDialogJob?.cancel()
+                spellDialogJob = viewModelScope.launch(module.dispatcherProvider.io) {
+                    module.spellUseCases.getSpell(
+                        characterId,
+                        event.spellId
+                    ).collectLatest { spell ->
+                        _spellDialogState.update {
+                            it.copy(spell = spell)
+                        }
+                    }
+                }
             }
             is SpellEvent.OnSpellStateChanged -> {
                 // No changes in combat screen
@@ -316,10 +328,19 @@ class CombatViewModel(
             is SpellDialogEvent.OnClassClick -> TODO()
             is SpellDialogEvent.OnDamageTypeClick -> TODO()
             SpellDialogEvent.OnDismiss -> {
-                _spellDialogState.value = SpellDialogState()
+                _spellDialogState.update {
+                    it.copy(
+                        isShown = false,
+                        spell = null
+                    )
+                }
             }
-            is SpellDialogEvent.OnStateChange -> { }
-            is SpellDialogEvent.OnStateDropdownOpen -> { }
+            is SpellDialogEvent.OnStateChange -> {
+                // No changes in combat screen
+            }
+            is SpellDialogEvent.OnStateDropdownOpen -> {
+                // No changes in combat screen
+            }
         }
     }
 }

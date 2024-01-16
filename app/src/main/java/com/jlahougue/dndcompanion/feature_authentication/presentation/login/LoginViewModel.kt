@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class LoginViewModel(
@@ -27,10 +28,14 @@ class LoginViewModel(
     fun onEvent(event: LoginEvent) {
         when (event) {
             is LoginEvent.EmailChanged -> {
-                _state.value = state.value.copy(email = event.email)
+                _state.update {
+                    it.copy(email = event.email)
+                }
             }
             is LoginEvent.PasswordChanged -> {
-                _state.value = state.value.copy(password = event.password)
+                _state.update {
+                    it.copy(password = event.password)
+                }
             }
             is LoginEvent.Login -> {
                 viewModelScope.launch(module.dispatcherProvider.io) {

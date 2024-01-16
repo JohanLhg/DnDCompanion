@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class LoadCharacterImage(
@@ -35,31 +36,39 @@ class LoadCharacterImage(
     ) {
         when (event) {
             is CharacterImageFirebaseEvent.Started -> {
-                state.value = state.value.copy(
-                    actionState = LoadImageState.ActionState.STARTED
-                )
+                state.update {
+                    it.copy(
+                        actionState = LoadImageState.ActionState.STARTED
+                    )
+                }
             }
             is CharacterImageFirebaseEvent.Canceled -> {
                 CoroutineScope(dispatcherProvider.io).launch {
                     _event.emit(UiText.StringResource(R.string.error_fetching_character_image))
-                    state.value = state.value.copy(
-                        actionState = LoadImageState.ActionState.FINISHED
-                    )
+                    state.update {
+                        it.copy(
+                            actionState = LoadImageState.ActionState.FINISHED
+                        )
+                    }
                 }
             }
             is CharacterImageFirebaseEvent.Failure -> {
                 CoroutineScope(dispatcherProvider.io).launch {
                     _event.emit(event.message)
-                    state.value = state.value.copy(
-                        actionState = LoadImageState.ActionState.FINISHED
-                    )
+                    state.update {
+                        it.copy(
+                            actionState = LoadImageState.ActionState.FINISHED
+                        )
+                    }
                 }
             }
             is CharacterImageFirebaseEvent.Success -> {
-                state.value = state.value.copy(
-                    uri = event.uri,
-                    actionState = LoadImageState.ActionState.FINISHED
-                )
+                state.update {
+                    it.copy(
+                        uri = event.uri,
+                        actionState = LoadImageState.ActionState.FINISHED
+                    )
+                }
             }
         }
     }
