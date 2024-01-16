@@ -13,5 +13,6 @@ interface IWeaponRepository {
     suspend fun saveProperties(weaponProperties: List<WeaponProperty>)
     suspend fun save(characterWeapon: CharacterWeapon)
     suspend fun saveToLocal(characterWeapons: List<CharacterWeapon>)
-    fun get(characterId: Long): Flow<List<WeaponInfo>>
+    fun get(characterId: Long, weaponName: String): Flow<WeaponInfo>
+    fun getOwned(characterId: Long): Flow<List<WeaponInfo>>
 }

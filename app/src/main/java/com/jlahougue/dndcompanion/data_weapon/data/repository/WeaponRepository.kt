@@ -41,5 +41,8 @@ class WeaponRepository(
 
     private suspend fun getNames() = localDataSource.getNames()
 
-    override fun get(characterId: Long) = localDataSource.get(characterId)
+    override fun get(characterId: Long, weaponName: String)
+            = localDataSource.get(characterId, weaponName)
+
+    override fun getOwned(characterId: Long) = localDataSource.getOwned(characterId)
 }

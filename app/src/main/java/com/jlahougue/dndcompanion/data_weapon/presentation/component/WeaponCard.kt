@@ -3,6 +3,7 @@ package com.jlahougue.dndcompanion.data_weapon.presentation.component
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Divider
@@ -20,7 +21,6 @@ import com.jlahougue.dndcompanion.core.presentation.components.PropertyRow
 import com.jlahougue.dndcompanion.core.presentation.theme.DnDCompanionTheme
 import com.jlahougue.dndcompanion.core.presentation.theme.spacing
 import com.jlahougue.dndcompanion.data_ability.domain.model.AbilityName
-import com.jlahougue.dndcompanion.data_damage_type.domain.model.DamageType
 import com.jlahougue.dndcompanion.data_settings.domain.model.UnitSystem
 import com.jlahougue.dndcompanion.data_weapon.domain.model.WeaponInfo
 import com.jlahougue.dndcompanion.data_weapon.presentation.WeaponEvent
@@ -36,7 +36,7 @@ fun WeaponCard(
         modifier = modifier
             .clickable(
                 onClick = {
-                    onEvent(WeaponEvent.OnWeaponClicked(weapon))
+                    onEvent(WeaponEvent.OnWeaponClicked(weapon.name))
                 }
             )
     ) {
@@ -47,17 +47,28 @@ fun WeaponCard(
                 .padding(horizontal = MaterialTheme.spacing.small)
         ) {
             Text(
-                text = stringResource(R.string.amount, weapon.count, weapon.name),
+                text = weapon.name,
                 style = MaterialTheme.typography.titleMedium,
                 modifier = Modifier
                     .padding(vertical = MaterialTheme.spacing.small)
                     .padding(horizontal = MaterialTheme.spacing.extraSmall)
             )
             Text(
-                text = stringResource(id = R.string.parenthesis, weapon.getRangeString(unitSystem)),
+                text = stringResource(
+                    id = R.string.parenthesis,
+                    weapon.getRangeString(unitSystem)
+                ),
                 style = MaterialTheme.typography.titleSmall,
                 modifier = Modifier
                     .padding(vertical = MaterialTheme.spacing.small)
+            )
+            Spacer(modifier = Modifier.weight(1f))
+            Text(
+                text = "x" + weapon.count,
+                style = MaterialTheme.typography.titleMedium,
+                modifier = Modifier
+                    .padding(vertical = MaterialTheme.spacing.small)
+                    .padding(horizontal = MaterialTheme.spacing.extraSmall)
             )
         }
         Divider(
@@ -76,13 +87,13 @@ fun WeaponCard(
             )
             PropertyRow(
                 label = stringResource(id = R.string.weapon_damage),
-                value = if (weapon.damageType != null) weapon.damage + " " + weapon.damageType!!.name
+                value = if (weapon.damageType.isNotBlank()) weapon.damage + " " + weapon.damageType
                 else weapon.damage
             )
             PropertyRow(
                 label = stringResource(id = R.string.weapon_damage_special),
-                value = if (weapon.twoHandedDamageType != null)
-                    weapon.twoHandedDamage + " " + weapon.twoHandedDamageType!!.name
+                value = if (weapon.twoHandedDamageType.isNotBlank())
+                    weapon.twoHandedDamage + " " + weapon.twoHandedDamageType
                 else weapon.twoHandedDamage
             )
             PropertyColumn(
@@ -106,15 +117,9 @@ fun WeaponCardPreview() {
                 test = AbilityName.INTELLIGENCE,
                 modifier = 2,
                 damage = "1d4",
-                damageType = DamageType(
-                    name = "Perforant",
-                    description = "Perforant"
-                ),
+                damageType = "Perforant",
                 twoHandedDamage = "1d6",
-                twoHandedDamageType = DamageType(
-                    name = "Perforant",
-                    description = "Perforant"
-                ),
+                twoHandedDamageType = "Perforant",
                 range = 20,
                 throwRangeMin = 60,
                 throwRangeMax = 200,

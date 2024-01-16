@@ -23,6 +23,7 @@ import com.jlahougue.dndcompanion.data_weapon.presentation.dialog.WeaponDialogSt
 import com.jlahougue.dndcompanion.feature_combat.di.ICombatModule
 import com.jlahougue.dndcompanion.feature_combat.presentation.component.TabItem
 import com.jlahougue.dndcompanion.feature_combat.presentation.component.TabState
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
@@ -34,6 +35,8 @@ import kotlin.math.min
 class CombatViewModel(
     private val module: ICombatModule
 ) : ViewModel() {
+
+    private var characterId = -1L
 
     private val _abilities = MutableStateFlow(listOf<AbilityView>())
     val abilities = _abilities.asStateFlow()
@@ -70,6 +73,8 @@ class CombatViewModel(
     private val _weapons = MutableStateFlow(listOf<WeaponInfo>())
     val weapons = _weapons.asStateFlow()
 
+    private var weaponDialogJob: Job? = null
+
     private val _weaponDialogState = MutableStateFlow(WeaponDialogState())
     val weaponDialogState = _weaponDialogState.asStateFlow()
 
@@ -82,6 +87,8 @@ class CombatViewModel(
     init {
         viewModelScope.launch(module.dispatcherProvider.io) {
             module.getUserInfo().collectLatest { userInfo ->
+
+                characterId = userInfo.characterId
 
                 _unitSystem.update { userInfo.unitSystem }
 
@@ -110,7 +117,7 @@ class CombatViewModel(
                 }
 
                 viewModelScope.launch(module.dispatcherProvider.io) {
-                    module.weaponUseCases.getWeapons(userInfo.characterId).collectLatest { weapons ->
+                    module.weaponUseCases.getWeaponsOwned(userInfo.characterId).collectLatest { weapons ->
                         _weapons.update { weapons }
                     }
                 }
@@ -227,10 +234,19 @@ class CombatViewModel(
         when (event) {
             is WeaponEvent.OnWeaponClicked -> {
                 _weaponDialogState.update {
-                    it.copy(
-                        isShown = true,
-                        weapon = event.weapon
-                    )
+                    it.copy(isShown = true)
+                }
+
+                weaponDialogJob?.cancel()
+                weaponDialogJob = viewModelScope.launch(module.dispatcherProvider.io) {
+                    module.weaponUseCases.getWeapon(
+                        characterId,
+                        event.weaponName
+                    ).collectLatest { weapon ->
+                        _weaponDialogState.update {
+                            it.copy(weapon = weapon)
+                        }
+                    }
                 }
             }
         }
@@ -239,10 +255,21 @@ class CombatViewModel(
     fun onWeaponDialogEvent(event: WeaponDialogEvent) {
         when (event) {
             is WeaponDialogEvent.OnDismiss -> {
+                weaponDialogJob?.cancel()
+                weaponDialogJob = null
                 _weaponDialogState.update {
                     it.copy(
                         isShown = false,
                         weapon = null
+                    )
+                }
+            }
+            is WeaponDialogEvent.OnCountChange -> {
+                viewModelScope.launch(module.dispatcherProvider.io) {
+                    module.weaponUseCases.saveWeapon(
+                        event.weaponInfo.toCharacterWeapon(
+                            count = event.count
+                        )
                     )
                 }
             }

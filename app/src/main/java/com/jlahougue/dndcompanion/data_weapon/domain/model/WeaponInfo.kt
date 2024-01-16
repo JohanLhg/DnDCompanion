@@ -6,7 +6,6 @@ import androidx.room.Relation
 import com.jlahougue.dndcompanion.core.domain.util.extension.feetToMeterString
 import com.jlahougue.dndcompanion.data_ability.domain.model.AbilityModifierView
 import com.jlahougue.dndcompanion.data_ability.domain.model.AbilityName
-import com.jlahougue.dndcompanion.data_damage_type.domain.model.DamageType
 import com.jlahougue.dndcompanion.data_property.domain.model.Property
 import com.jlahougue.dndcompanion.data_settings.domain.model.UnitSystem
 
@@ -26,23 +25,11 @@ data class WeaponInfo(
     @ColumnInfo(name = Weapon.WEAPON_DAMAGE)
     var damage: String = "",
     @ColumnInfo(name = Weapon.WEAPON_DAMAGE_TYPE)
-    private var damageTypeKey: String = "",
-    @Relation(
-        parentColumn = Weapon.WEAPON_DAMAGE_TYPE,
-        entityColumn = DamageType.DAMAGE_TYPE_NAME
-    )
-    var damageType: DamageType? = null,
+    var damageType: String = "",
     @ColumnInfo(name = Weapon.WEAPON_TWO_HANDED_DAMAGE)
     var twoHandedDamage: String = "",
-    @ColumnInfo(
-        name = Weapon.WEAPON_TWO_HANDED_DAMAGE_TYPE
-    )
-    private var twoHandedDamageTypeKey: String = "",
-    @Relation(
-        parentColumn = Weapon.WEAPON_TWO_HANDED_DAMAGE_TYPE,
-        entityColumn = DamageType.DAMAGE_TYPE_NAME
-    )
-    var twoHandedDamageType: DamageType? = null,
+    @ColumnInfo(name = Weapon.WEAPON_TWO_HANDED_DAMAGE_TYPE)
+    var twoHandedDamageType: String = "",
     @ColumnInfo(name = Weapon.WEAPON_RANGE)
     var range: Int = 0,
     @ColumnInfo(name = Weapon.WEAPON_THROW_RANGE_MIN)
@@ -83,4 +70,14 @@ data class WeaponInfo(
         }
         return rangeStr
     }
+
+    fun toCharacterWeapon(
+        count: Int = this.count,
+        proficiency: Boolean = this.proficiency
+    ) = CharacterWeapon(
+        cid = this.cid,
+        name = this.name,
+        count = count,
+        proficiency = proficiency
+    )
 }
