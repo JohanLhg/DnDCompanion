@@ -5,7 +5,6 @@ import com.jlahougue.dndcompanion.data_character.data.source.remote.CharacterIma
 import com.jlahougue.dndcompanion.data_character.data.source.remote.CharacterRemoteDataSource
 import com.jlahougue.dndcompanion.data_character.domain.model.Character
 import com.jlahougue.dndcompanion.data_character.domain.repository.ICharacterRepository
-import kotlinx.coroutines.flow.Flow
 
 class CharacterRepository(
     private val remoteDataSource: CharacterRemoteDataSource,
@@ -32,18 +31,14 @@ class CharacterRepository(
         remoteDataSource.delete(id)
     }
 
-    override suspend fun exists(): Boolean {
-        return localDataSource.exists()
-    }
+    override suspend fun exists() = localDataSource.exists()
 
-    override fun get(): Flow<List<Character>> {
-        return localDataSource.get()
-    }
+    override fun get() = localDataSource.get()
 
     override fun loadImage(
         characterId: Long,
         onEvent: (CharacterImageFirebaseEvent) -> Unit
-    ) {
-        remoteDataSource.loadImage(characterId, onEvent)
-    }
+    ) = remoteDataSource.loadImage(characterId, onEvent)
+
+    override suspend fun getClass(characterId: Long) = localDataSource.getClass(characterId)
 }

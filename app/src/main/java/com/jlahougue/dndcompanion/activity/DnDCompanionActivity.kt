@@ -16,7 +16,7 @@ import androidx.navigation.compose.rememberNavController
 import com.jlahougue.dndcompanion.DnDCompanionApp
 import com.jlahougue.dndcompanion.activity.navigation.authenticationSection
 import com.jlahougue.dndcompanion.activity.navigation.characterSelectionSection
-import com.jlahougue.dndcompanion.activity.navigation.combatSection
+import com.jlahougue.dndcompanion.activity.navigation.character_sheet.characterSheetSection
 import com.jlahougue.dndcompanion.core.domain.util.extension.viewModelFactory
 import com.jlahougue.dndcompanion.core.presentation.theme.DnDCompanionTheme
 import com.jlahougue.dndcompanion.feature_splash_screen.presentation.SplashScreenViewModel
@@ -65,11 +65,11 @@ class DnDCompanionActivity : ComponentActivity() {
                         characterSelectionSection(
                             route = ScreenGroup.CharacterSelection.route,
                             navigateToNext = {
-                                onNavigateToGroup(ScreenGroup.Combat)
+                                onNavigateToGroup(ScreenGroup.CharacterSheet)
                             }
                         )
-                        combatSection(
-                            route = ScreenGroup.Combat.route
+                        characterSheetSection(
+                            route = ScreenGroup.CharacterSheet.route
                         )
                     }
                 }

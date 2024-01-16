@@ -1,12 +1,10 @@
 package com.jlahougue.dndcompanion.data_character_spell.presentation.components
 
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -19,13 +17,14 @@ import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellInfo
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellLevel
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellSlotView
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellState
-import com.jlahougue.dndcompanion.data_character_spell.presentation.components.cantrips.CantripsBanner
+import com.jlahougue.dndcompanion.data_character_spell.presentation.SpellEvent
 
 @Composable
 fun SpellLevelSection(
     spellLevel: SpellLevel,
-    modifier: Modifier = Modifier,
-    setSpellState: ((SpellInfo, SpellState) -> Unit)? = null
+    onEvent: (SpellEvent) -> Unit,
+    mode: SpellListMode,
+    modifier: Modifier = Modifier
 ) {
     Column(
         modifier = modifier
@@ -38,28 +37,24 @@ fun SpellLevelSection(
             )
         } else {
             SpellLevelBanner(
-                spellLevel.spellSlot,
+                spellSlot = spellLevel.spellSlot,
+                onEvent = {
+                    Log.d("SpellLevelSection", "SpellLevelBanner event")
+                    onEvent(it)
+                          },
                 modifier = Modifier
                     .width(300.dp)
                     .padding(MaterialTheme.spacing.small)
             )
         }
-        LazyVerticalGrid(
-            columns = GridCells.Adaptive(200.dp),
+        SpellList(
+            spells = spellLevel.spells,
+            onEvent = onEvent,
+            mode = mode,
             modifier = Modifier
-                .heightIn(max = 200.dp)
+                .heightIn(max = 9999.dp)
                 .padding(horizontal = MaterialTheme.spacing.small)
-        ) {
-            items(
-                items = spellLevel.spells,
-                key = { it.id }
-            ) {
-                Spell(
-                    spell = it,
-                    setSpellState = setSpellState
-                )
-            }
-        }
+        )
     }
 }
 
@@ -111,7 +106,11 @@ fun SpellLevelPreview() {
                     ),
                 )
             ),
-            modifier = Modifier.width(2560.dp)
+            onEvent = {},
+            mode = SpellListMode.Prepared,
+            modifier = Modifier
+                .width(500.dp)
+                .padding(MaterialTheme.spacing.small)
         )
     }
 }

@@ -9,7 +9,6 @@ interface IClassRepository {
     suspend fun save(clazz: Class): Boolean
     suspend fun saveLevel(classLevel: ClassLevel): Boolean
     suspend fun saveSpellSlots(classSpellSlots: List<ClassSpellSlot>)
-    suspend fun loadAll(
-        onApiEvent: (ApiEvent) -> Unit
-    )
+    suspend fun loadAll(onApiEvent: (ApiEvent) -> Unit)
+    suspend fun getSpellcasterClasses(): List<String>
 }

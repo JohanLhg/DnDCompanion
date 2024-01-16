@@ -10,14 +10,13 @@ class GetSpells(
 ) {
     operator fun invoke(
         characterId: Long,
-        spellFilter: SpellFilter = SpellFilter.All,
+        spellFilter: SpellFilter = SpellFilter.Known,
         search: String = "",
-        classFilter: List<String> = listOf()
+        clazz: String = ""
     ): Flow<List<SpellLevel>> {
         return when (spellFilter) {
-            SpellFilter.All -> repository.getAllSpells(characterId)
-            SpellFilter.Known -> repository.getKnownSpells(characterId)
             SpellFilter.Prepared -> repository.getPreparedSpells(characterId)
+            else -> repository.getKnownSpells(characterId)
         }.map { map ->
             var spellLevels = listOf<SpellLevel>()
             map.forEach { (level, spells) ->
@@ -31,7 +30,7 @@ class GetSpells(
             spellLevels
         }.map { spellLevels ->
             spellLevels.forEach { spellLevel ->
-                spellLevel.filterSpells(search, classFilter)
+                spellLevel.filterSpells(search, clazz)
             }
             spellLevels
         }

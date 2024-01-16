@@ -20,4 +20,7 @@ interface CharacterLocalDataSource {
 
     @Query("SELECT * FROM character")
     fun get(): Flow<List<Character>>
+    
+    @Query("SELECT class FROM character WHERE id = :characterId")
+    suspend fun getClass(characterId: Long): String
 }

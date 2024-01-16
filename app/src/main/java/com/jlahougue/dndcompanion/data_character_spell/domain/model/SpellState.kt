@@ -1,15 +1,19 @@
 package com.jlahougue.dndcompanion.data_character_spell.domain.model
 
+import com.jlahougue.dndcompanion.R
+import com.jlahougue.dndcompanion.core.domain.util.UiText
+
 /**
  * When states are changed, make sure to update the following files:
  * - com.jlahougue.dndcompanion.data_character_spell.data.source.local.CharacterSpellLocalDataSource
+ * - com.jlahougue.dndcompanion.data_character_spell.domain.model.CharacterSpellsStats
  */
-enum class SpellState {
-    LOCKED,
-    HIGHLIGHTED,
-    UNLOCKED,
-    PREPARED,
-    ALWAYS_PREPARED;
+enum class SpellState(val label: UiText) {
+    LOCKED(UiText.StringResource(R.string.spell_state_locked)),
+    HIGHLIGHTED(UiText.StringResource(R.string.spell_state_highlighted)),
+    UNLOCKED(UiText.StringResource(R.string.spell_state_unlocked)),
+    PREPARED(UiText.StringResource(R.string.spell_state_prepared)),
+    ALWAYS_PREPARED(UiText.StringResource(R.string.spell_state_always_prepared));
 
     fun isUnlocked(): Boolean {
         return this == UNLOCKED || isPrepared()
