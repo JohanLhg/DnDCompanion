@@ -1,13 +1,8 @@
 package com.jlahougue.dndcompanion.data_character_spell.presentation.dialog
 
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -22,6 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.jlahougue.dndcompanion.R
+import com.jlahougue.dndcompanion.core.presentation.components.ListOfLinkedItems
 import com.jlahougue.dndcompanion.core.presentation.components.PropertyColumn
 import com.jlahougue.dndcompanion.core.presentation.components.PropertyRow
 import com.jlahougue.dndcompanion.core.presentation.theme.DnDCompanionTheme
@@ -84,12 +80,10 @@ fun SpellDialog(
                             label = stringResource(id = R.string.spell_range),
                             value = spell.range
                         )
-                        if (spell.materials.isNotEmpty()) {
-                            PropertyRow(
-                                label = stringResource(id = R.string.spell_materials),
-                                value = spell.materials
-                            )
-                        }
+                        PropertyRow(
+                            label = stringResource(id = R.string.spell_materials),
+                            value = spell.materials
+                        )
                         PropertyRow(
                             label = stringResource(id = R.string.spell_duration),
                             value = if (spell.concentration)
@@ -111,90 +105,22 @@ fun SpellDialog(
                             label = stringResource(id = R.string.spell_description),
                             value = spell.description
                         )
-                        if (spell.higherLevels.isNotEmpty()) {
-                            PropertyColumn(
-                                label = stringResource(id = R.string.spell_higher_levels),
-                                value = spell.higherLevels
-                            )
-                        }
-                        if (spell.damageTypes.isNotEmpty()) {
-                            Row(
-                                modifier = Modifier
-                                    .padding(horizontal = MaterialTheme.spacing.small)
-                            ) {
-                                Text(
-                                    text = stringResource(id = R.string.spell_damage_types),
-                                    style = MaterialTheme.typography.titleSmall,
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                    modifier = Modifier
-                                        .padding(end = MaterialTheme.spacing.extraSmall)
-                                )
-                                LazyRow(
-                                    horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.extraSmall),
-                                ) {
-                                    itemsIndexed(
-                                        items = spell.damageTypes,
-                                        key = { _, damageType -> damageType.name }
-                                    ) { index, damageType ->
-                                        Text(
-                                            text = damageType.name,
-                                            style = MaterialTheme.typography.bodySmall,
-                                            color = MaterialTheme.colorScheme.primary,
-                                            modifier = Modifier
-                                                .clickable {
-                                                    onEvent(
-                                                        SpellDialogEvent.OnDamageTypeClick(
-                                                            damageType
-                                                        )
-                                                    )
-                                                }
-                                        )
-                                        if (index < spell.damageTypes.size - 1) {
-                                            Text(
-                                                text = ",",
-                                                style = MaterialTheme.typography.bodySmall
-                                            )
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        Row(
-                            modifier = Modifier
-                                .padding(horizontal = MaterialTheme.spacing.small)
-                        ) {
-                            Text(
-                                text = stringResource(id = R.string.spell_classes),
-                                style = MaterialTheme.typography.titleSmall,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                modifier = Modifier
-                                    .padding(end = MaterialTheme.spacing.extraSmall)
-                            )
-                            LazyRow(
-                                horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.extraSmall),
-                            ) {
-                                itemsIndexed(
-                                    items = spell.classes,
-                                    key = { _, clazz -> clazz.name }
-                                ) { index, clazz ->
-                                    Text(
-                                        text = clazz.name,
-                                        style = MaterialTheme.typography.bodySmall,
-                                        color = MaterialTheme.colorScheme.primary,
-                                        modifier = Modifier
-                                            .clickable {
-                                                onEvent(SpellDialogEvent.OnClassClick(clazz))
-                                            }
-                                    )
-                                    if (index < spell.classes.size - 1) {
-                                        Text(
-                                            text = ",",
-                                            style = MaterialTheme.typography.bodySmall
-                                        )
-                                    }
-                                }
-                            }
-                        }
+                        PropertyColumn(
+                            label = stringResource(id = R.string.spell_higher_levels),
+                            value = spell.higherLevels
+                        )
+                        ListOfLinkedItems(
+                            title = stringResource(id = R.string.spell_damage_types),
+                            items = spell.damageTypes,
+                            itemToString = { it.name },
+                            onEvent = { onEvent(SpellDialogEvent.OnDamageTypeClick(it)) }
+                        )
+                        ListOfLinkedItems(
+                            title = stringResource(id = R.string.spell_classes),
+                            items = spell.classes,
+                            itemToString = { it.name },
+                            onEvent = { onEvent(SpellDialogEvent.OnClassClick(it)) }
+                        )
                     }
                 }
             }

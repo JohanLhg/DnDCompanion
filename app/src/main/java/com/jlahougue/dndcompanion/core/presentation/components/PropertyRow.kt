@@ -16,6 +16,7 @@ fun PropertyRow(
     modifier: Modifier = Modifier,
     maxLines: Int = Int.MAX_VALUE
 ) {
+    if (value.isBlank()) return
     Row(
         modifier = modifier
             .padding(horizontal = MaterialTheme.spacing.small)

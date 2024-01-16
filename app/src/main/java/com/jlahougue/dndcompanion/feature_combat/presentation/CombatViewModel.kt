@@ -2,6 +2,8 @@ package com.jlahougue.dndcompanion.feature_combat.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.jlahougue.dndcompanion.R
+import com.jlahougue.dndcompanion.core.domain.util.UiText
 import com.jlahougue.dndcompanion.data_ability.domain.model.AbilityView
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellLevel
 import com.jlahougue.dndcompanion.data_character_spell.domain.use_case.SpellFilter
@@ -11,12 +13,21 @@ import com.jlahougue.dndcompanion.data_character_spell.presentation.dialog.Spell
 import com.jlahougue.dndcompanion.data_health.domain.model.DeathSaves
 import com.jlahougue.dndcompanion.data_health.domain.model.Health
 import com.jlahougue.dndcompanion.data_health.presentation.HealthEvent
+import com.jlahougue.dndcompanion.data_settings.domain.model.UnitSystem
 import com.jlahougue.dndcompanion.data_stats.domain.model.StatsView
 import com.jlahougue.dndcompanion.data_stats.presentation.StatsEvent
+import com.jlahougue.dndcompanion.data_weapon.domain.model.WeaponInfo
+import com.jlahougue.dndcompanion.data_weapon.presentation.WeaponEvent
+import com.jlahougue.dndcompanion.data_weapon.presentation.dialog.WeaponDialogEvent
+import com.jlahougue.dndcompanion.data_weapon.presentation.dialog.WeaponDialogState
 import com.jlahougue.dndcompanion.feature_combat.di.ICombatModule
+import com.jlahougue.dndcompanion.feature_combat.presentation.component.TabItem
+import com.jlahougue.dndcompanion.feature_combat.presentation.component.TabState
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlin.math.max
 import kotlin.math.min
@@ -24,6 +35,8 @@ import kotlin.math.min
 class CombatViewModel(
     private val module: ICombatModule
 ) : ViewModel() {
+
+    private var characterId = -1L
 
     private val _abilities = MutableStateFlow(listOf<AbilityView>())
     val abilities = _abilities.asStateFlow()
@@ -37,6 +50,34 @@ class CombatViewModel(
     private val _deathSaves = MutableStateFlow(DeathSaves())
     val deathSaves = _deathSaves.asStateFlow()
 
+    private val _tabState = MutableStateFlow(
+        TabState(
+            tabs = listOf(
+                TabItem(
+                    title = UiText.StringResource(R.string.spells),
+                    icon = R.drawable.spell_book
+                ),
+                TabItem(
+                    title = UiText.StringResource(R.string.weapons),
+                    icon = R.drawable.weapons
+                )
+            ),
+            selectedTabIndex = 0
+        )
+    )
+    val tabState = _tabState.asStateFlow()
+
+    private val _unitSystem = MutableStateFlow(UnitSystem.METRIC)
+    val unitSystem = _unitSystem.asStateFlow()
+
+    private val _weapons = MutableStateFlow(listOf<WeaponInfo>())
+    val weapons = _weapons.asStateFlow()
+
+    private var weaponDialogJob: Job? = null
+
+    private val _weaponDialogState = MutableStateFlow(WeaponDialogState())
+    val weaponDialogState = _weaponDialogState.asStateFlow()
+
     private val _spells = MutableStateFlow<List<SpellLevel>>(listOf())
     val spells = _spells.asStateFlow()
 
@@ -45,41 +86,65 @@ class CombatViewModel(
 
     init {
         viewModelScope.launch(module.dispatcherProvider.io) {
-            module.getCurrentCharacterId().collectLatest { characterId ->
+            module.getUserInfo().collectLatest { userInfo ->
+
+                characterId = userInfo.characterId
+
+                _unitSystem.update { userInfo.unitSystem }
 
                 viewModelScope.launch(module.dispatcherProvider.io) {
-                    module.abilityUseCases.getAbilities(characterId).collectLatest { abilities ->
+                    module.abilityUseCases.getAbilities(userInfo.characterId).collectLatest { abilities ->
                         _abilities.value = abilities
                     }
                 }
 
                 viewModelScope.launch(module.dispatcherProvider.io) {
-                    module.statsUseCases.getStats(characterId).collectLatest { stats ->
+                    module.statsUseCases.getStats(userInfo.characterId).collectLatest { stats ->
                         _stats.value = stats
                     }
                 }
 
                 viewModelScope.launch(module.dispatcherProvider.io) {
-                    module.healthUseCases.getHealth(characterId).collectLatest { health ->
+                    module.healthUseCases.getHealth(userInfo.characterId).collectLatest { health ->
                         _health.value = health
                     }
                 }
 
                 viewModelScope.launch(module.dispatcherProvider.io) {
-                    module.healthUseCases.getDeathSaves(characterId).collectLatest { deathSaves ->
+                    module.healthUseCases.getDeathSaves(userInfo.characterId).collectLatest { deathSaves ->
                         _deathSaves.value = deathSaves
                     }
                 }
 
                 viewModelScope.launch(module.dispatcherProvider.io) {
+                    module.weaponUseCases.getWeaponsOwned(userInfo.characterId).collectLatest { weapons ->
+                        _weapons.update { weapons }
+                    }
+                }
+
+                viewModelScope.launch(module.dispatcherProvider.io) {
                     module.spellUseCases.getSpells(
-                        characterId,
+                        userInfo.characterId,
                         SpellFilter.Prepared
                     ).collectLatest { spells ->
                         _spells.value = spells
                     }
                 }
             }
+        }
+
+        viewModelScope.launch(module.dispatcherProvider.io) {
+            unitSystem.collectLatest { unitSystem ->
+                _weaponDialogState.update {
+                    it.copy(unitSystem = unitSystem)
+                }
+            }
+        }
+    }
+
+    fun onTabSelected(index: Int) {
+        _tabState.update {
+            it.copy(selectedTabIndex = index)
         }
     }
 
@@ -162,6 +227,53 @@ class CombatViewModel(
     private fun saveHealth(health: Health) {
         viewModelScope.launch(module.dispatcherProvider.io) {
             module.healthUseCases.saveHealth(health)
+        }
+    }
+
+    fun onWeaponEvent(event: WeaponEvent) {
+        when (event) {
+            is WeaponEvent.OnWeaponClicked -> {
+                _weaponDialogState.update {
+                    it.copy(isShown = true)
+                }
+
+                weaponDialogJob?.cancel()
+                weaponDialogJob = viewModelScope.launch(module.dispatcherProvider.io) {
+                    module.weaponUseCases.getWeapon(
+                        characterId,
+                        event.weaponName
+                    ).collectLatest { weapon ->
+                        _weaponDialogState.update {
+                            it.copy(weapon = weapon)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    fun onWeaponDialogEvent(event: WeaponDialogEvent) {
+        when (event) {
+            is WeaponDialogEvent.OnDismiss -> {
+                weaponDialogJob?.cancel()
+                weaponDialogJob = null
+                _weaponDialogState.update {
+                    it.copy(
+                        isShown = false,
+                        weapon = null
+                    )
+                }
+            }
+            is WeaponDialogEvent.OnCountChange -> {
+                viewModelScope.launch(module.dispatcherProvider.io) {
+                    module.weaponUseCases.saveWeapon(
+                        event.weaponInfo.toCharacterWeapon(
+                            count = event.count
+                        )
+                    )
+                }
+            }
+            is WeaponDialogEvent.OnPropertyClick -> TODO()
         }
     }
 
