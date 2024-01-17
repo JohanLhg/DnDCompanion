@@ -28,6 +28,8 @@ import com.jlahougue.dndcompanion.data_health.domain.model.DeathSaves
 import com.jlahougue.dndcompanion.data_health.domain.model.Health
 import com.jlahougue.dndcompanion.data_health.presentation.HealthBox
 import com.jlahougue.dndcompanion.data_health.presentation.HealthEvent
+import com.jlahougue.dndcompanion.data_item.domain.model.Item
+import com.jlahougue.dndcompanion.data_item.presentation.ItemEvent
 import com.jlahougue.dndcompanion.data_settings.domain.model.UnitSystem
 import com.jlahougue.dndcompanion.data_stats.domain.model.StatsView
 import com.jlahougue.dndcompanion.data_stats.presentation.StatsEvent
@@ -56,6 +58,8 @@ fun CombatScreen(
     onWeaponEvent: (WeaponEvent) -> Unit,
     weaponDialogState: WeaponDialogState,
     onWeaponDialogEvent: (WeaponDialogEvent) -> Unit,
+    items: List<Item>,
+    onItemEvent: (ItemEvent) -> Unit,
     spells: List<SpellLevel>,
     onSpellEvent: (SpellEvent) -> Unit,
     spellDialogState: SpellDialogState,
@@ -99,6 +103,8 @@ fun CombatScreen(
             unitSystem = unitSystem,
             weapons = weapons,
             onWeaponEvent = onWeaponEvent,
+            items = items,
+            onItemEvent = onItemEvent,
             modifier = Modifier.fillMaxSize()
         )
     }
@@ -145,6 +151,8 @@ fun CombatScreenPreview() {
             onWeaponEvent = {},
             weaponDialogState = WeaponDialogState(),
             onWeaponDialogEvent = {},
+            items = listOf(),
+            onItemEvent = {},
             spells = listOf(),
             onSpellEvent = {},
             spellDialogState = SpellDialogState(),

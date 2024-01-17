@@ -71,6 +71,9 @@
     <string name="stats_armor_class">Armor Class</string>
     <string name="stats_speed">Speed</string>
 
+    <!-- Inventory -->
+    <string name="inventory">Inventory</string>
+
     <!-- Weapon -->
     <string name="weapons">Weapons</string>
     <string name="weapon">Weapon</string>

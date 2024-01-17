@@ -13,6 +13,8 @@ import com.jlahougue.dndcompanion.data_character_spell.presentation.dialog.Spell
 import com.jlahougue.dndcompanion.data_health.domain.model.DeathSaves
 import com.jlahougue.dndcompanion.data_health.domain.model.Health
 import com.jlahougue.dndcompanion.data_health.presentation.HealthEvent
+import com.jlahougue.dndcompanion.data_item.domain.model.Item
+import com.jlahougue.dndcompanion.data_item.presentation.ItemEvent
 import com.jlahougue.dndcompanion.data_settings.domain.model.UnitSystem
 import com.jlahougue.dndcompanion.data_stats.domain.model.StatsView
 import com.jlahougue.dndcompanion.data_stats.presentation.StatsEvent
@@ -78,6 +80,9 @@ class CombatViewModel(
     private val _weaponDialogState = MutableStateFlow(WeaponDialogState())
     val weaponDialogState = _weaponDialogState.asStateFlow()
 
+    private val _items = MutableStateFlow(listOf<Item>())
+    val items = _items.asStateFlow()
+
     private val _spells = MutableStateFlow<List<SpellLevel>>(listOf())
     val spells = _spells.asStateFlow()
 
@@ -129,6 +134,12 @@ class CombatViewModel(
                         SpellFilter.Prepared
                     ).collectLatest { spells ->
                         _spells.update { spells }
+                    }
+                }
+
+                viewModelScope.launch(module.dispatcherProvider.io) {
+                    module.itemUseCases.getItems(userInfo.characterId).collectLatest { items ->
+                        _items.update { items.filter { it.quantity > 0 } }
                     }
                 }
             }
@@ -275,6 +286,19 @@ class CombatViewModel(
                 }
             }
             is WeaponDialogEvent.OnPropertyClick -> TODO()
+        }
+    }
+
+    fun onItemEvent(event: ItemEvent) {
+        when (event) {
+            is ItemEvent.OnItemClicked -> TODO()
+            is ItemEvent.OnQuantityChanged -> {
+                viewModelScope.launch(module.dispatcherProvider.io) {
+                    module.itemUseCases.saveItem(
+                        event.item.copy(quantity = event.quantity)
+                    )
+                }
+            }
         }
     }
 
