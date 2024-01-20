@@ -21,6 +21,7 @@ import com.jlahougue.dndcompanion.data_class.data.source.local.ClassLocalDataSou
 import com.jlahougue.dndcompanion.data_class.domain.model.Class
 import com.jlahougue.dndcompanion.data_class.domain.model.ClassLevel
 import com.jlahougue.dndcompanion.data_class.domain.model.ClassSpellSlot
+import com.jlahougue.dndcompanion.data_currency.domain.util.CurrencyTypeConverter
 import com.jlahougue.dndcompanion.data_damage_type.data.source.local.DamageTypeLocalDataSource
 import com.jlahougue.dndcompanion.data_damage_type.domain.model.DamageType
 import com.jlahougue.dndcompanion.data_health.data.source.local.HealthLocalDataSource
@@ -62,10 +63,10 @@ import com.jlahougue.dndcompanion.data_weapon.domain.model.WeaponProperty
         ProficiencyView::class,
         SpellcasterView::class, CharacterSpellsStatsView::class, SpellSlotView::class
     ],
-    version = 14
+    version = 16
 )
 @TypeConverters(
-    value = [AbilityNameTypeConverter::class]
+    value = [AbilityNameTypeConverter::class, CurrencyTypeConverter::class]
 )
 abstract class RoomDataSource : RoomDatabase(), LocalDataSource {
     abstract override fun characterDao(): CharacterLocalDataSource

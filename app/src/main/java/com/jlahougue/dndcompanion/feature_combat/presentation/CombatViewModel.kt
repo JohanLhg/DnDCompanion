@@ -15,6 +15,8 @@ import com.jlahougue.dndcompanion.data_health.domain.model.Health
 import com.jlahougue.dndcompanion.data_health.presentation.HealthEvent
 import com.jlahougue.dndcompanion.data_item.domain.model.Item
 import com.jlahougue.dndcompanion.data_item.presentation.ItemEvent
+import com.jlahougue.dndcompanion.data_item.presentation.dialog.ItemDialogEvent
+import com.jlahougue.dndcompanion.data_item.presentation.dialog.ItemDialogState
 import com.jlahougue.dndcompanion.data_settings.domain.model.UnitSystem
 import com.jlahougue.dndcompanion.data_stats.domain.model.StatsView
 import com.jlahougue.dndcompanion.data_stats.presentation.StatsEvent
@@ -76,12 +78,15 @@ class CombatViewModel(
     val weapons = _weapons.asStateFlow()
 
     private var weaponDialogJob: Job? = null
-
     private val _weaponDialogState = MutableStateFlow(WeaponDialogState())
     val weaponDialogState = _weaponDialogState.asStateFlow()
 
     private val _items = MutableStateFlow(listOf<Item>())
     val items = _items.asStateFlow()
+
+    private var itemDialogJob: Job? = null
+    private val _itemDialogState = MutableStateFlow(ItemDialogState())
+    val itemDialogState = _itemDialogState.asStateFlow()
 
     private val _spells = MutableStateFlow<List<SpellLevel>>(listOf())
     val spells = _spells.asStateFlow()
@@ -291,11 +296,75 @@ class CombatViewModel(
 
     fun onItemEvent(event: ItemEvent) {
         when (event) {
-            is ItemEvent.OnItemClicked -> TODO()
-            is ItemEvent.OnQuantityChanged -> {
+            is ItemEvent.OnItemClicked -> {
+                _itemDialogState.update {
+                    it.copy(isShown = true)
+                }
+
+                itemDialogJob?.cancel()
+                itemDialogJob = viewModelScope.launch(module.dispatcherProvider.io) {
+                    module.itemUseCases.getItem(
+                        characterId,
+                        event.itemId
+                    ).collectLatest { item ->
+                        _itemDialogState.update {
+                            it.copy(item = item)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    fun onItemDialogEvent(event: ItemDialogEvent) {
+        when (event) {
+            is ItemDialogEvent.OnDismiss -> {
+                _itemDialogState.update {
+                    it.copy(
+                        isShown = false,
+                        item = null
+                    )
+                }
+            }
+            is ItemDialogEvent.OnQuantityChanged -> {
                 viewModelScope.launch(module.dispatcherProvider.io) {
                     module.itemUseCases.saveItem(
                         event.item.copy(quantity = event.quantity)
+                    )
+                }
+            }
+            is ItemDialogEvent.OnCostChanged -> {
+                viewModelScope.launch(module.dispatcherProvider.io) {
+                    module.itemUseCases.saveItem(
+                        event.item.copy(cost = event.cost)
+                    )
+                }
+            }
+            is ItemDialogEvent.OnNameChanged -> {
+                viewModelScope.launch(module.dispatcherProvider.io) {
+                    module.itemUseCases.saveItem(
+                        event.item.copy(name = event.name)
+                    )
+                }
+            }
+            is ItemDialogEvent.OnDescriptionChanged -> {
+                viewModelScope.launch(module.dispatcherProvider.io) {
+                    module.itemUseCases.saveItem(
+                        event.item.copy(description = event.description)
+                    )
+                }
+            }
+            is ItemDialogEvent.OnWeightChanged -> {
+                viewModelScope.launch(module.dispatcherProvider.io) {
+                    module.itemUseCases.saveItem(
+                        event.item.copy(weight = event.weight)
+                    )
+                }
+            }
+            is ItemDialogEvent.OnCurrencyChanged -> {
+                viewModelScope.launch(module.dispatcherProvider.io) {
+                    module.itemUseCases.saveItem(
+                        event.item.copy(currency = event.currency)
                     )
                 }
             }

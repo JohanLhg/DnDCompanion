@@ -2,6 +2,7 @@ package com.jlahougue.dndcompanion.data_item.domain.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import com.jlahougue.dndcompanion.data_currency.domain.model.Currency
 
 @Entity(
     tableName = Item.TABLE_ITEM,
@@ -19,9 +20,11 @@ data class Item(
     @ColumnInfo(name = ITEM_DESCRIPTION)
     val description: String,
     @ColumnInfo(name = ITEM_COST)
-    val cost: Int, // In copper pieces
+    val cost: Int,
+    @ColumnInfo(name = ITEM_COST_CURRENCY)
+    val currency: Currency,
     @ColumnInfo(name = ITEM_WEIGHT)
-    val weight: Int
+    val weight: Float
 ) {
     companion object {
         const val TABLE_ITEM = "item"
@@ -31,6 +34,7 @@ data class Item(
         const val ITEM_NAME = "name"
         const val ITEM_DESCRIPTION = "description"
         const val ITEM_COST = "cost"
+        const val ITEM_COST_CURRENCY = "currency"
         const val ITEM_WEIGHT = "weight"
     }
 }

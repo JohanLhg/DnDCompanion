@@ -71,8 +71,26 @@
     <string name="stats_armor_class">Armor Class</string>
     <string name="stats_speed">Speed</string>
 
+    <!-- Currency -->
+    <string name="copper_pieces_value">%dcp</string>
+    <string name="silver_pieces_value">%dsp</string>
+    <string name="gold_pieces_value">%dgp</string>
+    <string name="platinum_pieces_value">%dpp</string>
+
+    <string name="copper_pieces">Copper Pieces</string>
+    <string name="copper_pieces_short">CP</string>
+    <string name="silver_pieces">Silver Pieces</string>
+    <string name="silver_pieces_short">SP</string>
+    <string name="gold_pieces">Gold Pieces</string>
+    <string name="gold_pieces_short">GP</string>
+    <string name="platinum_pieces">Platinum Pieces</string>
+    <string name="platinum_pieces_short">PP</string>
+
     <!-- Inventory -->
     <string name="inventory">Inventory</string>
+    <string name="item_cost">Cost :</string>
+    <string name="item_weight">Weight :</string>
+    <string name="item_description">Description :</string>
 
     <!-- Weapon -->
     <string name="weapons">Weapons</string>
