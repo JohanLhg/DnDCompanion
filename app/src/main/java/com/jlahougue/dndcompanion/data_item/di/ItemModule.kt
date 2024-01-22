@@ -5,6 +5,7 @@ import com.jlahougue.dndcompanion.core.data.source.remote.RemoteDataSource
 import com.jlahougue.dndcompanion.core.domain.util.dispatcherProvider.DispatcherProvider
 import com.jlahougue.dndcompanion.data_item.data.repository.ItemRepository
 import com.jlahougue.dndcompanion.data_item.domain.repository.IItemRepository
+import com.jlahougue.dndcompanion.data_item.domain.use_case.CreateItem
 import com.jlahougue.dndcompanion.data_item.domain.use_case.GetItem
 import com.jlahougue.dndcompanion.data_item.domain.use_case.GetItems
 import com.jlahougue.dndcompanion.data_item.domain.use_case.ItemUseCases
@@ -27,6 +28,10 @@ class ItemModule(
         ItemUseCases(
             getItem = GetItem(repository),
             getItems = GetItems(repository),
+            createItem = CreateItem(
+                dispatcherProvider,
+                repository
+            ),
             saveItem = SaveItem(
                 dispatcherProvider,
                 repository

@@ -10,21 +10,21 @@ import com.jlahougue.dndcompanion.data_currency.domain.model.Currency
 )
 data class Item(
     @ColumnInfo(name = ITEM_CID)
-    val cid: Long,
+    val cid: Long = 0L,
     @ColumnInfo(name = ITEM_ID)
-    val id: Long,
+    var id: Long = 0L,
     @ColumnInfo(name = ITEM_QUANTITY)
-    val quantity: Int,
+    val quantity: Int = 0,
     @ColumnInfo(name = ITEM_NAME)
-    val name: String,
+    val name: String = "",
     @ColumnInfo(name = ITEM_DESCRIPTION)
-    val description: String,
+    val description: String = "",
     @ColumnInfo(name = ITEM_COST)
-    val cost: Int,
+    val cost: Int = 0,
     @ColumnInfo(name = ITEM_COST_CURRENCY)
-    val currency: Currency,
+    val currency: Currency = Currency.COPPER,
     @ColumnInfo(name = ITEM_WEIGHT)
-    val weight: Float
+    val weight: Float = 0f
 ) {
     companion object {
         const val TABLE_ITEM = "item"

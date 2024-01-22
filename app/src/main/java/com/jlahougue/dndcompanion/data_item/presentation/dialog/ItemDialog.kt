@@ -45,7 +45,7 @@ import com.jlahougue.dndcompanion.data_item.domain.model.Item
 import com.jlahougue.dndcompanion.data_item.presentation.dialog.component.CostEditRow
 
 @Composable
-fun ItemEditDialog(
+fun ItemDialog(
     state: ItemDialogState,
     onEvent: (ItemDialogEvent) -> Unit
 ) {
@@ -238,9 +238,9 @@ fun ItemEditDialog(
 
 @Preview
 @Composable
-fun ItemEditDialogPreview() {
+fun ItemDialogPreview() {
     DnDCompanionTheme {
-        ItemEditDialog(
+        ItemDialog(
             state = ItemDialogState(
                 item = Item(
                     cid = 1,

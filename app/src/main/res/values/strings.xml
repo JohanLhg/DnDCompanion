@@ -88,6 +88,7 @@
 
     <!-- Inventory -->
     <string name="inventory">Inventory</string>
+    <string name="add_item">Add Item</string>
     <string name="item_cost">Cost :</string>
     <string name="item_weight">Weight :</string>
     <string name="item_description">Description :</string>

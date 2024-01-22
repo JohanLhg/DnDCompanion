@@ -30,9 +30,9 @@ import com.jlahougue.dndcompanion.data_health.presentation.HealthBox
 import com.jlahougue.dndcompanion.data_health.presentation.HealthEvent
 import com.jlahougue.dndcompanion.data_item.domain.model.Item
 import com.jlahougue.dndcompanion.data_item.presentation.ItemEvent
+import com.jlahougue.dndcompanion.data_item.presentation.dialog.ItemDialog
 import com.jlahougue.dndcompanion.data_item.presentation.dialog.ItemDialogEvent
 import com.jlahougue.dndcompanion.data_item.presentation.dialog.ItemDialogState
-import com.jlahougue.dndcompanion.data_item.presentation.dialog.ItemEditDialog
 import com.jlahougue.dndcompanion.data_settings.domain.model.UnitSystem
 import com.jlahougue.dndcompanion.data_stats.domain.model.StatsView
 import com.jlahougue.dndcompanion.data_stats.presentation.StatsEvent
@@ -121,7 +121,7 @@ fun CombatScreen(
         state = weaponDialogState,
         onEvent = onWeaponDialogEvent
     )
-    ItemEditDialog(
+    ItemDialog(
         state = itemDialogState,
         onEvent = onItemDialogEvent
     )

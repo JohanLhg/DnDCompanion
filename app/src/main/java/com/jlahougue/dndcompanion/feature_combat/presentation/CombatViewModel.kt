@@ -313,6 +313,19 @@ class CombatViewModel(
                     }
                 }
             }
+            ItemEvent.OnItemCreated -> {
+                viewModelScope.launch(module.dispatcherProvider.io) {
+                    _itemDialogState.update {
+                        it.copy(isShown = true)
+                    }
+
+                    module.itemUseCases.createItem(characterId).collectLatest { item ->
+                        _itemDialogState.update {
+                            it.copy(item = item)
+                        }
+                    }
+                }
+            }
         }
     }
 

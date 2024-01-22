@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
 interface ItemLocalDataSource {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(item: Item)
+    suspend fun insert(item: Item): Long
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(items: List<Item>)
