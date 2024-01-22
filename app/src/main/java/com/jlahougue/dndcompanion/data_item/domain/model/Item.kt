@@ -10,11 +10,11 @@ import com.jlahougue.dndcompanion.data_currency.domain.model.Currency
 )
 data class Item(
     @ColumnInfo(name = ITEM_CID)
-    val cid: Long = 0L,
+    val cid: Long,
     @ColumnInfo(name = ITEM_ID)
-    var id: Long = 0L,
+    var id: Long = -1L,
     @ColumnInfo(name = ITEM_QUANTITY)
-    val quantity: Int = 0,
+    val quantity: Int = 1,
     @ColumnInfo(name = ITEM_NAME)
     val name: String = "",
     @ColumnInfo(name = ITEM_DESCRIPTION)

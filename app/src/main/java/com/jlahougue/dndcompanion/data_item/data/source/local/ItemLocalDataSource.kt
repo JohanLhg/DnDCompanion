@@ -11,10 +11,13 @@ import kotlinx.coroutines.flow.Flow
 interface ItemLocalDataSource {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(item: Item): Long
+    suspend fun insert(item: Item)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(items: List<Item>)
+
+    @Query("SELECT MAX(id) FROM item WHERE cid = :characterId")
+    suspend fun getLastId(characterId: Long): Long
 
     @Query("SELECT * FROM item WHERE cid = :characterId AND id = :itemId")
     fun get(characterId: Long, itemId: Long): Flow<Item>
