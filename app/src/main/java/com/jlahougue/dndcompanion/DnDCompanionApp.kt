@@ -21,6 +21,8 @@ import com.jlahougue.dndcompanion.data_damage_type.di.DamageTypeModule
 import com.jlahougue.dndcompanion.data_damage_type.di.IDamageTypeModule
 import com.jlahougue.dndcompanion.data_health.di.HealthModule
 import com.jlahougue.dndcompanion.data_health.di.IHealthModule
+import com.jlahougue.dndcompanion.data_item.di.IItemModule
+import com.jlahougue.dndcompanion.data_item.di.ItemModule
 import com.jlahougue.dndcompanion.data_property.di.IPropertyModule
 import com.jlahougue.dndcompanion.data_property.di.PropertyModule
 import com.jlahougue.dndcompanion.data_skill.di.ISkillModule
@@ -58,6 +60,7 @@ class DnDCompanionApp: Application() {
         lateinit var abilityModule: IAbilityModule
         lateinit var skillModule: ISkillModule
         lateinit var statsModule: IStatsModule
+        lateinit var itemModule: IItemModule
         lateinit var classModule: IClassModule
         lateinit var damageTypeModule: IDamageTypeModule
         lateinit var characterSpellModule: ICharacterSpellModule
@@ -112,6 +115,11 @@ class DnDCompanionApp: Application() {
             dataSourceModule.localDataSource
         )
         statsModule = StatsModule(
+            dataSourceModule.remoteDataSource,
+            dataSourceModule.localDataSource
+        )
+        itemModule = ItemModule(
+            appModule.dispatcherProvider,
             dataSourceModule.remoteDataSource,
             dataSourceModule.localDataSource
         )
@@ -179,8 +187,9 @@ class DnDCompanionApp: Application() {
             abilityModule.abilityUseCases,
             statsModule.statsUseCases,
             healthModule.healthUseCases,
+            characterSpellModule.spellUseCases,
             weaponModule.weaponUseCases,
-            characterSpellModule.spellUseCases
+            itemModule.useCases
         )
         spellsModule = SpellsModule(
             appModule.dispatcherProvider,

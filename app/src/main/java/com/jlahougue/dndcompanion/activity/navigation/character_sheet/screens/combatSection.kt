@@ -29,6 +29,8 @@ fun NavGraphBuilder.combatSection(route: String) {
         val unitSystem by viewModel.unitSystem.collectAsState()
         val weapons by viewModel.weapons.collectAsState()
         val weaponDialogState by viewModel.weaponDialogState.collectAsState()
+        val items by viewModel.items.collectAsState()
+        val itemDialogState by viewModel.itemDialogState.collectAsState()
         val spells by viewModel.spells.collectAsState()
         val spellDialogState by viewModel.spellDialogState.collectAsState()
         CombatScreen(
@@ -45,6 +47,10 @@ fun NavGraphBuilder.combatSection(route: String) {
             onWeaponEvent = viewModel::onWeaponEvent,
             weaponDialogState = weaponDialogState,
             onWeaponDialogEvent = viewModel::onWeaponDialogEvent,
+            items = items,
+            onItemEvent = viewModel::onItemEvent,
+            itemDialogState = itemDialogState,
+            onItemDialogEvent = viewModel::onItemDialogEvent,
             spells = spells,
             onSpellEvent = viewModel::onSpellEvent,
             spellDialogState = spellDialogState,

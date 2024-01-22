@@ -28,6 +28,11 @@ import com.jlahougue.dndcompanion.data_health.domain.model.DeathSaves
 import com.jlahougue.dndcompanion.data_health.domain.model.Health
 import com.jlahougue.dndcompanion.data_health.presentation.HealthBox
 import com.jlahougue.dndcompanion.data_health.presentation.HealthEvent
+import com.jlahougue.dndcompanion.data_item.domain.model.Item
+import com.jlahougue.dndcompanion.data_item.presentation.ItemEvent
+import com.jlahougue.dndcompanion.data_item.presentation.dialog.ItemDialog
+import com.jlahougue.dndcompanion.data_item.presentation.dialog.ItemDialogEvent
+import com.jlahougue.dndcompanion.data_item.presentation.dialog.ItemDialogState
 import com.jlahougue.dndcompanion.data_settings.domain.model.UnitSystem
 import com.jlahougue.dndcompanion.data_stats.domain.model.StatsView
 import com.jlahougue.dndcompanion.data_stats.presentation.StatsEvent
@@ -56,6 +61,10 @@ fun CombatScreen(
     onWeaponEvent: (WeaponEvent) -> Unit,
     weaponDialogState: WeaponDialogState,
     onWeaponDialogEvent: (WeaponDialogEvent) -> Unit,
+    items: List<Item>,
+    onItemEvent: (ItemEvent) -> Unit,
+    itemDialogState: ItemDialogState,
+    onItemDialogEvent: (ItemDialogEvent) -> Unit,
     spells: List<SpellLevel>,
     onSpellEvent: (SpellEvent) -> Unit,
     spellDialogState: SpellDialogState,
@@ -99,6 +108,8 @@ fun CombatScreen(
             unitSystem = unitSystem,
             weapons = weapons,
             onWeaponEvent = onWeaponEvent,
+            items = items,
+            onItemEvent = onItemEvent,
             modifier = Modifier.fillMaxSize()
         )
     }
@@ -109,6 +120,10 @@ fun CombatScreen(
     WeaponDialog(
         state = weaponDialogState,
         onEvent = onWeaponDialogEvent
+    )
+    ItemDialog(
+        state = itemDialogState,
+        onEvent = onItemDialogEvent
     )
 }
 
@@ -145,6 +160,10 @@ fun CombatScreenPreview() {
             onWeaponEvent = {},
             weaponDialogState = WeaponDialogState(),
             onWeaponDialogEvent = {},
+            items = listOf(),
+            onItemEvent = {},
+            itemDialogState = ItemDialogState(),
+            onItemDialogEvent = {},
             spells = listOf(),
             onSpellEvent = {},
             spellDialogState = SpellDialogState(),

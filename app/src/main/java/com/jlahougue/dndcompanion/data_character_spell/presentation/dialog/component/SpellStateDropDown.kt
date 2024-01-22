@@ -14,7 +14,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellState
 
@@ -30,7 +29,6 @@ fun SpellStateDropDown(
     var states by remember {
         mutableStateOf(SpellState.entries.toList())
     }
-    val context = LocalContext.current
     ExposedDropdownMenuBox(
         expanded = isOpened,
         onExpandedChange = { onOpenedChange(it) },
@@ -64,7 +62,7 @@ fun SpellStateDropDown(
                 DropdownMenuItem(
                     text = {
                         Text(
-                            text = state.label.getString(context),
+                            text = state.label.getString(),
                             style = MaterialTheme.typography.bodySmall
                         )
                     },
