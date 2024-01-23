@@ -5,6 +5,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.jlahougue.dndcompanion.activity.ScreenGroup
 import com.jlahougue.dndcompanion.activity.navigation.character_sheet.screens.combatSection
+import com.jlahougue.dndcompanion.activity.navigation.character_sheet.screens.equipmentSection
 import com.jlahougue.dndcompanion.activity.navigation.character_sheet.screens.spellsSection
 
 @Composable
@@ -16,10 +17,12 @@ fun CharacterSheetGraph(navController: NavHostController) {
     ) {
         combatSection(route = CharacterSheetScreen.Combat.route)
         spellsSection(route = CharacterSheetScreen.Spells.route)
+        equipmentSection(route = CharacterSheetScreen.Equipment.route)
     }
 }
 
 sealed class CharacterSheetScreen(val route: String) {
     data object Combat : CharacterSheetScreen("combat")
     data object Spells : CharacterSheetScreen("spells")
+    data object Equipment : CharacterSheetScreen("equipment")
 }

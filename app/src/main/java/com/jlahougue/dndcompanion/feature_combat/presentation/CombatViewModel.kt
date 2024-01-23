@@ -97,7 +97,7 @@ class CombatViewModel(
 
     init {
         viewModelScope.launch(module.dispatcherProvider.io) {
-            module.getUserInfo().collectLatest { userInfo ->
+            module.userInfoUseCases.getUserInfo().collectLatest { userInfo ->
 
                 characterId = userInfo.characterId
 

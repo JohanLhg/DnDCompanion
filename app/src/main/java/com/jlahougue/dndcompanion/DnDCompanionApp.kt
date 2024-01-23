@@ -41,6 +41,8 @@ import com.jlahougue.dndcompanion.feature_character_selection.di.CharacterSelect
 import com.jlahougue.dndcompanion.feature_character_selection.di.ICharacterSelectionModule
 import com.jlahougue.dndcompanion.feature_combat.di.CombatModule
 import com.jlahougue.dndcompanion.feature_combat.di.ICombatModule
+import com.jlahougue.dndcompanion.feature_equipment.di.EquipmentModule
+import com.jlahougue.dndcompanion.feature_equipment.di.IEquipmentModule
 import com.jlahougue.dndcompanion.feature_loading_data.di.ILoadingModule
 import com.jlahougue.dndcompanion.feature_loading_data.di.LoadingModule
 import com.jlahougue.dndcompanion.feature_spells.di.ISpellsModule
@@ -75,6 +77,7 @@ class DnDCompanionApp: Application() {
         lateinit var characterSelectionModule: ICharacterSelectionModule
         lateinit var combatModule: ICombatModule
         lateinit var spellsModule: ISpellsModule
+        lateinit var equipmentModule: IEquipmentModule
     }
 
     override fun onCreate() {
@@ -183,7 +186,7 @@ class DnDCompanionApp: Application() {
         )
         combatModule = CombatModule(
             appModule.dispatcherProvider,
-            userInfoModule.getUserInfo,
+            userInfoModule.userInfoUseCases,
             abilityModule.abilityUseCases,
             statsModule.statsUseCases,
             healthModule.healthUseCases,
@@ -193,10 +196,16 @@ class DnDCompanionApp: Application() {
         )
         spellsModule = SpellsModule(
             appModule.dispatcherProvider,
-            userInfoModule.getCurrentCharacterId,
+            userInfoModule.userInfoUseCases,
             characterSpellModule.spellUseCases,
             classModule.classUseCases,
             characterModule.characterUseCases
+        )
+        equipmentModule = EquipmentModule(
+            appModule.dispatcherProvider,
+            userInfoModule.userInfoUseCases,
+            weaponModule.weaponUseCases,
+            itemModule.useCases
         )
     }
 }

@@ -38,6 +38,12 @@ fun NavGraphBuilder.characterSheetSection(
                 route = CharacterSheetScreen.Spells.route,
                 unselectedIcon = R.drawable.spell_book,
                 selectedIcon = R.drawable.spell_book
+            ),
+            NavigationItem(
+                label = stringResource(id = R.string.title_equipment_screen),
+                route = CharacterSheetScreen.Equipment.route,
+                unselectedIcon = R.drawable.backpack,
+                selectedIcon = R.drawable.backpack
             )
         )
         Row {

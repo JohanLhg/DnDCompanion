@@ -188,4 +188,5 @@
     <!-- Character Sheet -->
     <string name="title_combat_screen">Combat</string>
     <string name="title_spells_screen">Spells</string>
+    <string name="title_equipment_screen">Equipment</string>
 </resources>
