@@ -40,7 +40,7 @@ fun WeaponList(
         )
         Divider()
         LazyVerticalGrid(
-            columns = GridCells.Adaptive(300.dp)
+            columns = GridCells.Adaptive(250.dp)
         ) {
             items(
                 weapons,

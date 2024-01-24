@@ -30,8 +30,12 @@ fun NavGraphBuilder.equipmentSection(route: String) {
             unitSystem = unitSystem,
             weapons = weapons,
             onWeaponEvent = viewModel::onWeaponEvent,
+            weaponDialog = weaponDialog,
+            onWeaponDialogEvent = viewModel::onWeaponDialogEvent,
             items = items,
-            onItemEvent = viewModel::onItemEvent
+            onItemEvent = viewModel::onItemEvent,
+            itemDialog = itemDialog,
+            onItemDialogEvent = viewModel::onItemDialogEvent
         )
     }
 }

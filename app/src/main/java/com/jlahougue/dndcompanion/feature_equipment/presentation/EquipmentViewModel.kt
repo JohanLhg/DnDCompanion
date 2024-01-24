@@ -45,12 +45,16 @@ class EquipmentViewModel(private val module: IEquipmentModule): ViewModel() {
                 characterId = userInfo.characterId
                 _unitSystem.update { userInfo.unitSystem }
 
-                module.weaponUseCases.getWeaponsOwned(characterId).collectLatest {
-                    _weapons.update { it }
+                viewModelScope.launch(module.dispatcherProvider.io) {
+                    module.weaponUseCases.getWeaponsOwned(characterId).collectLatest { weapons ->
+                        _weapons.update { weapons }
+                    }
                 }
 
-                module.itemUseCases.getItems(characterId).collectLatest {
-                    _items.update { it }
+                viewModelScope.launch(module.dispatcherProvider.io) {
+                    module.itemUseCases.getItems(characterId).collectLatest { items ->
+                        _items.update { items }
+                    }
                 }
             }
         }
