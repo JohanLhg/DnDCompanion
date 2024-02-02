@@ -23,19 +23,18 @@ fun NavGraphBuilder.equipmentSection(route: String) {
         )
         val unitSystem by viewModel.unitSystem.collectAsState()
         val weapons by viewModel.weapons.collectAsState()
+        val weaponListDialog by viewModel.weaponListDialog.collectAsState()
         val weaponDialog by viewModel.weaponDialog.collectAsState()
         val items by viewModel.items.collectAsState()
         val itemDialog by viewModel.itemDialog.collectAsState()
         EquipmentScreen(
             unitSystem = unitSystem,
             weapons = weapons,
-            onWeaponEvent = viewModel::onWeaponEvent,
+            weaponListDialog = weaponListDialog,
             weaponDialog = weaponDialog,
-            onWeaponDialogEvent = viewModel::onWeaponDialogEvent,
             items = items,
-            onItemEvent = viewModel::onItemEvent,
             itemDialog = itemDialog,
-            onItemDialogEvent = viewModel::onItemDialogEvent
+            onEvent = viewModel::onEvent
         )
     }
 }

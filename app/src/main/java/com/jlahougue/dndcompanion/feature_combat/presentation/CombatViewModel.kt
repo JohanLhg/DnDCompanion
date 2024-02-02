@@ -24,6 +24,8 @@ import com.jlahougue.dndcompanion.data_weapon.domain.model.WeaponInfo
 import com.jlahougue.dndcompanion.data_weapon.presentation.WeaponEvent
 import com.jlahougue.dndcompanion.data_weapon.presentation.dialog.WeaponDialogEvent
 import com.jlahougue.dndcompanion.data_weapon.presentation.dialog.WeaponDialogState
+import com.jlahougue.dndcompanion.data_weapon.presentation.list_dialog.WeaponListDialogEvent
+import com.jlahougue.dndcompanion.data_weapon.presentation.list_dialog.WeaponListDialogState
 import com.jlahougue.dndcompanion.feature_combat.di.ICombatModule
 import com.jlahougue.dndcompanion.feature_combat.presentation.component.TabItem
 import com.jlahougue.dndcompanion.feature_combat.presentation.component.TabState
@@ -76,6 +78,10 @@ class CombatViewModel(
 
     private val _weapons = MutableStateFlow(listOf<WeaponInfo>())
     val weapons = _weapons.asStateFlow()
+
+    private var weaponListDialogJob: Job? = null
+    private val _weaponListDialogState = MutableStateFlow(WeaponListDialogState())
+    val weaponListDialogState = _weaponListDialogState.asStateFlow()
 
     private var weaponDialogJob: Job? = null
     private val _weaponDialogState = MutableStateFlow(WeaponDialogState())
@@ -159,13 +165,26 @@ class CombatViewModel(
         }
     }
 
-    fun onTabSelected(index: Int) {
-        _tabState.update {
-            it.copy(selectedTabIndex = index)
+    fun onEvent(event: CombatEvent) {
+        when (event) {
+            is CombatEvent.onTabSelected -> {
+                _tabState.update {
+                    it.copy(selectedTabIndex = event.index)
+                }
+            }
+            is CombatEvent.onStatsEvent -> onStatsEvent(event.event)
+            is CombatEvent.onHealthEvent -> onHealthEvent(event.event)
+            is CombatEvent.onWeaponEvent -> onWeaponEvent(event.event)
+            is CombatEvent.onWeaponListDialogEvent -> onWeaponListDialogEvent(event.event)
+            is CombatEvent.onWeaponDialogEvent -> onWeaponDialogEvent(event.event)
+            is CombatEvent.onItemEvent -> onItemEvent(event.event)
+            is CombatEvent.onItemDialogEvent -> onItemDialogEvent(event.event)
+            is CombatEvent.onSpellEvent -> onSpellEvent(event.event)
+            is CombatEvent.onSpellDialogEvent -> onSpellDialogEvent(event.event)
         }
     }
 
-    fun onStatsEvent(event: StatsEvent) {
+    private fun onStatsEvent(event: StatsEvent) {
         val stats = when (event) {
             is StatsEvent.OnArmorClassChanged -> {
                 _stats.value.toStats(
@@ -184,7 +203,7 @@ class CombatViewModel(
         }
     }
 
-    fun onHealthEvent(event: HealthEvent) {
+    private fun onHealthEvent(event: HealthEvent) {
         when (event) {
             is HealthEvent.OnMaxHealthChange -> {
                 val health = _health.value.copy(
@@ -247,7 +266,7 @@ class CombatViewModel(
         }
     }
 
-    fun onWeaponEvent(event: WeaponEvent) {
+    private fun onWeaponEvent(event: WeaponEvent) {
         when (event) {
             is WeaponEvent.OnWeaponClicked -> {
                 _weaponDialogState.update {
@@ -269,7 +288,51 @@ class CombatViewModel(
         }
     }
 
-    fun onWeaponDialogEvent(event: WeaponDialogEvent) {
+    private fun onWeaponListDialogEvent(event: WeaponListDialogEvent) {
+        when (event) {
+            WeaponListDialogEvent.OnDismiss -> {
+                _weaponListDialogState.update {
+                    it.copy(isShown = false)
+                }
+            }
+            is WeaponListDialogEvent.OnFilterChange -> {
+                _weaponListDialogState.update {
+                    it.copy(filter = event.filter)
+                }
+                weaponListDialogJob?.cancel()
+                weaponListDialogJob = viewModelScope.launch(module.dispatcherProvider.io) {
+                    module.weaponUseCases.getWeapons(
+                        characterId,
+                        weaponListDialogState.value.search,
+                        event.filter.value
+                    ).collectLatest { weapons ->
+                        _weaponListDialogState.update {
+                            it.copy(weapons = weapons)
+                        }
+                    }
+                }
+            }
+            is WeaponListDialogEvent.OnSearchChange -> {
+                _weaponListDialogState.update {
+                    it.copy(search = event.search)
+                }
+                weaponListDialogJob?.cancel()
+                viewModelScope.launch(module.dispatcherProvider.io) {
+                    module.weaponUseCases.getWeapons(
+                        characterId,
+                        event.search,
+                        weaponListDialogState.value.filter.value
+                    ).collectLatest { weapons ->
+                        _weaponListDialogState.update {
+                            it.copy(weapons = weapons)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun onWeaponDialogEvent(event: WeaponDialogEvent) {
         when (event) {
             is WeaponDialogEvent.OnDismiss -> {
                 weaponDialogJob?.cancel()
@@ -294,7 +357,7 @@ class CombatViewModel(
         }
     }
 
-    fun onItemEvent(event: ItemEvent) {
+    private fun onItemEvent(event: ItemEvent) {
         when (event) {
             is ItemEvent.OnItemClicked -> {
                 _itemDialogState.update {
@@ -322,7 +385,7 @@ class CombatViewModel(
         }
     }
 
-    fun onItemDialogEvent(event: ItemDialogEvent) {
+    private fun onItemDialogEvent(event: ItemDialogEvent) {
         when (event) {
             is ItemDialogEvent.OnDismiss -> {
                 _itemDialogState.update {
@@ -377,7 +440,7 @@ class CombatViewModel(
         }
     }
 
-    fun onSpellEvent(event: SpellEvent) {
+    private fun onSpellEvent(event: SpellEvent) {
         when(event) {
             is SpellEvent.OnSlotRestored -> {
                 if (event.spellSlot.left == event.spellSlot.total) return
@@ -422,7 +485,7 @@ class CombatViewModel(
         }
     }
 
-    fun onSpellDialogEvent(event: SpellDialogEvent) {
+    private fun onSpellDialogEvent(event: SpellDialogEvent) {
         when (event) {
             is SpellDialogEvent.OnClassClick -> TODO()
             is SpellDialogEvent.OnDamageTypeClick -> TODO()

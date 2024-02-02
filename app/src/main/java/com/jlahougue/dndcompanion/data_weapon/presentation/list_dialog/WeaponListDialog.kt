@@ -25,6 +25,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
@@ -100,12 +101,21 @@ fun WeaponListDialog(
                         painter = painterResource(id = R.drawable.weapon_melee),
                         contentDescription = null,
                         contentScale = ContentScale.FillHeight,
+                        colorFilter = ColorFilter.tint(
+                            if (state.filter == WeaponListDialogState.Filter.MELEE) MaterialTheme.colorScheme.primary
+                            else MaterialTheme.colorScheme.onSurface
+                        ),
                         modifier = Modifier
                             .height(searchHeight)
                             .clickable(
                                 interactionSource = remember { MutableInteractionSource() },
                                 indication = rememberRipple(bounded = false),
                                 onClick = {
+                                    onEvent(
+                                        WeaponListDialogEvent.OnFilterChange(
+                                            WeaponListDialogState.Filter.MELEE
+                                        )
+                                    )
                                 },
                             )
                             .padding(MaterialTheme.spacing.small)
@@ -114,12 +124,44 @@ fun WeaponListDialog(
                         painter = painterResource(id = R.drawable.weapon_ranged),
                         contentDescription = null,
                         contentScale = ContentScale.FillHeight,
+                        colorFilter = ColorFilter.tint(
+                            if (state.filter == WeaponListDialogState.Filter.RANGED) MaterialTheme.colorScheme.primary
+                            else MaterialTheme.colorScheme.onSurface
+                        ),
                         modifier = Modifier
                             .height(searchHeight)
                             .clickable(
                                 interactionSource = remember { MutableInteractionSource() },
                                 indication = rememberRipple(bounded = false),
                                 onClick = {
+                                    onEvent(
+                                        WeaponListDialogEvent.OnFilterChange(
+                                            WeaponListDialogState.Filter.RANGED
+                                        )
+                                    )
+                                },
+                            )
+                            .padding(MaterialTheme.spacing.small)
+                    )
+                    Image(
+                        painter = painterResource(id = R.drawable.magic),
+                        contentDescription = null,
+                        contentScale = ContentScale.FillHeight,
+                        colorFilter = ColorFilter.tint(
+                            if (state.filter == WeaponListDialogState.Filter.MAGIC) MaterialTheme.colorScheme.primary
+                            else MaterialTheme.colorScheme.onSurface
+                        ),
+                        modifier = Modifier
+                            .height(searchHeight)
+                            .clickable(
+                                interactionSource = remember { MutableInteractionSource() },
+                                indication = rememberRipple(bounded = false),
+                                onClick = {
+                                    onEvent(
+                                        WeaponListDialogEvent.OnFilterChange(
+                                            WeaponListDialogState.Filter.RANGED
+                                        )
+                                    )
                                 },
                             )
                             .padding(MaterialTheme.spacing.small)

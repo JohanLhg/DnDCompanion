@@ -11,6 +11,8 @@ import com.jlahougue.dndcompanion.data_weapon.domain.model.WeaponInfo
 import com.jlahougue.dndcompanion.data_weapon.presentation.WeaponEvent
 import com.jlahougue.dndcompanion.data_weapon.presentation.dialog.WeaponDialogEvent
 import com.jlahougue.dndcompanion.data_weapon.presentation.dialog.WeaponDialogState
+import com.jlahougue.dndcompanion.data_weapon.presentation.list_dialog.WeaponListDialogEvent
+import com.jlahougue.dndcompanion.data_weapon.presentation.list_dialog.WeaponListDialogState
 import com.jlahougue.dndcompanion.feature_equipment.di.IEquipmentModule
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -27,6 +29,10 @@ class EquipmentViewModel(private val module: IEquipmentModule): ViewModel() {
 
     private val _weapons = MutableStateFlow(listOf<WeaponInfo>())
     val weapons = _weapons.asStateFlow()
+
+    private var weaponListDialogJob: Job? = null
+    private val _weaponListDialog = MutableStateFlow(WeaponListDialogState())
+    val weaponListDialog = _weaponListDialog.asStateFlow()
 
     private var weaponDialogJob: Job? = null
     private val _weaponDialog = MutableStateFlow(WeaponDialogState())
@@ -60,7 +66,17 @@ class EquipmentViewModel(private val module: IEquipmentModule): ViewModel() {
         }
     }
 
-    fun onWeaponEvent(event: WeaponEvent) {
+    fun onEvent(event: EquipmentEvent) {
+        when (event) {
+            is EquipmentEvent.OnWeaponEvent -> onWeaponEvent(event.event)
+            is EquipmentEvent.OnWeaponListDialogEvent -> onWeaponListDialogEvent(event.event)
+            is EquipmentEvent.OnWeaponDialogEvent -> onWeaponDialogEvent(event.event)
+            is EquipmentEvent.OnItemEvent -> onItemEvent(event.event)
+            is EquipmentEvent.OnItemDialogEvent -> onItemDialogEvent(event.event)
+        }
+    }
+
+    private fun onWeaponEvent(event: WeaponEvent) {
         when (event) {
             is WeaponEvent.OnWeaponClicked -> {
                 viewModelScope.launch(module.dispatcherProvider.io) {
@@ -84,7 +100,51 @@ class EquipmentViewModel(private val module: IEquipmentModule): ViewModel() {
         }
     }
 
-    fun onWeaponDialogEvent(event: WeaponDialogEvent) {
+    private fun onWeaponListDialogEvent(event: WeaponListDialogEvent) {
+        when (event) {
+            WeaponListDialogEvent.OnDismiss -> {
+                _weaponListDialog.update {
+                    it.copy(isShown = false)
+                }
+            }
+            is WeaponListDialogEvent.OnFilterChange -> {
+                _weaponListDialog.update {
+                    it.copy(filter = event.filter)
+                }
+                weaponListDialogJob?.cancel()
+                weaponListDialogJob = viewModelScope.launch(module.dispatcherProvider.io) {
+                    module.weaponUseCases.getWeapons(
+                        characterId,
+                        weaponListDialog.value.search,
+                        event.filter.value
+                    ).collectLatest { weapons ->
+                        _weaponListDialog.update {
+                            it.copy(weapons = weapons)
+                        }
+                    }
+                }
+            }
+            is WeaponListDialogEvent.OnSearchChange -> {
+                _weaponListDialog.update {
+                    it.copy(search = event.search)
+                }
+                weaponListDialogJob?.cancel()
+                viewModelScope.launch(module.dispatcherProvider.io) {
+                    module.weaponUseCases.getWeapons(
+                        characterId,
+                        event.search,
+                        weaponListDialog.value.filter.value
+                    ).collectLatest { weapons ->
+                        _weaponListDialog.update {
+                            it.copy(weapons = weapons)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun onWeaponDialogEvent(event: WeaponDialogEvent) {
         when (event) {
             WeaponDialogEvent.OnDismiss -> {
                 _weaponDialog.update {
@@ -104,7 +164,7 @@ class EquipmentViewModel(private val module: IEquipmentModule): ViewModel() {
         }
     }
 
-    fun onItemEvent(event: ItemEvent) {
+    private fun onItemEvent(event: ItemEvent) {
         when (event) {
             is ItemEvent.OnItemClicked -> {
                 viewModelScope.launch(module.dispatcherProvider.io) {
@@ -134,7 +194,7 @@ class EquipmentViewModel(private val module: IEquipmentModule): ViewModel() {
         }
     }
 
-    fun onItemDialogEvent(event: ItemDialogEvent) {
+    private fun onItemDialogEvent(event: ItemDialogEvent) {
         when (event) {
             ItemDialogEvent.OnDismiss -> {
                 _itemDialog.update {

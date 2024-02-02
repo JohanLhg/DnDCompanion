@@ -30,11 +30,16 @@ import com.jlahougue.dndcompanion.core.presentation.theme.spacing
 import com.jlahougue.dndcompanion.data_currency.domain.model.Currency
 import com.jlahougue.dndcompanion.data_item.domain.model.Item
 import com.jlahougue.dndcompanion.data_item.presentation.component.ItemCard
+import com.jlahougue.dndcompanion.data_item.presentation.dialog.ItemDialog
+import com.jlahougue.dndcompanion.data_item.presentation.dialog.ItemDialogEvent
+import com.jlahougue.dndcompanion.data_item.presentation.dialog.ItemDialogState
 
 @Composable
 fun Inventory(
     items: List<Item>,
     onEvent: (ItemEvent) -> Unit,
+    dialog: ItemDialogState,
+    onDialogEvent: (ItemDialogEvent) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -82,6 +87,10 @@ fun Inventory(
             }
         }
     }
+    ItemDialog(
+        state = dialog,
+        onEvent = onDialogEvent
+    )
 }
 
 @Preview
@@ -111,7 +120,9 @@ fun InventoryPreview() {
                     1f
                 )
             ),
-            onEvent = {}
+            onEvent = {},
+            dialog = ItemDialogState(),
+            onDialogEvent = {}
         )
     }
 }

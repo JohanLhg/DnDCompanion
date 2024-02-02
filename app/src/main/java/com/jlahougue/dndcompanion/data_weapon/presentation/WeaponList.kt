@@ -21,12 +21,22 @@ import com.jlahougue.dndcompanion.core.presentation.theme.spacing
 import com.jlahougue.dndcompanion.data_settings.domain.model.UnitSystem
 import com.jlahougue.dndcompanion.data_weapon.domain.model.WeaponInfo
 import com.jlahougue.dndcompanion.data_weapon.presentation.component.WeaponCard
+import com.jlahougue.dndcompanion.data_weapon.presentation.dialog.WeaponDialog
+import com.jlahougue.dndcompanion.data_weapon.presentation.dialog.WeaponDialogEvent
+import com.jlahougue.dndcompanion.data_weapon.presentation.dialog.WeaponDialogState
+import com.jlahougue.dndcompanion.data_weapon.presentation.list_dialog.WeaponListDialog
+import com.jlahougue.dndcompanion.data_weapon.presentation.list_dialog.WeaponListDialogEvent
+import com.jlahougue.dndcompanion.data_weapon.presentation.list_dialog.WeaponListDialogState
 
 @Composable
 fun WeaponList(
     weapons: List<WeaponInfo>,
     unitSystem: UnitSystem,
     onEvent: (WeaponEvent) -> Unit,
+    listDialogState: WeaponListDialogState,
+    onListDialogEvent: (WeaponListDialogEvent) -> Unit,
+    dialogState: WeaponDialogState,
+    onDialogEvent: (WeaponDialogEvent) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -56,6 +66,15 @@ fun WeaponList(
             }
         }
     }
+    WeaponListDialog(
+        state = listDialogState,
+        onEvent = onListDialogEvent,
+        onWeaponEvent = onEvent
+    )
+    WeaponDialog(
+        state = dialogState,
+        onEvent = onDialogEvent
+    )
 }
 
 @Preview(
@@ -70,7 +89,19 @@ fun WeaponItemPreview() {
             UnitSystem.METRIC,
             onEvent = {},
             modifier = Modifier
-                .fillMaxSize()
+                .fillMaxSize(),
+            listDialogState = WeaponListDialogState(
+                isShown = true,
+                weapons = getWeaponsPreviewData(),
+                unitSystem = UnitSystem.METRIC
+            ),
+            onListDialogEvent = {},
+            dialogState = WeaponDialogState(
+                isShown = true,
+                weapon = getWeaponsPreviewData().first(),
+                unitSystem = UnitSystem.METRIC
+            ),
+            onDialogEvent = {}
         )
     }
 }
