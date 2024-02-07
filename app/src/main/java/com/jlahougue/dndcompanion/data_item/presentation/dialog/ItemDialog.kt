@@ -29,6 +29,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -88,7 +89,10 @@ fun ItemDialog(
                                     horizontal = MaterialTheme.spacing.extraSmall,
                                     vertical = MaterialTheme.spacing.small
                                 ),
-                            textStyle = MaterialTheme.typography.titleMedium
+                            textStyle = MaterialTheme.typography.titleMedium,
+                            keyboardOptions = KeyboardOptions.Default.copy(
+                                capitalization = KeyboardCapitalization.Words
+                            )
                         )
                         Spacer(modifier = Modifier.weight(1f))
                         Row(
@@ -227,6 +231,9 @@ fun ItemDialog(
                                 .fillMaxWidth()
                                 .padding(bottom = MaterialTheme.spacing.extraSmall),
                             textFieldModifier = Modifier.heightIn(min = 100.dp),
+                            keyboardOptions = KeyboardOptions.Default.copy(
+                                capitalization = KeyboardCapitalization.Sentences
+                            ),
                             maxLines = 5
                         )
                     }

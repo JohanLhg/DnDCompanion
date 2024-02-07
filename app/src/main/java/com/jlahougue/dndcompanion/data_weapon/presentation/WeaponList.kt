@@ -23,19 +23,15 @@ import com.jlahougue.dndcompanion.data_weapon.domain.model.WeaponInfo
 import com.jlahougue.dndcompanion.data_weapon.presentation.component.WeaponCard
 import com.jlahougue.dndcompanion.data_weapon.presentation.dialog.WeaponDialog
 import com.jlahougue.dndcompanion.data_weapon.presentation.dialog.WeaponDialogEvent
-import com.jlahougue.dndcompanion.data_weapon.presentation.dialog.WeaponDialogState
 import com.jlahougue.dndcompanion.data_weapon.presentation.list_dialog.WeaponListDialog
 import com.jlahougue.dndcompanion.data_weapon.presentation.list_dialog.WeaponListDialogEvent
-import com.jlahougue.dndcompanion.data_weapon.presentation.list_dialog.WeaponListDialogState
 
 @Composable
 fun WeaponList(
-    weapons: List<WeaponInfo>,
     unitSystem: UnitSystem,
+    state: WeaponState,
     onEvent: (WeaponEvent) -> Unit,
-    listDialogState: WeaponListDialogState,
     onListDialogEvent: (WeaponListDialogEvent) -> Unit,
-    dialogState: WeaponDialogState,
     onDialogEvent: (WeaponDialogEvent) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -53,7 +49,7 @@ fun WeaponList(
             columns = GridCells.Adaptive(250.dp)
         ) {
             items(
-                weapons,
+                state.weapons,
                 key = { weapon -> weapon.name }
             ) {
                 WeaponCard(
@@ -67,12 +63,12 @@ fun WeaponList(
         }
     }
     WeaponListDialog(
-        state = listDialogState,
+        state = state.listDialog,
         onEvent = onListDialogEvent,
         onWeaponEvent = onEvent
     )
     WeaponDialog(
-        state = dialogState,
+        state = state.dialog,
         onEvent = onDialogEvent
     )
 }
@@ -85,23 +81,13 @@ fun WeaponList(
 fun WeaponItemPreview() {
     DnDCompanionTheme {
         WeaponList(
-            getWeaponsPreviewData(),
             UnitSystem.METRIC,
+            state = WeaponState(weapons = getWeaponsPreviewData()),
             onEvent = {},
-            modifier = Modifier
-                .fillMaxSize(),
-            listDialogState = WeaponListDialogState(
-                isShown = true,
-                weapons = getWeaponsPreviewData(),
-                unitSystem = UnitSystem.METRIC
-            ),
             onListDialogEvent = {},
-            dialogState = WeaponDialogState(
-                isShown = true,
-                weapon = getWeaponsPreviewData().first(),
-                unitSystem = UnitSystem.METRIC
-            ),
-            onDialogEvent = {}
+            onDialogEvent = {},
+            modifier = Modifier
+                .fillMaxSize()
         )
     }
 }

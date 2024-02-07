@@ -21,33 +21,9 @@ fun NavGraphBuilder.combatSection(route: String) {
                 )
             }
         )
-        val abilities by viewModel.abilities.collectAsState()
-        val stats by viewModel.stats.collectAsState()
-        val health by viewModel.health.collectAsState()
-        val deathSaves by viewModel.deathSaves.collectAsState()
-        val tabState by viewModel.tabState.collectAsState()
-        val unitSystem by viewModel.unitSystem.collectAsState()
-        val weapons by viewModel.weapons.collectAsState()
-        val weaponListDialogState by viewModel.weaponListDialogState.collectAsState()
-        val weaponDialogState by viewModel.weaponDialogState.collectAsState()
-        val items by viewModel.items.collectAsState()
-        val itemDialogState by viewModel.itemDialogState.collectAsState()
-        val spells by viewModel.spells.collectAsState()
-        val spellDialogState by viewModel.spellDialogState.collectAsState()
+        val state by viewModel.state.collectAsState()
         CombatScreen(
-            abilities = abilities,
-            stats = stats,
-            health = health,
-            deathSaves = deathSaves,
-            tabState = tabState,
-            unitSystem = unitSystem,
-            weapons = weapons,
-            weaponListDialogState = weaponListDialogState,
-            weaponDialogState = weaponDialogState,
-            items = items,
-            itemDialogState = itemDialogState,
-            spells = spells,
-            spellDialogState = spellDialogState,
+            state = state,
             onEvent = viewModel::onEvent
         )
     }

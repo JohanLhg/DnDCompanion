@@ -11,39 +11,26 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.jlahougue.dndcompanion.core.presentation.theme.DnDCompanionTheme
-import com.jlahougue.dndcompanion.data_item.domain.model.Item
 import com.jlahougue.dndcompanion.data_item.presentation.Inventory
-import com.jlahougue.dndcompanion.data_item.presentation.dialog.ItemDialogState
-import com.jlahougue.dndcompanion.data_settings.domain.model.UnitSystem
-import com.jlahougue.dndcompanion.data_weapon.domain.model.WeaponInfo
 import com.jlahougue.dndcompanion.data_weapon.presentation.WeaponList
-import com.jlahougue.dndcompanion.data_weapon.presentation.dialog.WeaponDialogState
-import com.jlahougue.dndcompanion.data_weapon.presentation.list_dialog.WeaponListDialogState
 
 @Composable
 fun EquipmentScreen(
-    unitSystem: UnitSystem,
-    weapons: List<WeaponInfo>,
-    weaponListDialog: WeaponListDialogState,
-    weaponDialog: WeaponDialogState,
-    items: List<Item>,
-    itemDialog: ItemDialogState,
+    state: EquipmentState,
     onEvent: (EquipmentEvent) -> Unit
 ) {
     Row(
         modifier = Modifier.fillMaxSize()
     ) {
         WeaponList(
-            weapons = weapons,
-            unitSystem = unitSystem,
+            unitSystem = state.unitSystem,
+            state = state.weapons,
             onEvent = {
                 onEvent(EquipmentEvent.OnWeaponEvent(it))
             },
-            listDialogState = weaponListDialog,
             onListDialogEvent = {
                 onEvent(EquipmentEvent.OnWeaponListDialogEvent(it))
             },
-            dialogState = weaponDialog,
             onDialogEvent = {
                 onEvent(EquipmentEvent.OnWeaponDialogEvent(it))
             },
@@ -57,11 +44,10 @@ fun EquipmentScreen(
                 .width(1.dp)
         )
         Inventory(
-            items = items,
+            state = state.inventory,
             onEvent = {
                 onEvent(EquipmentEvent.OnItemEvent(it))
             },
-            dialog = itemDialog,
             onDialogEvent = {
                 onEvent(EquipmentEvent.OnItemDialogEvent(it))
             },
@@ -80,12 +66,7 @@ fun EquipmentScreen(
 fun EquipmentScreenPreview() {
     DnDCompanionTheme {
         EquipmentScreen(
-            unitSystem = UnitSystem.METRIC,
-            weapons = listOf(),
-            weaponListDialog = WeaponListDialogState(),
-            weaponDialog = WeaponDialogState(),
-            items = listOf(),
-            itemDialog = ItemDialogState(),
+            state = EquipmentState(),
             onEvent = {}
         )
     }

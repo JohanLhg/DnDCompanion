@@ -1,6 +1,6 @@
 package com.jlahougue.dndcompanion.feature_combat.presentation.component
 
-data class TabState(
-    val tabs: List<TabItem>,
-    val selectedTabIndex: Int
+open class TabState(
+    open val tabs: List<TabItem>,
+    open val selectedTabIndex: Int
 )

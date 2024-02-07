@@ -2,17 +2,11 @@ package com.jlahougue.dndcompanion.feature_equipment.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.jlahougue.dndcompanion.data_item.domain.model.Item
 import com.jlahougue.dndcompanion.data_item.presentation.ItemEvent
 import com.jlahougue.dndcompanion.data_item.presentation.dialog.ItemDialogEvent
-import com.jlahougue.dndcompanion.data_item.presentation.dialog.ItemDialogState
-import com.jlahougue.dndcompanion.data_settings.domain.model.UnitSystem
-import com.jlahougue.dndcompanion.data_weapon.domain.model.WeaponInfo
 import com.jlahougue.dndcompanion.data_weapon.presentation.WeaponEvent
 import com.jlahougue.dndcompanion.data_weapon.presentation.dialog.WeaponDialogEvent
-import com.jlahougue.dndcompanion.data_weapon.presentation.dialog.WeaponDialogState
 import com.jlahougue.dndcompanion.data_weapon.presentation.list_dialog.WeaponListDialogEvent
-import com.jlahougue.dndcompanion.data_weapon.presentation.list_dialog.WeaponListDialogState
 import com.jlahougue.dndcompanion.feature_equipment.di.IEquipmentModule
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -24,42 +18,36 @@ import kotlinx.coroutines.launch
 class EquipmentViewModel(private val module: IEquipmentModule): ViewModel() {
     private var characterId: Long = -1L
 
-    private val _unitSystem = MutableStateFlow(UnitSystem.METRIC)
-    val unitSystem = _unitSystem.asStateFlow()
-
-    private val _weapons = MutableStateFlow(listOf<WeaponInfo>())
-    val weapons = _weapons.asStateFlow()
+    private val _state = MutableStateFlow(EquipmentState())
+    val state = _state.asStateFlow()
 
     private var weaponListDialogJob: Job? = null
-    private val _weaponListDialog = MutableStateFlow(WeaponListDialogState())
-    val weaponListDialog = _weaponListDialog.asStateFlow()
-
     private var weaponDialogJob: Job? = null
-    private val _weaponDialog = MutableStateFlow(WeaponDialogState())
-    val weaponDialog = _weaponDialog.asStateFlow()
-
-    private val _items = MutableStateFlow(listOf<Item>())
-    val items = _items.asStateFlow()
-
     private var itemDialogJob: Job? = null
-    private val _itemDialog = MutableStateFlow(ItemDialogState())
-    val itemDialog = _itemDialog.asStateFlow()
 
     init {
         viewModelScope.launch(module.dispatcherProvider.io) {
             module.userInfoUseCases.getUserInfo().collectLatest { userInfo ->
                 characterId = userInfo.characterId
-                _unitSystem.update { userInfo.unitSystem }
+                _state.update { it.copy(unitSystem = userInfo.unitSystem) }
 
                 viewModelScope.launch(module.dispatcherProvider.io) {
                     module.weaponUseCases.getWeaponsOwned(characterId).collectLatest { weapons ->
-                        _weapons.update { weapons }
+                        _state.update {
+                            it.copy(
+                                weapons = it.weapons.copy(weapons = weapons)
+                            )
+                        }
                     }
                 }
 
                 viewModelScope.launch(module.dispatcherProvider.io) {
                     module.itemUseCases.getItems(characterId).collectLatest { items ->
-                        _items.update { items }
+                        _state.update {
+                            it.copy(
+                                inventory = it.inventory.copy(items = items)
+                            )
+                        }
                     }
                 }
             }
@@ -80,8 +68,12 @@ class EquipmentViewModel(private val module: IEquipmentModule): ViewModel() {
         when (event) {
             is WeaponEvent.OnWeaponClicked -> {
                 viewModelScope.launch(module.dispatcherProvider.io) {
-                    _weaponDialog.update {
-                        it.copy(isShown = true)
+                    _state.update {
+                        it.copy(
+                            weapons = it.weapons.copy(
+                                dialog = it.weapons.dialog.copy(isShown = true)
+                            )
+                        )
                     }
 
                     weaponDialogJob?.cancel()
@@ -90,8 +82,12 @@ class EquipmentViewModel(private val module: IEquipmentModule): ViewModel() {
                             characterId,
                             event.weaponName
                         ).collectLatest { weapon ->
-                            _weaponDialog.update {
-                                it.copy(weapon = weapon)
+                            _state.update {
+                                it.copy(
+                                    weapons = it.weapons.copy(
+                                        dialog = it.weapons.dialog.copy(weapon = weapon)
+                                    )
+                                )
                             }
                         }
                     }
@@ -103,40 +99,68 @@ class EquipmentViewModel(private val module: IEquipmentModule): ViewModel() {
     private fun onWeaponListDialogEvent(event: WeaponListDialogEvent) {
         when (event) {
             WeaponListDialogEvent.OnDismiss -> {
-                _weaponListDialog.update {
-                    it.copy(isShown = false)
+                _state.update {
+                    it.copy(
+                        weapons = it.weapons.copy(
+                            listDialog = it.weapons.listDialog.copy(isShown = false)
+                        )
+                    )
                 }
             }
             is WeaponListDialogEvent.OnFilterChange -> {
-                _weaponListDialog.update {
-                    it.copy(filter = event.filter)
+                _state.update {
+                    it.copy(
+                        weapons = it.weapons.copy(
+                            listDialog = it.weapons.listDialog.copy(
+                                filter = event.filter
+                            )
+                        )
+                    )
                 }
                 weaponListDialogJob?.cancel()
                 weaponListDialogJob = viewModelScope.launch(module.dispatcherProvider.io) {
                     module.weaponUseCases.getWeapons(
                         characterId,
-                        weaponListDialog.value.search,
+                        state.value.weapons.listDialog.search,
                         event.filter.value
                     ).collectLatest { weapons ->
-                        _weaponListDialog.update {
-                            it.copy(weapons = weapons)
+                        _state.update {
+                            it.copy(
+                                weapons = it.weapons.copy(
+                                    listDialog = it.weapons.listDialog.copy(
+                                        weapons = weapons
+                                    )
+                                )
+                            )
                         }
                     }
                 }
             }
             is WeaponListDialogEvent.OnSearchChange -> {
-                _weaponListDialog.update {
-                    it.copy(search = event.search)
+                _state.update {
+                    it.copy(
+                        weapons = it.weapons.copy(
+                            listDialog = it.weapons.listDialog.copy(
+                                search = event.search
+                            )
+                        )
+                    )
                 }
                 weaponListDialogJob?.cancel()
                 viewModelScope.launch(module.dispatcherProvider.io) {
                     module.weaponUseCases.getWeapons(
                         characterId,
                         event.search,
-                        weaponListDialog.value.filter.value
+                        state.value.weapons.listDialog.filter.value
                     ).collectLatest { weapons ->
-                        _weaponListDialog.update {
-                            it.copy(weapons = weapons)
+                        _state.update {
+                            it.copy(
+                                weapons = it.weapons.copy(
+                                    listDialog = it.weapons.listDialog.copy(
+                                        weapons = weapons
+                                    )
+                                )
+                            )
                         }
                     }
                 }
@@ -147,8 +171,12 @@ class EquipmentViewModel(private val module: IEquipmentModule): ViewModel() {
     private fun onWeaponDialogEvent(event: WeaponDialogEvent) {
         when (event) {
             WeaponDialogEvent.OnDismiss -> {
-                _weaponDialog.update {
-                    it.copy(isShown = false)
+                _state.update {
+                    it.copy(
+                        weapons = it.weapons.copy(
+                            dialog = it.weapons.dialog.copy(isShown = false)
+                        )
+                    )
                 }
             }
             is WeaponDialogEvent.OnCountChange -> {
@@ -168,8 +196,12 @@ class EquipmentViewModel(private val module: IEquipmentModule): ViewModel() {
         when (event) {
             is ItemEvent.OnItemClicked -> {
                 viewModelScope.launch(module.dispatcherProvider.io) {
-                    _itemDialog.update {
-                        it.copy(isShown = true)
+                    _state.update {
+                        it.copy(
+                            inventory = it.inventory.copy(
+                                dialog = it.inventory.dialog.copy(isShown = true)
+                            )
+                        )
                     }
 
                     itemDialogJob?.cancel()
@@ -178,8 +210,12 @@ class EquipmentViewModel(private val module: IEquipmentModule): ViewModel() {
                             characterId,
                             event.itemId
                         ).collectLatest { item ->
-                            _itemDialog.update {
-                                it.copy(item = item)
+                            _state.update {
+                                it.copy(
+                                    inventory = it.inventory.copy(
+                                        dialog = it.inventory.dialog.copy(item = item)
+                                    )
+                                )
                             }
                         }
                     }
@@ -197,8 +233,12 @@ class EquipmentViewModel(private val module: IEquipmentModule): ViewModel() {
     private fun onItemDialogEvent(event: ItemDialogEvent) {
         when (event) {
             ItemDialogEvent.OnDismiss -> {
-                _itemDialog.update {
-                    it.copy(isShown = false)
+                _state.update {
+                    it.copy(
+                        inventory = it.inventory.copy(
+                            dialog = it.inventory.dialog.copy(isShown = false)
+                        )
+                    )
                 }
             }
             is ItemDialogEvent.OnCostChanged -> {
