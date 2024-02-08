@@ -31,7 +31,7 @@ interface WeaponLocalDataSource {
     @Transaction
     @Query("""
         SELECT
-            cw.cid AS cid,
+            :characterId AS cid,
             w.weapon_name AS weapon_name,
             COALESCE(cw.count, 0) AS count,
             COALESCE(cw.proficiency, 0) AS proficiency,
@@ -67,7 +67,7 @@ interface WeaponLocalDataSource {
     @Transaction
     @Query("""
         SELECT
-            cw.cid AS cid,
+            :characterId AS cid,
             w.weapon_name AS weapon_name,
             cw.count AS count,
             cw.proficiency AS proficiency,
@@ -103,7 +103,7 @@ interface WeaponLocalDataSource {
     @Transaction
     @Query("""
         SELECT
-            cw.cid AS cid,
+            :characterId AS cid,
             w.weapon_name AS weapon_name,
             cw.count AS count,
             cw.proficiency AS proficiency,

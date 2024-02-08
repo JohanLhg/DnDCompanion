@@ -16,6 +16,7 @@ import com.jlahougue.dndcompanion.data_stats.presentation.StatsEvent
 import com.jlahougue.dndcompanion.data_weapon.presentation.WeaponEvent
 import com.jlahougue.dndcompanion.data_weapon.presentation.dialog.WeaponDialogEvent
 import com.jlahougue.dndcompanion.data_weapon.presentation.list_dialog.WeaponListDialogEvent
+import com.jlahougue.dndcompanion.data_weapon.presentation.list_dialog.WeaponListDialogState
 import com.jlahougue.dndcompanion.feature_combat.di.ICombatModule
 import com.jlahougue.dndcompanion.feature_combat.presentation.component.TabItem
 import kotlinx.coroutines.Job
@@ -278,6 +279,40 @@ class CombatViewModel(
                     }
                 }
             }
+            is WeaponEvent.OnAddWeaponClicked -> {
+                _state.update {
+                    it.copy(
+                        tab = it.tab.copy(
+                            weapons = it.tab.weapons.copy(
+                                listDialog = it.tab.weapons.listDialog.copy(
+                                    isShown = true
+                                )
+                            )
+                        )
+                    )
+                }
+
+                weaponListDialogJob?.cancel()
+                weaponListDialogJob = viewModelScope.launch(module.dispatcherProvider.io) {
+                    module.weaponUseCases.getWeapons(
+                        characterId,
+                        state.value.tab.weapons.listDialog.search,
+                        state.value.tab.weapons.listDialog.filter.value
+                    ).collectLatest { weapons ->
+                        _state.update {
+                            it.copy(
+                                tab = it.tab.copy(
+                                    weapons = it.tab.weapons.copy(
+                                        listDialog = it.tab.weapons.listDialog.copy(
+                                            weapons = weapons
+                                        )
+                                    )
+                                )
+                            )
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -297,23 +332,27 @@ class CombatViewModel(
                 }
             }
             is WeaponListDialogEvent.OnFilterChange -> {
+                val filter = if (state.value.tab.weapons.listDialog.filter == event.filter)
+                    WeaponListDialogState.Filter.ALL
+                else event.filter
                 _state.update {
                     it.copy(
                         tab = it.tab.copy(
                             weapons = it.tab.weapons.copy(
                                 listDialog = it.tab.weapons.listDialog.copy(
-                                    filter = event.filter
+                                    filter = filter
                                 )
                             )
                         )
                     )
                 }
+
                 weaponListDialogJob?.cancel()
                 weaponListDialogJob = viewModelScope.launch(module.dispatcherProvider.io) {
                     module.weaponUseCases.getWeapons(
                         characterId,
                         state.value.tab.weapons.listDialog.search,
-                        event.filter.value
+                        filter.value
                     ).collectLatest { weapons ->
                         _state.update {
                             it.copy(

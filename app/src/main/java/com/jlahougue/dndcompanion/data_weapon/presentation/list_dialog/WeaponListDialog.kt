@@ -6,6 +6,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -34,6 +35,7 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 import com.jlahougue.dndcompanion.R
 import com.jlahougue.dndcompanion.core.domain.util.extension.asDp
 import com.jlahougue.dndcompanion.core.presentation.components.CustomSearchBar
@@ -57,10 +59,23 @@ fun WeaponListDialog(
     Dialog(
         onDismissRequest = {
             onEvent(WeaponListDialogEvent.OnDismiss)
-        }
+        },
+        properties = DialogProperties(
+            usePlatformDefaultWidth = false
+        )
     ) {
         Card(
             modifier = Modifier
+                .fillMaxWidth()
+                .clickable(
+                    interactionSource = remember { MutableInteractionSource() },
+                    indication = null,
+                    onClick = {
+                        onEvent(WeaponListDialogEvent.OnDismiss)
+                    }
+                )
+                .padding(MaterialTheme.spacing.extraLarge)
+                .clickable(enabled = false) { }
                 .border(
                     width = 1.dp,
                     color = MaterialTheme.colorScheme.primary,
@@ -159,7 +174,7 @@ fun WeaponListDialog(
                                 onClick = {
                                     onEvent(
                                         WeaponListDialogEvent.OnFilterChange(
-                                            WeaponListDialogState.Filter.RANGED
+                                            WeaponListDialogState.Filter.MAGIC
                                         )
                                     )
                                 },
@@ -169,7 +184,7 @@ fun WeaponListDialog(
                 }
                 Divider()
                 LazyVerticalGrid(
-                    columns = GridCells.Adaptive(250.dp)
+                    columns = GridCells.Adaptive(300.dp)
                 ) {
                     items(
                         weapons,

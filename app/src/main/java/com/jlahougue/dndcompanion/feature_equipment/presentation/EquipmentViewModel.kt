@@ -7,6 +7,7 @@ import com.jlahougue.dndcompanion.data_item.presentation.dialog.ItemDialogEvent
 import com.jlahougue.dndcompanion.data_weapon.presentation.WeaponEvent
 import com.jlahougue.dndcompanion.data_weapon.presentation.dialog.WeaponDialogEvent
 import com.jlahougue.dndcompanion.data_weapon.presentation.list_dialog.WeaponListDialogEvent
+import com.jlahougue.dndcompanion.data_weapon.presentation.list_dialog.WeaponListDialogState
 import com.jlahougue.dndcompanion.feature_equipment.di.IEquipmentModule
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -93,6 +94,36 @@ class EquipmentViewModel(private val module: IEquipmentModule): ViewModel() {
                     }
                 }
             }
+            is WeaponEvent.OnAddWeaponClicked -> {
+                viewModelScope.launch(module.dispatcherProvider.io) {
+                    _state.update {
+                        it.copy(
+                            weapons = it.weapons.copy(
+                                listDialog = it.weapons.listDialog.copy(isShown = true)
+                            )
+                        )
+                    }
+
+                    weaponListDialogJob?.cancel()
+                    weaponListDialogJob = viewModelScope.launch(module.dispatcherProvider.io) {
+                        module.weaponUseCases.getWeapons(
+                            characterId,
+                            state.value.weapons.listDialog.search,
+                            state.value.weapons.listDialog.filter.value
+                        ).collectLatest { weapons ->
+                            _state.update {
+                                it.copy(
+                                    weapons = it.weapons.copy(
+                                        listDialog = it.weapons.listDialog.copy(
+                                            weapons = weapons
+                                        )
+                                    )
+                                )
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -108,11 +139,14 @@ class EquipmentViewModel(private val module: IEquipmentModule): ViewModel() {
                 }
             }
             is WeaponListDialogEvent.OnFilterChange -> {
+                val filter = if (event.filter == state.value.weapons.listDialog.filter)
+                    WeaponListDialogState.Filter.ALL
+                else event.filter
                 _state.update {
                     it.copy(
                         weapons = it.weapons.copy(
                             listDialog = it.weapons.listDialog.copy(
-                                filter = event.filter
+                                filter = filter
                             )
                         )
                     )
@@ -122,7 +156,7 @@ class EquipmentViewModel(private val module: IEquipmentModule): ViewModel() {
                     module.weaponUseCases.getWeapons(
                         characterId,
                         state.value.weapons.listDialog.search,
-                        event.filter.value
+                        filter.value
                     ).collectLatest { weapons ->
                         _state.update {
                             it.copy(
