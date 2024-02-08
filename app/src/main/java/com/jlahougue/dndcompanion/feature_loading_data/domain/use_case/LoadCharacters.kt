@@ -11,6 +11,7 @@ import com.jlahougue.dndcompanion.data_character_sheet.domain.repository.ICharac
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellSlot
 import com.jlahougue.dndcompanion.data_character_spell.domain.repository.ICharacterSpellRepository
 import com.jlahougue.dndcompanion.data_health.domain.repository.IHealthRepository
+import com.jlahougue.dndcompanion.data_item.domain.repository.IItemRepository
 import com.jlahougue.dndcompanion.data_skill.domain.repository.ISkillRepository
 import com.jlahougue.dndcompanion.data_stats.domain.repository.IStatsRepository
 import com.jlahougue.dndcompanion.data_weapon.domain.repository.IWeaponRepository
@@ -26,7 +27,8 @@ class LoadCharacters(
     private val statsRepository: IStatsRepository,
     private val healthRepository: IHealthRepository,
     private val characterSpellRepository: ICharacterSpellRepository,
-    private val weaponRepository: IWeaponRepository
+    private val weaponRepository: IWeaponRepository,
+    private val itemRepository: IItemRepository
 ) : LoadFromRemote(UiText.StringResource(R.string.loading_characters)) {
 
     override fun invoke() {
@@ -63,6 +65,7 @@ class LoadCharacters(
                             )
                             characterSpellRepository.saveToLocal(characterSheet.spells.values.toList())
                             weaponRepository.saveToLocal(characterSheet.weapons.values.toList())
+                            itemRepository.saveToLocal(characterSheet.items.values.toList())
                             noneExist = false
                         }
                         onApiEvent(ApiEvent.UpdateProgress)

@@ -10,9 +10,9 @@ import com.jlahougue.dndcompanion.data_currency.domain.model.Currency
 )
 data class Item(
     @ColumnInfo(name = ITEM_CID)
-    val cid: Long,
+    val cid: Long = 0,
     @ColumnInfo(name = ITEM_ID)
-    var id: Long = -1L,
+    var id: Long = 0,
     @ColumnInfo(name = ITEM_QUANTITY)
     val quantity: Int = 1,
     @ColumnInfo(name = ITEM_NAME)
@@ -36,5 +36,9 @@ data class Item(
         const val ITEM_COST = "cost"
         const val ITEM_COST_CURRENCY = "currency"
         const val ITEM_WEIGHT = "weight"
+    }
+
+    override fun toString(): String {
+        return "$id - $quantity x $name \n$description"
     }
 }

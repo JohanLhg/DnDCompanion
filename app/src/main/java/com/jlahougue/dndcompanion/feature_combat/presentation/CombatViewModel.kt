@@ -456,6 +456,11 @@ class CombatViewModel(
                     )
                 }
             }
+            is ItemDialogEvent.OnDelete -> {
+                viewModelScope.launch(module.dispatcherProvider.io) {
+                    module.itemUseCases.deleteItem(event.item)
+                }
+            }
             is ItemDialogEvent.OnQuantityChanged -> {
                 viewModelScope.launch(module.dispatcherProvider.io) {
                     module.itemUseCases.saveItem(

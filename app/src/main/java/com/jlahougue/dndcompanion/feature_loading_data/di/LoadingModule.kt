@@ -8,6 +8,7 @@ import com.jlahougue.dndcompanion.data_character_spell.domain.repository.ICharac
 import com.jlahougue.dndcompanion.data_class.domain.repository.IClassRepository
 import com.jlahougue.dndcompanion.data_damage_type.domain.repository.IDamageTypeRepository
 import com.jlahougue.dndcompanion.data_health.domain.repository.IHealthRepository
+import com.jlahougue.dndcompanion.data_item.domain.repository.IItemRepository
 import com.jlahougue.dndcompanion.data_property.domain.repository.IPropertyRepository
 import com.jlahougue.dndcompanion.data_skill.domain.repository.ISkillRepository
 import com.jlahougue.dndcompanion.data_spell.domain.repository.ISpellRepository
@@ -34,7 +35,8 @@ class LoadingModule(
     private val characterSpellRepository: ICharacterSpellRepository,
     private val spellRepository: ISpellRepository,
     private val propertyRepository: IPropertyRepository,
-    private val weaponRepository: IWeaponRepository
+    private val weaponRepository: IWeaponRepository,
+    private val itemRepository: IItemRepository
 ) : ILoadingModule {
 
     private val loadClasses by lazy {
@@ -78,7 +80,8 @@ class LoadingModule(
             statsRepository,
             healthRepository,
             characterSpellRepository,
-            weaponRepository
+            weaponRepository,
+            itemRepository
         )
     }
 

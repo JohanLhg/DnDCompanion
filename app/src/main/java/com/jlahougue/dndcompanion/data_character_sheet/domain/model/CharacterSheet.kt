@@ -5,6 +5,7 @@ import com.jlahougue.dndcompanion.data_character.domain.model.Character
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.CharacterSpell
 import com.jlahougue.dndcompanion.data_health.domain.model.DeathSaves
 import com.jlahougue.dndcompanion.data_health.domain.model.Health
+import com.jlahougue.dndcompanion.data_item.domain.model.Item
 import com.jlahougue.dndcompanion.data_skill.domain.model.Skill
 import com.jlahougue.dndcompanion.data_stats.domain.model.Stats
 import com.jlahougue.dndcompanion.data_weapon.domain.model.CharacterWeapon
@@ -18,7 +19,8 @@ data class CharacterSheet(
     var deathSaves: DeathSaves? = null,
     var spellSlots: Map<String, Int> = mapOf(),
     var spells: Map<String, CharacterSpell> = mapOf(),
-    var weapons: Map<String, CharacterWeapon> = mapOf()
+    var weapons: Map<String, CharacterWeapon> = mapOf(),
+    var items: Map<String, Item> = mapOf()
 ) {
     val id: Long
         get() = character?.id ?: 0
@@ -44,6 +46,8 @@ data class CharacterSheet(
                 ${spells.forEach { it.toString() }}
                 Weapons:
                 ${weapons.forEach { it.toString() }}
+                Items:
+                ${items.forEach { it.toString() }}
             """.trimIndent()
     }
 }

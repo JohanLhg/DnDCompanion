@@ -241,6 +241,11 @@ class EquipmentViewModel(private val module: IEquipmentModule): ViewModel() {
                     )
                 }
             }
+            is ItemDialogEvent.OnDelete -> {
+                viewModelScope.launch(module.dispatcherProvider.io) {
+                    module.itemUseCases.deleteItem(event.item)
+                }
+            }
             is ItemDialogEvent.OnCostChanged -> {
                 viewModelScope.launch(module.dispatcherProvider.io) {
                     module.itemUseCases.saveItem(
