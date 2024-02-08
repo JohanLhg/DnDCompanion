@@ -174,7 +174,8 @@ class DnDCompanionApp: Application() {
             characterSpellModule.characterSpellRepository,
             spellModule.spellRepository,
             propertyModule.propertyRepository,
-            weaponModule.weaponRepository
+            weaponModule.weaponRepository,
+            itemModule.repository
         )
         characterSelectionModule = CharacterSelectionModule(
             appModule.dispatcherProvider,

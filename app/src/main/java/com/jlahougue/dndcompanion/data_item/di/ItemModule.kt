@@ -6,6 +6,7 @@ import com.jlahougue.dndcompanion.core.domain.util.dispatcherProvider.Dispatcher
 import com.jlahougue.dndcompanion.data_item.data.repository.ItemRepository
 import com.jlahougue.dndcompanion.data_item.domain.repository.IItemRepository
 import com.jlahougue.dndcompanion.data_item.domain.use_case.CreateItem
+import com.jlahougue.dndcompanion.data_item.domain.use_case.DeleteItem
 import com.jlahougue.dndcompanion.data_item.domain.use_case.GetItem
 import com.jlahougue.dndcompanion.data_item.domain.use_case.GetItems
 import com.jlahougue.dndcompanion.data_item.domain.use_case.ItemUseCases
@@ -33,6 +34,10 @@ class ItemModule(
                 repository
             ),
             saveItem = SaveItem(
+                dispatcherProvider,
+                repository
+            ),
+            deleteItem = DeleteItem(
                 dispatcherProvider,
                 repository
             )

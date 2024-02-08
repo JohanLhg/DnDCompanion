@@ -1,6 +1,7 @@
 package com.jlahougue.dndcompanion.data_item.data.source.local
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -15,6 +16,9 @@ interface ItemLocalDataSource {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(items: List<Item>)
+
+    @Delete
+    suspend fun delete(item: Item)
 
     @Query("SELECT MAX(id) FROM item WHERE cid = :characterId")
     suspend fun getLastId(characterId: Long): Long

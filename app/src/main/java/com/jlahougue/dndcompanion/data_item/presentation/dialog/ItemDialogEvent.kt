@@ -5,6 +5,7 @@ import com.jlahougue.dndcompanion.data_item.domain.model.Item
 
 sealed class ItemDialogEvent {
     data object OnDismiss : ItemDialogEvent()
+    data class OnDelete(val item: Item) : ItemDialogEvent()
     data class OnQuantityChanged(val item: Item, val quantity: Int) : ItemDialogEvent()
     data class OnNameChanged(val item: Item, val name: String) : ItemDialogEvent()
     data class OnCostChanged(val item: Item, val cost: Int) : ItemDialogEvent()
