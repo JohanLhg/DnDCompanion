@@ -1,5 +1,6 @@
 package com.jlahougue.dndcompanion.feature_equipment.presentation
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,6 +12,8 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.jlahougue.dndcompanion.core.presentation.theme.DnDCompanionTheme
+import com.jlahougue.dndcompanion.data_currency.domain.model.Money
+import com.jlahougue.dndcompanion.data_currency.presentation.MoneyBox
 import com.jlahougue.dndcompanion.data_item.presentation.Inventory
 import com.jlahougue.dndcompanion.data_weapon.presentation.WeaponList
 
@@ -43,18 +46,24 @@ fun EquipmentScreen(
                 .fillMaxHeight()
                 .width(1.dp)
         )
-        Inventory(
-            state = state.inventory,
-            onEvent = {
-                onEvent(EquipmentEvent.OnItemEvent(it))
-            },
-            onDialogEvent = {
-                onEvent(EquipmentEvent.OnItemDialogEvent(it))
-            },
+        Column(
             modifier = Modifier
                 .weight(1f)
                 .fillMaxHeight()
-        )
+        ) {
+            MoneyBox(money = Money(copperPieces = 78536), onEvent = {})
+            Inventory(
+                state = state.inventory,
+                onEvent = {
+                    onEvent(EquipmentEvent.OnItemEvent(it))
+                },
+                onDialogEvent = {
+                    onEvent(EquipmentEvent.OnItemDialogEvent(it))
+                },
+                modifier = Modifier
+                    .fillMaxHeight()
+            )
+        }
     }
 }
 
