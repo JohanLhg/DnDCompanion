@@ -7,8 +7,14 @@
     <string name="quota">%d/%d</string>
     <string name="edit">Edit</string>
     <string name="done">Done</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
     <string name="search">Search…</string>
     <string name="clear">Clear</string>
+
+    <string name="add">Add</string>
+    <string name="subtract">Subtract</string>
+    <string name="set">Set</string>
 
     <!-- Health -->
     <string name="health">Health</string>
@@ -72,6 +78,7 @@
     <string name="stats_speed">Speed</string>
 
     <!-- Currency -->
+    <string name="money">Money</string>
     <string name="traditional_currencies">Traditional currencies</string>
     <string name="other_currencies">Other currencies</string>
 
@@ -81,13 +88,13 @@
     <string name="platinum_pieces_value">%dpp</string>
 
     <string name="copper_pieces">Copper Pieces</string>
-    <string name="copper_pieces_short">%d CP</string>
+    <string name="copper_pieces_short">CP</string>
     <string name="silver_pieces">Silver Pieces</string>
-    <string name="silver_pieces_short">%d SP</string>
+    <string name="silver_pieces_short">SP</string>
     <string name="gold_pieces">Gold Pieces</string>
-    <string name="gold_pieces_short">%d GP</string>
+    <string name="gold_pieces_short">GP</string>
     <string name="platinum_pieces">Platinum Pieces</string>
-    <string name="platinum_pieces_short">%d PP</string>
+    <string name="platinum_pieces_short">PP</string>
 
     <!-- Inventory -->
     <string name="inventory">Inventory</string>

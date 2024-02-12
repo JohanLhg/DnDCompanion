@@ -22,7 +22,7 @@ enum class Currency(
     SILVER(
         UiText.StringResource(R.string.silver_pieces),
         UiText.StringResource(R.string.silver_pieces_short),
-        0xFFC0C0C0
+        0xFF5E5E5E
     ) {
         override fun toDisplayedValue(value: Int): Int {
             return (value % 100).floorDiv(10)
@@ -40,7 +40,7 @@ enum class Currency(
     PLATINUM(
         UiText.StringResource(R.string.platinum_pieces),
         UiText.StringResource(R.string.platinum_pieces_short),
-        0xFFE5E4E2
+        0xFFC0C0C0
     ) {
         override fun toDisplayedValue(value: Int): Int {
             return value.floorDiv(1000)
@@ -50,9 +50,9 @@ enum class Currency(
     open fun toDisplayedValue(value: Int) = value
 
     @Composable
-    fun getString(value: Int) = shortLabel.getString(toDisplayedValue(value))
+    fun getString(value: Int) = "${toDisplayedValue(value)} ${shortLabel.getString()}"
 
-    fun getString(context: Context, value: Int) = shortLabel.getString(context, toDisplayedValue(value))
+    fun getString(context: Context, value: Int) = "${toDisplayedValue(value)} ${shortLabel.getString(context)}"
 
     companion object {
         fun from(findValue: String) =
