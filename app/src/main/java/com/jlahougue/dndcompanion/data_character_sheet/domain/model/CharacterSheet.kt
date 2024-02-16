@@ -3,6 +3,7 @@ package com.jlahougue.dndcompanion.data_character_sheet.domain.model
 import com.jlahougue.dndcompanion.data_ability.domain.model.Ability
 import com.jlahougue.dndcompanion.data_character.domain.model.Character
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.CharacterSpell
+import com.jlahougue.dndcompanion.data_currency.domain.model.Money
 import com.jlahougue.dndcompanion.data_health.domain.model.DeathSaves
 import com.jlahougue.dndcompanion.data_health.domain.model.Health
 import com.jlahougue.dndcompanion.data_item.domain.model.Item
@@ -17,6 +18,7 @@ data class CharacterSheet(
     var stats: Stats? = null,
     var health: Health? = null,
     var deathSaves: DeathSaves? = null,
+    var money: Money? = null,
     var spellSlots: Map<String, Int> = mapOf(),
     var spells: Map<String, CharacterSpell> = mapOf(),
     var weapons: Map<String, CharacterWeapon> = mapOf(),
@@ -40,6 +42,8 @@ data class CharacterSheet(
                 $health
                 Death Saves:
                 $deathSaves
+                Money:
+                $money
                 Spell Slots:
                 ${spellSlots.forEach { it.toString() }}
                 Spells:

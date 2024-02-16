@@ -2,6 +2,10 @@ package com.jlahougue.dndcompanion.feature_equipment.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.jlahougue.dndcompanion.data_currency.domain.model.Currency
+import com.jlahougue.dndcompanion.data_currency.presentation.MoneyEvent
+import com.jlahougue.dndcompanion.data_currency.presentation.dialog.MoneyDialogEvent
+import com.jlahougue.dndcompanion.data_currency.presentation.dialog.MoneyDialogState
 import com.jlahougue.dndcompanion.data_item.presentation.ItemEvent
 import com.jlahougue.dndcompanion.data_item.presentation.dialog.ItemDialogEvent
 import com.jlahougue.dndcompanion.data_weapon.presentation.WeaponEvent
@@ -43,6 +47,16 @@ class EquipmentViewModel(private val module: IEquipmentModule): ViewModel() {
                 }
 
                 viewModelScope.launch(module.dispatcherProvider.io) {
+                    module.moneyUseCases.getMoney(characterId).collectLatest { money ->
+                        _state.update {
+                            it.copy(
+                                money = it.money.copy(money = money)
+                            )
+                        }
+                    }
+                }
+
+                viewModelScope.launch(module.dispatcherProvider.io) {
                     module.itemUseCases.getItems(characterId).collectLatest { items ->
                         _state.update {
                             it.copy(
@@ -60,6 +74,8 @@ class EquipmentViewModel(private val module: IEquipmentModule): ViewModel() {
             is EquipmentEvent.OnWeaponEvent -> onWeaponEvent(event.event)
             is EquipmentEvent.OnWeaponListDialogEvent -> onWeaponListDialogEvent(event.event)
             is EquipmentEvent.OnWeaponDialogEvent -> onWeaponDialogEvent(event.event)
+            is EquipmentEvent.OnMoneyEvent -> onMoneyEvent(event.event)
+            is EquipmentEvent.OnMoneyDialogEvent -> onMoneyDialogEvent(event.event)
             is EquipmentEvent.OnItemEvent -> onItemEvent(event.event)
             is EquipmentEvent.OnItemDialogEvent -> onItemDialogEvent(event.event)
         }
@@ -223,6 +239,129 @@ class EquipmentViewModel(private val module: IEquipmentModule): ViewModel() {
                 }
             }
             is WeaponDialogEvent.OnPropertyClick -> TODO()
+        }
+    }
+
+    private fun onMoneyEvent(event: MoneyEvent) {
+        when (event) {
+            is MoneyEvent.OnOtherCurrenciesChanged -> {
+                viewModelScope.launch(module.dispatcherProvider.io) {
+                    module.moneyUseCases.saveMoney(
+                        event.money.copy(
+                            otherCurrencies = event.otherCurrencies
+                        )
+                    )
+                }
+            }
+            MoneyEvent.OnDialogOpen -> {
+                _state.update {
+                    it.copy(
+                        money = it.money.copy(
+                            dialog = it.money.dialog.copy(
+                                isShown = true,
+                                copperPieces = Currency.COPPER.toDisplayedValue(it.money.money.copperPieces),
+                                silverPieces = Currency.SILVER.toDisplayedValue(it.money.money.copperPieces),
+                                goldPieces = Currency.GOLD.toDisplayedValue(it.money.money.copperPieces),
+                                platinumPieces = Currency.PLATINUM.toDisplayedValue(it.money.money.copperPieces)
+                            )
+                        )
+                    )
+                }
+            }
+        }
+    }
+
+    private fun onMoneyDialogEvent(event: MoneyDialogEvent) {
+        _state.update { state ->
+            val dialog = when (event) {
+                MoneyDialogEvent.OnDismiss -> {
+                    state.money.dialog.copy(
+                        isShown = false
+                    )
+                }
+                is MoneyDialogEvent.OnTypeChanged -> {
+                    if (event.type == MoneyDialogState.MoneyDialogType.SET) {
+                        state.money.dialog.copy(
+                            type = event.type,
+                            copperPieces = Currency.COPPER.toDisplayedValue(state.money.money.copperPieces),
+                            silverPieces = Currency.SILVER.toDisplayedValue(state.money.money.copperPieces),
+                            goldPieces = Currency.GOLD.toDisplayedValue(state.money.money.copperPieces),
+                            platinumPieces = Currency.PLATINUM.toDisplayedValue(state.money.money.copperPieces)
+                        )
+                    }
+                    else {
+                        if (state.money.dialog.type == MoneyDialogState.MoneyDialogType.SET) {
+                            state.money.dialog.copy(
+                                type = event.type,
+                                copperPieces = 0,
+                                silverPieces = 0,
+                                goldPieces = 0,
+                                platinumPieces = 0
+                            )
+                        }
+                        else {
+                            state.money.dialog.copy(
+                                type = event.type
+                            )
+                        }
+                    }
+                }
+                is MoneyDialogEvent.OnCopperPiecesChanged -> {
+                    state.money.dialog.copy(
+                        copperPieces = event.copperPieces
+                    )
+                }
+                is MoneyDialogEvent.OnSilverPiecesChanged -> {
+                    state.money.dialog.copy(
+                        silverPieces = event.silverPieces
+                    )
+                }
+                is MoneyDialogEvent.OnGoldPiecesChanged -> {
+                    state.money.dialog.copy(
+                        goldPieces = event.goldPieces
+                    )
+                }
+                is MoneyDialogEvent.OnPlatinumPiecesChanged -> {
+                    state.money.dialog.copy(
+                        platinumPieces = event.platinumPieces
+                    )
+                }
+                MoneyDialogEvent.OnClear -> {
+                    state.money.dialog.copy(
+                        copperPieces = 0,
+                        silverPieces = 0,
+                        goldPieces = 0,
+                        platinumPieces = 0
+                    )
+                }
+                MoneyDialogEvent.OnConfirm -> {
+                    viewModelScope.launch(module.dispatcherProvider.io) {
+                        var amount = state.money.dialog.copperPieces +
+                                state.money.dialog.silverPieces * 10 +
+                                state.money.dialog.goldPieces * 100 +
+                                state.money.dialog.platinumPieces * 1000
+
+                        when (state.money.dialog.type) {
+                            MoneyDialogState.MoneyDialogType.ADD -> amount += state.money.money.copperPieces
+                            MoneyDialogState.MoneyDialogType.SUBTRACT -> amount = state.money.money.copperPieces - amount
+                            MoneyDialogState.MoneyDialogType.SET -> Unit
+                        }
+
+                        module.moneyUseCases.saveMoney(
+                            state.money.money.copy(
+                                copperPieces = amount.coerceAtLeast(0)
+                            )
+                        )
+                    }
+                    MoneyDialogState()
+                }
+            }
+
+            state.copy(
+                money = state.money.copy(
+                    dialog = dialog
+                )
+            )
         }
     }
 

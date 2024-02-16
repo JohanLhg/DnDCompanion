@@ -1,19 +1,25 @@
 package com.jlahougue.dndcompanion.data_currency.presentation.dialog
 
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
+import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -23,13 +29,17 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 import com.jlahougue.dndcompanion.R
 import com.jlahougue.dndcompanion.core.presentation.theme.DnDCompanionTheme
 import com.jlahougue.dndcompanion.core.presentation.theme.spacing
@@ -43,9 +53,13 @@ fun MoneyDialog(
     onEvent: (MoneyDialogEvent) -> Unit
 ) {
     if (!state.isShown) return
-
     Dialog(
-        onDismissRequest = { onEvent(MoneyDialogEvent.OnDismiss) }
+        onDismissRequest = {
+            onEvent(MoneyDialogEvent.OnDismiss)
+        },
+        properties = DialogProperties(
+            usePlatformDefaultWidth = false
+        )
     ) {
         Card(
             modifier = Modifier
@@ -65,13 +79,36 @@ fun MoneyDialog(
             )
         ) {
             Column {
-                Text(
-                    text = stringResource(id = R.string.money).uppercase(),
-                    style = MaterialTheme.typography.titleMedium,
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier
-                        .padding(vertical = MaterialTheme.spacing.small)
-                        .padding(horizontal = MaterialTheme.spacing.extraSmall)
-                )
+                        .padding(horizontal = MaterialTheme.spacing.small)
+                ) {
+                    Text(
+                        text = stringResource(id = R.string.money).uppercase(),
+                        style = MaterialTheme.typography.titleMedium,
+                        modifier = Modifier
+                            .padding(vertical = MaterialTheme.spacing.small)
+                            .padding(horizontal = MaterialTheme.spacing.extraSmall)
+                    )
+                    Spacer(modifier = Modifier.weight(1f))
+                    val focusManager = LocalFocusManager.current
+                    Icon(
+                        imageVector = Icons.Default.Refresh,
+                        contentDescription = stringResource(id = R.string.clear),
+                        modifier = Modifier
+                            .size(35.dp)
+                            .clickable(
+                                interactionSource = remember { MutableInteractionSource() },
+                                indication = rememberRipple(bounded = false),
+                                onClick = {
+                                    focusManager.clearFocus()
+                                    onEvent(MoneyDialogEvent.OnClear)
+                                }
+                            )
+                            .padding(MaterialTheme.spacing.extraSmall)
+                    )
+                }
                 Divider()
                 Row(
                     horizontalArrangement = Arrangement.Center,
@@ -114,7 +151,7 @@ fun MoneyDialog(
                             value = state.copperPieces.toString(),
                             onValueChange = {
                                 onEvent(
-                                    MoneyDialogEvent.OnCopperPiecesChanged(it.toInt())
+                                    MoneyDialogEvent.OnCopperPiecesChanged(it.toIntOrNull() ?: 0)
                                 )
                             },
                             currency = Currency.COPPER
@@ -123,7 +160,7 @@ fun MoneyDialog(
                             value = state.silverPieces.toString(),
                             onValueChange = {
                                 onEvent(
-                                    MoneyDialogEvent.OnSilverPiecesChanged(it.toInt())
+                                    MoneyDialogEvent.OnSilverPiecesChanged(it.toIntOrNull() ?: 0)
                                 )
                             },
                             currency = Currency.SILVER
@@ -137,7 +174,7 @@ fun MoneyDialog(
                             value = state.goldPieces.toString(),
                             onValueChange = {
                                 onEvent(
-                                    MoneyDialogEvent.OnGoldPiecesChanged(it.toInt())
+                                    MoneyDialogEvent.OnGoldPiecesChanged(it.toIntOrNull() ?: 0)
                                 )
                             },
                             currency = Currency.GOLD
@@ -146,7 +183,7 @@ fun MoneyDialog(
                             value = state.platinumPieces.toString(),
                             onValueChange = {
                                 onEvent(
-                                    MoneyDialogEvent.OnPlatinumPiecesChanged(it.toInt())
+                                    MoneyDialogEvent.OnPlatinumPiecesChanged(it.toIntOrNull() ?: 0)
                                 )
                             },
                             currency = Currency.PLATINUM

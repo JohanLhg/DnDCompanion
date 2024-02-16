@@ -17,6 +17,8 @@ import com.jlahougue.dndcompanion.data_character_spell.di.CharacterSpellModule
 import com.jlahougue.dndcompanion.data_character_spell.di.ICharacterSpellModule
 import com.jlahougue.dndcompanion.data_class.di.ClassModule
 import com.jlahougue.dndcompanion.data_class.di.IClassModule
+import com.jlahougue.dndcompanion.data_currency.di.IMoneyModule
+import com.jlahougue.dndcompanion.data_currency.di.MoneyModule
 import com.jlahougue.dndcompanion.data_damage_type.di.DamageTypeModule
 import com.jlahougue.dndcompanion.data_damage_type.di.IDamageTypeModule
 import com.jlahougue.dndcompanion.data_health.di.HealthModule
@@ -62,6 +64,7 @@ class DnDCompanionApp: Application() {
         lateinit var abilityModule: IAbilityModule
         lateinit var skillModule: ISkillModule
         lateinit var statsModule: IStatsModule
+        lateinit var moneyModule: IMoneyModule
         lateinit var itemModule: IItemModule
         lateinit var classModule: IClassModule
         lateinit var damageTypeModule: IDamageTypeModule
@@ -121,6 +124,11 @@ class DnDCompanionApp: Application() {
             dataSourceModule.remoteDataSource,
             dataSourceModule.localDataSource
         )
+        moneyModule = MoneyModule(
+            appModule.dispatcherProvider,
+            dataSourceModule.remoteDataSource,
+            dataSourceModule.localDataSource
+        )
         itemModule = ItemModule(
             appModule.dispatcherProvider,
             dataSourceModule.remoteDataSource,
@@ -175,6 +183,7 @@ class DnDCompanionApp: Application() {
             spellModule.spellRepository,
             propertyModule.propertyRepository,
             weaponModule.weaponRepository,
+            moneyModule.repository,
             itemModule.repository
         )
         characterSelectionModule = CharacterSelectionModule(
@@ -206,6 +215,7 @@ class DnDCompanionApp: Application() {
             appModule.dispatcherProvider,
             userInfoModule.userInfoUseCases,
             weaponModule.weaponUseCases,
+            moneyModule.useCases,
             itemModule.useCases
         )
     }

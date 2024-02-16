@@ -6,6 +6,7 @@ import com.jlahougue.dndcompanion.data_character.domain.repository.ICharacterRep
 import com.jlahougue.dndcompanion.data_character_sheet.domain.repository.ICharacterSheetRepository
 import com.jlahougue.dndcompanion.data_character_spell.domain.repository.ICharacterSpellRepository
 import com.jlahougue.dndcompanion.data_class.domain.repository.IClassRepository
+import com.jlahougue.dndcompanion.data_currency.domain.repository.IMoneyRepository
 import com.jlahougue.dndcompanion.data_damage_type.domain.repository.IDamageTypeRepository
 import com.jlahougue.dndcompanion.data_health.domain.repository.IHealthRepository
 import com.jlahougue.dndcompanion.data_item.domain.repository.IItemRepository
@@ -36,6 +37,7 @@ class LoadingModule(
     private val spellRepository: ISpellRepository,
     private val propertyRepository: IPropertyRepository,
     private val weaponRepository: IWeaponRepository,
+    private val moneyRepository: IMoneyRepository,
     private val itemRepository: IItemRepository
 ) : ILoadingModule {
 
@@ -81,6 +83,7 @@ class LoadingModule(
             healthRepository,
             characterSpellRepository,
             weaponRepository,
+            moneyRepository,
             itemRepository
         )
     }

@@ -8,4 +8,5 @@ sealed class MoneyDialogEvent {
     data class OnPlatinumPiecesChanged(val platinumPieces: Int) : MoneyDialogEvent()
     data object OnDismiss : MoneyDialogEvent()
     data object OnConfirm : MoneyDialogEvent()
+    data object OnClear : MoneyDialogEvent()
 }

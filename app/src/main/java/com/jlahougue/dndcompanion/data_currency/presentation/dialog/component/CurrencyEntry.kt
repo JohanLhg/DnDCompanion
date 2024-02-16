@@ -31,7 +31,7 @@ fun CurrencyEntry(
             onValueChange = onValueChange,
             modifier = Modifier
                 .padding(horizontal = MaterialTheme.spacing.small)
-                .width(50.dp),
+                .width(100.dp),
             textStyle = MaterialTheme.typography.bodyLarge.copy(
                 textAlign = TextAlign.Center
             ),
