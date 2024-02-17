@@ -37,6 +37,14 @@ class EquipmentViewModel(private val module: IEquipmentModule): ViewModel() {
                 _state.update { it.copy(unitSystem = userInfo.unitSystem) }
 
                 viewModelScope.launch(module.dispatcherProvider.io) {
+                    module.weaponUseCases.getWeaponStats(characterId).collectLatest {stats ->
+                        _state.update {
+                            it.copy(weaponStats = stats)
+                        }
+                    }
+                }
+
+                viewModelScope.launch(module.dispatcherProvider.io) {
                     module.weaponUseCases.getWeaponsOwned(characterId).collectLatest { weapons ->
                         _state.update {
                             it.copy(

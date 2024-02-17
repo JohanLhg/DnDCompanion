@@ -18,6 +18,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.jlahougue.dndcompanion.R
 import com.jlahougue.dndcompanion.core.domain.util.extension.toSignedString
+import com.jlahougue.dndcompanion.core.presentation.components.StatBox
 import com.jlahougue.dndcompanion.core.presentation.theme.DnDCompanionTheme
 import com.jlahougue.dndcompanion.core.presentation.theme.spacing
 import com.jlahougue.dndcompanion.data_ability.domain.model.AbilityName
@@ -32,7 +33,7 @@ fun SpellcastingStats(
         modifier = modifier
             .width(IntrinsicSize.Max)
     ) {
-        SpellcastingStatBox(
+        StatBox(
             label = stringResource(id = R.string.spellcasting_ability).uppercase(),
             modifier = Modifier
                 .fillMaxWidth()
@@ -59,7 +60,7 @@ fun SpellcastingStats(
             }
         }
         Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
-        SpellcastingStatBox(
+        StatBox(
             label = stringResource(id = R.string.spell_save_dc).uppercase(),
             modifier = Modifier
                 .fillMaxWidth()
@@ -75,7 +76,7 @@ fun SpellcastingStats(
             )
         }
         Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
-        SpellcastingStatBox(
+        StatBox(
             label = stringResource(id = R.string.spell_attack_bonus).uppercase(),
             modifier = Modifier
                 .fillMaxWidth()

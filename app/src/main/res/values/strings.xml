@@ -50,6 +50,8 @@
     <string name="ability_saving_throws">Saving Throws</string>
     <string name="ability_saving_throws_short">S.T.</string>
 
+    <string name="proficiency_bonus">Proficiency Bonus</string>
+
     <!-- Skill -->
     <string name="skill_display">%s (%s)</string>
     <string name="skill_acrobatics">Acrobatics</string>
@@ -112,6 +114,9 @@
     <string name="weapon_damage_special">Special damage :</string>
     <string name="weapon_description">Description :</string>
     <string name="weapon_properties">Properties :</string>
+
+    <string name="test_melee">Melee Test</string>
+    <string name="test_ranged">Ranged Test</string>
 
     <!-- Spells -->
     <string name="spells">Spells</string>

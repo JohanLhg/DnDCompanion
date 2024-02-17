@@ -1,4 +1,4 @@
-package com.jlahougue.dndcompanion.feature_spells.presentation.components
+package com.jlahougue.dndcompanion.core.presentation.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
@@ -31,7 +31,7 @@ import com.jlahougue.dndcompanion.core.presentation.theme.DnDCompanionTheme
 import com.jlahougue.dndcompanion.core.presentation.theme.spacing
 
 @Composable
-fun SpellcastingStatBox(
+fun StatBox(
     label: String,
     modifier: Modifier = Modifier,
     textStyle: TextStyle = MaterialTheme.typography.bodySmall,
@@ -97,9 +97,9 @@ fun SpellcastingStatBox(
 
 @Preview
 @Composable
-fun SpellcastingStatBoxPreview() {
+fun StatBoxPreview() {
     DnDCompanionTheme {
-        SpellcastingStatBox(
+        StatBox(
             label = "SPELL SAVE DC"
         ) {
             Text(
