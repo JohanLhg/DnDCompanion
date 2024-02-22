@@ -14,21 +14,21 @@ class AbilityModule(
     private val localDataSource: LocalDataSource
 ): IAbilityModule {
 
-    override val abilityRepository by lazy {
+    override val repository by lazy {
         AbilityRepository(
             remoteDataSource.abilityDao,
             localDataSource.abilityDao()
         )
     }
 
-    override val abilityUseCases by lazy {
+    override val useCases by lazy {
         AbilityUseCases(
             GetAbilities(
-                abilityRepository
+                repository
             ),
             SaveAbility(
                 dispatcherProvider,
-                abilityRepository
+                repository
             )
         )
     }

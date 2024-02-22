@@ -16,28 +16,28 @@ class HealthModule(
     localDataSource: LocalDataSource
 ) : IHealthModule {
 
-    override val healthRepository by lazy {
+    override val repository by lazy {
         HealthRepository(
             remote = remoteDataSource.healthDao,
             local = localDataSource.healthDao()
         )
     }
 
-    override val healthUseCases by lazy {
+    override val useCases by lazy {
         HealthUseCases(
             saveHealth = SaveHealth(
                 dispatcherProvider = dispatcherProvider,
-                repository = healthRepository
+                repository = repository
             ),
             saveDeathSaves = SaveDeathSaves(
                 dispatcherProvider = dispatcherProvider,
-                repository = healthRepository
+                repository = repository
             ),
             getHealth = GetHealth(
-                repository = healthRepository
+                repository = repository
             ),
             getDeathSaves = GetDeathSaves(
-                repository = healthRepository
+                repository = repository
             )
         )
     }

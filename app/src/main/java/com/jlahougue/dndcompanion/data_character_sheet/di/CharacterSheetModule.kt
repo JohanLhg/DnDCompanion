@@ -6,7 +6,7 @@ import com.jlahougue.dndcompanion.data_character_sheet.data.repository.Character
 class CharacterSheetModule(
     remoteDataSource: RemoteDataSource,
 ) : ICharacterSheetModule {
-    override val characterSheetRepository by lazy {
+    override val repository by lazy {
         CharacterSheetRepository(remoteDataSource.characterSheetDao)
     }
 }

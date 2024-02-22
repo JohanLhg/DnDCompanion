@@ -6,6 +6,6 @@ import com.jlahougue.dndcompanion.data_authentication.domain.use_case.AuthUseCas
 
 interface IAuthModule {
     val dispatcherProvider: DispatcherProvider
-    val authRepository: IAuthRepository
-    val authUseCases: AuthUseCases
+    val repository: IAuthRepository
+    val useCases: AuthUseCases
 }

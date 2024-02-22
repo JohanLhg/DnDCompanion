@@ -17,22 +17,22 @@ class WeaponModule(
     private val localDataSource: LocalDataSource
 ): IWeaponModule {
 
-    override val weaponRepository by lazy {
+    override val repository by lazy {
         WeaponRepository(
             remoteDataSource.weaponDao,
             localDataSource.weaponDao(),
         )
     }
 
-    override val weaponUseCases by lazy {
+    override val useCases by lazy {
         WeaponUseCases(
-            GetWeapon(weaponRepository),
-            GetWeapons(weaponRepository),
-            GetWeaponsOwned(weaponRepository),
-            GetWeaponStats(weaponRepository),
+            GetWeapon(repository),
+            GetWeapons(repository),
+            GetWeaponsOwned(repository),
+            GetWeaponStats(repository),
             SaveWeapon(
                 dispatcherProvider,
-                weaponRepository
+                repository
             )
         )
     }

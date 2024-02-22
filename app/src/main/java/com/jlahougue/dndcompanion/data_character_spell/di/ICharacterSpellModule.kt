@@ -4,6 +4,6 @@ import com.jlahougue.dndcompanion.data_character_spell.domain.repository.ICharac
 import com.jlahougue.dndcompanion.data_character_spell.domain.use_case.SpellUseCases
 
 interface ICharacterSpellModule {
-    val characterSpellRepository: ICharacterSpellRepository
-    val spellUseCases: SpellUseCases
+    val repository: ICharacterSpellRepository
+    val useCases: SpellUseCases
 }

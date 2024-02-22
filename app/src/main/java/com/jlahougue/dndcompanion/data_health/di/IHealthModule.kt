@@ -4,6 +4,6 @@ import com.jlahougue.dndcompanion.data_health.domain.repository.IHealthRepositor
 import com.jlahougue.dndcompanion.data_health.domain.use_case.HealthUseCases
 
 interface IHealthModule {
-    val healthRepository: IHealthRepository
-    val healthUseCases: HealthUseCases
+    val repository: IHealthRepository
+    val useCases: HealthUseCases
 }

@@ -4,6 +4,6 @@ import com.jlahougue.dndcompanion.data_ability.domain.repository.IAbilityReposit
 import com.jlahougue.dndcompanion.data_ability.domain.use_case.AbilityUseCases
 
 interface IAbilityModule {
-    val abilityRepository: IAbilityRepository
-    val abilityUseCases: AbilityUseCases
+    val repository: IAbilityRepository
+    val useCases: AbilityUseCases
 }

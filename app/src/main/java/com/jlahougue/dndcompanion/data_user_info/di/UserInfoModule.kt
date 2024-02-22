@@ -15,17 +15,17 @@ class UserInfoModule(
 
     private val userInfoLocalDataSource by lazy { UserInfoDataStoreDataSource(application) }
 
-    override val userInfoRepository by lazy {
+    override val repository by lazy {
         UserInfoRepository(
             dispatcherProvider,
             userInfoLocalDataSource
         )
     }
 
-    override val userInfoUseCases by lazy {
+    override val useCases by lazy {
         UserInfoUseCases(
-            getUserInfo = GetUserInfo(userInfoRepository),
-            getCurrentCharacterId = GetCurrentCharacterId(userInfoRepository)
+            getUserInfo = GetUserInfo(repository),
+            getCurrentCharacterId = GetCurrentCharacterId(repository)
         )
     }
 }

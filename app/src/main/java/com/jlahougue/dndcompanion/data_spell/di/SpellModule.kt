@@ -9,7 +9,7 @@ class SpellModule(
     private val localDataSource: LocalDataSource
 ): ISpellModule {
 
-    override val spellRepository by lazy {
+    override val repository by lazy {
         SpellRepository(
             remoteDataSource.spellDao,
             localDataSource.spellDao()

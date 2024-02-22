@@ -8,7 +8,7 @@ class DamageTypeModule(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource
 ): IDamageTypeModule {
-    override val damageTypeRepository by lazy {
+    override val repository by lazy {
         DamageTypeRepository(
             remoteDataSource.damageTypeDao,
             localDataSource.damageTypeDao()
