@@ -6,6 +6,7 @@ import com.jlahougue.dndcompanion.data_user_info.data.repository.UserInfoReposit
 import com.jlahougue.dndcompanion.data_user_info.data.source.UserInfoDataStoreDataSource
 import com.jlahougue.dndcompanion.data_user_info.domain.use_case.GetCurrentCharacterId
 import com.jlahougue.dndcompanion.data_user_info.domain.use_case.GetUserInfo
+import com.jlahougue.dndcompanion.data_user_info.domain.use_case.UserInfoUseCases
 
 class UserInfoModule(
     application: Application,
@@ -21,7 +22,10 @@ class UserInfoModule(
         )
     }
 
-    override val getCurrentCharacterId by lazy { GetCurrentCharacterId(userInfoRepository) }
-
-    override val getUserInfo by lazy { GetUserInfo(userInfoRepository) }
+    override val userInfoUseCases by lazy {
+        UserInfoUseCases(
+            getUserInfo = GetUserInfo(userInfoRepository),
+            getCurrentCharacterId = GetCurrentCharacterId(userInfoRepository)
+        )
+    }
 }

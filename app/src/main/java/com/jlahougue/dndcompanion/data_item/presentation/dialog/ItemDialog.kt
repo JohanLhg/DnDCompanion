@@ -25,10 +25,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -88,13 +90,16 @@ fun ItemDialog(
                                     horizontal = MaterialTheme.spacing.extraSmall,
                                     vertical = MaterialTheme.spacing.small
                                 ),
-                            textStyle = MaterialTheme.typography.titleMedium
+                            textStyle = MaterialTheme.typography.titleMedium,
+                            keyboardOptions = KeyboardOptions.Default.copy(
+                                capitalization = KeyboardCapitalization.Words
+                            )
                         )
                         Spacer(modifier = Modifier.weight(1f))
                         Row(
                             verticalAlignment = Alignment.CenterVertically,
                             modifier = Modifier
-                                .padding(start = MaterialTheme.spacing.small)
+                                .padding(horizontal = MaterialTheme.spacing.small)
                                 .sizeIn(maxWidth = 100.dp)
                         ) {
                             val focusManager = LocalFocusManager.current
@@ -162,6 +167,24 @@ fun ItemDialog(
                                     .padding(vertical = MaterialTheme.spacing.small)
                             )
                         }
+                        Image(
+                            painter = painterResource(id = R.drawable.trash),
+                            contentDescription = null,
+                            contentScale = ContentScale.FillHeight,
+                            colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.error),
+                            modifier = Modifier
+                                .height(35.dp)
+                                .clickable(
+                                    interactionSource = remember { MutableInteractionSource() },
+                                    indication = rememberRipple(bounded = false),
+                                    onClick = {
+                                        onEvent(
+                                            ItemDialogEvent.OnDelete(item)
+                                        )
+                                    },
+                                )
+                                .padding(vertical = MaterialTheme.spacing.extraSmall)
+                        )
                     }
                     Divider(
                         modifier = Modifier.padding(horizontal = MaterialTheme.spacing.small)
@@ -227,6 +250,9 @@ fun ItemDialog(
                                 .fillMaxWidth()
                                 .padding(bottom = MaterialTheme.spacing.extraSmall),
                             textFieldModifier = Modifier.heightIn(min = 100.dp),
+                            keyboardOptions = KeyboardOptions.Default.copy(
+                                capitalization = KeyboardCapitalization.Sentences
+                            ),
                             maxLines = 5
                         )
                     }

@@ -62,7 +62,7 @@ class SpellsViewModel(
         }
 
         viewModelScope.launch(module.dispatcherProvider.io) {
-            module.getCurrentCharacterId().collectLatest { characterId ->
+            module.userInfoUseCases.getCurrentCharacterId().collectLatest { characterId ->
 
                 this@SpellsViewModel.characterId = characterId
 

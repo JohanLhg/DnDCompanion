@@ -4,6 +4,7 @@ import com.jlahougue.dndcompanion.data_ability.data.source.local.AbilityLocalDat
 import com.jlahougue.dndcompanion.data_character.data.source.local.CharacterLocalDataSource
 import com.jlahougue.dndcompanion.data_character_spell.data.source.local.CharacterSpellLocalDataSource
 import com.jlahougue.dndcompanion.data_class.data.source.local.ClassLocalDataSource
+import com.jlahougue.dndcompanion.data_currency.data.source.local.MoneyLocalDataSource
 import com.jlahougue.dndcompanion.data_damage_type.data.source.local.DamageTypeLocalDataSource
 import com.jlahougue.dndcompanion.data_health.data.source.local.HealthLocalDataSource
 import com.jlahougue.dndcompanion.data_item.data.source.local.ItemLocalDataSource
@@ -19,6 +20,7 @@ interface LocalDataSource {
     fun abilityDao(): AbilityLocalDataSource
     fun skillDao(): SkillLocalDataSource
     fun statsDao(): StatsLocalDataSource
+    fun moneyDao(): MoneyLocalDataSource
     fun itemDao(): ItemLocalDataSource
     fun classDao(): ClassLocalDataSource
     fun damageTypeDao(): DamageTypeLocalDataSource

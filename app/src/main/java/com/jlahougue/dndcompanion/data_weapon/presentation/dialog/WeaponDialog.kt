@@ -84,15 +84,17 @@ fun WeaponDialog(
                                 .padding(vertical = MaterialTheme.spacing.small)
                                 .padding(horizontal = MaterialTheme.spacing.extraSmall)
                         )
-                        Text(
-                            text = stringResource(
-                                id = R.string.parenthesis,
-                                weapon.getRangeString(unitSystem)
-                            ),
-                            style = MaterialTheme.typography.titleSmall,
-                            modifier = Modifier
-                                .padding(vertical = MaterialTheme.spacing.small)
-                        )
+                        if (weapon.getRangeString(unitSystem).isNotBlank()) {
+                            Text(
+                                text = stringResource(
+                                    id = R.string.parenthesis,
+                                    weapon.getRangeString(unitSystem)
+                                ),
+                                style = MaterialTheme.typography.titleSmall,
+                                modifier = Modifier
+                                    .padding(vertical = MaterialTheme.spacing.small)
+                            )
+                        }
                         Spacer(modifier = Modifier.weight(1f))
                         Row(
                             verticalAlignment = Alignment.CenterVertically,
@@ -114,10 +116,12 @@ fun WeaponDialog(
                                         indication = rememberRipple(bounded = false),
                                         onClick = {
                                             focusManager.clearFocus()
-                                            onEvent(WeaponDialogEvent.OnCountChange(
-                                                weapon,
-                                                weapon.count - 1
-                                            ))
+                                            onEvent(
+                                                WeaponDialogEvent.OnCountChange(
+                                                    weapon,
+                                                    weapon.count - 1
+                                                )
+                                            )
                                         },
                                     )
                                     .padding(vertical = MaterialTheme.spacing.small)
@@ -151,10 +155,12 @@ fun WeaponDialog(
                                         indication = rememberRipple(bounded = false),
                                         onClick = {
                                             focusManager.clearFocus()
-                                            onEvent(WeaponDialogEvent.OnCountChange(
-                                                weapon,
-                                                weapon.count + 1
-                                            ))
+                                            onEvent(
+                                                WeaponDialogEvent.OnCountChange(
+                                                    weapon,
+                                                    weapon.count + 1
+                                                )
+                                            )
                                         },
                                     )
                                     .padding(vertical = MaterialTheme.spacing.small)
@@ -167,14 +173,16 @@ fun WeaponDialog(
                     Column(
                         modifier = Modifier.padding(MaterialTheme.spacing.extraSmall)
                     ) {
-                        PropertyRow(
-                            label = stringResource(id = R.string.weapon_test),
-                            value = stringResource(
-                                R.string.weapon_test_value,
-                                weapon.modifier.toSignedString(),
-                                weapon.test.getShortString()
+                        if (weapon.test != AbilityName.NONE) {
+                            PropertyRow(
+                                label = stringResource(id = R.string.weapon_test),
+                                value = stringResource(
+                                    R.string.weapon_test_value,
+                                    weapon.modifier.toSignedString(),
+                                    weapon.test.getShortString()
+                                )
                             )
-                        )
+                        }
                         PropertyRow(
                             label = stringResource(id = R.string.weapon_damage),
                             value = if (weapon.damageType.isNotBlank()) weapon.damage + " " + weapon.damageType

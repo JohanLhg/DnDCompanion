@@ -30,11 +30,14 @@ import com.jlahougue.dndcompanion.core.presentation.theme.spacing
 import com.jlahougue.dndcompanion.data_currency.domain.model.Currency
 import com.jlahougue.dndcompanion.data_item.domain.model.Item
 import com.jlahougue.dndcompanion.data_item.presentation.component.ItemCard
+import com.jlahougue.dndcompanion.data_item.presentation.dialog.ItemDialog
+import com.jlahougue.dndcompanion.data_item.presentation.dialog.ItemDialogEvent
 
 @Composable
 fun Inventory(
-    items: List<Item>,
+    state: InventoryState,
     onEvent: (ItemEvent) -> Unit,
+    onDialogEvent: (ItemDialogEvent) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -67,10 +70,10 @@ fun Inventory(
         }
         Divider()
         LazyVerticalGrid(
-            columns = GridCells.Adaptive(300.dp)
+            columns = GridCells.Adaptive(250.dp)
         ) {
             items(
-                items,
+                state.items,
                 key = { item -> item.id }
             ) { item ->
                 ItemCard(
@@ -82,6 +85,10 @@ fun Inventory(
             }
         }
     }
+    ItemDialog(
+        state = state.dialog,
+        onEvent = onDialogEvent
+    )
 }
 
 @Preview
@@ -89,29 +96,32 @@ fun Inventory(
 fun InventoryPreview() {
     DnDCompanionTheme {
         Inventory(
-            items = listOf(
-                Item(
-                    1,
-                    1,
-                    1,
-                    "Epée",
-                    "Une épée",
-                    1,
-                    Currency.GOLD,
-                    1f
-                ),
-                Item(
-                    1,
-                    2,
-                    1,
-                    "Dague",
-                    "Une dague",
-                    1,
-                    Currency.GOLD,
-                    1f
+            InventoryState(
+                items = listOf(
+                    Item(
+                        1,
+                        1,
+                        1,
+                        "Epée",
+                        "Une épée",
+                        1,
+                        Currency.GOLD,
+                        1f
+                    ),
+                    Item(
+                        1,
+                        2,
+                        1,
+                        "Dague",
+                        "Une dague",
+                        1,
+                        Currency.GOLD,
+                        1f
+                    )
                 )
             ),
-            onEvent = {}
+            onEvent = {},
+            onDialogEvent = {}
         )
     }
 }

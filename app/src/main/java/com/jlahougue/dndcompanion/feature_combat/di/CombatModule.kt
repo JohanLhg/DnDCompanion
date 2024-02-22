@@ -6,12 +6,12 @@ import com.jlahougue.dndcompanion.data_character_spell.domain.use_case.SpellUseC
 import com.jlahougue.dndcompanion.data_health.domain.use_case.HealthUseCases
 import com.jlahougue.dndcompanion.data_item.domain.use_case.ItemUseCases
 import com.jlahougue.dndcompanion.data_stats.domain.use_case.StatsUseCases
-import com.jlahougue.dndcompanion.data_user_info.domain.use_case.GetUserInfo
+import com.jlahougue.dndcompanion.data_user_info.domain.use_case.UserInfoUseCases
 import com.jlahougue.dndcompanion.data_weapon.domain.use_case.WeaponUseCases
 
 class CombatModule(
     override val dispatcherProvider: DispatcherProvider,
-    override val getUserInfo: GetUserInfo,
+    override val userInfoUseCases: UserInfoUseCases,
     override val abilityUseCases: AbilityUseCases,
     override val statsUseCases: StatsUseCases,
     override val healthUseCases: HealthUseCases,

@@ -4,11 +4,11 @@ import com.jlahougue.dndcompanion.core.domain.util.dispatcherProvider.Dispatcher
 import com.jlahougue.dndcompanion.data_character.domain.use_case.CharacterUseCases
 import com.jlahougue.dndcompanion.data_character_spell.domain.use_case.SpellUseCases
 import com.jlahougue.dndcompanion.data_class.domain.use_case.ClassUseCases
-import com.jlahougue.dndcompanion.data_user_info.domain.use_case.GetCurrentCharacterId
+import com.jlahougue.dndcompanion.data_user_info.domain.use_case.UserInfoUseCases
 
 class SpellsModule(
     override val dispatcherProvider: DispatcherProvider,
-    override val getCurrentCharacterId: GetCurrentCharacterId,
+    override val userInfoUseCases: UserInfoUseCases,
     override val spellUseCases: SpellUseCases,
     override val classUseCases: ClassUseCases,
     override val characterUseCases: CharacterUseCases

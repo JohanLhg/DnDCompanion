@@ -28,6 +28,11 @@ class ItemRepository(
         localDataSource.insert(items)
     }
 
+    override suspend fun delete(item: Item) {
+        localDataSource.delete(item)
+        remoteDataSource.delete(item)
+    }
+
     override fun get(characterId: Long, itemId: Long) = localDataSource.get(characterId, itemId)
 
     override fun getAll(characterId: Long) = localDataSource.getAll(characterId)

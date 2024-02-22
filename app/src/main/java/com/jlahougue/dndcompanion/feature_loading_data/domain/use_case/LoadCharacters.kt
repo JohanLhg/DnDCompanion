@@ -10,8 +10,14 @@ import com.jlahougue.dndcompanion.data_character_sheet.data.source.remote.Charac
 import com.jlahougue.dndcompanion.data_character_sheet.domain.repository.ICharacterSheetRepository
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellSlot
 import com.jlahougue.dndcompanion.data_character_spell.domain.repository.ICharacterSpellRepository
+import com.jlahougue.dndcompanion.data_currency.domain.model.Money
+import com.jlahougue.dndcompanion.data_currency.domain.repository.IMoneyRepository
+import com.jlahougue.dndcompanion.data_health.domain.model.DeathSaves
+import com.jlahougue.dndcompanion.data_health.domain.model.Health
 import com.jlahougue.dndcompanion.data_health.domain.repository.IHealthRepository
+import com.jlahougue.dndcompanion.data_item.domain.repository.IItemRepository
 import com.jlahougue.dndcompanion.data_skill.domain.repository.ISkillRepository
+import com.jlahougue.dndcompanion.data_stats.domain.model.Stats
 import com.jlahougue.dndcompanion.data_stats.domain.repository.IStatsRepository
 import com.jlahougue.dndcompanion.data_weapon.domain.repository.IWeaponRepository
 import kotlinx.coroutines.CoroutineScope
@@ -26,7 +32,9 @@ class LoadCharacters(
     private val statsRepository: IStatsRepository,
     private val healthRepository: IHealthRepository,
     private val characterSpellRepository: ICharacterSpellRepository,
-    private val weaponRepository: IWeaponRepository
+    private val weaponRepository: IWeaponRepository,
+    private val moneyRepository: IMoneyRepository,
+    private val itemRepository: IItemRepository
 ) : LoadFromRemote(UiText.StringResource(R.string.loading_characters)) {
 
     override fun invoke() {
@@ -53,9 +61,9 @@ class LoadCharacters(
                             characterRepository.saveToLocal(characterSheet.character!!)
                             abilityRepository.saveToLocal(characterSheet.abilities.values.toList())
                             skillRepository.saveToLocal(characterSheet.skills.values.toList())
-                            statsRepository.saveToLocal(characterSheet.stats!!)
-                            healthRepository.saveToLocal(characterSheet.health!!)
-                            healthRepository.saveToLocal(characterSheet.deathSaves!!)
+                            statsRepository.saveToLocal(characterSheet.stats ?: Stats(cid = characterSheet.id))
+                            healthRepository.saveToLocal(characterSheet.health ?: Health(cid = characterSheet.id))
+                            healthRepository.saveToLocal(characterSheet.deathSaves ?: DeathSaves(cid = characterSheet.id))
                             characterSpellRepository.saveSpellSlotsToLocal(
                                 characterSheet.spellSlots.map { (key, value) ->
                                     SpellSlot(characterSheet.id, key.toInt(), value)
@@ -63,6 +71,8 @@ class LoadCharacters(
                             )
                             characterSpellRepository.saveToLocal(characterSheet.spells.values.toList())
                             weaponRepository.saveToLocal(characterSheet.weapons.values.toList())
+                            moneyRepository.saveToLocal(characterSheet.money ?: Money(cid = characterSheet.id))
+                            itemRepository.saveToLocal(characterSheet.items.values.toList())
                             noneExist = false
                         }
                         onApiEvent(ApiEvent.UpdateProgress)

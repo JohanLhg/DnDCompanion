@@ -4,29 +4,21 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jlahougue.dndcompanion.R
 import com.jlahougue.dndcompanion.core.domain.util.UiText
-import com.jlahougue.dndcompanion.data_ability.domain.model.AbilityView
-import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellLevel
 import com.jlahougue.dndcompanion.data_character_spell.domain.use_case.SpellFilter
 import com.jlahougue.dndcompanion.data_character_spell.presentation.SpellEvent
 import com.jlahougue.dndcompanion.data_character_spell.presentation.dialog.SpellDialogEvent
 import com.jlahougue.dndcompanion.data_character_spell.presentation.dialog.SpellDialogState
-import com.jlahougue.dndcompanion.data_health.domain.model.DeathSaves
 import com.jlahougue.dndcompanion.data_health.domain.model.Health
 import com.jlahougue.dndcompanion.data_health.presentation.HealthEvent
-import com.jlahougue.dndcompanion.data_item.domain.model.Item
 import com.jlahougue.dndcompanion.data_item.presentation.ItemEvent
 import com.jlahougue.dndcompanion.data_item.presentation.dialog.ItemDialogEvent
-import com.jlahougue.dndcompanion.data_item.presentation.dialog.ItemDialogState
-import com.jlahougue.dndcompanion.data_settings.domain.model.UnitSystem
-import com.jlahougue.dndcompanion.data_stats.domain.model.StatsView
 import com.jlahougue.dndcompanion.data_stats.presentation.StatsEvent
-import com.jlahougue.dndcompanion.data_weapon.domain.model.WeaponInfo
 import com.jlahougue.dndcompanion.data_weapon.presentation.WeaponEvent
 import com.jlahougue.dndcompanion.data_weapon.presentation.dialog.WeaponDialogEvent
-import com.jlahougue.dndcompanion.data_weapon.presentation.dialog.WeaponDialogState
+import com.jlahougue.dndcompanion.data_weapon.presentation.list_dialog.WeaponListDialogEvent
+import com.jlahougue.dndcompanion.data_weapon.presentation.list_dialog.WeaponListDialogState
 import com.jlahougue.dndcompanion.feature_combat.di.ICombatModule
 import com.jlahougue.dndcompanion.feature_combat.presentation.component.TabItem
-import com.jlahougue.dndcompanion.feature_combat.presentation.component.TabState
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -42,20 +34,8 @@ class CombatViewModel(
 
     private var characterId = -1L
 
-    private val _abilities = MutableStateFlow(listOf<AbilityView>())
-    val abilities = _abilities.asStateFlow()
-
-    private val _stats = MutableStateFlow(StatsView())
-    val stats = _stats.asStateFlow()
-
-    private val _health = MutableStateFlow(Health())
-    val health = _health.asStateFlow()
-
-    private val _deathSaves = MutableStateFlow(DeathSaves())
-    val deathSaves = _deathSaves.asStateFlow()
-
-    private val _tabState = MutableStateFlow(
-        TabState(
+    private val _state = MutableStateFlow(CombatState(
+        tab = CombatTabState(
             tabs = listOf(
                 TabItem(
                     title = UiText.StringResource(R.string.spells),
@@ -68,68 +48,68 @@ class CombatViewModel(
             ),
             selectedTabIndex = 0
         )
-    )
-    val tabState = _tabState.asStateFlow()
+    ))
+    val state = _state.asStateFlow()
 
-    private val _unitSystem = MutableStateFlow(UnitSystem.METRIC)
-    val unitSystem = _unitSystem.asStateFlow()
-
-    private val _weapons = MutableStateFlow(listOf<WeaponInfo>())
-    val weapons = _weapons.asStateFlow()
-
+    private var weaponListDialogJob: Job? = null
     private var weaponDialogJob: Job? = null
-    private val _weaponDialogState = MutableStateFlow(WeaponDialogState())
-    val weaponDialogState = _weaponDialogState.asStateFlow()
-
-    private val _items = MutableStateFlow(listOf<Item>())
-    val items = _items.asStateFlow()
-
     private var itemDialogJob: Job? = null
-    private val _itemDialogState = MutableStateFlow(ItemDialogState())
-    val itemDialogState = _itemDialogState.asStateFlow()
-
-    private val _spells = MutableStateFlow<List<SpellLevel>>(listOf())
-    val spells = _spells.asStateFlow()
-
     private var spellDialogJob: Job? = null
-    private val _spellDialogState = MutableStateFlow(SpellDialogState())
-    val spellDialogState = _spellDialogState.asStateFlow()
 
     init {
         viewModelScope.launch(module.dispatcherProvider.io) {
-            module.getUserInfo().collectLatest { userInfo ->
+            module.userInfoUseCases.getUserInfo().collectLatest { userInfo ->
 
                 characterId = userInfo.characterId
 
-                _unitSystem.update { userInfo.unitSystem }
+                _state.update {
+                    it.copy(
+                        unitSystem = userInfo.unitSystem,
+                        tab = it.tab.copy(unitSystem = userInfo.unitSystem)
+                    )
+                }
 
                 viewModelScope.launch(module.dispatcherProvider.io) {
                     module.abilityUseCases.getAbilities(userInfo.characterId).collectLatest { abilities ->
-                        _abilities.update { abilities }
+                        _state.update {
+                            it.copy(abilities = abilities)
+                        }
                     }
                 }
 
                 viewModelScope.launch(module.dispatcherProvider.io) {
                     module.statsUseCases.getStats(userInfo.characterId).collectLatest { stats ->
-                        _stats.update { stats }
+                        _state.update {
+                            it.copy(stats = stats)
+                        }
                     }
                 }
 
                 viewModelScope.launch(module.dispatcherProvider.io) {
                     module.healthUseCases.getHealth(userInfo.characterId).collectLatest { health ->
-                        _health.update { health }
+                        _state.update {
+                            it.copy(health = health)
+                        }
                     }
                 }
 
                 viewModelScope.launch(module.dispatcherProvider.io) {
                     module.healthUseCases.getDeathSaves(userInfo.characterId).collectLatest { deathSaves ->
-                        _deathSaves.update { deathSaves }
+                        _state.update {
+                            it.copy(deathSaves = deathSaves)
+                        }
                     }
                 }
 
                 viewModelScope.launch(module.dispatcherProvider.io) {
                     module.weaponUseCases.getWeaponsOwned(userInfo.characterId).collectLatest { weapons ->
-                        _weapons.update { weapons }
+                        _state.update {
+                            it.copy(
+                                tab = it.tab.copy(
+                                    weapons = it.tab.weapons.copy(weapons = weapons)
+                                )
+                            )
+                        }
                     }
                 }
 
@@ -138,42 +118,59 @@ class CombatViewModel(
                         userInfo.characterId,
                         SpellFilter.Prepared
                     ).collectLatest { spells ->
-                        _spells.update { spells }
+                        _state.update {
+                            it.copy(
+                                tab = it.tab.copy(spells = spells)
+                            )
+                        }
                     }
                 }
 
                 viewModelScope.launch(module.dispatcherProvider.io) {
                     module.itemUseCases.getItems(userInfo.characterId).collectLatest { items ->
-                        _items.update { items.filter { it.quantity > 0 } }
+                        _state.update { state ->
+                            state.copy(
+                                tab = state.tab.copy(
+                                    inventory = state.tab.inventory.copy(
+                                        items = items.filter { it.quantity > 0 }
+                                    )
+                                )
+                            )
+                        }
                     }
                 }
             }
         }
+    }
 
-        viewModelScope.launch(module.dispatcherProvider.io) {
-            unitSystem.collectLatest { unitSystem ->
-                _weaponDialogState.update {
-                    it.copy(unitSystem = unitSystem)
+    fun onEvent(event: CombatEvent) {
+        when (event) {
+            is CombatEvent.onTabSelected -> {
+                _state.update {
+                    it.copy(tab = it.tab.copy(selectedTabIndex = event.index))
                 }
             }
+            is CombatEvent.onStatsEvent -> onStatsEvent(event.event)
+            is CombatEvent.onHealthEvent -> onHealthEvent(event.event)
+            is CombatEvent.onWeaponEvent -> onWeaponEvent(event.event)
+            is CombatEvent.onWeaponListDialogEvent -> onWeaponListDialogEvent(event.event)
+            is CombatEvent.onWeaponDialogEvent -> onWeaponDialogEvent(event.event)
+            is CombatEvent.onItemEvent -> onItemEvent(event.event)
+            is CombatEvent.onItemDialogEvent -> onItemDialogEvent(event.event)
+            is CombatEvent.onSpellEvent -> onSpellEvent(event.event)
+            is CombatEvent.onSpellDialogEvent -> onSpellDialogEvent(event.event)
         }
     }
 
-    fun onTabSelected(index: Int) {
-        _tabState.update {
-            it.copy(selectedTabIndex = index)
-        }
-    }
-
-    fun onStatsEvent(event: StatsEvent) {
+    private fun onStatsEvent(event: StatsEvent) {
         val stats = when (event) {
             is StatsEvent.OnArmorClassChanged -> {
-                _stats.value.toStats(
+                _state.value.stats.toStats(
                     armorClass = event.armorClass
                 )
             }
             is StatsEvent.OnSpeedChanged -> {
-                _stats.value.toStats(
+                _state.value.stats.toStats(
                     speed = event.speed
                 )
             }
@@ -184,46 +181,46 @@ class CombatViewModel(
         }
     }
 
-    fun onHealthEvent(event: HealthEvent) {
+    private fun onHealthEvent(event: HealthEvent) {
         when (event) {
             is HealthEvent.OnMaxHealthChange -> {
-                val health = _health.value.copy(
+                val health = _state.value.health.copy(
                     maxHp = event.maxHealth
                 )
                 saveHealth(health)
             }
             is HealthEvent.OnCurrentHealthChange -> {
-                val health = _health.value.copy(
-                    currentHp = min(event.currentHealth, health.value.maxHp)
+                val health = _state.value.health.copy(
+                    currentHp = min(event.currentHealth, state.value.health.maxHp)
                 )
                 saveHealth(health)
             }
             is HealthEvent.OnCurrentHealthChangeBy -> {
-                val health = _health.value.copy(
-                    currentHp = min(this.health.value.currentHp + event.value, health.value.maxHp)
+                val health = _state.value.health.copy(
+                    currentHp = min(state.value.health.currentHp + event.value, state.value.health.maxHp)
                 )
                 saveHealth(health)
             }
             is HealthEvent.OnTemporaryHealthChange -> {
-                val health = _health.value.copy(
+                val health = _state.value.health.copy(
                     temporaryHp = max(event.temporaryHealth, 0)
                 )
                 saveHealth(health)
             }
             is HealthEvent.OnTemporaryHealthChangeBy -> {
-                val health = _health.value.copy(
-                    temporaryHp = max(this.health.value.temporaryHp + event.value, 0)
+                val health = _state.value.health.copy(
+                    temporaryHp = max(state.value.health.temporaryHp + event.value, 0)
                 )
                 saveHealth(health)
             }
             is HealthEvent.OnHitDiceChange -> {
-                val health = _health.value.copy(
+                val health = _state.value.health.copy(
                     hitDice = event.hitDice
                 )
                 saveHealth(health)
             }
             is HealthEvent.OnDeathSavesSuccessChange -> {
-                val deathSaves = _deathSaves.value.copy(
+                val deathSaves = _state.value.deathSaves.copy(
                     successes = event.successes
                 )
                 viewModelScope.launch(module.dispatcherProvider.io) {
@@ -231,7 +228,7 @@ class CombatViewModel(
                 }
             }
             is HealthEvent.OnDeathSavesFailureChange -> {
-                val deathSaves = _deathSaves.value.copy(
+                val deathSaves = _state.value.deathSaves.copy(
                     failures = event.failures
                 )
                 viewModelScope.launch(module.dispatcherProvider.io) {
@@ -247,11 +244,19 @@ class CombatViewModel(
         }
     }
 
-    fun onWeaponEvent(event: WeaponEvent) {
+    private fun onWeaponEvent(event: WeaponEvent) {
         when (event) {
             is WeaponEvent.OnWeaponClicked -> {
-                _weaponDialogState.update {
-                    it.copy(isShown = true)
+                _state.update {
+                    it.copy(
+                        tab = it.tab.copy(
+                            weapons = it.tab.weapons.copy(
+                                dialog = it.tab.weapons.dialog.copy(
+                                    isShown = true
+                                )
+                            )
+                        )
+                    )
                 }
 
                 weaponDialogJob?.cancel()
@@ -260,8 +265,50 @@ class CombatViewModel(
                         characterId,
                         event.weaponName
                     ).collectLatest { weapon ->
-                        _weaponDialogState.update {
-                            it.copy(weapon = weapon)
+                        _state.update {
+                            it.copy(
+                                tab = it.tab.copy(
+                                    weapons = it.tab.weapons.copy(
+                                        dialog = it.tab.weapons.dialog.copy(
+                                            weapon = weapon
+                                        )
+                                    )
+                                )
+                            )
+                        }
+                    }
+                }
+            }
+            is WeaponEvent.OnAddWeaponClicked -> {
+                _state.update {
+                    it.copy(
+                        tab = it.tab.copy(
+                            weapons = it.tab.weapons.copy(
+                                listDialog = it.tab.weapons.listDialog.copy(
+                                    isShown = true
+                                )
+                            )
+                        )
+                    )
+                }
+
+                weaponListDialogJob?.cancel()
+                weaponListDialogJob = viewModelScope.launch(module.dispatcherProvider.io) {
+                    module.weaponUseCases.getWeapons(
+                        characterId,
+                        state.value.tab.weapons.listDialog.search,
+                        state.value.tab.weapons.listDialog.filter.value
+                    ).collectLatest { weapons ->
+                        _state.update {
+                            it.copy(
+                                tab = it.tab.copy(
+                                    weapons = it.tab.weapons.copy(
+                                        listDialog = it.tab.weapons.listDialog.copy(
+                                            weapons = weapons
+                                        )
+                                    )
+                                )
+                            )
                         }
                     }
                 }
@@ -269,15 +316,109 @@ class CombatViewModel(
         }
     }
 
-    fun onWeaponDialogEvent(event: WeaponDialogEvent) {
+    private fun onWeaponListDialogEvent(event: WeaponListDialogEvent) {
+        when (event) {
+            WeaponListDialogEvent.OnDismiss -> {
+                _state.update {
+                    it.copy(
+                        tab = it.tab.copy(
+                            weapons = it.tab.weapons.copy(
+                                listDialog = it.tab.weapons.listDialog.copy(
+                                    isShown = false
+                                )
+                            )
+                        )
+                    )
+                }
+            }
+            is WeaponListDialogEvent.OnFilterChange -> {
+                val filter = if (state.value.tab.weapons.listDialog.filter == event.filter)
+                    WeaponListDialogState.Filter.ALL
+                else event.filter
+                _state.update {
+                    it.copy(
+                        tab = it.tab.copy(
+                            weapons = it.tab.weapons.copy(
+                                listDialog = it.tab.weapons.listDialog.copy(
+                                    filter = filter
+                                )
+                            )
+                        )
+                    )
+                }
+
+                weaponListDialogJob?.cancel()
+                weaponListDialogJob = viewModelScope.launch(module.dispatcherProvider.io) {
+                    module.weaponUseCases.getWeapons(
+                        characterId,
+                        state.value.tab.weapons.listDialog.search,
+                        filter.value
+                    ).collectLatest { weapons ->
+                        _state.update {
+                            it.copy(
+                                tab = it.tab.copy(
+                                    weapons = it.tab.weapons.copy(
+                                        listDialog = it.tab.weapons.listDialog.copy(
+                                            weapons = weapons
+                                        )
+                                    )
+                                )
+                            )
+                        }
+                    }
+                }
+            }
+            is WeaponListDialogEvent.OnSearchChange -> {
+                _state.update {
+                    it.copy(
+                        tab = it.tab.copy(
+                            weapons = it.tab.weapons.copy(
+                                listDialog = it.tab.weapons.listDialog.copy(
+                                    search = event.search
+                                )
+                            )
+                        )
+                    )
+                }
+                weaponListDialogJob?.cancel()
+                viewModelScope.launch(module.dispatcherProvider.io) {
+                    module.weaponUseCases.getWeapons(
+                        characterId,
+                        event.search,
+                        state.value.tab.weapons.listDialog.filter.value
+                    ).collectLatest { weapons ->
+                        _state.update {
+                            it.copy(
+                                tab = it.tab.copy(
+                                    weapons = it.tab.weapons.copy(
+                                        listDialog = it.tab.weapons.listDialog.copy(
+                                            weapons = weapons
+                                        )
+                                    )
+                                )
+                            )
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun onWeaponDialogEvent(event: WeaponDialogEvent) {
         when (event) {
             is WeaponDialogEvent.OnDismiss -> {
                 weaponDialogJob?.cancel()
                 weaponDialogJob = null
-                _weaponDialogState.update {
+                _state.update {
                     it.copy(
-                        isShown = false,
-                        weapon = null
+                        tab = it.tab.copy(
+                            weapons = it.tab.weapons.copy(
+                                dialog = it.tab.weapons.dialog.copy(
+                                    isShown = false,
+                                    weapon = null
+                                )
+                            )
+                        )
                     )
                 }
             }
@@ -294,11 +435,19 @@ class CombatViewModel(
         }
     }
 
-    fun onItemEvent(event: ItemEvent) {
+    private fun onItemEvent(event: ItemEvent) {
         when (event) {
             is ItemEvent.OnItemClicked -> {
-                _itemDialogState.update {
-                    it.copy(isShown = true)
+                _state.update {
+                    it.copy(
+                        tab = it.tab.copy(
+                            inventory = it.tab.inventory.copy(
+                                dialog = it.tab.inventory.dialog.copy(
+                                    isShown = true
+                                )
+                            )
+                        )
+                    )
                 }
 
                 itemDialogJob?.cancel()
@@ -307,8 +456,16 @@ class CombatViewModel(
                         characterId,
                         event.itemId
                     ).collectLatest { item ->
-                        _itemDialogState.update {
-                            it.copy(item = item)
+                        _state.update {
+                            it.copy(
+                                tab = it.tab.copy(
+                                    inventory = it.tab.inventory.copy(
+                                        dialog = it.tab.inventory.dialog.copy(
+                                            item = item
+                                        )
+                                    )
+                                )
+                            )
                         }
                     }
                 }
@@ -322,14 +479,25 @@ class CombatViewModel(
         }
     }
 
-    fun onItemDialogEvent(event: ItemDialogEvent) {
+    private fun onItemDialogEvent(event: ItemDialogEvent) {
         when (event) {
             is ItemDialogEvent.OnDismiss -> {
-                _itemDialogState.update {
+                _state.update {
                     it.copy(
-                        isShown = false,
-                        item = null
+                        tab = it.tab.copy(
+                            inventory = it.tab.inventory.copy(
+                                dialog = it.tab.inventory.dialog.copy(
+                                    isShown = false,
+                                    item = null
+                                )
+                            )
+                        )
                     )
+                }
+            }
+            is ItemDialogEvent.OnDelete -> {
+                viewModelScope.launch(module.dispatcherProvider.io) {
+                    module.itemUseCases.deleteItem(event.item)
                 }
             }
             is ItemDialogEvent.OnQuantityChanged -> {
@@ -377,7 +545,7 @@ class CombatViewModel(
         }
     }
 
-    fun onSpellEvent(event: SpellEvent) {
+    private fun onSpellEvent(event: SpellEvent) {
         when(event) {
             is SpellEvent.OnSlotRestored -> {
                 if (event.spellSlot.left == event.spellSlot.total) return
@@ -400,8 +568,12 @@ class CombatViewModel(
                 }
             }
             is SpellEvent.OnSpellClicked -> {
-                _spellDialogState.update {
-                    it.copy(isShown = true)
+                _state.update {
+                    it.copy(
+                        spellDialog = SpellDialogState(
+                            isShown = true
+                        )
+                    )
                 }
 
                 spellDialogJob?.cancel()
@@ -410,8 +582,12 @@ class CombatViewModel(
                         characterId,
                         event.spellId
                     ).collectLatest { spell ->
-                        _spellDialogState.update {
-                            it.copy(spell = spell)
+                        _state.update {
+                            it.copy(
+                                spellDialog = it.spellDialog.copy(
+                                    spell = spell
+                                )
+                            )
                         }
                     }
                 }
@@ -422,15 +598,17 @@ class CombatViewModel(
         }
     }
 
-    fun onSpellDialogEvent(event: SpellDialogEvent) {
+    private fun onSpellDialogEvent(event: SpellDialogEvent) {
         when (event) {
             is SpellDialogEvent.OnClassClick -> TODO()
             is SpellDialogEvent.OnDamageTypeClick -> TODO()
             SpellDialogEvent.OnDismiss -> {
-                _spellDialogState.update {
+                _state.update {
                     it.copy(
-                        isShown = false,
-                        spell = null
+                        spellDialog = it.spellDialog.copy(
+                            isShown = false,
+                            spell = null
+                        )
                     )
                 }
             }
