@@ -28,6 +28,21 @@ interface CharacterSpellLocalDataSource {
     suspend fun insert(spellSlot: SpellSlot)
 
     @Query("""
+        SELECT 
+            :characterId as cid,
+            spell.*,
+            COALESCE(cs.state, 'LOCKED') as state
+        FROM spell
+        LEFT JOIN (
+            SELECT * 
+            FROM character_spell 
+            WHERE cid = :characterId
+        ) cs ON spell.spell_id = cs.spell_id
+        WHERE spell.spell_id = :spellId
+    """)
+    fun get(characterId: Long, spellId: String): Flow<SpellInfo>
+
+    @Query("""
         SELECT DISTINCT level 
         FROM spell
         WHERE (

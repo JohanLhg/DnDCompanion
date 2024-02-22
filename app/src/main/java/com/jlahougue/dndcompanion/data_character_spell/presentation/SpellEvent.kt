@@ -7,6 +7,6 @@ import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellState
 sealed class SpellEvent {
     data class OnSlotRestored(val spellSlot: SpellSlotView) : SpellEvent()
     data class OnSlotUsed(val spellSlot: SpellSlotView) : SpellEvent()
-    data class OnSpellClicked(val spell: SpellInfo) : SpellEvent()
+    data class OnSpellClicked(val spellId: String) : SpellEvent()
     data class OnSpellStateChanged(val spell: SpellInfo, val state: SpellState) : SpellEvent()
 }

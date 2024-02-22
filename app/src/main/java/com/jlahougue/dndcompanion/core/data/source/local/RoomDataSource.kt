@@ -21,11 +21,16 @@ import com.jlahougue.dndcompanion.data_class.data.source.local.ClassLocalDataSou
 import com.jlahougue.dndcompanion.data_class.domain.model.Class
 import com.jlahougue.dndcompanion.data_class.domain.model.ClassLevel
 import com.jlahougue.dndcompanion.data_class.domain.model.ClassSpellSlot
+import com.jlahougue.dndcompanion.data_currency.data.source.local.MoneyLocalDataSource
+import com.jlahougue.dndcompanion.data_currency.domain.model.Money
+import com.jlahougue.dndcompanion.data_currency.domain.util.CurrencyTypeConverter
 import com.jlahougue.dndcompanion.data_damage_type.data.source.local.DamageTypeLocalDataSource
 import com.jlahougue.dndcompanion.data_damage_type.domain.model.DamageType
 import com.jlahougue.dndcompanion.data_health.data.source.local.HealthLocalDataSource
 import com.jlahougue.dndcompanion.data_health.domain.model.DeathSaves
 import com.jlahougue.dndcompanion.data_health.domain.model.Health
+import com.jlahougue.dndcompanion.data_item.data.source.local.ItemLocalDataSource
+import com.jlahougue.dndcompanion.data_item.domain.model.Item
 import com.jlahougue.dndcompanion.data_property.data.source.local.PropertyLocalDataSource
 import com.jlahougue.dndcompanion.data_property.domain.model.Property
 import com.jlahougue.dndcompanion.data_skill.data.source.local.SkillLocalDataSource
@@ -47,6 +52,7 @@ import com.jlahougue.dndcompanion.data_weapon.domain.model.WeaponProperty
         Character::class,
         Health::class, DeathSaves::class,
         Ability::class, Skill::class, Stats::class,
+        Money::class, Item::class,
         Class::class, ClassLevel::class, ClassSpellSlot::class,
         DamageType::class, Property::class,
         Spell::class, SpellClass::class, SpellDamageType::class,
@@ -59,10 +65,10 @@ import com.jlahougue.dndcompanion.data_weapon.domain.model.WeaponProperty
         ProficiencyView::class,
         SpellcasterView::class, CharacterSpellsStatsView::class, SpellSlotView::class
     ],
-    version = 13
+    version = 17
 )
 @TypeConverters(
-    value = [AbilityNameTypeConverter::class]
+    value = [AbilityNameTypeConverter::class, CurrencyTypeConverter::class]
 )
 abstract class RoomDataSource : RoomDatabase(), LocalDataSource {
     abstract override fun characterDao(): CharacterLocalDataSource
@@ -70,6 +76,8 @@ abstract class RoomDataSource : RoomDatabase(), LocalDataSource {
     abstract override fun abilityDao(): AbilityLocalDataSource
     abstract override fun skillDao(): SkillLocalDataSource
     abstract override fun statsDao(): StatsLocalDataSource
+    abstract override fun moneyDao(): MoneyLocalDataSource
+    abstract override fun itemDao(): ItemLocalDataSource
     abstract override fun classDao(): ClassLocalDataSource
     abstract override fun damageTypeDao(): DamageTypeLocalDataSource
     abstract override fun propertyDao(): PropertyLocalDataSource

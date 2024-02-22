@@ -1,6 +1,7 @@
 package com.jlahougue.dndcompanion.data_character_spell.domain.use_case
 
 data class SpellUseCases(
+    val getSpell: GetSpell,
     val getFilteredLevels: GetFilteredLevels,
     val getSpells: GetSpells,
     val getAllSpells: GetAllSpells,

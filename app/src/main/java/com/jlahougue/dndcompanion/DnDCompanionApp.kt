@@ -17,10 +17,14 @@ import com.jlahougue.dndcompanion.data_character_spell.di.CharacterSpellModule
 import com.jlahougue.dndcompanion.data_character_spell.di.ICharacterSpellModule
 import com.jlahougue.dndcompanion.data_class.di.ClassModule
 import com.jlahougue.dndcompanion.data_class.di.IClassModule
+import com.jlahougue.dndcompanion.data_currency.di.IMoneyModule
+import com.jlahougue.dndcompanion.data_currency.di.MoneyModule
 import com.jlahougue.dndcompanion.data_damage_type.di.DamageTypeModule
 import com.jlahougue.dndcompanion.data_damage_type.di.IDamageTypeModule
 import com.jlahougue.dndcompanion.data_health.di.HealthModule
 import com.jlahougue.dndcompanion.data_health.di.IHealthModule
+import com.jlahougue.dndcompanion.data_item.di.IItemModule
+import com.jlahougue.dndcompanion.data_item.di.ItemModule
 import com.jlahougue.dndcompanion.data_property.di.IPropertyModule
 import com.jlahougue.dndcompanion.data_property.di.PropertyModule
 import com.jlahougue.dndcompanion.data_skill.di.ISkillModule
@@ -39,6 +43,8 @@ import com.jlahougue.dndcompanion.feature_character_selection.di.CharacterSelect
 import com.jlahougue.dndcompanion.feature_character_selection.di.ICharacterSelectionModule
 import com.jlahougue.dndcompanion.feature_combat.di.CombatModule
 import com.jlahougue.dndcompanion.feature_combat.di.ICombatModule
+import com.jlahougue.dndcompanion.feature_equipment.di.EquipmentModule
+import com.jlahougue.dndcompanion.feature_equipment.di.IEquipmentModule
 import com.jlahougue.dndcompanion.feature_loading_data.di.ILoadingModule
 import com.jlahougue.dndcompanion.feature_loading_data.di.LoadingModule
 import com.jlahougue.dndcompanion.feature_spells.di.ISpellsModule
@@ -58,6 +64,8 @@ class DnDCompanionApp: Application() {
         lateinit var abilityModule: IAbilityModule
         lateinit var skillModule: ISkillModule
         lateinit var statsModule: IStatsModule
+        lateinit var moneyModule: IMoneyModule
+        lateinit var itemModule: IItemModule
         lateinit var classModule: IClassModule
         lateinit var damageTypeModule: IDamageTypeModule
         lateinit var characterSpellModule: ICharacterSpellModule
@@ -72,6 +80,7 @@ class DnDCompanionApp: Application() {
         lateinit var characterSelectionModule: ICharacterSelectionModule
         lateinit var combatModule: ICombatModule
         lateinit var spellsModule: ISpellsModule
+        lateinit var equipmentModule: IEquipmentModule
     }
 
     override fun onCreate() {
@@ -112,6 +121,16 @@ class DnDCompanionApp: Application() {
             dataSourceModule.localDataSource
         )
         statsModule = StatsModule(
+            dataSourceModule.remoteDataSource,
+            dataSourceModule.localDataSource
+        )
+        moneyModule = MoneyModule(
+            appModule.dispatcherProvider,
+            dataSourceModule.remoteDataSource,
+            dataSourceModule.localDataSource
+        )
+        itemModule = ItemModule(
+            appModule.dispatcherProvider,
             dataSourceModule.remoteDataSource,
             dataSourceModule.localDataSource
         )
@@ -163,7 +182,9 @@ class DnDCompanionApp: Application() {
             characterSpellModule.characterSpellRepository,
             spellModule.spellRepository,
             propertyModule.propertyRepository,
-            weaponModule.weaponRepository
+            weaponModule.weaponRepository,
+            moneyModule.repository,
+            itemModule.repository
         )
         characterSelectionModule = CharacterSelectionModule(
             appModule.dispatcherProvider,
@@ -175,19 +196,27 @@ class DnDCompanionApp: Application() {
         )
         combatModule = CombatModule(
             appModule.dispatcherProvider,
-            userInfoModule.getUserInfo,
+            userInfoModule.userInfoUseCases,
             abilityModule.abilityUseCases,
             statsModule.statsUseCases,
             healthModule.healthUseCases,
+            characterSpellModule.spellUseCases,
             weaponModule.weaponUseCases,
-            characterSpellModule.spellUseCases
+            itemModule.useCases
         )
         spellsModule = SpellsModule(
             appModule.dispatcherProvider,
-            userInfoModule.getCurrentCharacterId,
+            userInfoModule.userInfoUseCases,
             characterSpellModule.spellUseCases,
             classModule.classUseCases,
             characterModule.characterUseCases
+        )
+        equipmentModule = EquipmentModule(
+            appModule.dispatcherProvider,
+            userInfoModule.userInfoUseCases,
+            weaponModule.weaponUseCases,
+            moneyModule.useCases,
+            itemModule.useCases
         )
     }
 }

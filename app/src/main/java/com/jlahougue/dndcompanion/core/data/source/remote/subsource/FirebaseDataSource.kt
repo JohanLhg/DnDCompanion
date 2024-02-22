@@ -12,7 +12,9 @@ import com.jlahougue.dndcompanion.data_authentication.data.source.AuthFirebaseDa
 import com.jlahougue.dndcompanion.data_character.data.source.remote.CharacterFirebaseDataSource
 import com.jlahougue.dndcompanion.data_character_sheet.data.source.remote.CharacterSheetFirebaseDataSource
 import com.jlahougue.dndcompanion.data_character_spell.data.source.remote.CharacterSpellFirebaseDataSource
+import com.jlahougue.dndcompanion.data_currency.data.source.remote.MoneyFirebaseDataSource
 import com.jlahougue.dndcompanion.data_health.data.source.remote.HealthFirebaseDataSource
+import com.jlahougue.dndcompanion.data_item.data.source.remote.ItemFirebaseDataSource
 import com.jlahougue.dndcompanion.data_skill.data.source.remote.SkillFirebaseDataSource
 import com.jlahougue.dndcompanion.data_stats.data.source.remote.StatsFirebaseDataSource
 import com.jlahougue.dndcompanion.data_weapon.data.source.remote.subsource.WeaponFirebaseDataSource
@@ -35,6 +37,8 @@ class FirebaseDataSource {
     val abilityDao by lazy { AbilityFirebaseDataSource(this) }
     val skillDao by lazy { SkillFirebaseDataSource(this) }
     val statsDao by lazy { StatsFirebaseDataSource(this) }
+    val moneyDao by lazy { MoneyFirebaseDataSource(this) }
+    val itemDao by lazy { ItemFirebaseDataSource(this) }
     val characterSpellDao by lazy { CharacterSpellFirebaseDataSource(this) }
     val weaponDao by lazy { WeaponFirebaseDataSource(this) }
     //endregion

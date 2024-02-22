@@ -5,6 +5,8 @@ import com.jlahougue.dndcompanion.core.data.source.remote.RemoteDataSource
 import com.jlahougue.dndcompanion.core.domain.util.dispatcherProvider.DispatcherProvider
 import com.jlahougue.dndcompanion.data_weapon.data.repository.WeaponRepository
 import com.jlahougue.dndcompanion.data_weapon.domain.use_case.GetWeapon
+import com.jlahougue.dndcompanion.data_weapon.domain.use_case.GetWeaponStats
+import com.jlahougue.dndcompanion.data_weapon.domain.use_case.GetWeapons
 import com.jlahougue.dndcompanion.data_weapon.domain.use_case.GetWeaponsOwned
 import com.jlahougue.dndcompanion.data_weapon.domain.use_case.SaveWeapon
 import com.jlahougue.dndcompanion.data_weapon.domain.use_case.WeaponUseCases
@@ -25,7 +27,9 @@ class WeaponModule(
     override val weaponUseCases by lazy {
         WeaponUseCases(
             GetWeapon(weaponRepository),
+            GetWeapons(weaponRepository),
             GetWeaponsOwned(weaponRepository),
+            GetWeaponStats(weaponRepository),
             SaveWeapon(
                 dispatcherProvider,
                 weaponRepository

@@ -17,11 +17,14 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class SpellsViewModel(
     private val module: ISpellsModule
 ): ViewModel() {
+
+    private var characterId = -1L
 
     private val _spellcasting = MutableStateFlow(SpellcasterView())
     val spellcasting = _spellcasting.asStateFlow()
@@ -49,33 +52,39 @@ class SpellsViewModel(
     private val _mode = MutableStateFlow<SpellListMode>(SpellListMode.Known)
     val mode = _mode.asStateFlow()
 
+    private var spellDialogJob: Job? = null
     private val _spellDialogState = MutableStateFlow(SpellDialogState(mode = SpellDialogState.Mode.Edit))
     val spellDialogState = _spellDialogState.asStateFlow()
 
     init {
         viewModelScope.launch(module.dispatcherProvider.io) {
-            _classes.value = module.classUseCases.getSpellcasterClasses()
+            _classes.update { module.classUseCases.getSpellcasterClasses() }
         }
 
         viewModelScope.launch(module.dispatcherProvider.io) {
-            module.getCurrentCharacterId().collectLatest { characterId ->
+            module.userInfoUseCases.getCurrentCharacterId().collectLatest { characterId ->
+
+                this@SpellsViewModel.characterId = characterId
+
                 viewModelScope.launch(module.dispatcherProvider.io) {
-                    _searchState.value = _searchState.value.copy(
-                        selectedClass = module.characterUseCases.getCharacterClass(characterId)
-                    )
+                    _searchState.update {
+                        it.copy(
+                            selectedClass = module.characterUseCases.getCharacterClass(characterId)
+                        )
+                    }
                 }
 
                 viewModelScope.launch(module.dispatcherProvider.io) {
                     module.spellUseCases.getSpellcasterStats(characterId)
                         .collectLatest { spellcasterStats ->
-                            _spellcasting.value = spellcasterStats
+                            _spellcasting.update { spellcasterStats }
                         }
                 }
 
                 viewModelScope.launch(module.dispatcherProvider.io) {
                     module.spellUseCases.getCharacterSpellsStats(characterId)
                         .collectLatest { stats ->
-                            _spellsStats.value = stats
+                            _spellsStats.update { stats }
                         }
                 }
 
@@ -91,16 +100,18 @@ class SpellsViewModel(
                                         characterId,
                                         spellFilter = SpellFilter.Known,
                                     ).collectLatest { spells ->
-                                        _knownSpells.value = spells
+                                        _knownSpells.update { spells }
                                     }
                                 }
                             }
                             is SpellListMode.All -> {
                                 viewModelScope.launch(module.dispatcherProvider.io) {
-                                    _filteredLevels.value = module.spellUseCases.getFilteredLevels(
-                                        search = searchState.search,
-                                        clazz = searchState.selectedClass
-                                    )
+                                    _filteredLevels.update {
+                                        module.spellUseCases.getFilteredLevels(
+                                            search = searchState.search,
+                                            clazz = searchState.selectedClass
+                                        )
+                                    }
                                 }
 
                                 allSpellsJob?.cancel()
@@ -111,7 +122,7 @@ class SpellsViewModel(
                                         clazz = searchState.selectedClass,
                                         level = searchState.selectedLevel
                                     ).collectLatest { spells ->
-                                        _allSpells.value = spells
+                                        _allSpells.update { spells }
                                     }
                                 }
                             }
@@ -126,36 +137,38 @@ class SpellsViewModel(
     fun onSearchEvent(event: SpellSearchEvent) {
         when (event) {
             SpellSearchEvent.OnModeChanged -> {
-                _mode.value = when (mode.value) {
-                    is SpellListMode.Known -> SpellListMode.All(0)
-                    is SpellListMode.All -> SpellListMode.Known
-                    else -> SpellListMode.Known
+                _mode.update {
+                    when (mode.value) {
+                        is SpellListMode.Known -> SpellListMode.All(0)
+                        is SpellListMode.All -> SpellListMode.Known
+                        else -> SpellListMode.Known
+                    }
                 }
             }
 
             is SpellSearchEvent.OnClassFilterClicked -> {
                 val selectedClass = searchState.value.selectedClass
                 if (selectedClass == event.clazz) {
-                    _searchState.value = searchState.value.copy(
-                        selectedClass = ""
-                    )
+                    _searchState.update {
+                        it.copy(selectedClass = "")
+                    }
                 } else {
-                    _searchState.value = searchState.value.copy(
-                        selectedClass = event.clazz
-                    )
+                    _searchState.update {
+                        it.copy(selectedClass = event.clazz)
+                    }
                 }
             }
 
             is SpellSearchEvent.OnLevelSelected -> {
-                _searchState.value = searchState.value.copy(
-                    selectedLevel = event.level
-                )
+                _searchState.update {
+                    it.copy(selectedLevel = event.level)
+                }
             }
 
             is SpellSearchEvent.OnSearchChanged -> {
-                _searchState.value = searchState.value.copy(
-                    search = event.search
-                )
+                _searchState.update {
+                    it.copy(search = event.search)
+                }
             }
         }
     }
@@ -183,17 +196,25 @@ class SpellsViewModel(
                 }
             }
             is SpellEvent.OnSpellClicked -> {
-                _spellDialogState.value = spellDialogState.value.copy(
-                    isShown = true,
-                    spell = event.spell
-                )
+                _spellDialogState.update {
+                    it.copy(isShown = true)
+                }
+                spellDialogJob?.cancel()
+                spellDialogJob = viewModelScope.launch(module.dispatcherProvider.io) {
+                    module.spellUseCases.getSpell(characterId, event.spellId).collectLatest { spell ->
+                        _spellDialogState.update {
+                            it.copy(spell = spell)
+                        }
+                    }
+                }
             }
             is SpellEvent.OnSpellStateChanged -> {
                 viewModelScope.launch(module.dispatcherProvider.io) {
-                    val spell = event.spell.getCharacterSpell(
-                        state = event.state
+                    module.spellUseCases.saveSpell(
+                        event.spell.getCharacterSpell(
+                            state = event.state
+                        )
                     )
-                    module.spellUseCases.saveSpell(spell)
                 }
             }
         }
@@ -204,19 +225,21 @@ class SpellsViewModel(
             is SpellDialogEvent.OnClassClick -> TODO()
             is SpellDialogEvent.OnDamageTypeClick -> TODO()
             SpellDialogEvent.OnDismiss -> {
-                _spellDialogState.value = SpellDialogState(
-                    mode = SpellDialogState.Mode.Edit
-                )
+                _spellDialogState.update {
+                    it.copy(
+                        isShown = false,
+                        spell = null
+                    )
+                }
             }
             is SpellDialogEvent.OnStateDropdownOpen -> {
-                _spellDialogState.value = spellDialogState.value.copy(
-                    isStateDropdownOpened = event.opened
-                )
+                _spellDialogState.update {
+                    it.copy(
+                        isStateDropdownOpened = event.opened
+                    )
+                }
             }
             is SpellDialogEvent.OnStateChange -> {
-                _spellDialogState.value = spellDialogState.value.copy(
-                    spell = event.spell.copy(state = event.state)
-                )
                 onSpellEvent(SpellEvent.OnSpellStateChanged(event.spell, event.state))
             }
         }

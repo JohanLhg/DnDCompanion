@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.jlahougue.dndcompanion.data_authentication.domain.use_case.IsLoggedIn
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 
 class SplashScreenViewModel(
     private val isLoggedIn: IsLoggedIn
@@ -14,7 +15,7 @@ class SplashScreenViewModel(
 
     fun isUserAuthenticated(): Boolean {
         val isAuthenticated = isLoggedIn()
-        _isLoading.value = false
+        _isLoading.update { false }
         return isAuthenticated
     }
 }

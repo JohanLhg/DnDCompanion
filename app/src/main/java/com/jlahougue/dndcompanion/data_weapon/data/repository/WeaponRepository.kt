@@ -44,5 +44,9 @@ class WeaponRepository(
     override fun get(characterId: Long, weaponName: String)
             = localDataSource.get(characterId, weaponName)
 
+    override fun get(characterId: Long) = localDataSource.get(characterId)
+
     override fun getOwned(characterId: Long) = localDataSource.getOwned(characterId)
+
+    override fun getStats(characterId: Long) = localDataSource.getStats(characterId)
 }

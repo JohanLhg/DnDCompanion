@@ -1,6 +1,5 @@
 package com.jlahougue.dndcompanion.feature_loading_data.domain.use_case
 
-import android.util.Log
 import com.jlahougue.dndcompanion.R
 import com.jlahougue.dndcompanion.core.data.source.remote.subsource.ApiEvent
 import com.jlahougue.dndcompanion.core.domain.util.UiText
@@ -60,7 +59,6 @@ class LoadAll(
                     onApiEvent(ApiEvent.Finish)
                     return@combine
                 }
-                Log.d("LoadAll", "Waiting for : $waitingFor")
                 waitingFor.forEach { identifier ->
                     startIfPossible(identifier)
                 }
@@ -108,7 +106,7 @@ class LoadAll(
     private fun hasFinished(identifier: Int) = useCaseMap[identifier]?.state?.value?.hasFinished() ?: false
 
     fun onUserAuthenticated() {
-        _isUserAuthenticated.value = true
+        _isUserAuthenticated.update { true }
     }
 
     companion object {

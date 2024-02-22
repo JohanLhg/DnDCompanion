@@ -32,6 +32,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.jlahougue.dndcompanion.R
+import com.jlahougue.dndcompanion.core.domain.util.extension.asDp
 import com.jlahougue.dndcompanion.core.presentation.components.CustomOutlinedTextField
 import com.jlahougue.dndcompanion.core.presentation.theme.DnDCompanionTheme
 import com.jlahougue.dndcompanion.core.presentation.theme.Green
@@ -56,9 +57,6 @@ fun TextFieldWithIncrements(
     ) {
         var rowH by remember { mutableStateOf(0.dp) }
         val density = LocalDensity.current
-        fun Int.asDp() = density.run {
-            this@asDp.toDp()
-        }
         CustomImageButton(
             resourceId = R.drawable.arrow_left,
             description = minusDescription,
@@ -82,7 +80,7 @@ fun TextFieldWithIncrements(
                 onValueChange = onValueChange,
                 modifier = Modifier
                     .onSizeChanged {
-                        rowH = it.height.asDp()
+                        rowH = it.height.asDp(density)
                     }
                     .width(75.dp)
                     .padding(horizontal = MaterialTheme.spacing.small),

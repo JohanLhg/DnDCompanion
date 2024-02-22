@@ -96,7 +96,7 @@ fun Spell(
                 modifier = Modifier
                     .clickable(
                         onClick = {
-                            onEvent(SpellEvent.OnSpellClicked(spell))
+                            onEvent(SpellEvent.OnSpellClicked(spell.id))
                         }
                     )
                     .padding(vertical = MaterialTheme.spacing.small)

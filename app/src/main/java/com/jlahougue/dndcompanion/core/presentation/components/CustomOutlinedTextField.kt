@@ -34,7 +34,8 @@ fun CustomOutlinedTextField(
     modifier: Modifier = Modifier,
     textStyle: TextStyle = TextStyle.Default,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
-    keyboardActions: KeyboardActions = KeyboardActions.Default
+    keyboardActions: KeyboardActions = KeyboardActions.Default,
+    maxLines: Int = 1
 ) {
     var textFieldValue by remember { mutableStateOf(TextFieldValue()) }
     val interactionSource by remember { mutableStateOf(MutableInteractionSource()) }
@@ -77,7 +78,8 @@ fun CustomOutlinedTextField(
         textStyle = textStyle,
         interactionSource = interactionSource,
         keyboardOptions = keyboardOptions,
-        keyboardActions = keyboardActions
+        keyboardActions = keyboardActions,
+        maxLines = maxLines
     )
 }
 

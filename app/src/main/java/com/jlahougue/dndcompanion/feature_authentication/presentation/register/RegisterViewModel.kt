@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class RegisterViewModel(
@@ -27,13 +28,19 @@ class RegisterViewModel(
     fun onEvent(event: RegisterEvent) {
         when (event) {
             is RegisterEvent.EmailChanged -> {
-                _state.value = state.value.copy(email = event.email)
+                _state.update {
+                    it.copy(email = event.email)
+                }
             }
             is RegisterEvent.PasswordChanged -> {
-                _state.value = state.value.copy(password = event.password)
+                _state.update {
+                    it.copy(password = event.password)
+                }
             }
             is RegisterEvent.ConfirmPasswordChanged -> {
-                _state.value = state.value.copy(confirmPassword = event.confirmPassword)
+                _state.update {
+                    it.copy(confirmPassword = event.confirmPassword)
+                }
             }
             is RegisterEvent.Register -> {
                 viewModelScope.launch(module.dispatcherProvider.io) {

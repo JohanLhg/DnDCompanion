@@ -5,6 +5,7 @@ import com.jlahougue.dndcompanion.data_weapon.domain.model.CharacterWeapon
 import com.jlahougue.dndcompanion.data_weapon.domain.model.Weapon
 import com.jlahougue.dndcompanion.data_weapon.domain.model.WeaponInfo
 import com.jlahougue.dndcompanion.data_weapon.domain.model.WeaponProperty
+import com.jlahougue.dndcompanion.data_weapon.domain.model.WeaponStats
 import kotlinx.coroutines.flow.Flow
 
 interface IWeaponRepository {
@@ -14,5 +15,7 @@ interface IWeaponRepository {
     suspend fun save(characterWeapon: CharacterWeapon)
     suspend fun saveToLocal(characterWeapons: List<CharacterWeapon>)
     fun get(characterId: Long, weaponName: String): Flow<WeaponInfo>
+    fun get(characterId: Long): Flow<List<WeaponInfo>>
     fun getOwned(characterId: Long): Flow<List<WeaponInfo>>
+    fun getStats(characterId: Long): Flow<WeaponStats>
 }
