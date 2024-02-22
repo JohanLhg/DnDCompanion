@@ -8,7 +8,7 @@ class PropertyModule(
     remoteDataSource: RemoteDataSource,
     localDataSource: LocalDataSource
 ) : IPropertyModule {
-    override val propertyRepository by lazy {
+    override val repository by lazy {
         PropertyRepository(
             remoteDataSource.propertyDao,
             localDataSource.propertyDao()

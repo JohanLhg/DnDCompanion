@@ -12,17 +12,17 @@ class StatsModule(
     localDataSource: LocalDataSource
 ) : IStatsModule {
 
-    override val statsRepository by lazy {
+    override val repository by lazy {
         StatsRepository(
             remoteDataSource.statsDao,
             localDataSource.statsDao()
         )
     }
 
-    override val statsUseCases by lazy {
+    override val useCases by lazy {
         StatsUseCases(
-            GetStats(statsRepository),
-            SaveStats(statsRepository)
+            GetStats(repository),
+            SaveStats(repository)
         )
     }
 }

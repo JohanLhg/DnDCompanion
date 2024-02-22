@@ -31,7 +31,7 @@ class DnDCompanionActivity : ComponentActivity() {
         val splashScreenViewModel by viewModels<SplashScreenViewModel> {
             viewModelFactory {
                 SplashScreenViewModel(
-                    isLoggedIn = DnDCompanionApp.authModule.authUseCases.isLoggedIn
+                    isLoggedIn = DnDCompanionApp.authModule.useCases.isLoggedIn
                 )
             }
         }

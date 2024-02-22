@@ -4,6 +4,6 @@ import com.jlahougue.dndcompanion.data_user_info.domain.repository.IUserInfoRepo
 import com.jlahougue.dndcompanion.data_user_info.domain.use_case.UserInfoUseCases
 
 interface IUserInfoModule {
-    val userInfoRepository: IUserInfoRepository
-    val userInfoUseCases: UserInfoUseCases
+    val repository: IUserInfoRepository
+    val useCases: UserInfoUseCases
 }

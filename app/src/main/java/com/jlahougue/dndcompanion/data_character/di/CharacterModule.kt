@@ -14,22 +14,22 @@ class CharacterModule(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource
 ): ICharacterModule {
-    override val characterRepository: ICharacterRepository by lazy {
+    override val repository: ICharacterRepository by lazy {
         CharacterRepository(
             remoteDataSource.characterDao,
             localDataSource.characterDao()
         )
     }
 
-    override val characterUseCases by lazy {
+    override val useCases by lazy {
         CharacterUseCases(
             LoadCharacterImage(
                 dispatcherProvider,
-                characterRepository
+                repository
             ),
             GetCharacterClass(
                 dispatcherProvider,
-                characterRepository
+                repository
             )
         )
     }

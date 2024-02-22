@@ -8,7 +8,7 @@ class SkillModule(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource
 ): ISkillModule {
-    override val skillRepository by lazy {
+    override val repository by lazy {
         SkillRepository(
             remoteDataSource.skillDao,
             localDataSource.skillDao()

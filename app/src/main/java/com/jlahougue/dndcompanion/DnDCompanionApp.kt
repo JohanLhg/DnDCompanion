@@ -99,7 +99,7 @@ class DnDCompanionApp: Application() {
         authModule = AuthModule(
             appModule.dispatcherProvider,
             dataSourceModule.remoteDataSource,
-            userInfoModule.userInfoRepository
+            userInfoModule.repository
         )
         characterModule = CharacterModule(
             appModule.dispatcherProvider,
@@ -167,54 +167,54 @@ class DnDCompanionApp: Application() {
 
         authenticationModule = AuthenticationModule(
             appModule.dispatcherProvider,
-            authModule.authUseCases
+            authModule.useCases
         )
         loadingModule = LoadingModule(
             appModule.dispatcherProvider,
-            characterSheetModule.characterSheetRepository,
-            characterModule.characterRepository,
-            abilityModule.abilityRepository,
-            skillModule.skillRepository,
-            classModule.classRepository,
-            statsModule.statsRepository,
-            healthModule.healthRepository,
-            damageTypeModule.damageTypeRepository,
-            characterSpellModule.characterSpellRepository,
-            spellModule.spellRepository,
-            propertyModule.propertyRepository,
-            weaponModule.weaponRepository,
+            characterSheetModule.repository,
+            characterModule.repository,
+            abilityModule.repository,
+            skillModule.repository,
+            classModule.repository,
+            statsModule.repository,
+            healthModule.repository,
+            damageTypeModule.repository,
+            characterSpellModule.repository,
+            spellModule.repository,
+            propertyModule.repository,
+            weaponModule.repository,
             moneyModule.repository,
             itemModule.repository
         )
         characterSelectionModule = CharacterSelectionModule(
             appModule.dispatcherProvider,
-            characterModule.characterRepository,
-            userInfoModule.userInfoRepository,
-            abilityModule.abilityRepository,
-            skillModule.skillRepository,
-            characterModule.characterUseCases
+            characterModule.repository,
+            userInfoModule.repository,
+            abilityModule.repository,
+            skillModule.repository,
+            characterModule.useCases
         )
         combatModule = CombatModule(
             appModule.dispatcherProvider,
-            userInfoModule.userInfoUseCases,
-            abilityModule.abilityUseCases,
-            statsModule.statsUseCases,
-            healthModule.healthUseCases,
-            characterSpellModule.spellUseCases,
-            weaponModule.weaponUseCases,
+            userInfoModule.useCases,
+            abilityModule.useCases,
+            statsModule.useCases,
+            healthModule.useCases,
+            characterSpellModule.useCases,
+            weaponModule.useCases,
             itemModule.useCases
         )
         spellsModule = SpellsModule(
             appModule.dispatcherProvider,
-            userInfoModule.userInfoUseCases,
-            characterSpellModule.spellUseCases,
-            classModule.classUseCases,
-            characterModule.characterUseCases
+            userInfoModule.useCases,
+            characterSpellModule.useCases,
+            classModule.useCases,
+            characterModule.useCases
         )
         equipmentModule = EquipmentModule(
             appModule.dispatcherProvider,
-            userInfoModule.userInfoUseCases,
-            weaponModule.weaponUseCases,
+            userInfoModule.useCases,
+            weaponModule.useCases,
             moneyModule.useCases,
             itemModule.useCases
         )

@@ -15,22 +15,22 @@ class AuthModule(
     val userInfoRepository: IUserInfoRepository
 ) : IAuthModule {
 
-    override val authRepository by lazy {
+    override val repository by lazy {
         AuthRepository(remoteDataSource.authDao)
     }
 
-    override val authUseCases by lazy {
+    override val useCases by lazy {
         AuthUseCases(
             isLoggedIn = IsLoggedIn(
-                authRepository,
+                repository,
                 userInfoRepository
             ),
             login = Login(
-                authRepository,
+                repository,
                 userInfoRepository
             ),
             register = Register(
-                authRepository,
+                repository,
                 userInfoRepository
             )
         )

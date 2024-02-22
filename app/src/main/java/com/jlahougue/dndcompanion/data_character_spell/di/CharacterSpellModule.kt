@@ -20,29 +20,29 @@ class CharacterSpellModule(
     private val localDataSource: LocalDataSource
 ) : ICharacterSpellModule {
 
-    override val characterSpellRepository by lazy {
+    override val repository by lazy {
         CharacterSpellRepository(
             remoteDataSource.characterSpellDao,
             localDataSource.characterSpellDao()
         )
     }
 
-    override val spellUseCases by lazy {
+    override val useCases by lazy {
         SpellUseCases(
-            GetSpell(characterSpellRepository),
-            GetFilteredLevels(characterSpellRepository),
-            GetSpells(characterSpellRepository),
-            GetAllSpells(characterSpellRepository),
+            GetSpell(repository),
+            GetFilteredLevels(repository),
+            GetSpells(repository),
+            GetAllSpells(repository),
             SaveSpell(
                 dispatcherProvider,
-                characterSpellRepository
+                repository
             ),
             SaveSpellSlot(
                 dispatcherProvider,
-                characterSpellRepository
+                repository
             ),
-            GetSpellcasterStats(characterSpellRepository),
-            GetCharacterSpellsStats(characterSpellRepository)
+            GetSpellcasterStats(repository),
+            GetCharacterSpellsStats(repository)
         )
     }
 }

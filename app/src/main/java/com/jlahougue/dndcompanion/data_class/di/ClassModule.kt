@@ -10,16 +10,16 @@ class ClassModule(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource
 ): IClassModule {
-    override val classRepository by lazy {
+    override val repository by lazy {
         ClassRepository(
             remoteDataSource.classDao,
             localDataSource.classDao()
         )
     }
 
-    override val classUseCases by lazy {
+    override val useCases by lazy {
         ClassUseCases(
-            GetSpellcasterClasses(classRepository)
+            GetSpellcasterClasses(repository)
         )
     }
 }
