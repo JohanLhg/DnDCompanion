@@ -3,6 +3,7 @@ package com.jlahougue.dndcompanion.feature_loading_data.di
 import com.jlahougue.dndcompanion.core.domain.util.dispatcherProvider.DispatcherProvider
 import com.jlahougue.dndcompanion.data_ability.domain.repository.IAbilityRepository
 import com.jlahougue.dndcompanion.data_character.domain.repository.ICharacterRepository
+import com.jlahougue.dndcompanion.data_character.domain.use_case.CharacterUseCases
 import com.jlahougue.dndcompanion.data_character_sheet.domain.repository.ICharacterSheetRepository
 import com.jlahougue.dndcompanion.data_character_spell.domain.repository.ICharacterSpellRepository
 import com.jlahougue.dndcompanion.data_class.domain.repository.IClassRepository
@@ -27,6 +28,7 @@ class LoadingModule(
     override val dispatcherProvider: DispatcherProvider,
     private val characterSheetRepository: ICharacterSheetRepository,
     private val characterRepository: ICharacterRepository,
+    private val characterUseCases: CharacterUseCases,
     private val abilityRepository: IAbilityRepository,
     private val skillRepository: ISkillRepository,
     private val classRepository: IClassRepository,
@@ -77,6 +79,7 @@ class LoadingModule(
             dispatcherProvider,
             characterSheetRepository,
             characterRepository,
+            characterUseCases,
             abilityRepository,
             skillRepository,
             statsRepository,

@@ -4,11 +4,11 @@ import com.jlahougue.dndcompanion.R
 import com.jlahougue.dndcompanion.core.domain.util.UiText
 import com.jlahougue.dndcompanion.data_authentication.domain.model.InvalidAuthException
 import com.jlahougue.dndcompanion.data_authentication.domain.repository.IAuthRepository
-import com.jlahougue.dndcompanion.data_user_info.domain.repository.IUserInfoRepository
+import com.jlahougue.dndcompanion.data_user_info.domain.use_case.UserInfoUseCases
 
 class Register(
     private val authRepository: IAuthRepository,
-    private val userInfoRepository: IUserInfoRepository
+    private val userInfoUseCases: UserInfoUseCases
 ) {
 
     @Throws(InvalidAuthException::class)
@@ -29,7 +29,7 @@ class Register(
             )
         }
         authRepository.register(email, password) {
-            userInfoRepository.updateUserId(it)
+            userInfoUseCases.updateUserInfo(userId = it)
             callback(it != null)
         }
     }

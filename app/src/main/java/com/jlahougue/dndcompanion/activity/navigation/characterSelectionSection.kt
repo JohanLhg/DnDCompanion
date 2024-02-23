@@ -28,17 +28,18 @@ fun NavGraphBuilder.characterSelectionSection(
             }
         )
         val characters by viewModel.characters.collectAsState()
-        LaunchedEffect(Unit) {
-            viewModel.getCharacterList()
+        LaunchedEffect(viewModel.characterIsSelected) {
+            if (viewModel.characterIsSelected.value) {
+                navigateToNext()
+            }
         }
         CharacterSelectionScreen(
             characters = characters,
             getImage = viewModel::getCharacterImage,
             onCharacterClicked = {
                 viewModel.setCharacter(it.id)
-                navigateToNext()
             },
-            onCharacterAddClicked = {},
+            onCharacterAddClicked = viewModel::createCharacter,
             modifier = Modifier
                 .fillMaxSize()
         )

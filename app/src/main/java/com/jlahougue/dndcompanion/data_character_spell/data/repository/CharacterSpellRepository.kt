@@ -29,6 +29,10 @@ class CharacterSpellRepository(
         remoteDataSource.save(spellSlot)
     }
 
+    override suspend fun delete(characterId: Long) {
+        localDataSource.delete(characterId)
+    }
+
     override fun get(
         characterId: Long,
         spellId: String

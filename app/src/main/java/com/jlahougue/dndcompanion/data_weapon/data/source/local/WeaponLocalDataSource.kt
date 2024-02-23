@@ -27,6 +27,9 @@ interface WeaponLocalDataSource {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(characterWeapons: List<CharacterWeapon>)
 
+    @Query("DELETE FROM character_weapon WHERE cid = :characterId")
+    suspend fun delete(characterId: Long)
+
     @Query("SELECT weapon_name FROM weapon")
     suspend fun getNames(): List<String>
 

@@ -22,5 +22,9 @@ class StatsRepository(
         local.insert(stats)
     }
 
+    override suspend fun delete(characterId: Long) {
+        local.deleteForCharacter(characterId)
+    }
+
     override fun get(characterId: Long) = local.get(characterId)
 }

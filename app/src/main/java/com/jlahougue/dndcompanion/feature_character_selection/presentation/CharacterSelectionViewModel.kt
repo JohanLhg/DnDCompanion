@@ -16,18 +16,40 @@ class CharacterSelectionViewModel(
     private val module: ICharacterSelectionModule
 ) : ViewModel() {
 
-    private var _characters = MutableStateFlow(emptyList<Character>())
+    private val _characterIsSelected = MutableStateFlow(false)
+    val characterIsSelected = _characterIsSelected.asStateFlow()
+
+    private val _characters = MutableStateFlow(emptyList<Character>())
     val characters = _characters.asStateFlow()
 
-    fun setCharacter(characterId: Long) {
-        module.userInfoRepository.updateCharacterId(characterId)
+    init {
+        getCharacterList()
+        isCharacterSelected()
     }
 
-    fun getCharacterList() {
-        viewModelScope.launch {
-            module.characterRepository.get().collectLatest { list ->
+    private fun getCharacterList() {
+        viewModelScope.launch(module.dispatcherProvider.io) {
+            module.characterUseCases.getCharacters().collectLatest { list ->
                 _characters.update { list }
             }
+        }
+    }
+
+    private fun isCharacterSelected() {
+        viewModelScope.launch(module.dispatcherProvider.io) {
+            module.userInfoUseCases.getCurrentCharacterId().collectLatest { characterId ->
+                _characterIsSelected.update { characterId != -1L }
+            }
+        }
+    }
+
+    fun setCharacter(characterId: Long) {
+        module.userInfoUseCases.updateUserInfo(characterId = characterId)
+    }
+
+    fun createCharacter() {
+        viewModelScope.launch(module.dispatcherProvider.io) {
+            setCharacter(module.characterUseCases.createCharacter())
         }
     }
 

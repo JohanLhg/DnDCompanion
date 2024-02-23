@@ -34,6 +34,10 @@ class HealthRepository(
         local.insert(deathSaves)
     }
 
+    override suspend fun delete(characterId: Long) {
+        local.deleteForCharacter(characterId)
+    }
+
     override fun getHealth(characterId: Long) = local.getHealth(characterId)
 
     override fun getDeathSaves(characterId: Long) = local.getDeathSaves(characterId)
