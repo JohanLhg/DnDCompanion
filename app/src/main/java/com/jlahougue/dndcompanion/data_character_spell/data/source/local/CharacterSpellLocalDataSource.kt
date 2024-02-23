@@ -27,6 +27,9 @@ interface CharacterSpellLocalDataSource {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(spellSlot: SpellSlot)
 
+    @Query("DELETE FROM character_spell WHERE cid = :characterId")
+    suspend fun delete(characterId: Long)
+
     @Query("""
         SELECT 
             :characterId as cid,

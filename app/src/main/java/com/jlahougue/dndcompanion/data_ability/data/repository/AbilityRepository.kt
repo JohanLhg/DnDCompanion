@@ -34,6 +34,10 @@ class AbilityRepository(
         localDataSource.insert(abilities)
     }
 
+    override suspend fun delete(characterID: Long) {
+        localDataSource.deleteForCharacter(characterID)
+    }
+
     override fun get(characterID: Long): Flow<List<AbilityView>> {
         return localDataSource.get(characterID)
     }

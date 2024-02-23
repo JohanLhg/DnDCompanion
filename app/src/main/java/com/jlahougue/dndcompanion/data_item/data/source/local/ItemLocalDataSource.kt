@@ -17,6 +17,9 @@ interface ItemLocalDataSource {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(items: List<Item>)
 
+    @Query("DELETE FROM item WHERE cid = :characterId")
+    suspend fun delete(characterId: Long)
+
     @Delete
     suspend fun delete(item: Item)
 

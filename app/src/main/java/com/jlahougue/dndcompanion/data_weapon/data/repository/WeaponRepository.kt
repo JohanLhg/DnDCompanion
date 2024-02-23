@@ -39,6 +39,10 @@ class WeaponRepository(
         localDataSource.insert(characterWeapons)
     }
 
+    override suspend fun delete(characterId: Long) {
+        localDataSource.delete(characterId)
+    }
+
     private suspend fun getNames() = localDataSource.getNames()
 
     override fun get(characterId: Long, weaponName: String)

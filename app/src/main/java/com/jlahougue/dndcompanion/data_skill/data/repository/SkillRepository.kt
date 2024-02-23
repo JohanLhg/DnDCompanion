@@ -44,4 +44,8 @@ class SkillRepository(
     override suspend fun saveToLocal(skills: List<Skill>) {
         localDataSource.insert(skills)
     }
+
+    override suspend fun delete(characterID: Long) {
+        localDataSource.delete(characterID)
+    }
 }

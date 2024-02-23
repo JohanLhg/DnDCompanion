@@ -1,7 +1,6 @@
 package com.jlahougue.dndcompanion.activity.navigation
 
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -28,9 +27,6 @@ fun NavGraphBuilder.characterSelectionSection(
             }
         )
         val characters by viewModel.characters.collectAsState()
-        LaunchedEffect(Unit) {
-            viewModel.getCharacterList()
-        }
         CharacterSelectionScreen(
             characters = characters,
             getImage = viewModel::getCharacterImage,
@@ -38,7 +34,7 @@ fun NavGraphBuilder.characterSelectionSection(
                 viewModel.setCharacter(it.id)
                 navigateToNext()
             },
-            onCharacterAddClicked = {},
+            onCharacterAddClicked = viewModel::createCharacter,
             modifier = Modifier
                 .fillMaxSize()
         )

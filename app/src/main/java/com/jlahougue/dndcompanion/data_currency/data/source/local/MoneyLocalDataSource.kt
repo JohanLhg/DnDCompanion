@@ -12,6 +12,9 @@ interface MoneyLocalDataSource {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(money: Money)
 
+    @Query("DELETE FROM money WHERE cid = :characterId")
+    suspend fun delete(characterId: Long)
+
     @Query("SELECT * FROM money WHERE cid = :characterId")
     fun get(characterId: Long): Flow<Money>
 }
