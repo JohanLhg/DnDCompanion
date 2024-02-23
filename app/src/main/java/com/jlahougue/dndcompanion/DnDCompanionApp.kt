@@ -99,7 +99,7 @@ class DnDCompanionApp: Application() {
         authModule = AuthModule(
             appModule.dispatcherProvider,
             dataSourceModule.remoteDataSource,
-            userInfoModule.repository
+            userInfoModule.useCases
         )
         healthModule = HealthModule(
             appModule.dispatcherProvider,
@@ -182,6 +182,7 @@ class DnDCompanionApp: Application() {
             appModule.dispatcherProvider,
             characterSheetModule.repository,
             characterModule.repository,
+            characterModule.useCases,
             abilityModule.repository,
             skillModule.repository,
             classModule.repository,
@@ -197,7 +198,7 @@ class DnDCompanionApp: Application() {
         )
         characterSelectionModule = CharacterSelectionModule(
             appModule.dispatcherProvider,
-            userInfoModule.repository,
+            userInfoModule.useCases,
             characterModule.useCases
         )
         combatModule = CombatModule(

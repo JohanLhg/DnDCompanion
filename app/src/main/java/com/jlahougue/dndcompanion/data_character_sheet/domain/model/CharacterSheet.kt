@@ -12,20 +12,20 @@ import com.jlahougue.dndcompanion.data_stats.domain.model.Stats
 import com.jlahougue.dndcompanion.data_weapon.domain.model.CharacterWeapon
 
 data class CharacterSheet(
-    var character: Character? = null,
+    var character: Character = Character(),
     var abilities: Map<String, Ability> = mapOf(),
     var skills: Map<String, Skill> = mapOf(),
-    var stats: Stats? = null,
-    var health: Health? = null,
-    var deathSaves: DeathSaves? = null,
-    var money: Money? = null,
+    var stats: Stats = Stats(cid = character.id),
+    var health: Health = Health(cid = character.id),
+    var deathSaves: DeathSaves = DeathSaves(cid = character.id),
+    var money: Money = Money(cid = character.id),
     var spellSlots: Map<String, Int> = mapOf(),
     var spells: Map<String, CharacterSpell> = mapOf(),
     var weapons: Map<String, CharacterWeapon> = mapOf(),
     var items: Map<String, Item> = mapOf()
 ) {
     val id: Long
-        get() = character?.id ?: 0
+        get() = character.id
 
     override fun toString(): String {
         return """
