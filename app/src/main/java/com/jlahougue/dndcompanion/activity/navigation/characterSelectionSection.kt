@@ -12,6 +12,7 @@ import com.jlahougue.dndcompanion.DnDCompanionApp
 import com.jlahougue.dndcompanion.core.domain.util.extension.viewModelFactory
 import com.jlahougue.dndcompanion.feature_character_selection.presentation.CharacterSelectionScreen
 import com.jlahougue.dndcompanion.feature_character_selection.presentation.CharacterSelectionViewModel
+import kotlinx.coroutines.launch
 
 fun NavGraphBuilder.characterSelectionSection(
     route: String,
@@ -28,9 +29,11 @@ fun NavGraphBuilder.characterSelectionSection(
             }
         )
         val characters by viewModel.characters.collectAsState()
-        LaunchedEffect(viewModel.characterIsSelected) {
-            if (viewModel.characterIsSelected.value) {
-                navigateToNext()
+        LaunchedEffect(true) {
+            launch {
+                viewModel.characterIsSelected.collect {
+                    navigateToNext()
+                }
             }
         }
         CharacterSelectionScreen(
