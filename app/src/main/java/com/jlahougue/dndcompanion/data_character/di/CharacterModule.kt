@@ -1,8 +1,8 @@
 package com.jlahougue.dndcompanion.data_character.di
 
+import com.jlahougue.core_domain.util.dispatcherProvider.DispatcherProvider
 import com.jlahougue.dndcompanion.core.data.source.local.LocalDataSource
 import com.jlahougue.dndcompanion.core.data.source.remote.RemoteDataSource
-import com.jlahougue.dndcompanion.core.domain.util.dispatcherProvider.DispatcherProvider
 import com.jlahougue.dndcompanion.data_ability.domain.repository.IAbilityRepository
 import com.jlahougue.dndcompanion.data_character.data.repository.CharacterRepository
 import com.jlahougue.dndcompanion.data_character.domain.repository.ICharacterRepository

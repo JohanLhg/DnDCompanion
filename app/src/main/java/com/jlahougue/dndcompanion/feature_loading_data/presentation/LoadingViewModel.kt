@@ -2,8 +2,8 @@ package com.jlahougue.dndcompanion.feature_loading_data.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.jlahougue.core_domain.util.UiText
 import com.jlahougue.dndcompanion.R
-import com.jlahougue.dndcompanion.core.domain.util.UiText
 import com.jlahougue.dndcompanion.feature_loading_data.di.ILoadingModule
 import com.jlahougue.dndcompanion.feature_loading_data.presentation.util.LoadingUiEvent
 import kotlinx.coroutines.flow.MutableSharedFlow

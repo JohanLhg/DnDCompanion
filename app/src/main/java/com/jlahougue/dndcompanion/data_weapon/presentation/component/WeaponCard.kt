@@ -14,8 +14,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import com.jlahougue.core_domain.util.extension.toSignedString
 import com.jlahougue.dndcompanion.R
-import com.jlahougue.dndcompanion.core.domain.util.extension.toSignedString
 import com.jlahougue.dndcompanion.core.presentation.components.PropertyColumn
 import com.jlahougue.dndcompanion.core.presentation.components.PropertyRow
 import com.jlahougue.dndcompanion.core.presentation.theme.DnDCompanionTheme

@@ -1,7 +1,7 @@
 package com.jlahougue.dndcompanion.data_character_spell.domain.model
 
+import com.jlahougue.core_domain.util.UiText
 import com.jlahougue.dndcompanion.R
-import com.jlahougue.dndcompanion.core.domain.util.UiText
 
 /**
  * When states are changed, make sure to update the following files:

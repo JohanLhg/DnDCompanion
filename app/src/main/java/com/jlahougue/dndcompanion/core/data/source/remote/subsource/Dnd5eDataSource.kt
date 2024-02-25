@@ -1,7 +1,7 @@
 package com.jlahougue.dndcompanion.core.data.source.remote.subsource
 
-import com.jlahougue.dndcompanion.core.domain.util.ApiRequest
-import com.jlahougue.dndcompanion.core.domain.util.dispatcherProvider.DispatcherProvider
+import com.jlahougue.core_domain.util.ApiRequest
+import com.jlahougue.core_domain.util.dispatcherProvider.DispatcherProvider
 import com.jlahougue.dndcompanion.data_class.data.source.remote.subsource.ClassDnd5eDataSource
 import com.jlahougue.dndcompanion.data_damage_type.data.source.remote.DamageTypeDnd5eDataSource
 import com.jlahougue.dndcompanion.data_property.data.source.remote.PropertyDnd5eDataSource

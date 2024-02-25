@@ -1,8 +1,8 @@
 package com.jlahougue.dndcompanion.data_character_spell.di
 
+import com.jlahougue.core_domain.util.dispatcherProvider.DispatcherProvider
 import com.jlahougue.dndcompanion.core.data.source.local.LocalDataSource
 import com.jlahougue.dndcompanion.core.data.source.remote.RemoteDataSource
-import com.jlahougue.dndcompanion.core.domain.util.dispatcherProvider.DispatcherProvider
 import com.jlahougue.dndcompanion.data_character_spell.data.repository.CharacterSpellRepository
 import com.jlahougue.dndcompanion.data_character_spell.domain.use_case.GetAllSpells
 import com.jlahougue.dndcompanion.data_character_spell.domain.use_case.GetCharacterSpellsStats

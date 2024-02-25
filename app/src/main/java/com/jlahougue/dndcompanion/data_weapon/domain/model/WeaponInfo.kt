@@ -3,7 +3,7 @@ package com.jlahougue.dndcompanion.data_weapon.domain.model
 import androidx.room.ColumnInfo
 import androidx.room.Junction
 import androidx.room.Relation
-import com.jlahougue.dndcompanion.core.domain.util.extension.feetToMeterString
+import com.jlahougue.core_domain.util.extension.feetToMeterString
 import com.jlahougue.dndcompanion.data_ability.domain.model.AbilityModifierView
 import com.jlahougue.dndcompanion.data_ability.domain.model.AbilityName
 import com.jlahougue.dndcompanion.data_property.domain.model.Property

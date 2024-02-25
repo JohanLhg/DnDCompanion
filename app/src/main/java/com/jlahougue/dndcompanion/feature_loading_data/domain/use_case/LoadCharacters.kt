@@ -1,9 +1,9 @@
 package com.jlahougue.dndcompanion.feature_loading_data.domain.use_case
 
+import com.jlahougue.core_domain.util.UiText
+import com.jlahougue.core_domain.util.dispatcherProvider.DispatcherProvider
 import com.jlahougue.dndcompanion.R
 import com.jlahougue.dndcompanion.core.data.source.remote.subsource.ApiEvent
-import com.jlahougue.dndcompanion.core.domain.util.UiText
-import com.jlahougue.dndcompanion.core.domain.util.dispatcherProvider.DispatcherProvider
 import com.jlahougue.dndcompanion.data_ability.domain.repository.IAbilityRepository
 import com.jlahougue.dndcompanion.data_character.domain.repository.ICharacterRepository
 import com.jlahougue.dndcompanion.data_character.domain.use_case.CharacterUseCases

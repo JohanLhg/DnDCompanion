@@ -1,6 +1,6 @@
 package com.jlahougue.dndcompanion.core.data.source.remote.subsource
 
-import com.jlahougue.dndcompanion.core.domain.util.UiText
+import com.jlahougue.core_domain.util.UiText
 
 sealed class ApiEvent {
     data object Start : ApiEvent()

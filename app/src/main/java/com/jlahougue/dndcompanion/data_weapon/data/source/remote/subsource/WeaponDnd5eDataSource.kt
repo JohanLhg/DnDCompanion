@@ -1,13 +1,13 @@
 package com.jlahougue.dndcompanion.data_weapon.data.source.remote.subsource
 
+import com.jlahougue.core_domain.util.UiText
+import com.jlahougue.core_domain.util.dispatcherProvider.DispatcherProvider
+import com.jlahougue.core_domain.util.extension.getIntIfExists
+import com.jlahougue.core_domain.util.extension.getJSONArrayIfExists
+import com.jlahougue.core_domain.util.extension.getStringIfExists
 import com.jlahougue.dndcompanion.R
 import com.jlahougue.dndcompanion.core.data.source.remote.subsource.ApiEvent
 import com.jlahougue.dndcompanion.core.data.source.remote.subsource.Dnd5eDataSource
-import com.jlahougue.dndcompanion.core.domain.util.UiText
-import com.jlahougue.dndcompanion.core.domain.util.dispatcherProvider.DispatcherProvider
-import com.jlahougue.dndcompanion.core.domain.util.extension.getIntIfExists
-import com.jlahougue.dndcompanion.core.domain.util.extension.getJSONArrayIfExists
-import com.jlahougue.dndcompanion.core.domain.util.extension.getStringIfExists
 import com.jlahougue.dndcompanion.data_ability.domain.model.AbilityName
 import com.jlahougue.dndcompanion.data_weapon.data.source.remote.WeaponRemoteListener
 import com.jlahougue.dndcompanion.data_weapon.domain.model.Weapon

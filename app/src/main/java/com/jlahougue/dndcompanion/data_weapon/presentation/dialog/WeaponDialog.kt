@@ -30,8 +30,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import com.jlahougue.core_domain.util.extension.toSignedString
 import com.jlahougue.dndcompanion.R
-import com.jlahougue.dndcompanion.core.domain.util.extension.toSignedString
 import com.jlahougue.dndcompanion.core.presentation.components.CustomOutlinedTextField
 import com.jlahougue.dndcompanion.core.presentation.components.ListOfLinkedItems
 import com.jlahougue.dndcompanion.core.presentation.components.PropertyColumn

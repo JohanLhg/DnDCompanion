@@ -18,8 +18,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import com.jlahougue.core_domain.util.UiText
 import com.jlahougue.dndcompanion.R
-import com.jlahougue.dndcompanion.core.domain.util.UiText
 import com.jlahougue.dndcompanion.core.presentation.theme.DnDCompanionTheme
 
 @OptIn(ExperimentalMaterial3Api::class)

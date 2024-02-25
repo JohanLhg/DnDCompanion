@@ -1,8 +1,8 @@
 package com.jlahougue.dndcompanion.data_item.di
 
+import com.jlahougue.core_domain.util.dispatcherProvider.DispatcherProvider
 import com.jlahougue.dndcompanion.core.data.source.local.LocalDataSource
 import com.jlahougue.dndcompanion.core.data.source.remote.RemoteDataSource
-import com.jlahougue.dndcompanion.core.domain.util.dispatcherProvider.DispatcherProvider
 import com.jlahougue.dndcompanion.data_item.data.repository.ItemRepository
 import com.jlahougue.dndcompanion.data_item.domain.repository.IItemRepository
 import com.jlahougue.dndcompanion.data_item.domain.use_case.CreateItem

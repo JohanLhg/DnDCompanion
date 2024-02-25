@@ -31,8 +31,8 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.jlahougue.core_domain.util.extension.asDp
 import com.jlahougue.dndcompanion.R
-import com.jlahougue.dndcompanion.core.domain.util.extension.asDp
 import com.jlahougue.dndcompanion.core.presentation.components.CustomOutlinedTextField
 import com.jlahougue.dndcompanion.core.presentation.theme.DnDCompanionTheme
 import com.jlahougue.dndcompanion.core.presentation.theme.Green

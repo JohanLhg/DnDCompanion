@@ -1,10 +1,10 @@
 package com.jlahougue.dndcompanion.data_class.data.source.remote.subsource
 
+import com.jlahougue.core_domain.util.UiText
+import com.jlahougue.core_domain.util.dispatcherProvider.DispatcherProvider
 import com.jlahougue.dndcompanion.R
 import com.jlahougue.dndcompanion.core.data.source.remote.subsource.ApiEvent
 import com.jlahougue.dndcompanion.core.data.source.remote.subsource.Open5eDataSource
-import com.jlahougue.dndcompanion.core.domain.util.UiText
-import com.jlahougue.dndcompanion.core.domain.util.dispatcherProvider.DispatcherProvider
 import com.jlahougue.dndcompanion.data_ability.domain.model.AbilityName
 import com.jlahougue.dndcompanion.data_class.data.source.remote.ClassRemoteListener
 import com.jlahougue.dndcompanion.data_class.domain.model.Class

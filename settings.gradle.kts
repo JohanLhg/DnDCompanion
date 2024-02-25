@@ -15,4 +15,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "DnDCompanion"
 include(":app")
- 
+include(":core:core-domain")

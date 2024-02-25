@@ -5,8 +5,8 @@ import androidx.compose.runtime.getValue
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import com.jlahougue.core_domain.util.extension.viewModelFactory
 import com.jlahougue.dndcompanion.DnDCompanionApp
-import com.jlahougue.dndcompanion.core.domain.util.extension.viewModelFactory
 import com.jlahougue.dndcompanion.feature_spells.presentation.SpellsScreen
 import com.jlahougue.dndcompanion.feature_spells.presentation.SpellsViewModel
 

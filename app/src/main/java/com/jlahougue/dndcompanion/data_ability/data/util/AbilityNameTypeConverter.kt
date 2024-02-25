@@ -1,4 +1,4 @@
-package com.jlahougue.dndcompanion.data_ability.domain.util
+package com.jlahougue.dndcompanion.data_ability.data.util
 
 import androidx.room.TypeConverter
 import com.jlahougue.dndcompanion.data_ability.domain.model.AbilityName

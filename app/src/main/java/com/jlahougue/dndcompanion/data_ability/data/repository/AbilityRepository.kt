@@ -14,12 +14,30 @@ class AbilityRepository(
 ): IAbilityRepository {
     override suspend fun create(characterID: Long): List<Ability> {
         val abilities = listOf(
-            Ability(cid = characterID, name = AbilityName.STRENGTH),
-            Ability(cid = characterID, name = AbilityName.DEXTERITY),
-            Ability(cid = characterID, name = AbilityName.CONSTITUTION),
-            Ability(cid = characterID, name = AbilityName.INTELLIGENCE),
-            Ability(cid = characterID, name = AbilityName.WISDOM),
-            Ability(cid = characterID, name = AbilityName.CHARISMA)
+            Ability(
+                cid = characterID,
+                name = AbilityName.STRENGTH
+            ),
+            Ability(
+                cid = characterID,
+                name = AbilityName.DEXTERITY
+            ),
+            Ability(
+                cid = characterID,
+                name = AbilityName.CONSTITUTION
+            ),
+            Ability(
+                cid = characterID,
+                name = AbilityName.INTELLIGENCE
+            ),
+            Ability(
+                cid = characterID,
+                name = AbilityName.WISDOM
+            ),
+            Ability(
+                cid = characterID,
+                name = AbilityName.CHARISMA
+            )
         )
         localDataSource.insert(abilities)
         return abilities

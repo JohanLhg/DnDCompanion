@@ -1,6 +1,6 @@
 package com.jlahougue.dndcompanion.feature_loading_data.domain.use_case
 
-import com.jlahougue.dndcompanion.core.domain.util.UiText
+import com.jlahougue.core_domain.util.UiText
 
 data class LoadSate(
     val title: UiText,

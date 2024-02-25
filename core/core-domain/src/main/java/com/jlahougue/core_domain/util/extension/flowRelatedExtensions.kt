@@ -1,4 +1,4 @@
-package com.jlahougue.dndcompanion.core.domain.util.extension
+package com.jlahougue.core_domain.util.extension
 
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner

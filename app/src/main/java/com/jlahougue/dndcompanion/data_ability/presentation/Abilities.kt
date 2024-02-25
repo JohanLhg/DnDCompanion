@@ -19,8 +19,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.jlahougue.core_domain.util.extension.toSignedString
 import com.jlahougue.dndcompanion.R
-import com.jlahougue.dndcompanion.core.domain.util.extension.toSignedString
 import com.jlahougue.dndcompanion.core.presentation.components.FramedBox
 import com.jlahougue.dndcompanion.core.presentation.theme.DnDCompanionTheme
 import com.jlahougue.dndcompanion.core.presentation.theme.spacing
@@ -113,10 +113,52 @@ fun AbilitiesPreview() {
 }
 
 fun getAbilitiesPreviewData() = listOf(
-    AbilityView(1, AbilityName.STRENGTH, 10, 0, 0, false),
-    AbilityView(1, AbilityName.DEXTERITY, 14, 2, 2, false),
-    AbilityView(1, AbilityName.CONSTITUTION, 12, 1, 1, false),
-    AbilityView(1, AbilityName.INTELLIGENCE, 22, 6, 9, true),
-    AbilityView(1, AbilityName.WISDOM, 15, 2, 5, true),
-    AbilityView(1, AbilityName.CHARISMA, 16, 3, 3, false),
+    AbilityView(
+        1,
+        AbilityName.STRENGTH,
+        10,
+        0,
+        0,
+        false
+    ),
+    AbilityView(
+        1,
+        AbilityName.DEXTERITY,
+        14,
+        2,
+        2,
+        false
+    ),
+    AbilityView(
+        1,
+        AbilityName.CONSTITUTION,
+        12,
+        1,
+        1,
+        false
+    ),
+    AbilityView(
+        1,
+        AbilityName.INTELLIGENCE,
+        22,
+        6,
+        9,
+        true
+    ),
+    AbilityView(
+        1,
+        AbilityName.WISDOM,
+        15,
+        2,
+        5,
+        true
+    ),
+    AbilityView(
+        1,
+        AbilityName.CHARISMA,
+        16,
+        3,
+        3,
+        false
+    ),
 )

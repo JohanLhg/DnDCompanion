@@ -4,10 +4,10 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.jlahougue.dndcompanion.data_ability.data.source.local.AbilityLocalDataSource
+import com.jlahougue.dndcompanion.data_ability.data.util.AbilityNameTypeConverter
 import com.jlahougue.dndcompanion.data_ability.domain.model.Ability
 import com.jlahougue.dndcompanion.data_ability.domain.model.AbilityModifierView
 import com.jlahougue.dndcompanion.data_ability.domain.model.AbilityView
-import com.jlahougue.dndcompanion.data_ability.domain.util.AbilityNameTypeConverter
 import com.jlahougue.dndcompanion.data_character.data.source.local.CharacterLocalDataSource
 import com.jlahougue.dndcompanion.data_character.domain.model.Character
 import com.jlahougue.dndcompanion.data_character.domain.model.ProficiencyView

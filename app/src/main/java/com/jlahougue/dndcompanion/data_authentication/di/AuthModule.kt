@@ -1,7 +1,7 @@
 package com.jlahougue.dndcompanion.data_authentication.di
 
+import com.jlahougue.core_domain.util.dispatcherProvider.DispatcherProvider
 import com.jlahougue.dndcompanion.core.data.source.remote.RemoteDataSource
-import com.jlahougue.dndcompanion.core.domain.util.dispatcherProvider.DispatcherProvider
 import com.jlahougue.dndcompanion.data_authentication.data.repository.AuthRepository
 import com.jlahougue.dndcompanion.data_authentication.domain.use_case.AuthUseCases
 import com.jlahougue.dndcompanion.data_authentication.domain.use_case.IsLoggedIn

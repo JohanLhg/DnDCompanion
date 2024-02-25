@@ -2,8 +2,8 @@ package com.jlahougue.dndcompanion.data_skill.domain.model
 
 import android.content.Context
 import androidx.compose.runtime.Composable
+import com.jlahougue.core_domain.util.UiText
 import com.jlahougue.dndcompanion.R
-import com.jlahougue.dndcompanion.core.domain.util.UiText
 
 enum class SkillName(val localName: UiText) {
     ACROBATICS(UiText.StringResource(R.string.skill_acrobatics)),

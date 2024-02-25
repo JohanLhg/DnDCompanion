@@ -1,4 +1,4 @@
-package com.jlahougue.dndcompanion.core.domain.util
+package com.jlahougue.core_domain.util
 
 import okhttp3.OkHttpClient
 import okhttp3.Request

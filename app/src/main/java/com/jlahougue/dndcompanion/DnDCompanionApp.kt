@@ -6,7 +6,7 @@ import com.jlahougue.dndcompanion.core.di.DataSourceModule
 import com.jlahougue.dndcompanion.core.di.IAppModule
 import com.jlahougue.dndcompanion.core.di.IDataSourceModule
 import com.jlahougue.dndcompanion.data_ability.di.AbilityModule
-import com.jlahougue.dndcompanion.data_ability.di.IAbilityModule
+import com.jlahougue.dndcompanion.data_ability.domain.di.IAbilityModule
 import com.jlahougue.dndcompanion.data_authentication.di.AuthModule
 import com.jlahougue.dndcompanion.data_authentication.di.IAuthModule
 import com.jlahougue.dndcompanion.data_character.di.CharacterModule

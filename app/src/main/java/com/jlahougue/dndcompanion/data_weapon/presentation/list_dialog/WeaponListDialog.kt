@@ -36,8 +36,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import com.jlahougue.core_domain.util.extension.asDp
 import com.jlahougue.dndcompanion.R
-import com.jlahougue.dndcompanion.core.domain.util.extension.asDp
 import com.jlahougue.dndcompanion.core.presentation.components.CustomSearchBar
 import com.jlahougue.dndcompanion.core.presentation.theme.DnDCompanionTheme
 import com.jlahougue.dndcompanion.core.presentation.theme.spacing

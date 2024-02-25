@@ -1,10 +1,10 @@
 package com.jlahougue.dndcompanion.data_damage_type.data.source.remote
 
+import com.jlahougue.core_domain.util.UiText
+import com.jlahougue.core_domain.util.dispatcherProvider.DispatcherProvider
 import com.jlahougue.dndcompanion.R
 import com.jlahougue.dndcompanion.core.data.source.remote.subsource.ApiEvent
 import com.jlahougue.dndcompanion.core.data.source.remote.subsource.Dnd5eDataSource
-import com.jlahougue.dndcompanion.core.domain.util.UiText
-import com.jlahougue.dndcompanion.core.domain.util.dispatcherProvider.DispatcherProvider
 import com.jlahougue.dndcompanion.data_damage_type.domain.model.DamageType
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.joinAll

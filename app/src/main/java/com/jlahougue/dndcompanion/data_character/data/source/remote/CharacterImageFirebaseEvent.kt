@@ -1,6 +1,6 @@
 package com.jlahougue.dndcompanion.data_character.data.source.remote
 
-import com.jlahougue.dndcompanion.core.domain.util.UiText
+import com.jlahougue.core_domain.util.UiText
 
 sealed class CharacterImageFirebaseEvent {
     data object Started : CharacterImageFirebaseEvent()

@@ -1,8 +1,8 @@
 package com.jlahougue.dndcompanion.data_character.domain.use_case
 
+import com.jlahougue.core_domain.util.UiText
+import com.jlahougue.core_domain.util.dispatcherProvider.DispatcherProvider
 import com.jlahougue.dndcompanion.R
-import com.jlahougue.dndcompanion.core.domain.util.UiText
-import com.jlahougue.dndcompanion.core.domain.util.dispatcherProvider.DispatcherProvider
 import com.jlahougue.dndcompanion.data_character.data.source.remote.CharacterImageFirebaseEvent
 import com.jlahougue.dndcompanion.data_character.domain.repository.ICharacterRepository
 import kotlinx.coroutines.CoroutineScope

@@ -1,6 +1,6 @@
 package com.jlahougue.dndcompanion.data_health.domain.use_case
 
-import com.jlahougue.dndcompanion.core.domain.util.dispatcherProvider.DispatcherProvider
+import com.jlahougue.core_domain.util.dispatcherProvider.DispatcherProvider
 import com.jlahougue.dndcompanion.data_health.domain.model.DeathSaves
 import com.jlahougue.dndcompanion.data_health.domain.repository.IHealthRepository
 import kotlinx.coroutines.withContext

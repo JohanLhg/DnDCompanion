@@ -1,8 +1,8 @@
 package com.jlahougue.dndcompanion.data_weapon.di
 
+import com.jlahougue.core_domain.util.dispatcherProvider.DispatcherProvider
 import com.jlahougue.dndcompanion.core.data.source.local.LocalDataSource
 import com.jlahougue.dndcompanion.core.data.source.remote.RemoteDataSource
-import com.jlahougue.dndcompanion.core.domain.util.dispatcherProvider.DispatcherProvider
 import com.jlahougue.dndcompanion.data_weapon.data.repository.WeaponRepository
 import com.jlahougue.dndcompanion.data_weapon.domain.use_case.GetWeapon
 import com.jlahougue.dndcompanion.data_weapon.domain.use_case.GetWeaponStats

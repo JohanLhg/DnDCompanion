@@ -1,7 +1,7 @@
 package com.jlahougue.dndcompanion.data_authentication.domain.use_case
 
+import com.jlahougue.core_domain.util.UiText
 import com.jlahougue.dndcompanion.R
-import com.jlahougue.dndcompanion.core.domain.util.UiText
 import com.jlahougue.dndcompanion.data_authentication.domain.model.InvalidAuthException
 import com.jlahougue.dndcompanion.data_authentication.domain.repository.IAuthRepository
 import com.jlahougue.dndcompanion.data_user_info.domain.use_case.UserInfoUseCases

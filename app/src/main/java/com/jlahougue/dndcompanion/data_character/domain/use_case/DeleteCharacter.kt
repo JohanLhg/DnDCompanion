@@ -1,6 +1,6 @@
 package com.jlahougue.dndcompanion.data_character.domain.use_case
 
-import com.jlahougue.dndcompanion.core.domain.util.dispatcherProvider.DispatcherProvider
+import com.jlahougue.core_domain.util.dispatcherProvider.DispatcherProvider
 import com.jlahougue.dndcompanion.data_ability.domain.repository.IAbilityRepository
 import com.jlahougue.dndcompanion.data_character.domain.repository.ICharacterRepository
 import com.jlahougue.dndcompanion.data_character_spell.domain.repository.ICharacterSpellRepository

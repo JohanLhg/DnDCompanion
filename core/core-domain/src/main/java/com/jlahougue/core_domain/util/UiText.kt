@@ -1,4 +1,4 @@
-package com.jlahougue.dndcompanion.core.domain.util
+package com.jlahougue.core_domain.util
 
 import android.content.Context
 import androidx.annotation.StringRes
@@ -7,9 +7,7 @@ import androidx.compose.ui.res.stringResource
 
 sealed class UiText {
     data class DynamicString(val value: String) : UiText()
-    class StringResource(
-        @StringRes val value: Int
-    ) : UiText()
+    class StringResource(@StringRes val value: Int) : UiText()
 
     @Composable
     fun getString(vararg args: Any): String {

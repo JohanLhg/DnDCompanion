@@ -2,6 +2,7 @@ package com.jlahougue.dndcompanion.core.di
 
 import android.app.Application
 import androidx.room.Room
+import com.jlahougue.core_domain.util.dispatcherProvider.DispatcherProvider
 import com.jlahougue.dndcompanion.core.data.source.local.LocalDataSource
 import com.jlahougue.dndcompanion.core.data.source.local.RoomDataSource
 import com.jlahougue.dndcompanion.core.data.source.remote.MixedRemoteDataSource
@@ -9,7 +10,6 @@ import com.jlahougue.dndcompanion.core.data.source.remote.RemoteDataSource
 import com.jlahougue.dndcompanion.core.data.source.remote.subsource.Dnd5eDataSource
 import com.jlahougue.dndcompanion.core.data.source.remote.subsource.FirebaseDataSource
 import com.jlahougue.dndcompanion.core.data.source.remote.subsource.Open5eDataSource
-import com.jlahougue.dndcompanion.core.domain.util.dispatcherProvider.DispatcherProvider
 import okhttp3.OkHttpClient
 
 class DataSourceModule(

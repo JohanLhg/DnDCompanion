@@ -1,8 +1,8 @@
 package com.jlahougue.dndcompanion.data_character_sheet.data.source.remote
 
+import com.jlahougue.core_domain.util.UiText
 import com.jlahougue.dndcompanion.R
 import com.jlahougue.dndcompanion.core.data.source.remote.subsource.FirebaseDataSource
-import com.jlahougue.dndcompanion.core.domain.util.UiText
 import com.jlahougue.dndcompanion.data_character_sheet.domain.model.CharacterSheet
 
 class CharacterSheetFirebaseDataSource(

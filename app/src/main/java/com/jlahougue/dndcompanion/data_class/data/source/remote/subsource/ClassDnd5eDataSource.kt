@@ -1,8 +1,8 @@
 package com.jlahougue.dndcompanion.data_class.data.source.remote.subsource
 
+import com.jlahougue.core_domain.util.dispatcherProvider.DispatcherProvider
+import com.jlahougue.core_domain.util.extension.getIntIfExists
 import com.jlahougue.dndcompanion.core.data.source.remote.subsource.Dnd5eDataSource
-import com.jlahougue.dndcompanion.core.domain.util.dispatcherProvider.DispatcherProvider
-import com.jlahougue.dndcompanion.core.domain.util.extension.getIntIfExists
 import com.jlahougue.dndcompanion.data_class.data.source.remote.ClassRemoteListener
 import com.jlahougue.dndcompanion.data_class.domain.model.ClassLevel
 import com.jlahougue.dndcompanion.data_class.domain.model.ClassSpellSlot
