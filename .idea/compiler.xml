@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel target="18">
+    <bytecodeTargetLevel target="17">
       <module name="DnDCompanion.ability.ability-presentation" target="17" />
       <module name="DnDCompanion.core-data" target="17" />
       <module name="DnDCompanion.core-data-source-remote" target="17" />
