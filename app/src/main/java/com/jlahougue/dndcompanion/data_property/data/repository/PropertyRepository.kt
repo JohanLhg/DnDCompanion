@@ -1,11 +1,11 @@
 package com.jlahougue.dndcompanion.data_property.data.repository
 
-import com.jlahougue.dndcompanion.core.data.source.remote.subsource.ApiEvent
+import com.jlahougue.core_domain.util.ApiEvent
 import com.jlahougue.dndcompanion.data_property.data.source.local.PropertyLocalDataSource
 import com.jlahougue.dndcompanion.data_property.data.source.remote.PropertyRemoteDataSource
 import com.jlahougue.dndcompanion.data_property.data.source.remote.PropertyRemoteListener
-import com.jlahougue.dndcompanion.data_property.domain.model.Property
-import com.jlahougue.dndcompanion.data_property.domain.repository.IPropertyRepository
+import com.jlahougue.property_domain.model.Property
+import com.jlahougue.property_domain.repository.IPropertyRepository
 
 class PropertyRepository(
     private val remoteDataSource: PropertyRemoteDataSource,

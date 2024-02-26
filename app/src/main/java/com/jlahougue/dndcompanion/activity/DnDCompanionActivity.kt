@@ -14,11 +14,11 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.jlahougue.core_domain.util.extension.viewModelFactory
+import com.jlahougue.core_presentation.theme.DnDCompanionTheme
 import com.jlahougue.dndcompanion.DnDCompanionApp
 import com.jlahougue.dndcompanion.activity.navigation.authenticationSection
 import com.jlahougue.dndcompanion.activity.navigation.characterSelectionSection
 import com.jlahougue.dndcompanion.activity.navigation.character_sheet.characterSheetSection
-import com.jlahougue.dndcompanion.core.presentation.theme.DnDCompanionTheme
 import com.jlahougue.dndcompanion.feature_splash_screen.presentation.SplashScreenViewModel
 
 class DnDCompanionActivity : ComponentActivity() {

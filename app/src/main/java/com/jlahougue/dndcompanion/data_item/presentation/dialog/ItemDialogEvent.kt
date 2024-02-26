@@ -1,7 +1,7 @@
 package com.jlahougue.dndcompanion.data_item.presentation.dialog
 
-import com.jlahougue.dndcompanion.data_currency.domain.model.Currency
-import com.jlahougue.dndcompanion.data_item.domain.model.Item
+import com.jlahougue.item_domain.model.Item
+import com.jlahougue.money_domain.model.Currency
 
 sealed class ItemDialogEvent {
     data object OnDismiss : ItemDialogEvent()

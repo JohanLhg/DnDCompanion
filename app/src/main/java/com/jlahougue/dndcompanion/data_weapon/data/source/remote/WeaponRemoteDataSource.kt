@@ -1,7 +1,7 @@
 package com.jlahougue.dndcompanion.data_weapon.data.source.remote
 
-import com.jlahougue.dndcompanion.core.data.source.remote.subsource.ApiEvent
-import com.jlahougue.dndcompanion.data_weapon.domain.model.CharacterWeapon
+import com.jlahougue.core_domain.util.ApiEvent
+import com.jlahougue.weapon_domain.model.CharacterWeapon
 
 interface WeaponRemoteDataSource {
     suspend fun load(

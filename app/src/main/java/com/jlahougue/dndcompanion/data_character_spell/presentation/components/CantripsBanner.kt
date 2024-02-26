@@ -16,9 +16,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import androidx.constraintlayout.compose.Dimension
+import com.jlahougue.core_presentation.theme.DnDCompanionTheme
+import com.jlahougue.core_presentation.theme.spacing
 import com.jlahougue.dndcompanion.R
-import com.jlahougue.dndcompanion.core.presentation.theme.DnDCompanionTheme
-import com.jlahougue.dndcompanion.core.presentation.theme.spacing
 
 @Composable
 fun CantripsBanner(

@@ -4,7 +4,7 @@ import com.jlahougue.core_domain.util.UiText
 import com.jlahougue.dndcompanion.R
 import com.jlahougue.dndcompanion.data_authentication.domain.model.InvalidAuthException
 import com.jlahougue.dndcompanion.data_authentication.domain.repository.IAuthRepository
-import com.jlahougue.dndcompanion.data_user_info.domain.use_case.UserInfoUseCases
+import com.jlahougue.user_info_domain.use_case.UserInfoUseCases
 
 class Login(
     private val authRepository: IAuthRepository,

@@ -2,53 +2,49 @@ package com.jlahougue.dndcompanion.data_ability.data.repository
 
 import com.jlahougue.dndcompanion.data_ability.data.source.local.AbilityLocalDataSource
 import com.jlahougue.dndcompanion.data_ability.data.source.remote.AbilityRemoteDataSource
-import com.jlahougue.dndcompanion.data_ability.domain.model.Ability
-import com.jlahougue.dndcompanion.data_ability.domain.model.AbilityName
-import com.jlahougue.dndcompanion.data_ability.domain.model.AbilityView
-import com.jlahougue.dndcompanion.data_ability.domain.repository.IAbilityRepository
 import kotlinx.coroutines.flow.Flow
 
 class AbilityRepository(
     private val remoteDataSource: AbilityRemoteDataSource,
     private val localDataSource: AbilityLocalDataSource
-): IAbilityRepository {
-    override suspend fun create(characterID: Long): List<Ability> {
+): com.jlahougue.ability_domain.repository.IAbilityRepository {
+    override suspend fun create(characterID: Long): List<com.jlahougue.ability_domain.model.Ability> {
         val abilities = listOf(
-            Ability(
+            com.jlahougue.ability_domain.model.Ability(
                 cid = characterID,
-                name = AbilityName.STRENGTH
+                name = com.jlahougue.ability_domain.model.AbilityName.STRENGTH
             ),
-            Ability(
+            com.jlahougue.ability_domain.model.Ability(
                 cid = characterID,
-                name = AbilityName.DEXTERITY
+                name = com.jlahougue.ability_domain.model.AbilityName.DEXTERITY
             ),
-            Ability(
+            com.jlahougue.ability_domain.model.Ability(
                 cid = characterID,
-                name = AbilityName.CONSTITUTION
+                name = com.jlahougue.ability_domain.model.AbilityName.CONSTITUTION
             ),
-            Ability(
+            com.jlahougue.ability_domain.model.Ability(
                 cid = characterID,
-                name = AbilityName.INTELLIGENCE
+                name = com.jlahougue.ability_domain.model.AbilityName.INTELLIGENCE
             ),
-            Ability(
+            com.jlahougue.ability_domain.model.Ability(
                 cid = characterID,
-                name = AbilityName.WISDOM
+                name = com.jlahougue.ability_domain.model.AbilityName.WISDOM
             ),
-            Ability(
+            com.jlahougue.ability_domain.model.Ability(
                 cid = characterID,
-                name = AbilityName.CHARISMA
+                name = com.jlahougue.ability_domain.model.AbilityName.CHARISMA
             )
         )
         localDataSource.insert(abilities)
         return abilities
     }
 
-    override suspend fun save(ability: Ability) {
+    override suspend fun save(ability: com.jlahougue.ability_domain.model.Ability) {
         localDataSource.insert(ability)
         remoteDataSource.save(ability)
     }
 
-    override suspend fun saveToLocal(abilities: List<Ability>) {
+    override suspend fun saveToLocal(abilities: List<com.jlahougue.ability_domain.model.Ability>) {
         localDataSource.insert(abilities)
     }
 
@@ -56,7 +52,7 @@ class AbilityRepository(
         localDataSource.deleteForCharacter(characterID)
     }
 
-    override fun get(characterID: Long): Flow<List<AbilityView>> {
+    override fun get(characterID: Long): Flow<List<com.jlahougue.ability_domain.model.AbilityView>> {
         return localDataSource.get(characterID)
     }
 }

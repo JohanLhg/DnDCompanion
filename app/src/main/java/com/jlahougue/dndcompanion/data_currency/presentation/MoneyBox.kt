@@ -26,14 +26,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.jlahougue.core_presentation.components.CustomOutlinedTextField
+import com.jlahougue.core_presentation.theme.DnDCompanionTheme
+import com.jlahougue.core_presentation.theme.spacing
 import com.jlahougue.dndcompanion.R
-import com.jlahougue.dndcompanion.core.presentation.components.CustomOutlinedTextField
-import com.jlahougue.dndcompanion.core.presentation.theme.DnDCompanionTheme
-import com.jlahougue.dndcompanion.core.presentation.theme.spacing
-import com.jlahougue.dndcompanion.data_currency.domain.model.Currency
-import com.jlahougue.dndcompanion.data_currency.domain.model.Money
 import com.jlahougue.dndcompanion.data_currency.presentation.dialog.MoneyDialog
 import com.jlahougue.dndcompanion.data_currency.presentation.dialog.MoneyDialogEvent
+import com.jlahougue.money_domain.model.Currency
+import com.jlahougue.money_domain.model.Money
 
 @Composable
 fun MoneyBox(

@@ -20,13 +20,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.jlahougue.ability_domain.model.AbilityName
 import com.jlahougue.core_domain.util.extension.toSignedString
+import com.jlahougue.core_presentation.components.FramedBox
+import com.jlahougue.core_presentation.theme.DnDCompanionTheme
 import com.jlahougue.dndcompanion.R
-import com.jlahougue.dndcompanion.core.presentation.components.FramedBox
-import com.jlahougue.dndcompanion.core.presentation.theme.DnDCompanionTheme
-import com.jlahougue.dndcompanion.data_ability.domain.model.AbilityName
-import com.jlahougue.dndcompanion.data_skill.domain.model.SkillName
-import com.jlahougue.dndcompanion.data_skill.domain.model.SkillView
+import com.jlahougue.skill_domain.model.SkillName
+import com.jlahougue.skill_domain.model.SkillView
 
 @Composable
 fun Skills(skills: List<SkillView>, modifier: Modifier = Modifier) {

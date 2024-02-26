@@ -13,7 +13,7 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
-import com.jlahougue.dndcompanion.core.presentation.theme.spacing
+import com.jlahougue.core_presentation.theme.spacing
 import com.jlahougue.dndcompanion.data_currency.presentation.dialog.MoneyDialogEvent
 import com.jlahougue.dndcompanion.data_currency.presentation.dialog.MoneyDialogState
 

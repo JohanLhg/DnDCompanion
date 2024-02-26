@@ -1,7 +1,7 @@
 package com.jlahougue.dndcompanion.data_weapon.data.source.remote.subsource
 
 import com.jlahougue.dndcompanion.core.data.source.remote.subsource.FirebaseDataSource
-import com.jlahougue.dndcompanion.data_weapon.domain.model.CharacterWeapon
+import com.jlahougue.weapon_domain.model.CharacterWeapon
 
 class WeaponFirebaseDataSource(
     private val firebaseDataSource: FirebaseDataSource

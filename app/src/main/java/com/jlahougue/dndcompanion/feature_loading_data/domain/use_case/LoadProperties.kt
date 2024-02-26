@@ -3,7 +3,7 @@ package com.jlahougue.dndcompanion.feature_loading_data.domain.use_case
 import com.jlahougue.core_domain.util.UiText
 import com.jlahougue.core_domain.util.dispatcherProvider.DispatcherProvider
 import com.jlahougue.dndcompanion.R
-import com.jlahougue.dndcompanion.data_property.domain.repository.IPropertyRepository
+import com.jlahougue.property_domain.repository.IPropertyRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 

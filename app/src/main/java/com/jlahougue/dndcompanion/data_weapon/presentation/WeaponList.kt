@@ -26,20 +26,19 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.jlahougue.core_presentation.theme.DnDCompanionTheme
+import com.jlahougue.core_presentation.theme.spacing
 import com.jlahougue.dndcompanion.R
-import com.jlahougue.dndcompanion.core.presentation.theme.DnDCompanionTheme
-import com.jlahougue.dndcompanion.core.presentation.theme.spacing
-import com.jlahougue.dndcompanion.data_settings.domain.model.UnitSystem
-import com.jlahougue.dndcompanion.data_weapon.domain.model.WeaponInfo
 import com.jlahougue.dndcompanion.data_weapon.presentation.component.WeaponCard
 import com.jlahougue.dndcompanion.data_weapon.presentation.dialog.WeaponDialog
 import com.jlahougue.dndcompanion.data_weapon.presentation.dialog.WeaponDialogEvent
 import com.jlahougue.dndcompanion.data_weapon.presentation.list_dialog.WeaponListDialog
 import com.jlahougue.dndcompanion.data_weapon.presentation.list_dialog.WeaponListDialogEvent
+import com.jlahougue.weapon_domain.model.WeaponInfo
 
 @Composable
 fun WeaponList(
-    unitSystem: UnitSystem,
+    unitSystem: com.jlahougue.settings_domain.model.UnitSystem,
     state: WeaponState,
     onEvent: (WeaponEvent) -> Unit,
     onListDialogEvent: (WeaponListDialogEvent) -> Unit,
@@ -111,7 +110,7 @@ fun WeaponList(
 fun WeaponItemPreview() {
     DnDCompanionTheme {
         WeaponList(
-            UnitSystem.METRIC,
+            com.jlahougue.settings_domain.model.UnitSystem.METRIC,
             state = WeaponState(weapons = getWeaponsPreviewData()),
             onEvent = {},
             onListDialogEvent = {},

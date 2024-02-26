@@ -1,7 +1,7 @@
 package com.jlahougue.dndcompanion.data_authentication.domain.use_case
 
 import com.jlahougue.dndcompanion.data_authentication.domain.repository.IAuthRepository
-import com.jlahougue.dndcompanion.data_user_info.domain.use_case.UserInfoUseCases
+import com.jlahougue.user_info_domain.use_case.UserInfoUseCases
 
 class IsLoggedIn(
     private val authRepository: IAuthRepository,

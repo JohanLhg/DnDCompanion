@@ -13,11 +13,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.jlahougue.core_presentation.components.CustomOutlinedTextField
+import com.jlahougue.core_presentation.theme.spacing
 import com.jlahougue.dndcompanion.R
-import com.jlahougue.dndcompanion.core.presentation.components.CustomOutlinedTextField
-import com.jlahougue.dndcompanion.core.presentation.theme.spacing
-import com.jlahougue.dndcompanion.data_health.domain.model.Health
 import com.jlahougue.dndcompanion.data_health.presentation.HealthEvent
+import com.jlahougue.health_domain.model.Health
 
 @Composable
 fun MaxHealth(

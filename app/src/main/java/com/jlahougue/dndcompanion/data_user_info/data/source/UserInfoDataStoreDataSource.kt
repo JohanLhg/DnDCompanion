@@ -2,8 +2,7 @@ package com.jlahougue.dndcompanion.data_user_info.data.source
 
 import android.app.Application
 import androidx.datastore.dataStore
-import com.jlahougue.dndcompanion.data_settings.domain.model.UnitSystem
-import com.jlahougue.dndcompanion.data_user_info.domain.util.UserInfoSerializer
+import com.jlahougue.user_info_domain.util.UserInfoSerializer
 
 class UserInfoDataStoreDataSource(
     application: Application
@@ -13,7 +12,7 @@ class UserInfoDataStoreDataSource(
     override suspend fun update(
         userId: String?,
         characterId: Long?,
-        unitSystem: UnitSystem?
+        unitSystem: com.jlahougue.settings_domain.model.UnitSystem?
     ) {
         dataStore.updateData {
             it.copy(

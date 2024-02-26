@@ -3,11 +3,11 @@ package com.jlahougue.dndcompanion.data_character_spell.domain.model
 import androidx.room.ColumnInfo
 import androidx.room.Junction
 import androidx.room.Relation
-import com.jlahougue.dndcompanion.data_class.domain.model.Class
-import com.jlahougue.dndcompanion.data_damage_type.domain.model.DamageType
-import com.jlahougue.dndcompanion.data_spell.domain.model.Spell
-import com.jlahougue.dndcompanion.data_spell.domain.model.SpellClass
-import com.jlahougue.dndcompanion.data_spell.domain.model.SpellDamageType
+import com.jlahougue.class_domain.model.Class
+import com.jlahougue.damage_type_domain.model.DamageType
+import com.jlahougue.spell_domain.model.Spell
+import com.jlahougue.spell_domain.model.SpellClass
+import com.jlahougue.spell_domain.model.SpellDamageType
 
 data class SpellInfo(
     @ColumnInfo(name = CharacterSpell.CHARACTER_SPELL_CID)

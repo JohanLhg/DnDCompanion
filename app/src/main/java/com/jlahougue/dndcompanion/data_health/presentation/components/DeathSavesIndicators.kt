@@ -18,13 +18,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.jlahougue.core_presentation.theme.DnDCompanionTheme
+import com.jlahougue.core_presentation.theme.Green
+import com.jlahougue.core_presentation.theme.Red
+import com.jlahougue.core_presentation.theme.spacing
 import com.jlahougue.dndcompanion.R
-import com.jlahougue.dndcompanion.core.presentation.theme.DnDCompanionTheme
-import com.jlahougue.dndcompanion.core.presentation.theme.Green
-import com.jlahougue.dndcompanion.core.presentation.theme.Red
-import com.jlahougue.dndcompanion.core.presentation.theme.spacing
-import com.jlahougue.dndcompanion.data_health.domain.model.DeathSaves
 import com.jlahougue.dndcompanion.data_health.presentation.HealthEvent
+import com.jlahougue.health_domain.model.DeathSaves
 
 @Composable
 fun DeathSavesIndicators(

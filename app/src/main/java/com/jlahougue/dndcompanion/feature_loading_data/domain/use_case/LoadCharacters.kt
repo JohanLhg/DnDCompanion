@@ -1,30 +1,30 @@
 package com.jlahougue.dndcompanion.feature_loading_data.domain.use_case
 
+import com.jlahougue.ability_domain.repository.IAbilityRepository
+import com.jlahougue.character_domain.repository.ICharacterRepository
+import com.jlahougue.core_domain.util.ApiEvent
 import com.jlahougue.core_domain.util.UiText
 import com.jlahougue.core_domain.util.dispatcherProvider.DispatcherProvider
 import com.jlahougue.dndcompanion.R
-import com.jlahougue.dndcompanion.core.data.source.remote.subsource.ApiEvent
-import com.jlahougue.dndcompanion.data_ability.domain.repository.IAbilityRepository
-import com.jlahougue.dndcompanion.data_character.domain.repository.ICharacterRepository
-import com.jlahougue.dndcompanion.data_character.domain.use_case.CharacterUseCases
 import com.jlahougue.dndcompanion.data_character_sheet.data.source.remote.CharacterSheetFirebaseEvent
 import com.jlahougue.dndcompanion.data_character_sheet.domain.repository.ICharacterSheetRepository
+import com.jlahougue.dndcompanion.data_character_sheet.domain.use_case.CharacterSheetUseCases
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellSlot
 import com.jlahougue.dndcompanion.data_character_spell.domain.repository.ICharacterSpellRepository
-import com.jlahougue.dndcompanion.data_currency.domain.repository.IMoneyRepository
-import com.jlahougue.dndcompanion.data_health.domain.repository.IHealthRepository
-import com.jlahougue.dndcompanion.data_item.domain.repository.IItemRepository
-import com.jlahougue.dndcompanion.data_skill.domain.repository.ISkillRepository
-import com.jlahougue.dndcompanion.data_stats.domain.repository.IStatsRepository
-import com.jlahougue.dndcompanion.data_weapon.domain.repository.IWeaponRepository
+import com.jlahougue.health_domain.repository.IHealthRepository
+import com.jlahougue.item_domain.repository.IItemRepository
+import com.jlahougue.money_domain.repository.IMoneyRepository
+import com.jlahougue.skill_domain.repository.ISkillRepository
+import com.jlahougue.stats_domain.repository.IStatsRepository
+import com.jlahougue.weapon_domain.repository.IWeaponRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 class LoadCharacters(
     private val dispatcherProvider: DispatcherProvider,
     private val characterSheetRepository: ICharacterSheetRepository,
+    private val characterSheetUseCases: CharacterSheetUseCases,
     private val characterRepository: ICharacterRepository,
-    private val characterUseCases: CharacterUseCases,
     private val abilityRepository: IAbilityRepository,
     private val skillRepository: ISkillRepository,
     private val statsRepository: IStatsRepository,
@@ -73,7 +73,7 @@ class LoadCharacters(
                         noneExist = false
                         onApiEvent(ApiEvent.UpdateProgress)
                     }
-                    if (noneExist) characterUseCases.createCharacter()
+                    if (noneExist) characterSheetUseCases.createCharacter()
                     onApiEvent(ApiEvent.Finish)
                 }
             }

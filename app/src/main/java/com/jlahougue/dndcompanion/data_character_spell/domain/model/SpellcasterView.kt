@@ -2,7 +2,6 @@ package com.jlahougue.dndcompanion.data_character_spell.domain.model
 
 import androidx.room.ColumnInfo
 import androidx.room.DatabaseView
-import com.jlahougue.dndcompanion.data_ability.domain.model.AbilityName
 
 @DatabaseView(
     """
@@ -25,7 +24,7 @@ data class SpellcasterView(
     @ColumnInfo(name = SPELLCASTER_CID)
     var cid: Long = 0,
     @ColumnInfo(name = SPELLCASTER_ABILITY)
-    var ability: AbilityName = AbilityName.NONE,
+    var ability: com.jlahougue.ability_domain.model.AbilityName = com.jlahougue.ability_domain.model.AbilityName.NONE,
     @ColumnInfo(name = SPELLCASTER_MODIFIER)
     var modifier: Int = 0,
     @ColumnInfo(name = SPELLCASTER_SAVE_DC)

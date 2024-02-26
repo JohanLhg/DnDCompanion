@@ -1,11 +1,11 @@
 package com.jlahougue.dndcompanion.data_skill.data.repository
 
-import com.jlahougue.dndcompanion.data_ability.domain.model.AbilityName
+import com.jlahougue.ability_domain.model.AbilityName
 import com.jlahougue.dndcompanion.data_skill.data.source.local.SkillLocalDataSource
 import com.jlahougue.dndcompanion.data_skill.data.source.remote.SkillRemoteDataSource
-import com.jlahougue.dndcompanion.data_skill.domain.model.Skill
-import com.jlahougue.dndcompanion.data_skill.domain.model.SkillName
-import com.jlahougue.dndcompanion.data_skill.domain.repository.ISkillRepository
+import com.jlahougue.skill_domain.model.Skill
+import com.jlahougue.skill_domain.model.SkillName
+import com.jlahougue.skill_domain.repository.ISkillRepository
 
 class SkillRepository(
     private val remoteDataSource: SkillRemoteDataSource,

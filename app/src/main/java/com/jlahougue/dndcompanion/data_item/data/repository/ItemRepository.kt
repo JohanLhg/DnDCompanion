@@ -2,8 +2,8 @@ package com.jlahougue.dndcompanion.data_item.data.repository
 
 import com.jlahougue.dndcompanion.data_item.data.source.local.ItemLocalDataSource
 import com.jlahougue.dndcompanion.data_item.data.source.remote.ItemRemoteDataSource
-import com.jlahougue.dndcompanion.data_item.domain.model.Item
-import com.jlahougue.dndcompanion.data_item.domain.repository.IItemRepository
+import com.jlahougue.item_domain.model.Item
+import com.jlahougue.item_domain.repository.IItemRepository
 
 class ItemRepository(
     private val remoteDataSource: ItemRemoteDataSource,

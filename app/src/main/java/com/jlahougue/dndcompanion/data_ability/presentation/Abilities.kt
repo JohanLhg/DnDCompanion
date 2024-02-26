@@ -20,16 +20,14 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.jlahougue.core_domain.util.extension.toSignedString
+import com.jlahougue.core_presentation.components.FramedBox
+import com.jlahougue.core_presentation.theme.DnDCompanionTheme
+import com.jlahougue.core_presentation.theme.spacing
 import com.jlahougue.dndcompanion.R
-import com.jlahougue.dndcompanion.core.presentation.components.FramedBox
-import com.jlahougue.dndcompanion.core.presentation.theme.DnDCompanionTheme
-import com.jlahougue.dndcompanion.core.presentation.theme.spacing
-import com.jlahougue.dndcompanion.data_ability.domain.model.AbilityName
-import com.jlahougue.dndcompanion.data_ability.domain.model.AbilityView
 
 @Composable
 fun Abilities(
-    abilities: List<AbilityView>,
+    abilities: List<com.jlahougue.ability_domain.model.AbilityView>,
     modifier: Modifier = Modifier
 ) {
     FramedBox(
@@ -61,7 +59,7 @@ fun Abilities(
 }
 
 @Composable
-fun AbilityRow(ability: AbilityView) {
+fun AbilityRow(ability: com.jlahougue.ability_domain.model.AbilityView) {
     Column {
         Divider(
             modifier = Modifier
@@ -113,49 +111,49 @@ fun AbilitiesPreview() {
 }
 
 fun getAbilitiesPreviewData() = listOf(
-    AbilityView(
+    com.jlahougue.ability_domain.model.AbilityView(
         1,
-        AbilityName.STRENGTH,
+        com.jlahougue.ability_domain.model.AbilityName.STRENGTH,
         10,
         0,
         0,
         false
     ),
-    AbilityView(
+    com.jlahougue.ability_domain.model.AbilityView(
         1,
-        AbilityName.DEXTERITY,
+        com.jlahougue.ability_domain.model.AbilityName.DEXTERITY,
         14,
         2,
         2,
         false
     ),
-    AbilityView(
+    com.jlahougue.ability_domain.model.AbilityView(
         1,
-        AbilityName.CONSTITUTION,
+        com.jlahougue.ability_domain.model.AbilityName.CONSTITUTION,
         12,
         1,
         1,
         false
     ),
-    AbilityView(
+    com.jlahougue.ability_domain.model.AbilityView(
         1,
-        AbilityName.INTELLIGENCE,
+        com.jlahougue.ability_domain.model.AbilityName.INTELLIGENCE,
         22,
         6,
         9,
         true
     ),
-    AbilityView(
+    com.jlahougue.ability_domain.model.AbilityView(
         1,
-        AbilityName.WISDOM,
+        com.jlahougue.ability_domain.model.AbilityName.WISDOM,
         15,
         2,
         5,
         true
     ),
-    AbilityView(
+    com.jlahougue.ability_domain.model.AbilityView(
         1,
-        AbilityName.CHARISMA,
+        com.jlahougue.ability_domain.model.AbilityName.CHARISMA,
         16,
         3,
         3,

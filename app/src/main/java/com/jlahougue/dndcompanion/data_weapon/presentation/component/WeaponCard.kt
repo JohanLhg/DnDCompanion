@@ -14,21 +14,20 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import com.jlahougue.ability_domain.model.AbilityName
 import com.jlahougue.core_domain.util.extension.toSignedString
+import com.jlahougue.core_presentation.components.PropertyColumn
+import com.jlahougue.core_presentation.components.PropertyRow
+import com.jlahougue.core_presentation.theme.DnDCompanionTheme
+import com.jlahougue.core_presentation.theme.spacing
 import com.jlahougue.dndcompanion.R
-import com.jlahougue.dndcompanion.core.presentation.components.PropertyColumn
-import com.jlahougue.dndcompanion.core.presentation.components.PropertyRow
-import com.jlahougue.dndcompanion.core.presentation.theme.DnDCompanionTheme
-import com.jlahougue.dndcompanion.core.presentation.theme.spacing
-import com.jlahougue.dndcompanion.data_ability.domain.model.AbilityName
-import com.jlahougue.dndcompanion.data_settings.domain.model.UnitSystem
-import com.jlahougue.dndcompanion.data_weapon.domain.model.WeaponInfo
 import com.jlahougue.dndcompanion.data_weapon.presentation.WeaponEvent
+import com.jlahougue.weapon_domain.model.WeaponInfo
 
 @Composable
 fun WeaponCard(
     weapon: WeaponInfo,
-    unitSystem: UnitSystem,
+    unitSystem: com.jlahougue.settings_domain.model.UnitSystem,
     onEvent: (WeaponEvent) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -79,7 +78,7 @@ fun WeaponCard(
         Column (
             modifier = Modifier.padding(MaterialTheme.spacing.extraSmall)
         ) {
-            if (weapon.test != AbilityName.NONE) {
+            if (weapon.test != com.jlahougue.ability_domain.model.AbilityName.NONE) {
                 PropertyRow(
                     label = stringResource(id = R.string.weapon_test),
                     value = stringResource(
@@ -128,7 +127,7 @@ fun WeaponCardPreview() {
                 throwRangeMin = 60,
                 throwRangeMax = 200,
             ),
-            unitSystem = UnitSystem.METRIC,
+            unitSystem = com.jlahougue.settings_domain.model.UnitSystem.METRIC,
             onEvent = {},
         )
     }

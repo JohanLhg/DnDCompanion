@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.dp
-import com.jlahougue.dndcompanion.core.presentation.theme.spacing
+import com.jlahougue.core_presentation.theme.spacing
 
 @Composable
 fun ComponentImage(

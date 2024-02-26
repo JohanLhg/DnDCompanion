@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.jlahougue.dndcompanion.data_property.domain.model.Property
+import com.jlahougue.property_domain.model.Property
 
 @Dao
 interface PropertyLocalDataSource {

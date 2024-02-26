@@ -2,8 +2,8 @@ package com.jlahougue.dndcompanion.data_currency.data.repository
 
 import com.jlahougue.dndcompanion.data_currency.data.source.local.MoneyLocalDataSource
 import com.jlahougue.dndcompanion.data_currency.data.source.remote.MoneyRemoteDataSource
-import com.jlahougue.dndcompanion.data_currency.domain.model.Money
-import com.jlahougue.dndcompanion.data_currency.domain.repository.IMoneyRepository
+import com.jlahougue.money_domain.model.Money
+import com.jlahougue.money_domain.repository.IMoneyRepository
 
 class MoneyRepository(
     private val remoteDataSource: MoneyRemoteDataSource,

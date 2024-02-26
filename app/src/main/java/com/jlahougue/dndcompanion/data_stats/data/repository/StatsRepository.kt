@@ -2,23 +2,21 @@ package com.jlahougue.dndcompanion.data_stats.data.repository
 
 import com.jlahougue.dndcompanion.data_stats.data.source.local.StatsLocalDataSource
 import com.jlahougue.dndcompanion.data_stats.data.source.remote.StatsRemoteDataSource
-import com.jlahougue.dndcompanion.data_stats.domain.model.Stats
-import com.jlahougue.dndcompanion.data_stats.domain.repository.IStatsRepository
 
 class StatsRepository(
     private val remote: StatsRemoteDataSource,
     private val local: StatsLocalDataSource
-) : IStatsRepository {
+) : com.jlahougue.stats_domain.repository.IStatsRepository {
     override suspend fun create(characterId: Long) {
-        local.insert(Stats(characterId))
+        local.insert(com.jlahougue.stats_domain.model.Stats(characterId))
     }
 
-    override suspend fun save(stats: Stats) {
+    override suspend fun save(stats: com.jlahougue.stats_domain.model.Stats) {
         local.insert(stats)
         remote.save(stats)
     }
 
-    override suspend fun saveToLocal(stats: Stats) {
+    override suspend fun saveToLocal(stats: com.jlahougue.stats_domain.model.Stats) {
         local.insert(stats)
     }
 

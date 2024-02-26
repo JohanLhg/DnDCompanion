@@ -1,13 +1,13 @@
 package com.jlahougue.dndcompanion.data_class.data.repository
 
-import com.jlahougue.dndcompanion.core.data.source.remote.subsource.ApiEvent
+import com.jlahougue.class_domain.model.Class
+import com.jlahougue.class_domain.model.ClassLevel
+import com.jlahougue.class_domain.model.ClassSpellSlot
+import com.jlahougue.class_domain.repository.IClassRepository
+import com.jlahougue.core_domain.util.ApiEvent
 import com.jlahougue.dndcompanion.data_class.data.source.local.ClassLocalDataSource
 import com.jlahougue.dndcompanion.data_class.data.source.remote.ClassRemoteDataSource
 import com.jlahougue.dndcompanion.data_class.data.source.remote.ClassRemoteListener
-import com.jlahougue.dndcompanion.data_class.domain.model.Class
-import com.jlahougue.dndcompanion.data_class.domain.model.ClassLevel
-import com.jlahougue.dndcompanion.data_class.domain.model.ClassSpellSlot
-import com.jlahougue.dndcompanion.data_class.domain.repository.IClassRepository
 
 class ClassRepository(
     private val remoteDataSource: ClassRemoteDataSource,

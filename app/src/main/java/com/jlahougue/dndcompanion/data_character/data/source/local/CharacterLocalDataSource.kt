@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.jlahougue.dndcompanion.data_character.domain.model.Character
+import com.jlahougue.character_domain.model.Character
 import kotlinx.coroutines.flow.Flow
 
 @Dao

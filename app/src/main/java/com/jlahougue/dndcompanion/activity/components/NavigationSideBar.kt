@@ -12,7 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.jlahougue.dndcompanion.core.presentation.theme.spacing
+import com.jlahougue.core_presentation.theme.spacing
 
 @Composable
 fun NavigationSideBar(

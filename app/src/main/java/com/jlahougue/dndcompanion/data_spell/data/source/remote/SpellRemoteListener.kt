@@ -1,8 +1,8 @@
 package com.jlahougue.dndcompanion.data_spell.data.source.remote
 
-import com.jlahougue.dndcompanion.data_spell.domain.model.Spell
-import com.jlahougue.dndcompanion.data_spell.domain.model.SpellClass
-import com.jlahougue.dndcompanion.data_spell.domain.model.SpellDamageType
+import com.jlahougue.spell_domain.model.Spell
+import com.jlahougue.spell_domain.model.SpellClass
+import com.jlahougue.spell_domain.model.SpellDamageType
 
 interface SpellRemoteListener {
     suspend fun save(spell: Spell): Boolean

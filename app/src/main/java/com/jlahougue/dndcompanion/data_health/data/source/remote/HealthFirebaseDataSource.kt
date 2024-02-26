@@ -1,8 +1,8 @@
 package com.jlahougue.dndcompanion.data_health.data.source.remote
 
 import com.jlahougue.dndcompanion.core.data.source.remote.subsource.FirebaseDataSource
-import com.jlahougue.dndcompanion.data_health.domain.model.DeathSaves
-import com.jlahougue.dndcompanion.data_health.domain.model.Health
+import com.jlahougue.health_domain.model.DeathSaves
+import com.jlahougue.health_domain.model.Health
 
 class HealthFirebaseDataSource(
     private val dataSource: FirebaseDataSource

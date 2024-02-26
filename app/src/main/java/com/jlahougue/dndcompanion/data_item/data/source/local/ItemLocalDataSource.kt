@@ -5,7 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.jlahougue.dndcompanion.data_item.domain.model.Item
+import com.jlahougue.item_domain.model.Item
 import kotlinx.coroutines.flow.Flow
 
 @Dao

@@ -1,7 +1,7 @@
 package com.jlahougue.dndcompanion.data_item.presentation
 
-import com.jlahougue.dndcompanion.data_item.domain.model.Item
 import com.jlahougue.dndcompanion.data_item.presentation.dialog.ItemDialogState
+import com.jlahougue.item_domain.model.Item
 
 data class InventoryState(
     val items: List<Item> = emptyList(),

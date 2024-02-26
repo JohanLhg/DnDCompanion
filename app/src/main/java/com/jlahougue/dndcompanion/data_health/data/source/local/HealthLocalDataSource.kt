@@ -4,8 +4,8 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.jlahougue.dndcompanion.data_health.domain.model.DeathSaves
-import com.jlahougue.dndcompanion.data_health.domain.model.Health
+import com.jlahougue.health_domain.model.DeathSaves
+import com.jlahougue.health_domain.model.Health
 import kotlinx.coroutines.flow.Flow
 
 @Dao

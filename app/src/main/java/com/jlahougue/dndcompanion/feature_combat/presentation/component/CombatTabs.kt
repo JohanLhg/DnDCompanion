@@ -9,7 +9,7 @@ import androidx.compose.material3.TabRow
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import com.jlahougue.dndcompanion.core.presentation.theme.spacing
+import com.jlahougue.core_presentation.theme.spacing
 import com.jlahougue.dndcompanion.data_character_spell.presentation.SpellLevelList
 import com.jlahougue.dndcompanion.data_character_spell.presentation.components.SpellListMode
 import com.jlahougue.dndcompanion.data_item.presentation.Inventory

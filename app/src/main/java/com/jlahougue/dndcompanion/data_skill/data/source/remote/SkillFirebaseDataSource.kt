@@ -1,7 +1,7 @@
 package com.jlahougue.dndcompanion.data_skill.data.source.remote
 
 import com.jlahougue.dndcompanion.core.data.source.remote.subsource.FirebaseDataSource
-import com.jlahougue.dndcompanion.data_skill.domain.model.Skill
+import com.jlahougue.skill_domain.model.Skill
 
 class SkillFirebaseDataSource(
     private val firebaseDataSource: FirebaseDataSource

@@ -4,9 +4,9 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.jlahougue.dndcompanion.data_spell.domain.model.Spell
-import com.jlahougue.dndcompanion.data_spell.domain.model.SpellClass
-import com.jlahougue.dndcompanion.data_spell.domain.model.SpellDamageType
+import com.jlahougue.spell_domain.model.Spell
+import com.jlahougue.spell_domain.model.SpellClass
+import com.jlahougue.spell_domain.model.SpellDamageType
 
 @Dao
 interface SpellLocalDataSource {

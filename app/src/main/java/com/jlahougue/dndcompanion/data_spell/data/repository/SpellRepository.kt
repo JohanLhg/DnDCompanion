@@ -1,13 +1,13 @@
 package com.jlahougue.dndcompanion.data_spell.data.repository
 
-import com.jlahougue.dndcompanion.core.data.source.remote.subsource.ApiEvent
+import com.jlahougue.core_domain.util.ApiEvent
 import com.jlahougue.dndcompanion.data_spell.data.source.local.SpellLocalDataSource
 import com.jlahougue.dndcompanion.data_spell.data.source.remote.SpellRemoteDataSource
 import com.jlahougue.dndcompanion.data_spell.data.source.remote.SpellRemoteListener
-import com.jlahougue.dndcompanion.data_spell.domain.model.Spell
-import com.jlahougue.dndcompanion.data_spell.domain.model.SpellClass
-import com.jlahougue.dndcompanion.data_spell.domain.model.SpellDamageType
-import com.jlahougue.dndcompanion.data_spell.domain.repository.ISpellRepository
+import com.jlahougue.spell_domain.model.Spell
+import com.jlahougue.spell_domain.model.SpellClass
+import com.jlahougue.spell_domain.model.SpellDamageType
+import com.jlahougue.spell_domain.repository.ISpellRepository
 
 class SpellRepository(
     private val remoteDataSource: SpellRemoteDataSource,

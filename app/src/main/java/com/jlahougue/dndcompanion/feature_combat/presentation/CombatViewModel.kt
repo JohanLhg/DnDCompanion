@@ -8,7 +8,6 @@ import com.jlahougue.dndcompanion.data_character_spell.domain.use_case.SpellFilt
 import com.jlahougue.dndcompanion.data_character_spell.presentation.SpellEvent
 import com.jlahougue.dndcompanion.data_character_spell.presentation.dialog.SpellDialogEvent
 import com.jlahougue.dndcompanion.data_character_spell.presentation.dialog.SpellDialogState
-import com.jlahougue.dndcompanion.data_health.domain.model.Health
 import com.jlahougue.dndcompanion.data_health.presentation.HealthEvent
 import com.jlahougue.dndcompanion.data_item.presentation.ItemEvent
 import com.jlahougue.dndcompanion.data_item.presentation.dialog.ItemDialogEvent
@@ -19,6 +18,7 @@ import com.jlahougue.dndcompanion.data_weapon.presentation.list_dialog.WeaponLis
 import com.jlahougue.dndcompanion.data_weapon.presentation.list_dialog.WeaponListDialogState
 import com.jlahougue.dndcompanion.feature_combat.di.ICombatModule
 import com.jlahougue.dndcompanion.feature_combat.presentation.component.TabItem
+import com.jlahougue.health_domain.model.Health
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

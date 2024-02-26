@@ -1,10 +1,10 @@
 package com.jlahougue.dndcompanion.feature_equipment.di
 
 import com.jlahougue.core_domain.util.dispatcherProvider.DispatcherProvider
-import com.jlahougue.dndcompanion.data_currency.domain.use_case.MoneyUseCases
-import com.jlahougue.dndcompanion.data_item.domain.use_case.ItemUseCases
-import com.jlahougue.dndcompanion.data_user_info.domain.use_case.UserInfoUseCases
-import com.jlahougue.dndcompanion.data_weapon.domain.use_case.WeaponUseCases
+import com.jlahougue.item_domain.use_case.ItemUseCases
+import com.jlahougue.money_domain.use_case.MoneyUseCases
+import com.jlahougue.user_info_domain.use_case.UserInfoUseCases
+import com.jlahougue.weapon_domain.use_case.WeaponUseCases
 
 interface IEquipmentModule {
     val dispatcherProvider: DispatcherProvider

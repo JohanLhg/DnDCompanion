@@ -36,15 +36,15 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import com.jlahougue.core_presentation.components.CustomOutlinedTextField
+import com.jlahougue.core_presentation.components.PropertyEditColumn
+import com.jlahougue.core_presentation.components.PropertyEditRow
+import com.jlahougue.core_presentation.theme.DnDCompanionTheme
+import com.jlahougue.core_presentation.theme.spacing
 import com.jlahougue.dndcompanion.R
-import com.jlahougue.dndcompanion.core.presentation.components.CustomOutlinedTextField
-import com.jlahougue.dndcompanion.core.presentation.components.PropertyEditColumn
-import com.jlahougue.dndcompanion.core.presentation.components.PropertyEditRow
-import com.jlahougue.dndcompanion.core.presentation.theme.DnDCompanionTheme
-import com.jlahougue.dndcompanion.core.presentation.theme.spacing
-import com.jlahougue.dndcompanion.data_currency.domain.model.Currency
-import com.jlahougue.dndcompanion.data_item.domain.model.Item
 import com.jlahougue.dndcompanion.data_item.presentation.dialog.component.CostEditRow
+import com.jlahougue.item_domain.model.Item
+import com.jlahougue.money_domain.model.Currency
 
 @Composable
 fun ItemDialog(

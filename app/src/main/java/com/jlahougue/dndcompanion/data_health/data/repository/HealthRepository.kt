@@ -2,9 +2,9 @@ package com.jlahougue.dndcompanion.data_health.data.repository
 
 import com.jlahougue.dndcompanion.data_health.data.source.local.HealthLocalDataSource
 import com.jlahougue.dndcompanion.data_health.data.source.remote.HealthRemoteDataSource
-import com.jlahougue.dndcompanion.data_health.domain.model.DeathSaves
-import com.jlahougue.dndcompanion.data_health.domain.model.Health
-import com.jlahougue.dndcompanion.data_health.domain.repository.IHealthRepository
+import com.jlahougue.health_domain.model.DeathSaves
+import com.jlahougue.health_domain.model.Health
+import com.jlahougue.health_domain.repository.IHealthRepository
 
 class HealthRepository(
     private val remote: HealthRemoteDataSource,

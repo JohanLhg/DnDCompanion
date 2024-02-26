@@ -1,14 +1,14 @@
 package com.jlahougue.dndcompanion.data_spell.data.source.remote
 
 import android.util.Log
+import com.jlahougue.core_domain.util.ApiEvent
 import com.jlahougue.core_domain.util.UiText
 import com.jlahougue.core_domain.util.dispatcherProvider.DispatcherProvider
 import com.jlahougue.dndcompanion.R
-import com.jlahougue.dndcompanion.core.data.source.remote.subsource.ApiEvent
 import com.jlahougue.dndcompanion.core.data.source.remote.subsource.Open5eDataSource
-import com.jlahougue.dndcompanion.data_spell.domain.model.Spell
-import com.jlahougue.dndcompanion.data_spell.domain.model.SpellClass
-import com.jlahougue.dndcompanion.data_spell.domain.model.SpellDamageType
+import com.jlahougue.spell_domain.model.Spell
+import com.jlahougue.spell_domain.model.SpellClass
+import com.jlahougue.spell_domain.model.SpellDamageType
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.joinAll

@@ -2,7 +2,6 @@ package com.jlahougue.dndcompanion.feature_equipment.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.jlahougue.dndcompanion.data_currency.domain.model.Currency
 import com.jlahougue.dndcompanion.data_currency.presentation.MoneyEvent
 import com.jlahougue.dndcompanion.data_currency.presentation.dialog.MoneyDialogEvent
 import com.jlahougue.dndcompanion.data_currency.presentation.dialog.MoneyDialogState
@@ -13,6 +12,7 @@ import com.jlahougue.dndcompanion.data_weapon.presentation.dialog.WeaponDialogEv
 import com.jlahougue.dndcompanion.data_weapon.presentation.list_dialog.WeaponListDialogEvent
 import com.jlahougue.dndcompanion.data_weapon.presentation.list_dialog.WeaponListDialogState
 import com.jlahougue.dndcompanion.feature_equipment.di.IEquipmentModule
+import com.jlahougue.money_domain.model.Currency
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.jlahougue.dndcompanion.data_skill.domain.model.Skill
+import com.jlahougue.skill_domain.model.Skill
 
 @Dao
 interface SkillLocalDataSource {

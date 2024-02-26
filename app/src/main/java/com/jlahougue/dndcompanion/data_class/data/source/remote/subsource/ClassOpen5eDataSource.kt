@@ -1,13 +1,12 @@
 package com.jlahougue.dndcompanion.data_class.data.source.remote.subsource
 
+import com.jlahougue.class_domain.model.Class
+import com.jlahougue.core_domain.util.ApiEvent
 import com.jlahougue.core_domain.util.UiText
 import com.jlahougue.core_domain.util.dispatcherProvider.DispatcherProvider
 import com.jlahougue.dndcompanion.R
-import com.jlahougue.dndcompanion.core.data.source.remote.subsource.ApiEvent
 import com.jlahougue.dndcompanion.core.data.source.remote.subsource.Open5eDataSource
-import com.jlahougue.dndcompanion.data_ability.domain.model.AbilityName
 import com.jlahougue.dndcompanion.data_class.data.source.remote.ClassRemoteListener
-import com.jlahougue.dndcompanion.data_class.domain.model.Class
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
@@ -67,7 +66,7 @@ class ClassOpen5eDataSource(
         val profArmor = clazz.getString("prof_armor")
         val profWeapons = clazz.getString("prof_weapons")
         val profTools = clazz.getString("prof_tools")
-        val spellcastingAbility = AbilityName.from(clazz.getString("spellcasting_ability"))
+        val spellcastingAbility = com.jlahougue.ability_domain.model.AbilityName.from(clazz.getString("spellcasting_ability"))
 
         val itemInserted = classRemoteListener.save(
             Class(

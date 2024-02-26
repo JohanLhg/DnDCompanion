@@ -1,10 +1,10 @@
 package com.jlahougue.dndcompanion.data_character.data.repository
 
+import com.jlahougue.character_domain.model.Character
+import com.jlahougue.character_domain.repository.ICharacterRepository
+import com.jlahougue.character_domain.use_case.CharacterImageEvent
 import com.jlahougue.dndcompanion.data_character.data.source.local.CharacterLocalDataSource
-import com.jlahougue.dndcompanion.data_character.data.source.remote.CharacterImageFirebaseEvent
 import com.jlahougue.dndcompanion.data_character.data.source.remote.CharacterRemoteDataSource
-import com.jlahougue.dndcompanion.data_character.domain.model.Character
-import com.jlahougue.dndcompanion.data_character.domain.repository.ICharacterRepository
 
 class CharacterRepository(
     private val remoteDataSource: CharacterRemoteDataSource,
@@ -37,7 +37,7 @@ class CharacterRepository(
 
     override fun loadImage(
         characterId: Long,
-        onEvent: (CharacterImageFirebaseEvent) -> Unit
+        onEvent: (CharacterImageEvent) -> Unit
     ) = remoteDataSource.loadImage(characterId, onEvent)
 
     override suspend fun getClass(characterId: Long) = localDataSource.getClass(characterId)

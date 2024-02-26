@@ -9,7 +9,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.jlahougue.dndcompanion.core.presentation.theme.spacing
+import com.jlahougue.core_presentation.theme.spacing
 
 @Composable
 fun DividerTitle(

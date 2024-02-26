@@ -1,9 +1,9 @@
 package com.jlahougue.dndcompanion.data_weapon.data.source.remote
 
-import com.jlahougue.dndcompanion.core.data.source.remote.subsource.ApiEvent
+import com.jlahougue.core_domain.util.ApiEvent
 import com.jlahougue.dndcompanion.data_weapon.data.source.remote.subsource.WeaponDnd5eDataSource
 import com.jlahougue.dndcompanion.data_weapon.data.source.remote.subsource.WeaponFirebaseDataSource
-import com.jlahougue.dndcompanion.data_weapon.domain.model.CharacterWeapon
+import com.jlahougue.weapon_domain.model.CharacterWeapon
 
 class WeaponMixedRemoteDataSource(
     private val weaponFirebaseDataSource: WeaponFirebaseDataSource,

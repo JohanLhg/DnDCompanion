@@ -1,11 +1,11 @@
 package com.jlahougue.dndcompanion.data_damage_type.data.repository
 
-import com.jlahougue.dndcompanion.core.data.source.remote.subsource.ApiEvent
+import com.jlahougue.core_domain.util.ApiEvent
+import com.jlahougue.damage_type_domain.model.DamageType
+import com.jlahougue.damage_type_domain.repository.IDamageTypeRepository
 import com.jlahougue.dndcompanion.data_damage_type.data.source.local.DamageTypeLocalDataSource
 import com.jlahougue.dndcompanion.data_damage_type.data.source.remote.DamageTypeRemoteDataSource
 import com.jlahougue.dndcompanion.data_damage_type.data.source.remote.DamageTypeRemoteListener
-import com.jlahougue.dndcompanion.data_damage_type.domain.model.DamageType
-import com.jlahougue.dndcompanion.data_damage_type.domain.repository.IDamageTypeRepository
 
 class DamageTypeRepository(
     private val remoteDataSource: DamageTypeRemoteDataSource,

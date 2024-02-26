@@ -1,7 +1,7 @@
 package com.jlahougue.dndcompanion.data_weapon.presentation.dialog
 
-import com.jlahougue.dndcompanion.data_property.domain.model.Property
-import com.jlahougue.dndcompanion.data_weapon.domain.model.WeaponInfo
+import com.jlahougue.property_domain.model.Property
+import com.jlahougue.weapon_domain.model.WeaponInfo
 
 sealed class WeaponDialogEvent {
     data object OnDismiss : WeaponDialogEvent()

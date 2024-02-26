@@ -30,20 +30,6 @@
     <string name="failures">Failures</string>
 
     <!-- Ability -->
-    <string name="ability_strength">Strength</string>
-    <string name="ability_dexterity">Dexterity</string>
-    <string name="ability_constitution">Constitution</string>
-    <string name="ability_intelligence">Intelligence</string>
-    <string name="ability_wisdom">Wisdom</string>
-    <string name="ability_charisma">Charisma</string>
-
-    <string name="ability_strength_short">STR</string>
-    <string name="ability_dexterity_short">DEX</string>
-    <string name="ability_constitution_short">CON</string>
-    <string name="ability_intelligence_short">INT</string>
-    <string name="ability_wisdom_short">WIS</string>
-    <string name="ability_charisma_short">CHA</string>
-
     <string name="abilities">Abilities</string>
     <string name="ability_modifier">Modifier</string>
     <string name="ability_modifier_short">Mod.</string>
@@ -54,24 +40,6 @@
 
     <!-- Skill -->
     <string name="skill_display">%s (%s)</string>
-    <string name="skill_acrobatics">Acrobatics</string>
-    <string name="skill_animal_handling">Animal Handling</string>
-    <string name="skill_arcana">Arcana</string>
-    <string name="skill_athletics">Athletics</string>
-    <string name="skill_deception">Deception</string>
-    <string name="skill_history">History</string>
-    <string name="skill_insight">Insight</string>
-    <string name="skill_intimidation">Intimidation</string>
-    <string name="skill_investigation">Investigation</string>
-    <string name="skill_medicine">Medicine</string>
-    <string name="skill_nature">Nature</string>
-    <string name="skill_perception">Perception</string>
-    <string name="skill_performance">Performance</string>
-    <string name="skill_persuasion">Persuasion</string>
-    <string name="skill_religion">Religion</string>
-    <string name="skill_sleight_of_hand">Sleight of Hand</string>
-    <string name="skill_stealth">Stealth</string>
-    <string name="skill_survival">Survival</string>
 
     <!-- Stats -->
     <string name="stats">Stats</string>
@@ -88,15 +56,6 @@
     <string name="silver_pieces_value">%dsp</string>
     <string name="gold_pieces_value">%dgp</string>
     <string name="platinum_pieces_value">%dpp</string>
-
-    <string name="copper_pieces">Copper Pieces</string>
-    <string name="copper_pieces_short">CP</string>
-    <string name="silver_pieces">Silver Pieces</string>
-    <string name="silver_pieces_short">SP</string>
-    <string name="gold_pieces">Gold Pieces</string>
-    <string name="gold_pieces_short">GP</string>
-    <string name="platinum_pieces">Platinum Pieces</string>
-    <string name="platinum_pieces_short">PP</string>
 
     <!-- Inventory -->
     <string name="inventory">Inventory</string>
@@ -192,7 +151,6 @@
     <string name="error_fetching_properties">Error while fetching the properties</string>
     <string name="error_fetching_weapons">Error while fetching the weapons</string>
     <string name="error_fetching_characters">Error while fetching your characters</string>
-    <string name="error_fetching_character_image">Error while fetching your character\'s image</string>
 
     <string name="error_saving_character">Error while saving your character</string>
 

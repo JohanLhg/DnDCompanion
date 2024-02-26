@@ -4,17 +4,15 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.jlahougue.dndcompanion.data_ability.domain.model.Ability
-import com.jlahougue.dndcompanion.data_ability.domain.model.AbilityView
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface AbilityLocalDataSource {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(ability: Ability)
+    suspend fun insert(ability: com.jlahougue.ability_domain.model.Ability)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(abilities: List<Ability>)
+    suspend fun insert(abilities: List<com.jlahougue.ability_domain.model.Ability>)
 
     @Query("DELETE FROM ability WHERE cid = :characterID")
     suspend fun deleteForCharacter(characterID: Long)
@@ -32,5 +30,5 @@ interface AbilityLocalDataSource {
             name = 'STR'
         """
     )
-    fun get(characterID: Long): Flow<List<AbilityView>>
+    fun get(characterID: Long): Flow<List<com.jlahougue.ability_domain.model.AbilityView>>
 }

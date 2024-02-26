@@ -33,11 +33,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "17"
     }
     buildFeatures {
         compose = true
@@ -67,6 +67,21 @@ android {
 
 dependencies {
     implementation(project(":core:core-domain"))
+    implementation(project(":core:core-presentation"))
+    implementation(project(":ability:ability-domain"))
+    implementation(project(":character:character-domain"))
+    implementation(project(":class:class-domain"))
+    implementation(project(":money:money-domain"))
+    implementation(project(":damage-type:damage-type-domain"))
+    implementation(project(":health:health-domain"))
+    implementation(project(":item:item-domain"))
+    implementation(project(":property:property-domain"))
+    implementation(project(":settings:settings-domain"))
+    implementation(project(":skill:skill-domain"))
+    implementation(project(":spell:spell-domain"))
+    implementation(project(":stats:stats-domain"))
+    implementation(project(":user-info:user-info-domain"))
+    implementation(project(":weapon:weapon-domain"))
     // Compose
     implementation(libs.bundles.ui)
 

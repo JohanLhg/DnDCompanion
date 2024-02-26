@@ -1,6 +1,6 @@
 package com.jlahougue.dndcompanion.data_damage_type.data.source.remote
 
-import com.jlahougue.dndcompanion.core.data.source.remote.subsource.ApiEvent
+import com.jlahougue.core_domain.util.ApiEvent
 
 interface DamageTypeRemoteDataSource {
     suspend fun load(

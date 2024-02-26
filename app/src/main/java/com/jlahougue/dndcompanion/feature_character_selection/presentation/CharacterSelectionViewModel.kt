@@ -2,8 +2,8 @@ package com.jlahougue.dndcompanion.feature_character_selection.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.jlahougue.dndcompanion.data_character.domain.model.Character
-import com.jlahougue.dndcompanion.data_character.domain.use_case.LoadImageState
+import com.jlahougue.character_domain.model.Character
+import com.jlahougue.character_domain.use_case.LoadImageState
 import com.jlahougue.dndcompanion.feature_character_selection.di.ICharacterSelectionModule
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -51,7 +51,7 @@ class CharacterSelectionViewModel(
 
     fun createCharacter() {
         viewModelScope.launch(module.dispatcherProvider.io) {
-            setCharacter(module.characterUseCases.createCharacter())
+            setCharacter(module.characterSheetUseCases.createCharacter())
         }
     }
 

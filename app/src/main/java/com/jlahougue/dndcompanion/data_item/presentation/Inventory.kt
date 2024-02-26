@@ -24,14 +24,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.jlahougue.core_presentation.theme.DnDCompanionTheme
+import com.jlahougue.core_presentation.theme.spacing
 import com.jlahougue.dndcompanion.R
-import com.jlahougue.dndcompanion.core.presentation.theme.DnDCompanionTheme
-import com.jlahougue.dndcompanion.core.presentation.theme.spacing
-import com.jlahougue.dndcompanion.data_currency.domain.model.Currency
-import com.jlahougue.dndcompanion.data_item.domain.model.Item
 import com.jlahougue.dndcompanion.data_item.presentation.component.ItemCard
 import com.jlahougue.dndcompanion.data_item.presentation.dialog.ItemDialog
 import com.jlahougue.dndcompanion.data_item.presentation.dialog.ItemDialogEvent
+import com.jlahougue.item_domain.model.Item
+import com.jlahougue.money_domain.model.Currency
 
 @Composable
 fun Inventory(

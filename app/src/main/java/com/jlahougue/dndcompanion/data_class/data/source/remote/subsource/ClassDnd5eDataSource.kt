@@ -1,11 +1,11 @@
 package com.jlahougue.dndcompanion.data_class.data.source.remote.subsource
 
+import com.jlahougue.class_domain.model.ClassLevel
+import com.jlahougue.class_domain.model.ClassSpellSlot
 import com.jlahougue.core_domain.util.dispatcherProvider.DispatcherProvider
 import com.jlahougue.core_domain.util.extension.getIntIfExists
 import com.jlahougue.dndcompanion.core.data.source.remote.subsource.Dnd5eDataSource
 import com.jlahougue.dndcompanion.data_class.data.source.remote.ClassRemoteListener
-import com.jlahougue.dndcompanion.data_class.domain.model.ClassLevel
-import com.jlahougue.dndcompanion.data_class.domain.model.ClassSpellSlot
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch

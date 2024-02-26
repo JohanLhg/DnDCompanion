@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.jlahougue.dndcompanion.data_currency.domain.model.Money
+import com.jlahougue.money_domain.model.Money
 import kotlinx.coroutines.flow.Flow
 
 @Dao

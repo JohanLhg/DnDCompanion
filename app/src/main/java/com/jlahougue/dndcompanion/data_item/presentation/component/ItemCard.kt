@@ -14,11 +14,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
-import com.jlahougue.dndcompanion.core.presentation.theme.DnDCompanionTheme
-import com.jlahougue.dndcompanion.core.presentation.theme.spacing
-import com.jlahougue.dndcompanion.data_currency.domain.model.Currency
-import com.jlahougue.dndcompanion.data_item.domain.model.Item
+import com.jlahougue.core_presentation.theme.DnDCompanionTheme
+import com.jlahougue.core_presentation.theme.spacing
 import com.jlahougue.dndcompanion.data_item.presentation.ItemEvent
+import com.jlahougue.item_domain.model.Item
+import com.jlahougue.money_domain.model.Currency
 
 @Composable
 fun ItemCard(

@@ -11,15 +11,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
+import com.jlahougue.core_presentation.components.FramedBox
+import com.jlahougue.core_presentation.theme.DnDCompanionTheme
 import com.jlahougue.dndcompanion.R
-import com.jlahougue.dndcompanion.core.presentation.components.FramedBox
-import com.jlahougue.dndcompanion.core.presentation.theme.DnDCompanionTheme
-import com.jlahougue.dndcompanion.data_health.domain.model.DeathSaves
-import com.jlahougue.dndcompanion.data_health.domain.model.Health
 import com.jlahougue.dndcompanion.data_health.presentation.components.CurrentHealth
 import com.jlahougue.dndcompanion.data_health.presentation.components.DeathSavesIndicators
 import com.jlahougue.dndcompanion.data_health.presentation.components.MaxHealth
 import com.jlahougue.dndcompanion.data_health.presentation.components.TemporaryHealth
+import com.jlahougue.health_domain.model.DeathSaves
+import com.jlahougue.health_domain.model.Health
 
 @Composable
 fun HealthBox(

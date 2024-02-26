@@ -1,17 +1,16 @@
 package com.jlahougue.dndcompanion.data_weapon.data.source.remote.subsource
 
+import com.jlahougue.core_domain.util.ApiEvent
 import com.jlahougue.core_domain.util.UiText
 import com.jlahougue.core_domain.util.dispatcherProvider.DispatcherProvider
 import com.jlahougue.core_domain.util.extension.getIntIfExists
 import com.jlahougue.core_domain.util.extension.getJSONArrayIfExists
 import com.jlahougue.core_domain.util.extension.getStringIfExists
 import com.jlahougue.dndcompanion.R
-import com.jlahougue.dndcompanion.core.data.source.remote.subsource.ApiEvent
 import com.jlahougue.dndcompanion.core.data.source.remote.subsource.Dnd5eDataSource
-import com.jlahougue.dndcompanion.data_ability.domain.model.AbilityName
 import com.jlahougue.dndcompanion.data_weapon.data.source.remote.WeaponRemoteListener
-import com.jlahougue.dndcompanion.data_weapon.domain.model.Weapon
-import com.jlahougue.dndcompanion.data_weapon.domain.model.WeaponProperty
+import com.jlahougue.weapon_domain.model.Weapon
+import com.jlahougue.weapon_domain.model.WeaponProperty
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
@@ -70,9 +69,9 @@ class WeaponDnd5eDataSource(
         val name = json.getString("name")
 
         val test = when (json.getStringIfExists("weapon_range")) {
-            "Melee" -> AbilityName.STRENGTH
-            "Ranged" -> AbilityName.DEXTERITY
-            else -> AbilityName.NONE
+            "Melee" -> com.jlahougue.ability_domain.model.AbilityName.STRENGTH
+            "Ranged" -> com.jlahougue.ability_domain.model.AbilityName.DEXTERITY
+            else -> com.jlahougue.ability_domain.model.AbilityName.NONE
         }
 
         var costStr = ""
@@ -116,7 +115,7 @@ class WeaponDnd5eDataSource(
             throwRangeMax = throwRange.getIntIfExists("long")
         }
 
-        if (test == AbilityName.DEXTERITY) {
+        if (test == com.jlahougue.ability_domain.model.AbilityName.DEXTERITY) {
             if (throwRangeMin == 0) throwRangeMin = rangeMin
             if (throwRangeMax == 0) throwRangeMax = rangeMax
         }

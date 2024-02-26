@@ -16,18 +16,18 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import com.jlahougue.ability_domain.model.AbilityName
+import com.jlahougue.class_domain.model.Class
+import com.jlahougue.core_presentation.components.ListOfLinkedItems
+import com.jlahougue.core_presentation.components.PropertyColumn
+import com.jlahougue.core_presentation.components.PropertyRow
+import com.jlahougue.core_presentation.theme.DnDCompanionTheme
+import com.jlahougue.core_presentation.theme.spacing
+import com.jlahougue.damage_type_domain.model.DamageType
 import com.jlahougue.dndcompanion.R
-import com.jlahougue.dndcompanion.core.presentation.components.ListOfLinkedItems
-import com.jlahougue.dndcompanion.core.presentation.components.PropertyColumn
-import com.jlahougue.dndcompanion.core.presentation.components.PropertyRow
-import com.jlahougue.dndcompanion.core.presentation.theme.DnDCompanionTheme
-import com.jlahougue.dndcompanion.core.presentation.theme.spacing
-import com.jlahougue.dndcompanion.data_ability.domain.model.AbilityName
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellInfo
 import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellState
 import com.jlahougue.dndcompanion.data_character_spell.presentation.dialog.component.SpellDialogHeader
-import com.jlahougue.dndcompanion.data_class.domain.model.Class
-import com.jlahougue.dndcompanion.data_damage_type.domain.model.DamageType
 
 @Composable
 fun SpellDialog(

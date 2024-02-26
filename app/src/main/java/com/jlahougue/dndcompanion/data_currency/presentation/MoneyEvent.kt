@@ -1,6 +1,6 @@
 package com.jlahougue.dndcompanion.data_currency.presentation
 
-import com.jlahougue.dndcompanion.data_currency.domain.model.Money
+import com.jlahougue.money_domain.model.Money
 
 sealed class MoneyEvent {
     data object OnDialogOpen : MoneyEvent()

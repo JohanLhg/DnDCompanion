@@ -16,12 +16,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import com.jlahougue.dndcompanion.core.presentation.components.CustomOutlinedTextField
-import com.jlahougue.dndcompanion.core.presentation.components.dropdown.CustomDropDown
-import com.jlahougue.dndcompanion.core.presentation.components.dropdown.DropDownItem
-import com.jlahougue.dndcompanion.core.presentation.theme.DnDCompanionTheme
-import com.jlahougue.dndcompanion.core.presentation.theme.spacing
-import com.jlahougue.dndcompanion.data_currency.domain.model.Currency
+import com.jlahougue.core_presentation.components.CustomOutlinedTextField
+import com.jlahougue.core_presentation.components.dropdown.CustomDropDown
+import com.jlahougue.core_presentation.components.dropdown.DropDownItem
+import com.jlahougue.core_presentation.theme.DnDCompanionTheme
+import com.jlahougue.core_presentation.theme.spacing
+import com.jlahougue.money_domain.model.Currency
 
 @Composable
 fun CostEditRow(

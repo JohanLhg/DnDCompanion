@@ -14,8 +14,8 @@ import coil.decode.GifDecoder
 import coil.decode.ImageDecoderDecoder
 import coil.request.ImageRequest
 import coil.size.Size
+import com.jlahougue.character_domain.use_case.LoadImageState
 import com.jlahougue.dndcompanion.R
-import com.jlahougue.dndcompanion.data_character.domain.use_case.LoadImageState
 
 
 @Composable

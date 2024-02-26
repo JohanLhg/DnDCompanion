@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.jlahougue.dndcompanion.data_damage_type.domain.model.DamageType
+import com.jlahougue.damage_type_domain.model.DamageType
 
 @Dao
 interface DamageTypeLocalDataSource {

@@ -7,7 +7,7 @@ import com.jlahougue.dndcompanion.data_authentication.domain.use_case.AuthUseCas
 import com.jlahougue.dndcompanion.data_authentication.domain.use_case.IsLoggedIn
 import com.jlahougue.dndcompanion.data_authentication.domain.use_case.Login
 import com.jlahougue.dndcompanion.data_authentication.domain.use_case.Register
-import com.jlahougue.dndcompanion.data_user_info.domain.use_case.UserInfoUseCases
+import com.jlahougue.user_info_domain.use_case.UserInfoUseCases
 
 class AuthModule(
     override val dispatcherProvider: DispatcherProvider,
