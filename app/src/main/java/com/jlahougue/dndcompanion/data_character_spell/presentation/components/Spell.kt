@@ -129,6 +129,7 @@ fun Spell(
 }
 
 @Preview(
+    apiLevel = 33,
     showBackground = true,
     device = Devices.TABLET
 )

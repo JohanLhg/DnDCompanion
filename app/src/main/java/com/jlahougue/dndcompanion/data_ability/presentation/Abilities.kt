@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -61,7 +61,7 @@ fun Abilities(
 @Composable
 fun AbilityRow(ability: com.jlahougue.ability_domain.model.AbilityView) {
     Column {
-        Divider(
+        HorizontalDivider(
             modifier = Modifier
                 .padding(vertical = MaterialTheme.spacing.extraSmall)
         )
@@ -95,6 +95,7 @@ fun AbilityRow(ability: com.jlahougue.ability_domain.model.AbilityView) {
 }
 
 @Preview(
+    apiLevel = 33,
     showBackground = true,
     device = Devices.TABLET
 )

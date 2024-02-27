@@ -88,6 +88,7 @@ fun WeaponStatsBox(
 }
 
 @Preview(
+    apiLevel = 33,
     showBackground = true,
     device = Devices.TABLET
 )

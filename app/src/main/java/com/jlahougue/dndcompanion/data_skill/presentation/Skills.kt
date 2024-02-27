@@ -74,6 +74,7 @@ fun SkillRow(skill: SkillView, modifier: Modifier = Modifier) {
 }
 
 @Preview(
+    apiLevel = 33,
     showBackground = true,
     device = Devices.TABLET
 )

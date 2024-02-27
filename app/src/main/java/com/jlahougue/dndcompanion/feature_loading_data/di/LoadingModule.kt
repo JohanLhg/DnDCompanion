@@ -2,12 +2,12 @@ package com.jlahougue.dndcompanion.feature_loading_data.di
 
 import com.jlahougue.ability_domain.repository.IAbilityRepository
 import com.jlahougue.character_domain.repository.ICharacterRepository
+import com.jlahougue.character_sheet_domain.repository.ICharacterSheetRepository
+import com.jlahougue.character_sheet_domain.use_case.CharacterSheetUseCases
 import com.jlahougue.character_spell_domain.repository.ICharacterSpellRepository
 import com.jlahougue.class_domain.repository.IClassRepository
 import com.jlahougue.core_domain.util.dispatcherProvider.DispatcherProvider
 import com.jlahougue.damage_type_domain.repository.IDamageTypeRepository
-import com.jlahougue.dndcompanion.data_character_sheet.domain.repository.ICharacterSheetRepository
-import com.jlahougue.dndcompanion.data_character_sheet.domain.use_case.CharacterSheetUseCases
 import com.jlahougue.dndcompanion.feature_loading_data.domain.use_case.LoadAll
 import com.jlahougue.dndcompanion.feature_loading_data.domain.use_case.LoadCharacters
 import com.jlahougue.dndcompanion.feature_loading_data.domain.use_case.LoadClasses

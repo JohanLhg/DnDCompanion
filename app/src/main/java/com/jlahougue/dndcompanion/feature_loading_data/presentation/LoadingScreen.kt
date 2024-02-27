@@ -73,7 +73,7 @@ fun LoadingScreen(
                         .padding(bottom = MaterialTheme.spacing.medium)
                 )
                 LinearProgressIndicator(
-                    progress = state.progress
+                    progress = { state.progress },
                 )
             }
         }
@@ -81,6 +81,7 @@ fun LoadingScreen(
 }
 
 @Preview(
+    apiLevel = 33,
     showBackground = true,
     device = Devices.TABLET
 )

@@ -29,7 +29,6 @@ import com.jlahougue.dndcompanion.data_health.data.source.local.HealthLocalDataS
 import com.jlahougue.dndcompanion.data_item.data.source.local.ItemLocalDataSource
 import com.jlahougue.dndcompanion.data_property.data.source.local.PropertyLocalDataSource
 import com.jlahougue.dndcompanion.data_skill.data.source.local.SkillLocalDataSource
-import com.jlahougue.dndcompanion.data_spell.data.source.local.SpellLocalDataSource
 import com.jlahougue.dndcompanion.data_stats.data.source.local.StatsLocalDataSource
 import com.jlahougue.dndcompanion.data_weapon.data.source.local.WeaponLocalDataSource
 import com.jlahougue.health_domain.model.DeathSaves
@@ -38,6 +37,7 @@ import com.jlahougue.item_domain.model.Item
 import com.jlahougue.money_domain.model.Money
 import com.jlahougue.property_domain.model.Property
 import com.jlahougue.skill_domain.model.Skill
+import com.jlahougue.spell_data.source.local.SpellLocalDataSource
 import com.jlahougue.spell_domain.model.Spell
 import com.jlahougue.spell_domain.model.SpellClass
 import com.jlahougue.spell_domain.model.SpellDamageType

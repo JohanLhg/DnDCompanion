@@ -2,15 +2,15 @@ package com.jlahougue.dndcompanion.feature_loading_data.domain.use_case
 
 import com.jlahougue.ability_domain.repository.IAbilityRepository
 import com.jlahougue.character_domain.repository.ICharacterRepository
+import com.jlahougue.character_sheet_domain.repository.ICharacterSheetRepository
+import com.jlahougue.character_sheet_domain.use_case.CharacterSheetUseCases
+import com.jlahougue.character_sheet_domain.util.CharacterSheetRemoteEvent
 import com.jlahougue.character_spell_domain.model.SpellSlot
 import com.jlahougue.character_spell_domain.repository.ICharacterSpellRepository
 import com.jlahougue.core_domain.util.ApiEvent
 import com.jlahougue.core_domain.util.UiText
 import com.jlahougue.core_domain.util.dispatcherProvider.DispatcherProvider
 import com.jlahougue.dndcompanion.R
-import com.jlahougue.dndcompanion.data_character_sheet.data.source.remote.CharacterSheetFirebaseEvent
-import com.jlahougue.dndcompanion.data_character_sheet.domain.repository.ICharacterSheetRepository
-import com.jlahougue.dndcompanion.data_character_sheet.domain.use_case.CharacterSheetUseCases
 import com.jlahougue.health_domain.repository.IHealthRepository
 import com.jlahougue.item_domain.repository.IItemRepository
 import com.jlahougue.money_domain.repository.IMoneyRepository
@@ -42,15 +42,15 @@ class LoadCharacters(
         }
     }
 
-    fun onEvent(event: CharacterSheetFirebaseEvent) {
+    fun onEvent(event: CharacterSheetRemoteEvent) {
         when (event) {
-            is CharacterSheetFirebaseEvent.Canceled -> {
+            is CharacterSheetRemoteEvent.Canceled -> {
                 onApiEvent(ApiEvent.Error(UiText.StringResource(R.string.error_fetching_characters)))
             }
-            is CharacterSheetFirebaseEvent.Failure -> {
+            is CharacterSheetRemoteEvent.Failure -> {
                 onApiEvent(ApiEvent.Error(event.message))
             }
-            is CharacterSheetFirebaseEvent.Success -> {
+            is CharacterSheetRemoteEvent.Success -> {
                 CoroutineScope(dispatcherProvider.io).launch {
                     onApiEvent(ApiEvent.SetMaxProgress(event.characterSheets.size))
                     var noneExist = !characterRepository.exists()

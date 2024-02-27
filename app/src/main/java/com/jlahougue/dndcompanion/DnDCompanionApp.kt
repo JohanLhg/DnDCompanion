@@ -4,10 +4,10 @@ import android.app.Application
 import com.jlahougue.ability_data.di.AbilityModule
 import com.jlahougue.authentication_data.di.AuthModule
 import com.jlahougue.character_data.di.CharacterModule
+import com.jlahougue.character_sheet_data.di.CharacterSheetModule
 import com.jlahougue.class_data.di.ClassModule
 import com.jlahougue.dndcompanion.core.di.AppModule
 import com.jlahougue.dndcompanion.core.di.DataSourceModule
-import com.jlahougue.dndcompanion.data_character_sheet.data.di.CharacterSheetModule
 import com.jlahougue.dndcompanion.data_character_spell.data.di.CharacterSpellModule
 import com.jlahougue.dndcompanion.data_currency.data.di.MoneyModule
 import com.jlahougue.dndcompanion.data_damage_type.data.di.DamageTypeModule
@@ -15,9 +15,7 @@ import com.jlahougue.dndcompanion.data_health.data.di.HealthModule
 import com.jlahougue.dndcompanion.data_item.data.di.ItemModule
 import com.jlahougue.dndcompanion.data_property.data.di.PropertyModule
 import com.jlahougue.dndcompanion.data_skill.data.di.SkillModule
-import com.jlahougue.dndcompanion.data_spell.data.di.SpellModule
 import com.jlahougue.dndcompanion.data_stats.data.di.StatsModule
-import com.jlahougue.dndcompanion.data_user_info.data.di.UserInfoModule
 import com.jlahougue.dndcompanion.data_weapon.data.di.WeaponModule
 import com.jlahougue.dndcompanion.feature_authentication.di.AuthenticationModule
 import com.jlahougue.dndcompanion.feature_character_selection.di.CharacterSelectionModule
@@ -25,6 +23,8 @@ import com.jlahougue.dndcompanion.feature_combat.di.CombatModule
 import com.jlahougue.dndcompanion.feature_equipment.di.EquipmentModule
 import com.jlahougue.dndcompanion.feature_loading_data.di.LoadingModule
 import com.jlahougue.dndcompanion.feature_spells.di.SpellsModule
+import com.jlahougue.spell_data.di.SpellModule
+import com.jlahougue.user_info_data.di.UserInfoModule
 
 class DnDCompanionApp: Application() {
 

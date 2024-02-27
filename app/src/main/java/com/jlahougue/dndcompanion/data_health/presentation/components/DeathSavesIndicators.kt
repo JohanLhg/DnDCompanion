@@ -125,6 +125,7 @@ fun DeathSavesRow(
 }
 
 @Preview(
+    apiLevel = 33,
     showBackground = true,
 )
 @Composable

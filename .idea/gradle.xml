@@ -17,6 +17,9 @@
             <option value="$PROJECT_DIR$/authentication/authentication-data" />
             <option value="$PROJECT_DIR$/authentication/authentication-domain" />
             <option value="$PROJECT_DIR$/character" />
+            <option value="$PROJECT_DIR$/character-sheet" />
+            <option value="$PROJECT_DIR$/character-sheet/character-sheet-data" />
+            <option value="$PROJECT_DIR$/character-sheet/character-sheet-domain" />
             <option value="$PROJECT_DIR$/character-spell" />
             <option value="$PROJECT_DIR$/character-spell/character-spell-domain" />
             <option value="$PROJECT_DIR$/character/character-data" />
@@ -43,10 +46,12 @@
             <option value="$PROJECT_DIR$/skill" />
             <option value="$PROJECT_DIR$/skill/skill-domain" />
             <option value="$PROJECT_DIR$/spell" />
+            <option value="$PROJECT_DIR$/spell/spell-data" />
             <option value="$PROJECT_DIR$/spell/spell-domain" />
             <option value="$PROJECT_DIR$/stats" />
             <option value="$PROJECT_DIR$/stats/stats-domain" />
             <option value="$PROJECT_DIR$/user-info" />
+            <option value="$PROJECT_DIR$/user-info/user-info-data" />
             <option value="$PROJECT_DIR$/user-info/user-info-domain" />
             <option value="$PROJECT_DIR$/weapon" />
             <option value="$PROJECT_DIR$/weapon/weapon-domain" />

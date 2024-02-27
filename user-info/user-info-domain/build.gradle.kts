@@ -37,7 +37,8 @@ dependencies {
     implementation(project(":core:core-domain"))
     implementation(project(":settings:settings-domain"))
 
-    implementation(libs.bundles.datastore)
+    implementation(libs.compose.ui)
+    implementation(libs.serialization)
 
     testImplementation(libs.bundles.tests)
     androidTestImplementation(libs.bundles.android.tests)

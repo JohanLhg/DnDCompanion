@@ -13,7 +13,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.ripple.rememberRipple
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -70,7 +70,7 @@ fun MoneyBox(
                     .padding(MaterialTheme.spacing.small)
             )
         }
-        Divider()
+        HorizontalDivider()
         Row {
             Text(
                 text = Currency.COPPER.getString(state.money.copperPieces),
@@ -107,7 +107,7 @@ fun MoneyBox(
             modifier = Modifier
                 .padding(MaterialTheme.spacing.small)
         )
-        Divider()
+        HorizontalDivider()
         CustomOutlinedTextField(
             value = state.money.otherCurrencies,
             onValueChange = {
@@ -135,6 +135,7 @@ fun MoneyBox(
 }
 
 @Preview(
+    apiLevel = 33,
     showBackground = true
 )
 @Composable

@@ -14,7 +14,7 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.ripple.rememberRipple
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -73,7 +73,7 @@ fun WeaponList(
                     .padding(MaterialTheme.spacing.extraSmall)
             )
         }
-        Divider()
+        HorizontalDivider()
         LazyVerticalGrid(
             columns = GridCells.Adaptive(300.dp)
         ) {
@@ -103,6 +103,7 @@ fun WeaponList(
 }
 
 @Preview(
+    apiLevel = 33,
     showBackground = true,
     device = Devices.TABLET
 )

@@ -139,12 +139,9 @@
 
     <string name="error_fetching_damage_types">Error while fetching the damage types</string>
     <string name="error_fetching_classes">Error while fetching the classes</string>
-    <string name="error_fetching_spells">Error while fetching the spells</string>
     <string name="error_fetching_properties">Error while fetching the properties</string>
     <string name="error_fetching_weapons">Error while fetching the weapons</string>
     <string name="error_fetching_characters">Error while fetching your characters</string>
-
-    <string name="error_saving_character">Error while saving your character</string>
 
     <!-- CharacterSelectionActivity -->
     <string name="title_activity_character_selection">Character Selection Activity</string>

@@ -3,16 +3,14 @@ package com.jlahougue.dndcompanion.feature_combat.presentation
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
-import androidx.compose.material3.Divider
+import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.jlahougue.core_domain.util.UiText
 import com.jlahougue.core_presentation.theme.DnDCompanionTheme
 import com.jlahougue.dndcompanion.R
@@ -58,11 +56,7 @@ fun CombatScreen(
                 .width(IntrinsicSize.Max)
                 .height(IntrinsicSize.Max)
         )
-        Divider(
-            modifier = Modifier
-                .fillMaxHeight()
-                .width(1.dp)
-        )
+        VerticalDivider()
         CombatTabs(
             state = state.tab,
             onEvent = onEvent,
@@ -78,6 +72,7 @@ fun CombatScreen(
 }
 
 @Preview(
+    apiLevel = 33,
     showBackground = true,
     device = Devices.TABLET
 )
