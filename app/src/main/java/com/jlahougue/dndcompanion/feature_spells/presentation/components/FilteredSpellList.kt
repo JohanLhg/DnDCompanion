@@ -11,13 +11,13 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.List
-import androidx.compose.material3.Divider
-import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material3.FilterChip
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -31,17 +31,16 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.jlahougue.character_spell_domain.model.SpellInfo
 import com.jlahougue.core_presentation.components.CustomSearchBar
 import com.jlahougue.core_presentation.theme.DnDCompanionTheme
 import com.jlahougue.core_presentation.theme.spacing
 import com.jlahougue.dndcompanion.R
-import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellInfo
 import com.jlahougue.dndcompanion.data_character_spell.presentation.SpellEvent
 import com.jlahougue.dndcompanion.data_character_spell.presentation.components.SpellList
 import com.jlahougue.dndcompanion.data_character_spell.presentation.components.SpellListMode
 import com.jlahougue.dndcompanion.feature_spells.presentation.SpellSearchEvent
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FilteredSpellList(
     search: String,
@@ -79,10 +78,9 @@ fun FilteredSpellList(
                 modifier = Modifier
                     .width(200.dp)
             )
-            Divider(
+            VerticalDivider(
                 modifier = Modifier
                     .height(filterRowHeight)
-                    .width(1.dp)
             )
             LazyRow(
                 modifier = Modifier.weight(1f)
@@ -107,20 +105,19 @@ fun FilteredSpellList(
                     )
                 }
             }
-            Divider(
+            VerticalDivider(
                 modifier = Modifier
                     .height(filterRowHeight)
-                    .width(1.dp)
             )
             Icon(
-                imageVector = Icons.Default.List,
+                imageVector = Icons.AutoMirrored.Filled.List,
                 contentDescription = null,
                 modifier = Modifier
                     .padding(MaterialTheme.spacing.small)
                     .size(28.dp)
             )
         }
-        Divider()
+        HorizontalDivider()
         LazyRow {
             items(
                 items = levels,
@@ -143,7 +140,7 @@ fun FilteredSpellList(
                 )
             }
         }
-        Divider()
+        HorizontalDivider()
         SpellList(
             spells = spells,
             mode = mode,

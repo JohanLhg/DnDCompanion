@@ -5,12 +5,12 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
-import com.jlahougue.dndcompanion.data_character_spell.domain.model.CharacterSpell
-import com.jlahougue.dndcompanion.data_character_spell.domain.model.CharacterSpellsStatsView
-import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellInfo
-import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellSlot
-import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellSlotView
-import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellcasterView
+import com.jlahougue.character_spell_domain.model.CharacterSpell
+import com.jlahougue.character_spell_domain.model.CharacterSpellsStatsView
+import com.jlahougue.character_spell_domain.model.SpellInfo
+import com.jlahougue.character_spell_domain.model.SpellSlot
+import com.jlahougue.character_spell_domain.model.SpellSlotView
+import com.jlahougue.character_spell_domain.model.SpellcasterView
 import kotlinx.coroutines.flow.Flow
 
 @Dao

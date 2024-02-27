@@ -1,10 +1,10 @@
 package com.jlahougue.dndcompanion.data_character_spell.data.repository
 
+import com.jlahougue.character_spell_domain.model.CharacterSpell
+import com.jlahougue.character_spell_domain.model.SpellSlot
+import com.jlahougue.character_spell_domain.repository.ICharacterSpellRepository
 import com.jlahougue.dndcompanion.data_character_spell.data.source.local.CharacterSpellLocalDataSource
 import com.jlahougue.dndcompanion.data_character_spell.data.source.remote.CharacterSpellRemoteDataSource
-import com.jlahougue.dndcompanion.data_character_spell.domain.model.CharacterSpell
-import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellSlot
-import com.jlahougue.dndcompanion.data_character_spell.domain.repository.ICharacterSpellRepository
 
 class CharacterSpellRepository(
     private val remoteDataSource: CharacterSpellRemoteDataSource,

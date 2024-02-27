@@ -3,7 +3,7 @@ package com.jlahougue.dndcompanion.feature_combat.presentation.component
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.TabRow
 import androidx.compose.runtime.Composable
@@ -69,7 +69,7 @@ fun CombatTabs(
                         modifier = Modifier
                             .weight(1f)
                     )
-                    Divider()
+                    HorizontalDivider()
                     Inventory(
                         state = state.inventory,
                         onEvent = {

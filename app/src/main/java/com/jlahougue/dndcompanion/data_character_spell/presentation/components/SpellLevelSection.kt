@@ -11,12 +11,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.jlahougue.character_spell_domain.model.SpellInfo
+import com.jlahougue.character_spell_domain.model.SpellLevel
+import com.jlahougue.character_spell_domain.model.SpellSlotView
+import com.jlahougue.character_spell_domain.model.SpellState
 import com.jlahougue.core_presentation.theme.DnDCompanionTheme
 import com.jlahougue.core_presentation.theme.spacing
-import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellInfo
-import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellLevel
-import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellSlotView
-import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellState
 import com.jlahougue.dndcompanion.data_character_spell.presentation.SpellEvent
 
 @Composable

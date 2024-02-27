@@ -1,15 +1,14 @@
 package com.jlahougue.dndcompanion
 
 import android.app.Application
+import com.jlahougue.ability_data.di.AbilityModule
+import com.jlahougue.authentication_data.di.AuthModule
+import com.jlahougue.character_data.di.CharacterModule
+import com.jlahougue.class_data.di.ClassModule
 import com.jlahougue.dndcompanion.core.di.AppModule
 import com.jlahougue.dndcompanion.core.di.DataSourceModule
-import com.jlahougue.dndcompanion.core.di.IAppModule
-import com.jlahougue.dndcompanion.data_ability.di.AbilityModule
-import com.jlahougue.dndcompanion.data_authentication.di.AuthModule
-import com.jlahougue.dndcompanion.data_character.di.CharacterModule
-import com.jlahougue.dndcompanion.data_character_sheet.di.CharacterSheetModule
-import com.jlahougue.dndcompanion.data_character_spell.di.CharacterSpellModule
-import com.jlahougue.dndcompanion.data_class.di.ClassModule
+import com.jlahougue.dndcompanion.data_character_sheet.data.di.CharacterSheetModule
+import com.jlahougue.dndcompanion.data_character_spell.data.di.CharacterSpellModule
 import com.jlahougue.dndcompanion.data_currency.data.di.MoneyModule
 import com.jlahougue.dndcompanion.data_damage_type.data.di.DamageTypeModule
 import com.jlahougue.dndcompanion.data_health.data.di.HealthModule
@@ -30,7 +29,7 @@ import com.jlahougue.dndcompanion.feature_spells.di.SpellsModule
 class DnDCompanionApp: Application() {
 
     companion object {
-        lateinit var appModule: IAppModule
+        lateinit var appModule: AppModule
         lateinit var dataSourceModule: DataSourceModule
 
         lateinit var userInfoModule: UserInfoModule
@@ -75,72 +74,72 @@ class DnDCompanionApp: Application() {
 
         authModule = AuthModule(
             appModule.dispatcherProvider,
-            dataSourceModule.remoteDataSource,
+            dataSourceModule.remoteDataSource.authDao,
             userInfoModule.useCases
         )
         characterModule = CharacterModule(
             appModule.dispatcherProvider,
-            dataSourceModule.remoteDataSource,
-            dataSourceModule.localDataSource
+            dataSourceModule.remoteDataSource.characterDao,
+            dataSourceModule.localDataSource.characterDao()
         )
         healthModule = HealthModule(
             appModule.dispatcherProvider,
-            dataSourceModule.remoteDataSource,
-            dataSourceModule.localDataSource
+            dataSourceModule.remoteDataSource.healthDao,
+            dataSourceModule.localDataSource.healthDao()
         )
         abilityModule = AbilityModule(
             appModule.dispatcherProvider,
-            dataSourceModule.remoteDataSource,
-            dataSourceModule.localDataSource
+            dataSourceModule.remoteDataSource.abilityDao,
+            dataSourceModule.localDataSource.abilityDao()
         )
         skillModule = SkillModule(
-            dataSourceModule.remoteDataSource,
-            dataSourceModule.localDataSource
+            dataSourceModule.remoteDataSource.skillDao,
+            dataSourceModule.localDataSource.skillDao()
         )
         statsModule = StatsModule(
-            dataSourceModule.remoteDataSource,
-            dataSourceModule.localDataSource
+            dataSourceModule.remoteDataSource.statsDao,
+            dataSourceModule.localDataSource.statsDao()
         )
         moneyModule = MoneyModule(
             appModule.dispatcherProvider,
-            dataSourceModule.remoteDataSource,
-            dataSourceModule.localDataSource
+            dataSourceModule.remoteDataSource.moneyDao,
+            dataSourceModule.localDataSource.moneyDao()
         )
         itemModule = ItemModule(
             appModule.dispatcherProvider,
-            dataSourceModule.remoteDataSource,
-            dataSourceModule.localDataSource
+            dataSourceModule.remoteDataSource.itemDao,
+            dataSourceModule.localDataSource.itemDao()
         )
         classModule = ClassModule(
-            dataSourceModule.remoteDataSource,
-            dataSourceModule.localDataSource
+            dataSourceModule.remoteDataSource.classDao,
+            dataSourceModule.localDataSource.classDao()
         )
         damageTypeModule = DamageTypeModule(
-            dataSourceModule.remoteDataSource,
-            dataSourceModule.localDataSource
+            dataSourceModule.remoteDataSource.damageTypeDao,
+            dataSourceModule.localDataSource.damageTypeDao()
         )
         characterSpellModule = CharacterSpellModule(
             appModule.dispatcherProvider,
-            dataSourceModule.remoteDataSource,
-            dataSourceModule.localDataSource
+            dataSourceModule.remoteDataSource.characterSpellDao,
+            dataSourceModule.localDataSource.characterSpellDao()
         )
         spellModule = SpellModule(
-            dataSourceModule.remoteDataSource,
-            dataSourceModule.localDataSource
+            dataSourceModule.remoteDataSource.spellDao,
+            dataSourceModule.localDataSource.spellDao()
         )
         propertyModule = PropertyModule(
-            dataSourceModule.remoteDataSource,
-            dataSourceModule.localDataSource
+            dataSourceModule.remoteDataSource.propertyDao,
+            dataSourceModule.localDataSource.propertyDao()
         )
         weaponModule = WeaponModule(
             appModule.dispatcherProvider,
-            dataSourceModule.remoteDataSource,
-            dataSourceModule.localDataSource
+            dataSourceModule.remoteDataSource.weaponDao,
+            dataSourceModule.localDataSource.weaponDao()
         )
 
         characterSheetModule = CharacterSheetModule(
             appModule.dispatcherProvider,
-            dataSourceModule.remoteDataSource,
+            dataSourceModule.remoteDataSource.characterSheetDao,
             characterModule.repository,
             healthModule.repository,
             abilityModule.repository,

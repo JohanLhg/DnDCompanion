@@ -17,12 +17,12 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.jlahougue.ability_domain.model.AbilityName
+import com.jlahougue.character_spell_domain.model.SpellcasterView
 import com.jlahougue.core_domain.util.extension.toSignedString
 import com.jlahougue.core_presentation.components.StatBox
 import com.jlahougue.core_presentation.theme.DnDCompanionTheme
 import com.jlahougue.core_presentation.theme.spacing
 import com.jlahougue.dndcompanion.R
-import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellcasterView
 
 @Composable
 fun SpellcastingStats(

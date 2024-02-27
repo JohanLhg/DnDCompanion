@@ -99,12 +99,6 @@
     <string name="spell_damage_types">Damage Types :</string>
     <string name="spell_classes">Classes :</string>
 
-    <string name="spell_state_unlocked">Unlocked</string>
-    <string name="spell_state_highlighted">Highlighted</string>
-    <string name="spell_state_locked">Locked</string>
-    <string name="spell_state_prepared">Prepared</string>
-    <string name="spell_state_always_prepared">Always prepared</string>
-
     <string name="spellcasting_ability">Spellcasting Ability</string>
     <string name="spell_save_dc">Spell Save DC</string>
     <string name="spell_attack_bonus">Spell Attack Bonus</string>
@@ -125,9 +119,7 @@
     <string name="login">Login</string>
     <string name="text_register_now">You don\'t have an account yet ? Click here to register right now !</string>
     <string name="text_login_now">Already have an account ? Click here to login now !</string>
-    <string name="error_email_cannot_be_blank">Email cannot be blank</string>
-    <string name="error_password_too_short">Password cannot be shorter than 6 characters</string>
-    <string name="error_passwords_do_not_match">Password and Confirm Password must be the same</string>
+
     <string name="login_successful">Login successful</string>
     <string name="error_login_failed">Login failed</string>
     <string name="register_successful">Register successful</string>

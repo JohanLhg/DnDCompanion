@@ -1,7 +1,7 @@
 package com.jlahougue.dndcompanion.data_item.data.source.remote
 
 import com.google.firebase.firestore.FieldValue
-import com.jlahougue.dndcompanion.core.data.source.remote.subsource.FirebaseDataSource
+import com.jlahougue.core_data_remote_instance.FirebaseDataSource
 import com.jlahougue.item_domain.model.Item
 
 class ItemFirebaseDataSource(

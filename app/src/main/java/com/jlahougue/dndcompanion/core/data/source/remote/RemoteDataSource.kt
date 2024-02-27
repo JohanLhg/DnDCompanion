@@ -1,11 +1,11 @@
 package com.jlahougue.dndcompanion.core.data.source.remote
 
-import com.jlahougue.dndcompanion.data_ability.data.source.remote.AbilityRemoteDataSource
-import com.jlahougue.dndcompanion.data_authentication.data.source.AuthRemoteDataSource
-import com.jlahougue.dndcompanion.data_character.data.source.remote.CharacterRemoteDataSource
+import com.jlahougue.ability_data.source.remote.AbilityRemoteDataSource
+import com.jlahougue.authentication_data.source.AuthRemoteDataSource
+import com.jlahougue.character_data.source.remote.CharacterRemoteDataSource
+import com.jlahougue.class_data.source.remote.ClassRemoteDataSource
 import com.jlahougue.dndcompanion.data_character_sheet.data.source.remote.CharacterSheetRemoteDataSource
 import com.jlahougue.dndcompanion.data_character_spell.data.source.remote.CharacterSpellRemoteDataSource
-import com.jlahougue.dndcompanion.data_class.data.source.remote.ClassRemoteDataSource
 import com.jlahougue.dndcompanion.data_currency.data.source.remote.MoneyRemoteDataSource
 import com.jlahougue.dndcompanion.data_damage_type.data.source.remote.DamageTypeRemoteDataSource
 import com.jlahougue.dndcompanion.data_health.data.source.remote.HealthRemoteDataSource

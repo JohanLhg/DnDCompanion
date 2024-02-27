@@ -1,11 +1,11 @@
 package com.jlahougue.dndcompanion.data_spell.data.source.remote
 
 import android.util.Log
+import com.jlahougue.core_data_remote_instance.Open5eDataSource
 import com.jlahougue.core_domain.util.ApiEvent
 import com.jlahougue.core_domain.util.UiText
 import com.jlahougue.core_domain.util.dispatcherProvider.DispatcherProvider
 import com.jlahougue.dndcompanion.R
-import com.jlahougue.dndcompanion.core.data.source.remote.subsource.Open5eDataSource
 import com.jlahougue.spell_domain.model.Spell
 import com.jlahougue.spell_domain.model.SpellClass
 import com.jlahougue.spell_domain.model.SpellDamageType

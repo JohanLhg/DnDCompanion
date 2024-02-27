@@ -2,8 +2,8 @@ package com.jlahougue.dndcompanion.data_character_sheet.domain.use_case
 
 import com.jlahougue.ability_domain.repository.IAbilityRepository
 import com.jlahougue.character_domain.repository.ICharacterRepository
+import com.jlahougue.character_spell_domain.repository.ICharacterSpellRepository
 import com.jlahougue.core_domain.util.dispatcherProvider.DispatcherProvider
-import com.jlahougue.dndcompanion.data_character_spell.domain.repository.ICharacterSpellRepository
 import com.jlahougue.health_domain.repository.IHealthRepository
 import com.jlahougue.item_domain.repository.IItemRepository
 import com.jlahougue.money_domain.repository.IMoneyRepository

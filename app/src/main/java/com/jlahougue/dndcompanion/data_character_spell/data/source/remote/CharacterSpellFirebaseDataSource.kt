@@ -1,8 +1,8 @@
 package com.jlahougue.dndcompanion.data_character_spell.data.source.remote
 
-import com.jlahougue.dndcompanion.core.data.source.remote.subsource.FirebaseDataSource
-import com.jlahougue.dndcompanion.data_character_spell.domain.model.CharacterSpell
-import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellSlot
+import com.jlahougue.character_spell_domain.model.CharacterSpell
+import com.jlahougue.character_spell_domain.model.SpellSlot
+import com.jlahougue.core_data_remote_instance.FirebaseDataSource
 
 class CharacterSpellFirebaseDataSource(
     private val firebaseDataSource: FirebaseDataSource

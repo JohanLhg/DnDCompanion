@@ -1,7 +1,7 @@
 package com.jlahougue.dndcompanion.feature_combat.di
 
+import com.jlahougue.character_spell_domain.use_case.SpellUseCases
 import com.jlahougue.core_domain.util.dispatcherProvider.DispatcherProvider
-import com.jlahougue.dndcompanion.data_character_spell.domain.use_case.SpellUseCases
 import com.jlahougue.health_domain.use_case.HealthUseCases
 import com.jlahougue.item_domain.use_case.ItemUseCases
 import com.jlahougue.user_info_domain.use_case.UserInfoUseCases

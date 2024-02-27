@@ -1,10 +1,10 @@
 package com.jlahougue.dndcompanion.data_property.data.source.remote
 
+import com.jlahougue.core_data_remote_instance.Dnd5eDataSource
 import com.jlahougue.core_domain.util.ApiEvent
 import com.jlahougue.core_domain.util.UiText
 import com.jlahougue.core_domain.util.dispatcherProvider.DispatcherProvider
 import com.jlahougue.dndcompanion.R
-import com.jlahougue.dndcompanion.core.data.source.remote.subsource.Dnd5eDataSource
 import com.jlahougue.property_domain.model.Property
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.joinAll

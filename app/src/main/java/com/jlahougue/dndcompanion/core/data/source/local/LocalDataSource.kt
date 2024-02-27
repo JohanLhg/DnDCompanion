@@ -1,9 +1,9 @@
 package com.jlahougue.dndcompanion.core.data.source.local
 
-import com.jlahougue.dndcompanion.data_ability.data.source.local.AbilityLocalDataSource
-import com.jlahougue.dndcompanion.data_character.data.source.local.CharacterLocalDataSource
+import com.jlahougue.ability_data.source.local.AbilityLocalDataSource
+import com.jlahougue.character_data.source.local.CharacterLocalDataSource
+import com.jlahougue.class_data.source.local.ClassLocalDataSource
 import com.jlahougue.dndcompanion.data_character_spell.data.source.local.CharacterSpellLocalDataSource
-import com.jlahougue.dndcompanion.data_class.data.source.local.ClassLocalDataSource
 import com.jlahougue.dndcompanion.data_currency.data.source.local.MoneyLocalDataSource
 import com.jlahougue.dndcompanion.data_damage_type.data.source.local.DamageTypeLocalDataSource
 import com.jlahougue.dndcompanion.data_health.data.source.local.HealthLocalDataSource

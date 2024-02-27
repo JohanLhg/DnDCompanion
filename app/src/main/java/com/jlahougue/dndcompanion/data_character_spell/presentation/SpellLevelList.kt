@@ -4,7 +4,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellLevel
+import com.jlahougue.character_spell_domain.model.SpellLevel
 import com.jlahougue.dndcompanion.data_character_spell.presentation.components.SpellLevelSection
 import com.jlahougue.dndcompanion.data_character_spell.presentation.components.SpellListMode
 

@@ -1,5 +1,6 @@
 package com.jlahougue.dndcompanion.data_weapon.data.source.remote.subsource
 
+import com.jlahougue.core_data_remote_instance.Dnd5eDataSource
 import com.jlahougue.core_domain.util.ApiEvent
 import com.jlahougue.core_domain.util.UiText
 import com.jlahougue.core_domain.util.dispatcherProvider.DispatcherProvider
@@ -7,7 +8,6 @@ import com.jlahougue.core_domain.util.extension.getIntIfExists
 import com.jlahougue.core_domain.util.extension.getJSONArrayIfExists
 import com.jlahougue.core_domain.util.extension.getStringIfExists
 import com.jlahougue.dndcompanion.R
-import com.jlahougue.dndcompanion.core.data.source.remote.subsource.Dnd5eDataSource
 import com.jlahougue.dndcompanion.data_weapon.data.source.remote.WeaponRemoteListener
 import com.jlahougue.weapon_domain.model.Weapon
 import com.jlahougue.weapon_domain.model.WeaponProperty

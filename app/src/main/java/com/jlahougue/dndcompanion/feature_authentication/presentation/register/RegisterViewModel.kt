@@ -2,9 +2,9 @@ package com.jlahougue.dndcompanion.feature_authentication.presentation.register
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.jlahougue.authentication_domain.model.InvalidAuthException
 import com.jlahougue.core_domain.util.UiText
 import com.jlahougue.dndcompanion.R
-import com.jlahougue.dndcompanion.data_authentication.domain.model.InvalidAuthException
 import com.jlahougue.dndcompanion.feature_authentication.di.IAuthenticationModule
 import com.jlahougue.dndcompanion.feature_authentication.presentation.util.AuthUiEvent
 import kotlinx.coroutines.flow.MutableSharedFlow

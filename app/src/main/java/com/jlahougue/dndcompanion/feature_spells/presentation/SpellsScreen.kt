@@ -15,11 +15,11 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.Button
-import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
+import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -28,15 +28,15 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.jlahougue.ability_domain.model.AbilityName
+import com.jlahougue.character_spell_domain.model.CharacterSpellsStatsView
+import com.jlahougue.character_spell_domain.model.SpellInfo
+import com.jlahougue.character_spell_domain.model.SpellLevel
+import com.jlahougue.character_spell_domain.model.SpellSlotView
+import com.jlahougue.character_spell_domain.model.SpellState
+import com.jlahougue.character_spell_domain.model.SpellcasterView
 import com.jlahougue.core_presentation.theme.DnDCompanionTheme
 import com.jlahougue.core_presentation.theme.spacing
 import com.jlahougue.dndcompanion.R
-import com.jlahougue.dndcompanion.data_character_spell.domain.model.CharacterSpellsStatsView
-import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellInfo
-import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellLevel
-import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellSlotView
-import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellState
-import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellcasterView
 import com.jlahougue.dndcompanion.data_character_spell.presentation.SpellEvent
 import com.jlahougue.dndcompanion.data_character_spell.presentation.SpellLevelList
 import com.jlahougue.dndcompanion.data_character_spell.presentation.components.SpellListMode
@@ -114,11 +114,7 @@ fun SpellsScreen(
                 }
             }
         }
-        Divider(
-            modifier = Modifier
-                .fillMaxHeight()
-                .width(1.dp)
-        )
+        VerticalDivider()
         if (mode is SpellListMode.All) {
             FilteredSpellList(
                 search = search,

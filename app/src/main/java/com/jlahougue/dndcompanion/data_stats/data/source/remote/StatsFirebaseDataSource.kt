@@ -1,6 +1,6 @@
 package com.jlahougue.dndcompanion.data_stats.data.source.remote
 
-import com.jlahougue.dndcompanion.core.data.source.remote.subsource.FirebaseDataSource
+import com.jlahougue.core_data_remote_instance.FirebaseDataSource
 
 class StatsFirebaseDataSource(
     private val dataSource: FirebaseDataSource

@@ -6,7 +6,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -17,6 +17,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.jlahougue.ability_domain.model.AbilityName
+import com.jlahougue.character_spell_domain.model.SpellInfo
+import com.jlahougue.character_spell_domain.model.SpellState
 import com.jlahougue.class_domain.model.Class
 import com.jlahougue.core_presentation.components.ListOfLinkedItems
 import com.jlahougue.core_presentation.components.PropertyColumn
@@ -25,8 +27,6 @@ import com.jlahougue.core_presentation.theme.DnDCompanionTheme
 import com.jlahougue.core_presentation.theme.spacing
 import com.jlahougue.damage_type_domain.model.DamageType
 import com.jlahougue.dndcompanion.R
-import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellInfo
-import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellState
 import com.jlahougue.dndcompanion.data_character_spell.presentation.dialog.component.SpellDialogHeader
 
 @Composable
@@ -61,7 +61,7 @@ fun SpellDialog(
                         state = state,
                         onEvent = onEvent
                     )
-                    Divider(
+                    HorizontalDivider(
                         modifier = Modifier.padding(horizontal = MaterialTheme.spacing.small)
                     )
                     Column(

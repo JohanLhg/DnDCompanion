@@ -15,7 +15,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellState
+import com.jlahougue.character_spell_domain.model.SpellState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

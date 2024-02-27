@@ -10,13 +10,22 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/ability" />
+            <option value="$PROJECT_DIR$/ability/ability-data" />
             <option value="$PROJECT_DIR$/ability/ability-domain" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/authentication" />
+            <option value="$PROJECT_DIR$/authentication/authentication-data" />
+            <option value="$PROJECT_DIR$/authentication/authentication-domain" />
             <option value="$PROJECT_DIR$/character" />
+            <option value="$PROJECT_DIR$/character-spell" />
+            <option value="$PROJECT_DIR$/character-spell/character-spell-domain" />
+            <option value="$PROJECT_DIR$/character/character-data" />
             <option value="$PROJECT_DIR$/character/character-domain" />
             <option value="$PROJECT_DIR$/class" />
+            <option value="$PROJECT_DIR$/class/class-data" />
             <option value="$PROJECT_DIR$/class/class-domain" />
             <option value="$PROJECT_DIR$/core" />
+            <option value="$PROJECT_DIR$/core/core-data-remote-instance" />
             <option value="$PROJECT_DIR$/core/core-domain" />
             <option value="$PROJECT_DIR$/core/core-presentation" />
             <option value="$PROJECT_DIR$/damage-type" />

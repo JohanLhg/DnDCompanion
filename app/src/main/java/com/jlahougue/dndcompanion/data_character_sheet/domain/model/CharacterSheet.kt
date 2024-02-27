@@ -2,7 +2,7 @@ package com.jlahougue.dndcompanion.data_character_sheet.domain.model
 
 import com.jlahougue.ability_domain.model.Ability
 import com.jlahougue.character_domain.model.Character
-import com.jlahougue.dndcompanion.data_character_spell.domain.model.CharacterSpell
+import com.jlahougue.character_spell_domain.model.CharacterSpell
 import com.jlahougue.health_domain.model.DeathSaves
 import com.jlahougue.health_domain.model.Health
 import com.jlahougue.item_domain.model.Item

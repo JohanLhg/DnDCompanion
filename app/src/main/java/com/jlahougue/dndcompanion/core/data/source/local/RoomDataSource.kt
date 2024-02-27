@@ -3,25 +3,25 @@ package com.jlahougue.dndcompanion.core.data.source.local
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.jlahougue.ability_data.source.local.AbilityLocalDataSource
+import com.jlahougue.ability_data.util.AbilityNameTypeConverter
 import com.jlahougue.ability_domain.model.Ability
 import com.jlahougue.ability_domain.model.AbilityModifierView
 import com.jlahougue.ability_domain.model.AbilityView
+import com.jlahougue.character_data.source.local.CharacterLocalDataSource
 import com.jlahougue.character_domain.model.Character
 import com.jlahougue.character_domain.model.ProficiencyView
+import com.jlahougue.character_spell_domain.model.CharacterSpell
+import com.jlahougue.character_spell_domain.model.CharacterSpellsStatsView
+import com.jlahougue.character_spell_domain.model.SpellSlot
+import com.jlahougue.character_spell_domain.model.SpellSlotView
+import com.jlahougue.character_spell_domain.model.SpellcasterView
+import com.jlahougue.class_data.source.local.ClassLocalDataSource
 import com.jlahougue.class_domain.model.Class
 import com.jlahougue.class_domain.model.ClassLevel
 import com.jlahougue.class_domain.model.ClassSpellSlot
 import com.jlahougue.damage_type_domain.model.DamageType
-import com.jlahougue.dndcompanion.data_ability.data.source.local.AbilityLocalDataSource
-import com.jlahougue.dndcompanion.data_ability.data.util.AbilityNameTypeConverter
-import com.jlahougue.dndcompanion.data_character.data.source.local.CharacterLocalDataSource
 import com.jlahougue.dndcompanion.data_character_spell.data.source.local.CharacterSpellLocalDataSource
-import com.jlahougue.dndcompanion.data_character_spell.domain.model.CharacterSpell
-import com.jlahougue.dndcompanion.data_character_spell.domain.model.CharacterSpellsStatsView
-import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellSlot
-import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellSlotView
-import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellcasterView
-import com.jlahougue.dndcompanion.data_class.data.source.local.ClassLocalDataSource
 import com.jlahougue.dndcompanion.data_currency.data.source.local.MoneyLocalDataSource
 import com.jlahougue.dndcompanion.data_currency.data.util.CurrencyTypeConverter
 import com.jlahougue.dndcompanion.data_damage_type.data.source.local.DamageTypeLocalDataSource
@@ -51,7 +51,7 @@ import com.jlahougue.weapon_domain.model.WeaponProperty
     entities = [
         Character::class,
         Health::class, DeathSaves::class,
-        com.jlahougue.ability_domain.model.Ability::class, Skill::class, com.jlahougue.stats_domain.model.Stats::class,
+        Ability::class, Skill::class, Stats::class,
         Money::class, Item::class,
         Class::class, ClassLevel::class, ClassSpellSlot::class,
         DamageType::class, Property::class,
@@ -60,8 +60,8 @@ import com.jlahougue.weapon_domain.model.WeaponProperty
         CharacterWeapon::class, Weapon::class, WeaponProperty::class
     ],
     views = [
-        com.jlahougue.ability_domain.model.AbilityModifierView::class, com.jlahougue.ability_domain.model.AbilityView::class,
-        com.jlahougue.stats_domain.model.StatsView::class,
+        AbilityModifierView::class, AbilityView::class,
+        StatsView::class,
         ProficiencyView::class,
         SpellcasterView::class, CharacterSpellsStatsView::class, SpellSlotView::class
     ],

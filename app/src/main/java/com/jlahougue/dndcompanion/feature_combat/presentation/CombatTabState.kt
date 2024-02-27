@@ -1,6 +1,6 @@
 package com.jlahougue.dndcompanion.feature_combat.presentation
 
-import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellLevel
+import com.jlahougue.character_spell_domain.model.SpellLevel
 import com.jlahougue.dndcompanion.data_item.presentation.InventoryState
 import com.jlahougue.dndcompanion.data_weapon.presentation.WeaponState
 import com.jlahougue.dndcompanion.feature_combat.presentation.component.TabItem

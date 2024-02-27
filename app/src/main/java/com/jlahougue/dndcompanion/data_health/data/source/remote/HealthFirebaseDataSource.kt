@@ -1,6 +1,6 @@
 package com.jlahougue.dndcompanion.data_health.data.source.remote
 
-import com.jlahougue.dndcompanion.core.data.source.remote.subsource.FirebaseDataSource
+import com.jlahougue.core_data_remote_instance.FirebaseDataSource
 import com.jlahougue.health_domain.model.DeathSaves
 import com.jlahougue.health_domain.model.Health
 

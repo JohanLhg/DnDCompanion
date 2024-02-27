@@ -1,6 +1,6 @@
 package com.jlahougue.dndcompanion.data_character_spell.presentation.dialog
 
-import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellInfo
+import com.jlahougue.character_spell_domain.model.SpellInfo
 
 data class SpellDialogState(
     var isShown: Boolean = false,

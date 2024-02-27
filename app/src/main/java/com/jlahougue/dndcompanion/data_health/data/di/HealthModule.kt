@@ -1,9 +1,9 @@
 package com.jlahougue.dndcompanion.data_health.data.di
 
 import com.jlahougue.core_domain.util.dispatcherProvider.DispatcherProvider
-import com.jlahougue.dndcompanion.core.data.source.local.LocalDataSource
-import com.jlahougue.dndcompanion.core.data.source.remote.RemoteDataSource
 import com.jlahougue.dndcompanion.data_health.data.repository.HealthRepository
+import com.jlahougue.dndcompanion.data_health.data.source.local.HealthLocalDataSource
+import com.jlahougue.dndcompanion.data_health.data.source.remote.HealthRemoteDataSource
 import com.jlahougue.health_domain.di.IHealthModule
 import com.jlahougue.health_domain.use_case.GetDeathSaves
 import com.jlahougue.health_domain.use_case.GetHealth
@@ -13,32 +13,32 @@ import com.jlahougue.health_domain.use_case.SaveHealth
 
 class HealthModule(
     dispatcherProvider: DispatcherProvider,
-    remoteDataSource: RemoteDataSource,
-    localDataSource: LocalDataSource
+    remoteDataSource: HealthRemoteDataSource,
+    localDataSource: HealthLocalDataSource
 ) : IHealthModule {
 
     override val repository by lazy {
         HealthRepository(
-            remote = remoteDataSource.healthDao,
-            local = localDataSource.healthDao()
+            remoteDataSource,
+            localDataSource
         )
     }
 
     override val useCases by lazy {
         HealthUseCases(
-            saveHealth = SaveHealth(
-                dispatcherProvider = dispatcherProvider,
-                repository = repository
+            SaveHealth(
+                dispatcherProvider,
+                repository
             ),
-            saveDeathSaves = SaveDeathSaves(
-                dispatcherProvider = dispatcherProvider,
-                repository = repository
+            SaveDeathSaves(
+                dispatcherProvider,
+                repository
             ),
-            getHealth = GetHealth(
-                repository = repository
+            GetHealth(
+                repository
             ),
-            getDeathSaves = GetDeathSaves(
-                repository = repository
+            GetDeathSaves(
+                repository
             )
         )
     }

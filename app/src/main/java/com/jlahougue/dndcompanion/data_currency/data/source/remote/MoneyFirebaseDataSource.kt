@@ -1,6 +1,6 @@
 package com.jlahougue.dndcompanion.data_currency.data.source.remote
 
-import com.jlahougue.dndcompanion.core.data.source.remote.subsource.FirebaseDataSource
+import com.jlahougue.core_data_remote_instance.FirebaseDataSource
 import com.jlahougue.money_domain.model.Money
 
 class MoneyFirebaseDataSource(

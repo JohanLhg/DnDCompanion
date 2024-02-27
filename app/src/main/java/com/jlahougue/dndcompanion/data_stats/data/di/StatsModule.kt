@@ -1,25 +1,29 @@
 package com.jlahougue.dndcompanion.data_stats.data.di
 
-import com.jlahougue.dndcompanion.core.data.source.local.LocalDataSource
-import com.jlahougue.dndcompanion.core.data.source.remote.RemoteDataSource
 import com.jlahougue.dndcompanion.data_stats.data.repository.StatsRepository
+import com.jlahougue.dndcompanion.data_stats.data.source.local.StatsLocalDataSource
+import com.jlahougue.dndcompanion.data_stats.data.source.remote.StatsRemoteDataSource
+import com.jlahougue.stats_domain.di.IStatsModule
+import com.jlahougue.stats_domain.use_case.GetStats
+import com.jlahougue.stats_domain.use_case.SaveStats
+import com.jlahougue.stats_domain.use_case.StatsUseCases
 
 class StatsModule(
-    remoteDataSource: RemoteDataSource,
-    localDataSource: LocalDataSource
-) : com.jlahougue.stats_domain.di.IStatsModule {
+    remoteDataSource: StatsRemoteDataSource,
+    localDataSource: StatsLocalDataSource
+) : IStatsModule {
 
     override val repository by lazy {
         StatsRepository(
-            remoteDataSource.statsDao,
-            localDataSource.statsDao()
+            remoteDataSource,
+            localDataSource
         )
     }
 
     override val useCases by lazy {
-        com.jlahougue.stats_domain.use_case.StatsUseCases(
-            com.jlahougue.stats_domain.use_case.GetStats(repository),
-            com.jlahougue.stats_domain.use_case.SaveStats(repository)
+        StatsUseCases(
+            GetStats(repository),
+            SaveStats(repository)
         )
     }
 }

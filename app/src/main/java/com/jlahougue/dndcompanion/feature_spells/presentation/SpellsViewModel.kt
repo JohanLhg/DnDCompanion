@@ -2,11 +2,11 @@ package com.jlahougue.dndcompanion.feature_spells.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.jlahougue.dndcompanion.data_character_spell.domain.model.CharacterSpellsStatsView
-import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellInfo
-import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellLevel
-import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellcasterView
-import com.jlahougue.dndcompanion.data_character_spell.domain.use_case.SpellFilter
+import com.jlahougue.character_spell_domain.model.CharacterSpellsStatsView
+import com.jlahougue.character_spell_domain.model.SpellInfo
+import com.jlahougue.character_spell_domain.model.SpellLevel
+import com.jlahougue.character_spell_domain.model.SpellcasterView
+import com.jlahougue.character_spell_domain.use_case.SpellFilter
 import com.jlahougue.dndcompanion.data_character_spell.presentation.SpellEvent
 import com.jlahougue.dndcompanion.data_character_spell.presentation.components.SpellListMode
 import com.jlahougue.dndcompanion.data_character_spell.presentation.dialog.SpellDialogEvent

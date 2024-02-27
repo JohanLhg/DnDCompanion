@@ -1,8 +1,8 @@
 package com.jlahougue.dndcompanion.data_character_spell.presentation
 
-import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellInfo
-import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellSlotView
-import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellState
+import com.jlahougue.character_spell_domain.model.SpellInfo
+import com.jlahougue.character_spell_domain.model.SpellSlotView
+import com.jlahougue.character_spell_domain.model.SpellState
 
 sealed class SpellEvent {
     data class OnSlotRestored(val spellSlot: SpellSlotView) : SpellEvent()

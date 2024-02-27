@@ -1,9 +1,9 @@
 package com.jlahougue.dndcompanion.data_item.data.di
 
 import com.jlahougue.core_domain.util.dispatcherProvider.DispatcherProvider
-import com.jlahougue.dndcompanion.core.data.source.local.LocalDataSource
-import com.jlahougue.dndcompanion.core.data.source.remote.RemoteDataSource
 import com.jlahougue.dndcompanion.data_item.data.repository.ItemRepository
+import com.jlahougue.dndcompanion.data_item.data.source.local.ItemLocalDataSource
+import com.jlahougue.dndcompanion.data_item.data.source.remote.ItemRemoteDataSource
 import com.jlahougue.item_domain.di.IItemModule
 import com.jlahougue.item_domain.repository.IItemRepository
 import com.jlahougue.item_domain.use_case.CreateItem
@@ -15,30 +15,30 @@ import com.jlahougue.item_domain.use_case.SaveItem
 
 class ItemModule(
     private val dispatcherProvider: DispatcherProvider,
-    private val remoteDataSource: RemoteDataSource,
-    private val localDataSource: LocalDataSource
+    private val remoteDataSource: ItemRemoteDataSource,
+    private val localDataSource: ItemLocalDataSource
 ) : IItemModule {
 
     override val repository: IItemRepository by lazy {
         ItemRepository(
-            remoteDataSource.itemDao,
-            localDataSource.itemDao()
+            remoteDataSource,
+            localDataSource
         )
     }
 
     override val useCases: ItemUseCases by lazy {
         ItemUseCases(
-            getItem = GetItem(repository),
-            getItems = GetItems(repository),
-            createItem = CreateItem(
+            GetItem(repository),
+            GetItems(repository),
+            CreateItem(
                 dispatcherProvider,
                 repository
             ),
-            saveItem = SaveItem(
+            SaveItem(
                 dispatcherProvider,
                 repository
             ),
-            deleteItem = DeleteItem(
+            DeleteItem(
                 dispatcherProvider,
                 repository
             )

@@ -11,9 +11,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import com.jlahougue.character_spell_domain.model.SpellState
 import com.jlahougue.core_presentation.theme.spacing
 import com.jlahougue.dndcompanion.R
-import com.jlahougue.dndcompanion.data_character_spell.domain.model.SpellState
 import com.jlahougue.dndcompanion.data_character_spell.presentation.components.ComponentImage
 import com.jlahougue.dndcompanion.data_character_spell.presentation.dialog.SpellDialogEvent
 import com.jlahougue.dndcompanion.data_character_spell.presentation.dialog.SpellDialogState
