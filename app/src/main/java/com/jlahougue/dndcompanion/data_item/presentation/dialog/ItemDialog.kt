@@ -19,7 +19,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -186,7 +186,7 @@ fun ItemDialog(
                                 .padding(vertical = MaterialTheme.spacing.extraSmall)
                         )
                     }
-                    Divider(
+                    HorizontalDivider(
                         modifier = Modifier.padding(horizontal = MaterialTheme.spacing.small)
                     )
                     Column(

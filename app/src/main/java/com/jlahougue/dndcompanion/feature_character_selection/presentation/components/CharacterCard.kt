@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -30,7 +29,6 @@ import com.jlahougue.core_presentation.theme.spacing
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CharacterCard(
     character: Character,
@@ -120,7 +118,7 @@ fun CharacterCardPreview() {
                 "",
                 false,
             ),
-            getImage = { id -> MutableStateFlow(LoadImageState()) },
+            getImage = { _ -> MutableStateFlow(LoadImageState()) },
             modifier = Modifier
                 .padding(MaterialTheme.spacing.large)
                 .size(175.dp)

@@ -3,7 +3,7 @@ package com.jlahougue.dndcompanion.data_health.presentation.components
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -20,7 +20,7 @@ fun DividerTitle(
         contentAlignment = Alignment.Center,
         modifier = modifier
     ) {
-        Divider()
+        HorizontalDivider()
         Text(
             text = title,
             style = MaterialTheme.typography.bodyMedium,

@@ -23,7 +23,7 @@ import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextFieldDefaults
@@ -109,7 +109,7 @@ fun MoneyDialog(
                             .padding(MaterialTheme.spacing.extraSmall)
                     )
                 }
-                Divider()
+                HorizontalDivider()
                 Row(
                     horizontalArrangement = Arrangement.Center,
                     modifier = Modifier
@@ -190,7 +190,7 @@ fun MoneyDialog(
                         )
                     }
                 }
-                Divider()
+                HorizontalDivider()
                 Row(
                     horizontalArrangement = Arrangement.End,
                     modifier = Modifier

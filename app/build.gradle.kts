@@ -94,7 +94,16 @@ dependencies {
     implementation(project(":authentication:authentication-data"))
     implementation(project(":character:character-data"))
     implementation(project(":class:class-data"))
+    implementation(project(":money:money-data"))
+    implementation(project(":health:health-data"))
+    implementation(project(":item:item-data"))
+    implementation(project(":damage-type:damage-type-data"))
+    implementation(project(":property:property-data"))
     implementation(project(":spell:spell-data"))
+    implementation(project(":character-spell:character-spell-data"))
+    implementation(project(":stats:stats-data"))
+    implementation(project(":skill:skill-data"))
+    implementation(project(":weapon:weapon-data"))
     implementation(project(":user-info:user-info-data"))
 
     // Compose
