@@ -1,4 +1,4 @@
-package com.jlahougue.dndcompanion.core.data.source.local
+package com.jlahougue.core_di
 
 import com.jlahougue.ability_data.source.local.AbilityLocalDataSource
 import com.jlahougue.character_data.source.local.CharacterLocalDataSource

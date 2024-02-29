@@ -1,4 +1,4 @@
-package com.jlahougue.dndcompanion.core.di
+package com.jlahougue.core_di
 
 import com.jlahougue.core_domain.util.dispatcherProvider.DispatcherProvider
 

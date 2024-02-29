@@ -7,9 +7,9 @@ import com.jlahougue.character_data.di.CharacterModule
 import com.jlahougue.character_sheet_data.di.CharacterSheetModule
 import com.jlahougue.character_spell_data.di.CharacterSpellModule
 import com.jlahougue.class_data.di.ClassModule
+import com.jlahougue.core_data.di.AppModule
+import com.jlahougue.core_data.di.DataSourceModule
 import com.jlahougue.damage_type_data.di.DamageTypeModule
-import com.jlahougue.dndcompanion.core.di.AppModule
-import com.jlahougue.dndcompanion.core.di.DataSourceModule
 import com.jlahougue.dndcompanion.feature_authentication.di.AuthenticationModule
 import com.jlahougue.dndcompanion.feature_character_selection.di.CharacterSelectionModule
 import com.jlahougue.dndcompanion.feature_combat.di.CombatModule

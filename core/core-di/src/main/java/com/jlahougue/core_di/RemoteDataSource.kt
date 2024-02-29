@@ -1,4 +1,4 @@
-package com.jlahougue.dndcompanion.core.data.source.remote
+package com.jlahougue.core_di
 
 import com.jlahougue.ability_data.source.remote.AbilityRemoteDataSource
 import com.jlahougue.authentication_data.source.AuthRemoteDataSource

@@ -1,4 +1,4 @@
-package com.jlahougue.dndcompanion.core.data.source.local
+package com.jlahougue.core_data.source.local
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
@@ -21,6 +21,7 @@ import com.jlahougue.class_data.source.local.ClassLocalDataSource
 import com.jlahougue.class_domain.model.Class
 import com.jlahougue.class_domain.model.ClassLevel
 import com.jlahougue.class_domain.model.ClassSpellSlot
+import com.jlahougue.core_di.LocalDataSource
 import com.jlahougue.damage_type_data.source.local.DamageTypeLocalDataSource
 import com.jlahougue.damage_type_domain.model.DamageType
 import com.jlahougue.health_data.source.local.HealthLocalDataSource

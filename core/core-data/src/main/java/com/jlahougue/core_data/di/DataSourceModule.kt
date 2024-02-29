@@ -1,15 +1,16 @@
-package com.jlahougue.dndcompanion.core.di
+package com.jlahougue.core_data.di
 
 import android.app.Application
 import androidx.room.Room
+import com.jlahougue.core_data.source.local.RoomDataSource
+import com.jlahougue.core_data.source.remote.MixedRemoteDataSource
 import com.jlahougue.core_data_remote_instance.Dnd5eDataSource
 import com.jlahougue.core_data_remote_instance.FirebaseDataSource
 import com.jlahougue.core_data_remote_instance.Open5eDataSource
+import com.jlahougue.core_di.IDataSourceModule
+import com.jlahougue.core_di.LocalDataSource
+import com.jlahougue.core_di.RemoteDataSource
 import com.jlahougue.core_domain.util.dispatcherProvider.DispatcherProvider
-import com.jlahougue.dndcompanion.core.data.source.local.LocalDataSource
-import com.jlahougue.dndcompanion.core.data.source.local.RoomDataSource
-import com.jlahougue.dndcompanion.core.data.source.remote.MixedRemoteDataSource
-import com.jlahougue.dndcompanion.core.data.source.remote.RemoteDataSource
 import okhttp3.OkHttpClient
 
 class DataSourceModule(

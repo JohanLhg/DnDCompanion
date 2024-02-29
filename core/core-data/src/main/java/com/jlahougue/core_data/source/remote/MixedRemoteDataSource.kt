@@ -1,4 +1,4 @@
-package com.jlahougue.dndcompanion.core.data.source.remote
+package com.jlahougue.core_data.source.remote
 
 import com.jlahougue.ability_data.source.remote.AbilityFirebaseDataSource
 import com.jlahougue.authentication_data.source.AuthFirebaseDataSource
@@ -11,6 +11,7 @@ import com.jlahougue.class_data.source.remote.subsource.ClassOpen5eDataSource
 import com.jlahougue.core_data_remote_instance.Dnd5eDataSource
 import com.jlahougue.core_data_remote_instance.FirebaseDataSource
 import com.jlahougue.core_data_remote_instance.Open5eDataSource
+import com.jlahougue.core_di.RemoteDataSource
 import com.jlahougue.core_domain.util.dispatcherProvider.DispatcherProvider
 import com.jlahougue.damage_type_data.source.remote.DamageTypeDnd5eDataSource
 import com.jlahougue.health_data.source.remote.HealthFirebaseDataSource
