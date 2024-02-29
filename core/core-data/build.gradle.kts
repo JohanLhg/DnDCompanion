@@ -35,8 +35,10 @@ android {
 
 dependencies {
     implementation(project(":core:core-data-remote-instance"))
-    implementation(project(":core:core-domain"))
     implementation(project(":core:core-di"))
+    implementation(project(":core:core-domain"))
+
+    implementation(project(":settings:settings-domain"))
 
     implementation(project(":character-sheet:character-sheet-domain"))
     implementation(project(":ability:ability-domain"))
@@ -78,4 +80,5 @@ dependencies {
 
     testImplementation(libs.bundles.tests)
     androidTestImplementation(libs.bundles.android.tests)
+    debugImplementation(libs.compose.tooling)
 }
