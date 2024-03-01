@@ -24,6 +24,7 @@
             <option value="$PROJECT_DIR$/character-spell" />
             <option value="$PROJECT_DIR$/character-spell/character-spell-data" />
             <option value="$PROJECT_DIR$/character-spell/character-spell-domain" />
+            <option value="$PROJECT_DIR$/character-spell/character-spell-presentation" />
             <option value="$PROJECT_DIR$/character/character-data" />
             <option value="$PROJECT_DIR$/character/character-domain" />
             <option value="$PROJECT_DIR$/class" />
@@ -41,12 +42,14 @@
             <option value="$PROJECT_DIR$/health" />
             <option value="$PROJECT_DIR$/health/health-data" />
             <option value="$PROJECT_DIR$/health/health-domain" />
+            <option value="$PROJECT_DIR$/health/health-presentation" />
             <option value="$PROJECT_DIR$/item" />
             <option value="$PROJECT_DIR$/item/item-data" />
             <option value="$PROJECT_DIR$/item/item-domain" />
             <option value="$PROJECT_DIR$/money" />
             <option value="$PROJECT_DIR$/money/money-data" />
             <option value="$PROJECT_DIR$/money/money-domain" />
+            <option value="$PROJECT_DIR$/money/money-presentation" />
             <option value="$PROJECT_DIR$/property" />
             <option value="$PROJECT_DIR$/property/property-data" />
             <option value="$PROJECT_DIR$/property/property-domain" />

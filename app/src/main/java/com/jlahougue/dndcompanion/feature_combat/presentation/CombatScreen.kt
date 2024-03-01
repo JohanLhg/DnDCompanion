@@ -11,11 +11,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
+import com.jlahougue.ability_presentation.Abilities
+import com.jlahougue.character_spell_presentation.dialog.SpellDialog
 import com.jlahougue.core_domain.util.UiText
 import com.jlahougue.core_presentation.theme.DnDCompanionTheme
 import com.jlahougue.dndcompanion.R
-import com.jlahougue.dndcompanion.data_character_spell.presentation.dialog.SpellDialog
-import com.jlahougue.dndcompanion.data_health.presentation.HealthBox
 import com.jlahougue.dndcompanion.data_stats.presentation.StatsList
 import com.jlahougue.dndcompanion.feature_combat.presentation.component.CombatTabs
 import com.jlahougue.dndcompanion.feature_combat.presentation.component.TabItem
@@ -30,7 +30,7 @@ fun CombatScreen(
             modifier = Modifier
                 .width(IntrinsicSize.Max)
         ) {
-            com.jlahougue.ability_presentation.Abilities(
+            Abilities(
                 abilities = state.abilities,
                 modifier = Modifier
                     .height(IntrinsicSize.Max)
@@ -38,17 +38,17 @@ fun CombatScreen(
             StatsList(
                 stats = state.stats,
                 onEvent = {
-                    onEvent(CombatEvent.onStatsEvent(it))
+                    onEvent(CombatEvent.OnStatsEvent(it))
                 },
                 modifier = Modifier
                     .height(IntrinsicSize.Max)
             )
         }
-        HealthBox(
+        com.jlahougue.health_presentation.HealthBox(
             health = state.health,
             deathSaves = state.deathSaves,
             onEvent = {
-                onEvent(CombatEvent.onHealthEvent(it))
+                onEvent(CombatEvent.OnHealthEvent(it))
             },
             modifier = Modifier
                 .width(IntrinsicSize.Max)
@@ -64,7 +64,7 @@ fun CombatScreen(
     SpellDialog(
         state = state.spellDialog,
         onEvent = {
-            onEvent(CombatEvent.onSpellDialogEvent(it))
+            onEvent(CombatEvent.OnSpellDialogEvent(it))
         }
     )
 }

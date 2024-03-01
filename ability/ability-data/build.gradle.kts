@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.ability_data"
+    namespace = "com.jlahougue.ability_data"
     compileSdk = 34
 
     defaultConfig {

@@ -10,8 +10,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import com.jlahougue.core_presentation.theme.spacing
-import com.jlahougue.dndcompanion.data_character_spell.presentation.SpellLevelList
-import com.jlahougue.dndcompanion.data_character_spell.presentation.components.SpellListMode
 import com.jlahougue.dndcompanion.data_item.presentation.Inventory
 import com.jlahougue.dndcompanion.data_weapon.presentation.WeaponList
 import com.jlahougue.dndcompanion.feature_combat.presentation.CombatEvent
@@ -33,7 +31,7 @@ fun CombatTabs(
                 TabHeader(
                     selected = state.selectedTabIndex == index,
                     onClick = {
-                        onEvent(CombatEvent.onTabSelected(index))
+                        onEvent(CombatEvent.OnTabSelected(index))
                     },
                     title = tab.title.getString(),
                     icon = painterResource(tab.icon)
@@ -42,12 +40,12 @@ fun CombatTabs(
         }
         when (state.selectedTabIndex) {
             0 -> {
-                SpellLevelList(
+                com.jlahougue.character_spell_presentation.SpellLevelList(
                     spells = state.spells,
                     modifier = Modifier
                         .fillMaxHeight(),
-                    mode = SpellListMode.Prepared,
-                    onEvent = { onEvent(CombatEvent.onSpellEvent(it)) }
+                    mode = com.jlahougue.character_spell_presentation.components.SpellListMode.Prepared,
+                    onEvent = { onEvent(CombatEvent.OnSpellEvent(it)) }
                 )
             }
             1 -> {
@@ -58,13 +56,13 @@ fun CombatTabs(
                         unitSystem = state.unitSystem,
                         state = state.weapons,
                         onEvent = {
-                            onEvent(CombatEvent.onWeaponEvent(it))
+                            onEvent(CombatEvent.OnWeaponEvent(it))
                         },
                         onListDialogEvent = {
-                            onEvent(CombatEvent.onWeaponListDialogEvent(it))
+                            onEvent(CombatEvent.OnWeaponListDialogEvent(it))
                         },
                         onDialogEvent = {
-                            onEvent(CombatEvent.onWeaponDialogEvent(it))
+                            onEvent(CombatEvent.OnWeaponDialogEvent(it))
                         },
                         modifier = Modifier
                             .weight(1f)
@@ -73,10 +71,10 @@ fun CombatTabs(
                     Inventory(
                         state = state.inventory,
                         onEvent = {
-                            onEvent(CombatEvent.onItemEvent(it))
+                            onEvent(CombatEvent.OnItemEvent(it))
                         },
                         onDialogEvent = {
-                            onEvent(CombatEvent.onItemDialogEvent(it))
+                            onEvent(CombatEvent.OnItemDialogEvent(it))
                         },
                         modifier = Modifier
                             .weight(1f)

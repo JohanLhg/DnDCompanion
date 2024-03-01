@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.core_data_remote_instance"
+    namespace = "com.jlahougue.core_data_remote_instance"
     compileSdk = 34
 
     defaultConfig {

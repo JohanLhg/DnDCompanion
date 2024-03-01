@@ -12,23 +12,6 @@
     <string name="search">Search…</string>
     <string name="clear">Clear</string>
 
-    <string name="add">Add</string>
-    <string name="subtract">Subtract</string>
-    <string name="set">Set</string>
-
-    <!-- Health -->
-    <string name="health">Health</string>
-    <string name="health_max">Maximum</string>
-    <string name="health_current">Current</string>
-    <string name="health_current_add">Add to current health</string>
-    <string name="health_current_subtract">Subtract from current health</string>
-    <string name="health_temporary">Temporary</string>
-    <string name="health_temporary_add">Add to temporary health</string>
-    <string name="health_temporary_subtract">Subtract from temporary health</string>
-    <string name="death_saves">Death Saves</string>
-    <string name="successes">Successes</string>
-    <string name="failures">Failures</string>
-
     <!-- Ability -->
     <string name="proficiency_bonus">Proficiency Bonus</string>
 
@@ -42,9 +25,6 @@
     <string name="stats_speed">Speed</string>
 
     <!-- Currency -->
-    <string name="money">Money</string>
-    <string name="traditional_currencies">Traditional currencies</string>
-    <string name="other_currencies">Other currencies</string>
 
     <string name="copper_pieces_value">%dcp</string>
     <string name="silver_pieces_value">%dsp</string>
@@ -73,25 +53,8 @@
 
     <!-- Spells -->
     <string name="spells">Spells</string>
-    <string name="spell_total_slots">Total Slots</string>
-    <string name="spell_slots_left">Slots Left</string>
     <string name="cantrips">Cantrips</string>
     <string name="spell_level">Level %d</string>
-    <string name="spell_hdr_name">Lvl %d : %s</string>
-    <string name="spell_hdr_name_cantrip">Cantrip : %s</string>
-    <string name="spell_casting_time">Casting time :</string>
-    <string name="spell_range">Range :</string>
-    <string name="vocal_component">Vocal</string>
-    <string name="somatic_component">Somatic</string>
-    <string name="material_component">Material</string>
-    <string name="spell_materials">Materials :</string>
-    <string name="spell_duration">Duration :</string>
-    <string name="spell_concentration_duration">Concentration, %s</string>
-    <string name="spell_ritual">This spell can be cast as a ritual, but will take an additional 10 min to cast.</string>
-    <string name="spell_description">Description :</string>
-    <string name="spell_higher_levels">At higher levels :</string>
-    <string name="spell_damage_types">Damage Types :</string>
-    <string name="spell_classes">Classes :</string>
 
     <string name="spellcasting_ability">Spellcasting Ability</string>
     <string name="spell_save_dc">Spell Save DC</string>
@@ -100,8 +63,6 @@
     <string name="highlighted_spells">Highlighted Spells</string>
     <string name="unlocked_spells">Unlocked Spells</string>
     <string name="prepared_spells">Prepared Spells</string>
-
-    <string name="highlight_spell">Highlight Spell</string>
 
     <!-- AuthActivity -->
     <string name="title_activity_auth">Auth Activity</string>

@@ -2,9 +2,6 @@ package com.jlahougue.dndcompanion.feature_equipment.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.jlahougue.dndcompanion.data_currency.presentation.MoneyEvent
-import com.jlahougue.dndcompanion.data_currency.presentation.dialog.MoneyDialogEvent
-import com.jlahougue.dndcompanion.data_currency.presentation.dialog.MoneyDialogState
 import com.jlahougue.dndcompanion.data_item.presentation.ItemEvent
 import com.jlahougue.dndcompanion.data_item.presentation.dialog.ItemDialogEvent
 import com.jlahougue.dndcompanion.data_weapon.presentation.WeaponEvent
@@ -250,9 +247,9 @@ class EquipmentViewModel(private val module: IEquipmentModule): ViewModel() {
         }
     }
 
-    private fun onMoneyEvent(event: MoneyEvent) {
+    private fun onMoneyEvent(event: com.jlahougue.money_presentation.MoneyEvent) {
         when (event) {
-            is MoneyEvent.OnOtherCurrenciesChanged -> {
+            is com.jlahougue.money_presentation.MoneyEvent.OnOtherCurrenciesChanged -> {
                 viewModelScope.launch(module.dispatcherProvider.io) {
                     module.moneyUseCases.saveMoney(
                         event.money.copy(
@@ -261,7 +258,7 @@ class EquipmentViewModel(private val module: IEquipmentModule): ViewModel() {
                     )
                 }
             }
-            MoneyEvent.OnDialogOpen -> {
+            com.jlahougue.money_presentation.MoneyEvent.OnDialogOpen -> {
                 _state.update {
                     it.copy(
                         money = it.money.copy(
@@ -279,16 +276,16 @@ class EquipmentViewModel(private val module: IEquipmentModule): ViewModel() {
         }
     }
 
-    private fun onMoneyDialogEvent(event: MoneyDialogEvent) {
+    private fun onMoneyDialogEvent(event: com.jlahougue.money_presentation.dialog.MoneyDialogEvent) {
         _state.update { state ->
             val dialog = when (event) {
-                MoneyDialogEvent.OnDismiss -> {
+                com.jlahougue.money_presentation.dialog.MoneyDialogEvent.OnDismiss -> {
                     state.money.dialog.copy(
                         isShown = false
                     )
                 }
-                is MoneyDialogEvent.OnTypeChanged -> {
-                    if (event.type == MoneyDialogState.MoneyDialogType.SET) {
+                is com.jlahougue.money_presentation.dialog.MoneyDialogEvent.OnTypeChanged -> {
+                    if (event.type == com.jlahougue.money_presentation.dialog.MoneyDialogState.MoneyDialogType.SET) {
                         state.money.dialog.copy(
                             type = event.type,
                             copperPieces = Currency.COPPER.toDisplayedValue(state.money.money.copperPieces),
@@ -298,7 +295,7 @@ class EquipmentViewModel(private val module: IEquipmentModule): ViewModel() {
                         )
                     }
                     else {
-                        if (state.money.dialog.type == MoneyDialogState.MoneyDialogType.SET) {
+                        if (state.money.dialog.type == com.jlahougue.money_presentation.dialog.MoneyDialogState.MoneyDialogType.SET) {
                             state.money.dialog.copy(
                                 type = event.type,
                                 copperPieces = 0,
@@ -314,27 +311,27 @@ class EquipmentViewModel(private val module: IEquipmentModule): ViewModel() {
                         }
                     }
                 }
-                is MoneyDialogEvent.OnCopperPiecesChanged -> {
+                is com.jlahougue.money_presentation.dialog.MoneyDialogEvent.OnCopperPiecesChanged -> {
                     state.money.dialog.copy(
                         copperPieces = event.copperPieces
                     )
                 }
-                is MoneyDialogEvent.OnSilverPiecesChanged -> {
+                is com.jlahougue.money_presentation.dialog.MoneyDialogEvent.OnSilverPiecesChanged -> {
                     state.money.dialog.copy(
                         silverPieces = event.silverPieces
                     )
                 }
-                is MoneyDialogEvent.OnGoldPiecesChanged -> {
+                is com.jlahougue.money_presentation.dialog.MoneyDialogEvent.OnGoldPiecesChanged -> {
                     state.money.dialog.copy(
                         goldPieces = event.goldPieces
                     )
                 }
-                is MoneyDialogEvent.OnPlatinumPiecesChanged -> {
+                is com.jlahougue.money_presentation.dialog.MoneyDialogEvent.OnPlatinumPiecesChanged -> {
                     state.money.dialog.copy(
                         platinumPieces = event.platinumPieces
                     )
                 }
-                MoneyDialogEvent.OnClear -> {
+                com.jlahougue.money_presentation.dialog.MoneyDialogEvent.OnClear -> {
                     state.money.dialog.copy(
                         copperPieces = 0,
                         silverPieces = 0,
@@ -342,7 +339,7 @@ class EquipmentViewModel(private val module: IEquipmentModule): ViewModel() {
                         platinumPieces = 0
                     )
                 }
-                MoneyDialogEvent.OnConfirm -> {
+                com.jlahougue.money_presentation.dialog.MoneyDialogEvent.OnConfirm -> {
                     viewModelScope.launch(module.dispatcherProvider.io) {
                         var amount = state.money.dialog.copperPieces +
                                 state.money.dialog.silverPieces * 10 +
@@ -350,9 +347,9 @@ class EquipmentViewModel(private val module: IEquipmentModule): ViewModel() {
                                 state.money.dialog.platinumPieces * 1000
 
                         when (state.money.dialog.type) {
-                            MoneyDialogState.MoneyDialogType.ADD -> amount += state.money.money.copperPieces
-                            MoneyDialogState.MoneyDialogType.SUBTRACT -> amount = state.money.money.copperPieces - amount
-                            MoneyDialogState.MoneyDialogType.SET -> Unit
+                            com.jlahougue.money_presentation.dialog.MoneyDialogState.MoneyDialogType.ADD -> amount += state.money.money.copperPieces
+                            com.jlahougue.money_presentation.dialog.MoneyDialogState.MoneyDialogType.SUBTRACT -> amount = state.money.money.copperPieces - amount
+                            com.jlahougue.money_presentation.dialog.MoneyDialogState.MoneyDialogType.SET -> Unit
                         }
 
                         module.moneyUseCases.saveMoney(
@@ -361,7 +358,7 @@ class EquipmentViewModel(private val module: IEquipmentModule): ViewModel() {
                             )
                         )
                     }
-                    MoneyDialogState()
+                    com.jlahougue.money_presentation.dialog.MoneyDialogState()
                 }
             }
 

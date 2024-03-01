@@ -109,6 +109,9 @@ dependencies {
     implementation(project(":user-info:user-info-data"))
 
     implementation(project(":ability:ability-presentation"))
+    implementation(project(":character-spell:character-spell-presentation"))
+    implementation(project(":health:health-presentation"))
+    implementation(project(":money:money-presentation"))
 
     // Compose
     implementation(libs.bundles.ui)

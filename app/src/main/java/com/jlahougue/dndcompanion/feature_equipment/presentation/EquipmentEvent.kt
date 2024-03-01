@@ -1,12 +1,12 @@
 package com.jlahougue.dndcompanion.feature_equipment.presentation
 
-import com.jlahougue.dndcompanion.data_currency.presentation.MoneyEvent
-import com.jlahougue.dndcompanion.data_currency.presentation.dialog.MoneyDialogEvent
 import com.jlahougue.dndcompanion.data_item.presentation.ItemEvent
 import com.jlahougue.dndcompanion.data_item.presentation.dialog.ItemDialogEvent
 import com.jlahougue.dndcompanion.data_weapon.presentation.WeaponEvent
 import com.jlahougue.dndcompanion.data_weapon.presentation.dialog.WeaponDialogEvent
 import com.jlahougue.dndcompanion.data_weapon.presentation.list_dialog.WeaponListDialogEvent
+import com.jlahougue.money_presentation.MoneyEvent
+import com.jlahougue.money_presentation.dialog.MoneyDialogEvent
 
 sealed class EquipmentEvent {
     data class OnWeaponEvent(val event: WeaponEvent) : EquipmentEvent()

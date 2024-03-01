@@ -5,10 +5,6 @@ import androidx.lifecycle.viewModelScope
 import com.jlahougue.character_spell_domain.use_case.SpellFilter
 import com.jlahougue.core_domain.util.UiText
 import com.jlahougue.dndcompanion.R
-import com.jlahougue.dndcompanion.data_character_spell.presentation.SpellEvent
-import com.jlahougue.dndcompanion.data_character_spell.presentation.dialog.SpellDialogEvent
-import com.jlahougue.dndcompanion.data_character_spell.presentation.dialog.SpellDialogState
-import com.jlahougue.dndcompanion.data_health.presentation.HealthEvent
 import com.jlahougue.dndcompanion.data_item.presentation.ItemEvent
 import com.jlahougue.dndcompanion.data_item.presentation.dialog.ItemDialogEvent
 import com.jlahougue.dndcompanion.data_stats.presentation.StatsEvent
@@ -145,20 +141,20 @@ class CombatViewModel(
 
     fun onEvent(event: CombatEvent) {
         when (event) {
-            is CombatEvent.onTabSelected -> {
+            is CombatEvent.OnTabSelected -> {
                 _state.update {
                     it.copy(tab = it.tab.copy(selectedTabIndex = event.index))
                 }
             }
-            is CombatEvent.onStatsEvent -> onStatsEvent(event.event)
-            is CombatEvent.onHealthEvent -> onHealthEvent(event.event)
-            is CombatEvent.onWeaponEvent -> onWeaponEvent(event.event)
-            is CombatEvent.onWeaponListDialogEvent -> onWeaponListDialogEvent(event.event)
-            is CombatEvent.onWeaponDialogEvent -> onWeaponDialogEvent(event.event)
-            is CombatEvent.onItemEvent -> onItemEvent(event.event)
-            is CombatEvent.onItemDialogEvent -> onItemDialogEvent(event.event)
-            is CombatEvent.onSpellEvent -> onSpellEvent(event.event)
-            is CombatEvent.onSpellDialogEvent -> onSpellDialogEvent(event.event)
+            is CombatEvent.OnStatsEvent -> onStatsEvent(event.event)
+            is CombatEvent.OnHealthEvent -> onHealthEvent(event.event)
+            is CombatEvent.OnWeaponEvent -> onWeaponEvent(event.event)
+            is CombatEvent.OnWeaponListDialogEvent -> onWeaponListDialogEvent(event.event)
+            is CombatEvent.OnWeaponDialogEvent -> onWeaponDialogEvent(event.event)
+            is CombatEvent.OnItemEvent -> onItemEvent(event.event)
+            is CombatEvent.OnItemDialogEvent -> onItemDialogEvent(event.event)
+            is CombatEvent.OnSpellEvent -> onSpellEvent(event.event)
+            is CombatEvent.OnSpellDialogEvent -> onSpellDialogEvent(event.event)
         }
     }
 
@@ -181,45 +177,45 @@ class CombatViewModel(
         }
     }
 
-    private fun onHealthEvent(event: HealthEvent) {
+    private fun onHealthEvent(event: com.jlahougue.health_presentation.HealthEvent) {
         when (event) {
-            is HealthEvent.OnMaxHealthChange -> {
+            is com.jlahougue.health_presentation.HealthEvent.OnMaxHealthChange -> {
                 val health = _state.value.health.copy(
                     maxHp = event.maxHealth
                 )
                 saveHealth(health)
             }
-            is HealthEvent.OnCurrentHealthChange -> {
+            is com.jlahougue.health_presentation.HealthEvent.OnCurrentHealthChange -> {
                 val health = _state.value.health.copy(
                     currentHp = min(event.currentHealth, state.value.health.maxHp)
                 )
                 saveHealth(health)
             }
-            is HealthEvent.OnCurrentHealthChangeBy -> {
+            is com.jlahougue.health_presentation.HealthEvent.OnCurrentHealthChangeBy -> {
                 val health = _state.value.health.copy(
                     currentHp = min(state.value.health.currentHp + event.value, state.value.health.maxHp)
                 )
                 saveHealth(health)
             }
-            is HealthEvent.OnTemporaryHealthChange -> {
+            is com.jlahougue.health_presentation.HealthEvent.OnTemporaryHealthChange -> {
                 val health = _state.value.health.copy(
                     temporaryHp = max(event.temporaryHealth, 0)
                 )
                 saveHealth(health)
             }
-            is HealthEvent.OnTemporaryHealthChangeBy -> {
+            is com.jlahougue.health_presentation.HealthEvent.OnTemporaryHealthChangeBy -> {
                 val health = _state.value.health.copy(
                     temporaryHp = max(state.value.health.temporaryHp + event.value, 0)
                 )
                 saveHealth(health)
             }
-            is HealthEvent.OnHitDiceChange -> {
+            is com.jlahougue.health_presentation.HealthEvent.OnHitDiceChange -> {
                 val health = _state.value.health.copy(
                     hitDice = event.hitDice
                 )
                 saveHealth(health)
             }
-            is HealthEvent.OnDeathSavesSuccessChange -> {
+            is com.jlahougue.health_presentation.HealthEvent.OnDeathSavesSuccessChange -> {
                 val deathSaves = _state.value.deathSaves.copy(
                     successes = event.successes
                 )
@@ -227,7 +223,7 @@ class CombatViewModel(
                     module.healthUseCases.saveDeathSaves(deathSaves)
                 }
             }
-            is HealthEvent.OnDeathSavesFailureChange -> {
+            is com.jlahougue.health_presentation.HealthEvent.OnDeathSavesFailureChange -> {
                 val deathSaves = _state.value.deathSaves.copy(
                     failures = event.failures
                 )
@@ -545,9 +541,9 @@ class CombatViewModel(
         }
     }
 
-    private fun onSpellEvent(event: SpellEvent) {
+    private fun onSpellEvent(event: com.jlahougue.character_spell_presentation.SpellEvent) {
         when(event) {
-            is SpellEvent.OnSlotRestored -> {
+            is com.jlahougue.character_spell_presentation.SpellEvent.OnSlotRestored -> {
                 if (event.spellSlot.left == event.spellSlot.total) return
                 viewModelScope.launch(module.dispatcherProvider.io) {
                     module.spellUseCases.saveSpellSlot(
@@ -557,7 +553,7 @@ class CombatViewModel(
                     )
                 }
             }
-            is SpellEvent.OnSlotUsed -> {
+            is com.jlahougue.character_spell_presentation.SpellEvent.OnSlotUsed -> {
                 if (event.spellSlot.left == 0) return
                 viewModelScope.launch(module.dispatcherProvider.io) {
                     module.spellUseCases.saveSpellSlot(
@@ -567,10 +563,10 @@ class CombatViewModel(
                     )
                 }
             }
-            is SpellEvent.OnSpellClicked -> {
+            is com.jlahougue.character_spell_presentation.SpellEvent.OnSpellClicked -> {
                 _state.update {
                     it.copy(
-                        spellDialog = SpellDialogState(
+                        spellDialog = com.jlahougue.character_spell_presentation.dialog.SpellDialogState(
                             isShown = true
                         )
                     )
@@ -592,17 +588,17 @@ class CombatViewModel(
                     }
                 }
             }
-            is SpellEvent.OnSpellStateChanged -> {
+            is com.jlahougue.character_spell_presentation.SpellEvent.OnSpellStateChanged -> {
                 // No changes in combat screen
             }
         }
     }
 
-    private fun onSpellDialogEvent(event: SpellDialogEvent) {
+    private fun onSpellDialogEvent(event: com.jlahougue.character_spell_presentation.dialog.SpellDialogEvent) {
         when (event) {
-            is SpellDialogEvent.OnClassClick -> TODO()
-            is SpellDialogEvent.OnDamageTypeClick -> TODO()
-            SpellDialogEvent.OnDismiss -> {
+            is com.jlahougue.character_spell_presentation.dialog.SpellDialogEvent.OnClassClick -> TODO()
+            is com.jlahougue.character_spell_presentation.dialog.SpellDialogEvent.OnDamageTypeClick -> TODO()
+            com.jlahougue.character_spell_presentation.dialog.SpellDialogEvent.OnDismiss -> {
                 _state.update {
                     it.copy(
                         spellDialog = it.spellDialog.copy(
@@ -612,10 +608,10 @@ class CombatViewModel(
                     )
                 }
             }
-            is SpellDialogEvent.OnStateChange -> {
+            is com.jlahougue.character_spell_presentation.dialog.SpellDialogEvent.OnStateChange -> {
                 // No changes in combat screen
             }
-            is SpellDialogEvent.OnStateDropdownOpen -> {
+            is com.jlahougue.character_spell_presentation.dialog.SpellDialogEvent.OnStateDropdownOpen -> {
                 // No changes in combat screen
             }
         }

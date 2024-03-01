@@ -1,6 +1,5 @@
 package com.jlahougue.dndcompanion.feature_combat.presentation
 
-import com.jlahougue.dndcompanion.data_character_spell.presentation.dialog.SpellDialogState
 import com.jlahougue.health_domain.model.DeathSaves
 import com.jlahougue.health_domain.model.Health
 
@@ -11,5 +10,5 @@ data class CombatState(
     val health: Health = Health(),
     val deathSaves: DeathSaves = DeathSaves(),
     val tab: CombatTabState,
-    val spellDialog: SpellDialogState = SpellDialogState()
+    val spellDialog: com.jlahougue.character_spell_presentation.dialog.SpellDialogState = com.jlahougue.character_spell_presentation.dialog.SpellDialogState()
 )

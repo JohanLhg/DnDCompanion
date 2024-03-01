@@ -37,12 +37,6 @@ import com.jlahougue.character_spell_domain.model.SpellcasterView
 import com.jlahougue.core_presentation.theme.DnDCompanionTheme
 import com.jlahougue.core_presentation.theme.spacing
 import com.jlahougue.dndcompanion.R
-import com.jlahougue.dndcompanion.data_character_spell.presentation.SpellEvent
-import com.jlahougue.dndcompanion.data_character_spell.presentation.SpellLevelList
-import com.jlahougue.dndcompanion.data_character_spell.presentation.components.SpellListMode
-import com.jlahougue.dndcompanion.data_character_spell.presentation.dialog.SpellDialog
-import com.jlahougue.dndcompanion.data_character_spell.presentation.dialog.SpellDialogEvent
-import com.jlahougue.dndcompanion.data_character_spell.presentation.dialog.SpellDialogState
 import com.jlahougue.dndcompanion.feature_spells.presentation.components.FilteredSpellList
 import com.jlahougue.dndcompanion.feature_spells.presentation.components.SpellStats
 import com.jlahougue.dndcompanion.feature_spells.presentation.components.SpellcastingStats
@@ -58,11 +52,11 @@ fun SpellsScreen(
     selectedLevel: Int,
     allSpells: List<SpellInfo>,
     knownSpells: List<SpellLevel>,
-    mode: SpellListMode,
+    mode: com.jlahougue.character_spell_presentation.components.SpellListMode,
     onSearchEvent: (SpellSearchEvent) -> Unit,
-    onSpellEvent: (SpellEvent) -> Unit,
-    dialogState: SpellDialogState,
-    onDialogEvent: (SpellDialogEvent) -> Unit,
+    onSpellEvent: (com.jlahougue.character_spell_presentation.SpellEvent) -> Unit,
+    dialogState: com.jlahougue.character_spell_presentation.dialog.SpellDialogState,
+    onDialogEvent: (com.jlahougue.character_spell_presentation.dialog.SpellDialogEvent) -> Unit,
 ) {
     Row(
         modifier = Modifier
@@ -98,13 +92,13 @@ fun SpellsScreen(
             ) {
                 Box(modifier = Modifier.fillMaxWidth()) {
                     Icon(
-                        imageVector = if (mode is SpellListMode.All) Icons.Filled.Done
+                        imageVector = if (mode is com.jlahougue.character_spell_presentation.components.SpellListMode.All) Icons.Filled.Done
                         else Icons.Filled.Edit,
                         contentDescription = null
                     )
                     Text(
                         text = stringResource(
-                            id = if (mode is SpellListMode.All) R.string.done
+                            id = if (mode is com.jlahougue.character_spell_presentation.components.SpellListMode.All) R.string.done
                             else R.string.edit
                         ).uppercase(),
                         style = MaterialTheme.typography.bodyMedium,
@@ -115,7 +109,7 @@ fun SpellsScreen(
             }
         }
         VerticalDivider()
-        if (mode is SpellListMode.All) {
+        if (mode is com.jlahougue.character_spell_presentation.components.SpellListMode.All) {
             FilteredSpellList(
                 search = search,
                 classes = classes,
@@ -130,7 +124,7 @@ fun SpellsScreen(
                     .fillMaxHeight()
             )
         } else {
-            SpellLevelList(
+            com.jlahougue.character_spell_presentation.SpellLevelList(
                 spells = knownSpells,
                 onEvent = onSpellEvent,
                 mode = mode,
@@ -139,7 +133,7 @@ fun SpellsScreen(
             )
         }
     }
-    SpellDialog(
+    com.jlahougue.character_spell_presentation.dialog.SpellDialog(
         state = dialogState,
         onEvent = onDialogEvent
     )
@@ -326,10 +320,10 @@ fun SpellsScreenPreview() {
                     )
                 )
             ),
-            mode = SpellListMode.All(selectedLevel = 0),
+            mode = com.jlahougue.character_spell_presentation.components.SpellListMode.All(selectedLevel = 0),
             onSearchEvent = {},
             onSpellEvent = {},
-            dialogState = SpellDialogState(
+            dialogState = com.jlahougue.character_spell_presentation.dialog.SpellDialogState(
                 isShown = true,
                 spell = SpellInfo(
                     name = "Acid Splash",
