@@ -14,8 +14,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.jlahougue.core_domain.util.UiText
 import com.jlahougue.core_presentation.theme.DnDCompanionTheme
 import com.jlahougue.dndcompanion.R
-import com.jlahougue.dndcompanion.data_ability.presentation.Abilities
-import com.jlahougue.dndcompanion.data_ability.presentation.getAbilitiesPreviewData
 import com.jlahougue.dndcompanion.data_character_spell.presentation.dialog.SpellDialog
 import com.jlahougue.dndcompanion.data_health.presentation.HealthBox
 import com.jlahougue.dndcompanion.data_stats.presentation.StatsList
@@ -32,7 +30,7 @@ fun CombatScreen(
             modifier = Modifier
                 .width(IntrinsicSize.Max)
         ) {
-            Abilities(
+            com.jlahougue.ability_presentation.Abilities(
                 abilities = state.abilities,
                 modifier = Modifier
                     .height(IntrinsicSize.Max)
@@ -81,7 +79,7 @@ fun CombatScreenPreview() {
     DnDCompanionTheme {
         CombatScreen(
             state = CombatState(
-                abilities = getAbilitiesPreviewData(),
+                abilities = com.jlahougue.ability_presentation.getAbilitiesPreviewData(),
                 tab = CombatTabState(
                     tabs = listOf(
                         TabItem(

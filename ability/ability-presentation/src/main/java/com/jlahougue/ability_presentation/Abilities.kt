@@ -1,4 +1,4 @@
-package com.jlahougue.dndcompanion.data_ability.presentation
+package com.jlahougue.ability_presentation
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
@@ -19,15 +19,16 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.jlahougue.ability_domain.model.AbilityName
+import com.jlahougue.ability_domain.model.AbilityView
 import com.jlahougue.core_domain.util.extension.toSignedString
 import com.jlahougue.core_presentation.components.FramedBox
 import com.jlahougue.core_presentation.theme.DnDCompanionTheme
 import com.jlahougue.core_presentation.theme.spacing
-import com.jlahougue.dndcompanion.R
 
 @Composable
 fun Abilities(
-    abilities: List<com.jlahougue.ability_domain.model.AbilityView>,
+    abilities: List<AbilityView>,
     modifier: Modifier = Modifier
 ) {
     FramedBox(
@@ -36,9 +37,11 @@ fun Abilities(
     ) {
         Column {
             Row {
-                Spacer(modifier = Modifier
-                    .width(0.dp)
-                    .weight(1f))
+                Spacer(
+                    modifier = Modifier
+                        .width(0.dp)
+                        .weight(1f)
+                )
                 Text(
                     text = stringResource(id = R.string.ability_modifier_short),
                     modifier = Modifier.width(50.dp),
@@ -59,7 +62,7 @@ fun Abilities(
 }
 
 @Composable
-fun AbilityRow(ability: com.jlahougue.ability_domain.model.AbilityView) {
+fun AbilityRow(ability: AbilityView) {
     Column {
         HorizontalDivider(
             modifier = Modifier
@@ -112,49 +115,49 @@ fun AbilitiesPreview() {
 }
 
 fun getAbilitiesPreviewData() = listOf(
-    com.jlahougue.ability_domain.model.AbilityView(
+    AbilityView(
         1,
-        com.jlahougue.ability_domain.model.AbilityName.STRENGTH,
+        AbilityName.STRENGTH,
         10,
         0,
         0,
         false
     ),
-    com.jlahougue.ability_domain.model.AbilityView(
+    AbilityView(
         1,
-        com.jlahougue.ability_domain.model.AbilityName.DEXTERITY,
+        AbilityName.DEXTERITY,
         14,
         2,
         2,
         false
     ),
-    com.jlahougue.ability_domain.model.AbilityView(
+    AbilityView(
         1,
-        com.jlahougue.ability_domain.model.AbilityName.CONSTITUTION,
+        AbilityName.CONSTITUTION,
         12,
         1,
         1,
         false
     ),
-    com.jlahougue.ability_domain.model.AbilityView(
+    AbilityView(
         1,
-        com.jlahougue.ability_domain.model.AbilityName.INTELLIGENCE,
+        AbilityName.INTELLIGENCE,
         22,
         6,
         9,
         true
     ),
-    com.jlahougue.ability_domain.model.AbilityView(
+    AbilityView(
         1,
-        com.jlahougue.ability_domain.model.AbilityName.WISDOM,
+        AbilityName.WISDOM,
         15,
         2,
         5,
         true
     ),
-    com.jlahougue.ability_domain.model.AbilityView(
+    AbilityView(
         1,
-        com.jlahougue.ability_domain.model.AbilityName.CHARISMA,
+        AbilityName.CHARISMA,
         16,
         3,
         3,

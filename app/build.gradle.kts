@@ -108,6 +108,8 @@ dependencies {
     implementation(project(":weapon:weapon-data"))
     implementation(project(":user-info:user-info-data"))
 
+    implementation(project(":ability:ability-presentation"))
+
     // Compose
     implementation(libs.bundles.ui)
 

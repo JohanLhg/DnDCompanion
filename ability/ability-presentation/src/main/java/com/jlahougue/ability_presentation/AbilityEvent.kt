@@ -1,12 +1,14 @@
-package com.jlahougue.dndcompanion.data_ability.presentation
+package com.jlahougue.ability_presentation
+
+import com.jlahougue.ability_domain.model.AbilityName
 
 sealed class AbilityEvent {
     data class OnValueChange(
-        val name: com.jlahougue.ability_domain.model.AbilityName,
+        val name: AbilityName,
         val value: Int
     ) : AbilityEvent()
     data class OnProficiencyChange(
-        val name: com.jlahougue.ability_domain.model.AbilityName,
+        val name: AbilityName,
         val isProficient: Boolean
     ) : AbilityEvent()
 }

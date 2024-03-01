@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="abilities">Abilities</string>
+    <string name="ability_modifier_short">Mod.</string>
+    <string name="ability_saving_throws_short">S.T.</string>
+</resources>

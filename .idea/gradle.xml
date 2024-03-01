@@ -12,6 +12,7 @@
             <option value="$PROJECT_DIR$/ability" />
             <option value="$PROJECT_DIR$/ability/ability-data" />
             <option value="$PROJECT_DIR$/ability/ability-domain" />
+            <option value="$PROJECT_DIR$/ability/ability-presentation" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/authentication" />
             <option value="$PROJECT_DIR$/authentication/authentication-data" />

@@ -30,12 +30,6 @@
     <string name="failures">Failures</string>
 
     <!-- Ability -->
-    <string name="abilities">Abilities</string>
-    <string name="ability_modifier">Modifier</string>
-    <string name="ability_modifier_short">Mod.</string>
-    <string name="ability_saving_throws">Saving Throws</string>
-    <string name="ability_saving_throws_short">S.T.</string>
-
     <string name="proficiency_bonus">Proficiency Bonus</string>
 
     <!-- Skill -->
