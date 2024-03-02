@@ -1,5 +1,6 @@
 package com.jlahougue.weapon_data.source.remote.subsource
 
+import com.jlahougue.ability_domain.model.AbilityName
 import com.jlahougue.core_data_remote_instance.Dnd5eDataSource
 import com.jlahougue.core_domain.util.ApiEvent
 import com.jlahougue.core_domain.util.UiText
@@ -69,9 +70,9 @@ class WeaponDnd5eDataSource(
         val name = json.getString("name")
 
         val test = when (json.getStringIfExists("weapon_range")) {
-            "Melee" -> com.jlahougue.ability_domain.model.AbilityName.STRENGTH
-            "Ranged" -> com.jlahougue.ability_domain.model.AbilityName.DEXTERITY
-            else -> com.jlahougue.ability_domain.model.AbilityName.NONE
+            "Melee" -> AbilityName.STRENGTH
+            "Ranged" -> AbilityName.DEXTERITY
+            else -> AbilityName.NONE
         }
 
         var costStr = ""
@@ -115,7 +116,7 @@ class WeaponDnd5eDataSource(
             throwRangeMax = throwRange.getIntIfExists("long")
         }
 
-        if (test == com.jlahougue.ability_domain.model.AbilityName.DEXTERITY) {
+        if (test == AbilityName.DEXTERITY) {
             if (throwRangeMin == 0) throwRangeMin = rangeMin
             if (throwRangeMax == 0) throwRangeMax = rangeMax
         }

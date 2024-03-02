@@ -6,6 +6,7 @@ import com.jlahougue.core_domain.util.dispatcherProvider.DispatcherProvider
 import com.jlahougue.health_domain.repository.IHealthRepository
 import com.jlahougue.money_domain.repository.IMoneyRepository
 import com.jlahougue.skill_domain.repository.ISkillRepository
+import com.jlahougue.stats_domain.repository.IStatsRepository
 import kotlinx.coroutines.withContext
 
 class CreateCharacter(
@@ -14,7 +15,7 @@ class CreateCharacter(
     private val healthRepository: IHealthRepository,
     private val abilityRepository: IAbilityRepository,
     private val skillRepository: ISkillRepository,
-    private val statsRepository: com.jlahougue.stats_domain.repository.IStatsRepository,
+    private val statsRepository: IStatsRepository,
     private val moneyRepository: IMoneyRepository
 ) {
     suspend operator fun invoke(): Long {

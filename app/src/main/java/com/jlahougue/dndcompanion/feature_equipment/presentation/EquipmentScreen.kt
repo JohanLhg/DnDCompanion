@@ -16,9 +16,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.jlahougue.core_presentation.theme.DnDCompanionTheme
 import com.jlahougue.core_presentation.theme.spacing
-import com.jlahougue.dndcompanion.data_item.presentation.Inventory
-import com.jlahougue.dndcompanion.data_weapon.presentation.WeaponList
-import com.jlahougue.dndcompanion.data_weapon.presentation.component.WeaponStatsBox
+import com.jlahougue.item_presentation.Inventory
+import com.jlahougue.money_presentation.MoneyBox
+import com.jlahougue.weapon_presentation.WeaponList
+import com.jlahougue.weapon_presentation.component.WeaponStatsBox
 
 @Composable
 fun EquipmentScreen(
@@ -64,7 +65,7 @@ fun EquipmentScreen(
                 .weight(1f)
                 .fillMaxHeight()
         ) {
-            com.jlahougue.money_presentation.MoneyBox(
+            MoneyBox(
                 state = state.money,
                 onEvent = {
                     onEvent(EquipmentEvent.OnMoneyEvent(it))

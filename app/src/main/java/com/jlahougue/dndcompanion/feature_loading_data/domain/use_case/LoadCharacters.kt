@@ -10,7 +10,7 @@ import com.jlahougue.character_spell_domain.repository.ICharacterSpellRepository
 import com.jlahougue.core_domain.util.ApiEvent
 import com.jlahougue.core_domain.util.UiText
 import com.jlahougue.core_domain.util.dispatcherProvider.DispatcherProvider
-import com.jlahougue.dndcompanion.R
+import com.jlahougue.core_presentation.R
 import com.jlahougue.health_domain.repository.IHealthRepository
 import com.jlahougue.item_domain.repository.IItemRepository
 import com.jlahougue.money_domain.repository.IMoneyRepository

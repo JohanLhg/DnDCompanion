@@ -111,7 +111,11 @@ dependencies {
     implementation(project(":ability:ability-presentation"))
     implementation(project(":character-spell:character-spell-presentation"))
     implementation(project(":health:health-presentation"))
+    implementation(project(":item:item-presentation"))
     implementation(project(":money:money-presentation"))
+    implementation(project(":skill:skill-presentation"))
+    implementation(project(":stats:stats-presentation"))
+    implementation(project(":weapon:weapon-presentation"))
 
     // Compose
     implementation(libs.bundles.ui)

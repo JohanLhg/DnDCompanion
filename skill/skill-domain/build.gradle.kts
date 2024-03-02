@@ -36,8 +36,7 @@ android {
 dependencies {
     implementation(project(":core:core-domain"))
     implementation(project(":ability:ability-domain"))
-
-    implementation(libs.compose.ui)
+    implementation(project(":character:character-domain"))
 
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)

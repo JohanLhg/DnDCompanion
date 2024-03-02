@@ -2,6 +2,7 @@ package com.jlahougue.skill_domain.model
 
 import androidx.room.ColumnInfo
 import androidx.room.DatabaseView
+import com.jlahougue.ability_domain.model.AbilityName
 
 @DatabaseView(
     """
@@ -26,7 +27,7 @@ data class SkillView(
     @ColumnInfo(name = SKILL_NAME)
     var name: SkillName,
     @ColumnInfo(name = SKILL_MODIFIER_TYPE)
-    var modifierType: com.jlahougue.ability_domain.model.AbilityName,
+    var modifierType: AbilityName,
     @ColumnInfo(name = SKILL_MODIFIER)
     var modifier: Int,
     @ColumnInfo(name = SKILL_PROFICIENCY)

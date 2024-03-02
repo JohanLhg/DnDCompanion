@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
+import com.jlahougue.ability_domain.model.AbilityName
 import com.jlahougue.weapon_domain.model.CharacterWeapon
 import com.jlahougue.weapon_domain.model.Weapon
 import com.jlahougue.weapon_domain.model.WeaponInfo
@@ -149,13 +150,13 @@ interface WeaponLocalDataSource {
                     SELECT modifier 
                     FROM ability_view 
                     WHERE cid = :characterId 
-                    AND name = '${com.jlahougue.ability_domain.model.AbilityName.STR}'
+                    AND name = '${AbilityName.STR}'
                 ), 0) as strength,
                 COALESCE((
                     SELECT modifier 
                     FROM ability_view 
                     WHERE cid = :characterId 
-                    AND name = '${com.jlahougue.ability_domain.model.AbilityName.DEX}'
+                    AND name = '${AbilityName.DEX}'
                 ), 0) as dexterity
             FROM proficiency_view
             WHERE cid = :characterId

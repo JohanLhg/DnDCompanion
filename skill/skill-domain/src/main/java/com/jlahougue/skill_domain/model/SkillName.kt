@@ -1,7 +1,5 @@
 package com.jlahougue.skill_domain.model
 
-import android.content.Context
-import androidx.compose.runtime.Composable
 import com.jlahougue.core_domain.util.UiText
 import com.jlahougue.skill_domain.R
 
@@ -25,11 +23,6 @@ enum class SkillName(val localName: UiText) {
     STEALTH(UiText.StringResource(R.string.skill_stealth)),
     SURVIVAL(UiText.StringResource(R.string.skill_survival)),
     NONE(UiText.StringResource(R.string.empty));
-
-    @Composable
-    fun getString() = localName.getString()
-
-    fun getString(context: Context) = localName.getString(context)
 
     companion object {
         fun from(findValue: String) = entries.find { it.name.equals(findValue, true) } ?: NONE

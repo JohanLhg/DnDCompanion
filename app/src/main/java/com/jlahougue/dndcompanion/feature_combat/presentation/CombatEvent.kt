@@ -2,13 +2,13 @@ package com.jlahougue.dndcompanion.feature_combat.presentation
 
 import com.jlahougue.character_spell_presentation.SpellEvent
 import com.jlahougue.character_spell_presentation.dialog.SpellDialogEvent
-import com.jlahougue.dndcompanion.data_item.presentation.ItemEvent
-import com.jlahougue.dndcompanion.data_item.presentation.dialog.ItemDialogEvent
-import com.jlahougue.dndcompanion.data_stats.presentation.StatsEvent
-import com.jlahougue.dndcompanion.data_weapon.presentation.WeaponEvent
-import com.jlahougue.dndcompanion.data_weapon.presentation.dialog.WeaponDialogEvent
-import com.jlahougue.dndcompanion.data_weapon.presentation.list_dialog.WeaponListDialogEvent
 import com.jlahougue.health_presentation.HealthEvent
+import com.jlahougue.item_presentation.ItemEvent
+import com.jlahougue.item_presentation.dialog.ItemDialogEvent
+import com.jlahougue.stats_presentation.StatsEvent
+import com.jlahougue.weapon_presentation.WeaponEvent
+import com.jlahougue.weapon_presentation.dialog.WeaponDialogEvent
+import com.jlahougue.weapon_presentation.list_dialog.WeaponListDialogEvent
 
 sealed class CombatEvent {
     data class OnTabSelected(val index: Int) : CombatEvent()

@@ -46,6 +46,7 @@
             <option value="$PROJECT_DIR$/item" />
             <option value="$PROJECT_DIR$/item/item-data" />
             <option value="$PROJECT_DIR$/item/item-domain" />
+            <option value="$PROJECT_DIR$/item/item-presentation" />
             <option value="$PROJECT_DIR$/money" />
             <option value="$PROJECT_DIR$/money/money-data" />
             <option value="$PROJECT_DIR$/money/money-domain" />
@@ -58,18 +59,21 @@
             <option value="$PROJECT_DIR$/skill" />
             <option value="$PROJECT_DIR$/skill/skill-data" />
             <option value="$PROJECT_DIR$/skill/skill-domain" />
+            <option value="$PROJECT_DIR$/skill/skill-presentation" />
             <option value="$PROJECT_DIR$/spell" />
             <option value="$PROJECT_DIR$/spell/spell-data" />
             <option value="$PROJECT_DIR$/spell/spell-domain" />
             <option value="$PROJECT_DIR$/stats" />
             <option value="$PROJECT_DIR$/stats/stats-data" />
             <option value="$PROJECT_DIR$/stats/stats-domain" />
+            <option value="$PROJECT_DIR$/stats/stats-presentation" />
             <option value="$PROJECT_DIR$/user-info" />
             <option value="$PROJECT_DIR$/user-info/user-info-data" />
             <option value="$PROJECT_DIR$/user-info/user-info-domain" />
             <option value="$PROJECT_DIR$/weapon" />
             <option value="$PROJECT_DIR$/weapon/weapon-data" />
             <option value="$PROJECT_DIR$/weapon/weapon-domain" />
+            <option value="$PROJECT_DIR$/weapon/weapon-presentation" />
           </set>
         </option>
         <option name="resolveExternalAnnotations" value="false" />

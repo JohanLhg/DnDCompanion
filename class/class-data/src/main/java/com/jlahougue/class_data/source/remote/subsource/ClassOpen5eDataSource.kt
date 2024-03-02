@@ -1,5 +1,6 @@
 package com.jlahougue.class_data.source.remote.subsource
 
+import com.jlahougue.ability_domain.model.AbilityName
 import com.jlahougue.class_data.R
 import com.jlahougue.class_data.source.remote.ClassRemoteListener
 import com.jlahougue.class_domain.model.Class
@@ -66,7 +67,7 @@ class ClassOpen5eDataSource(
         val profArmor = clazz.getString("prof_armor")
         val profWeapons = clazz.getString("prof_weapons")
         val profTools = clazz.getString("prof_tools")
-        val spellcastingAbility = com.jlahougue.ability_domain.model.AbilityName.from(clazz.getString("spellcasting_ability"))
+        val spellcastingAbility = AbilityName.from(clazz.getString("spellcasting_ability"))
 
         val itemInserted = classRemoteListener.save(
             Class(

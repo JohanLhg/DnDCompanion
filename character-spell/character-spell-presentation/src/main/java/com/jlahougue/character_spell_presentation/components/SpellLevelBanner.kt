@@ -30,6 +30,7 @@ import com.jlahougue.character_spell_presentation.R
 import com.jlahougue.character_spell_presentation.SpellEvent
 import com.jlahougue.core_presentation.theme.DnDCompanionTheme
 import com.jlahougue.core_presentation.theme.spacing
+import com.jlahougue.core_presentation.R as CoreR
 
 @Composable
 fun SpellLevelBanner(
@@ -207,7 +208,7 @@ fun SpellLevelBanner(
                 .height(IntrinsicSize.Min)
         ) {
             Image(
-                painter = painterResource(id = R.drawable.chevron_left),
+                painter = painterResource(id = CoreR.drawable.chevron_left),
                 contentDescription = null,
                 contentScale = ContentScale.FillHeight,
                 alpha = if (spellSlot.left <= 0) 0.2f else 1f,
@@ -228,7 +229,7 @@ fun SpellLevelBanner(
                 style = MaterialTheme.typography.titleMedium
             )
             Image(
-                painter = painterResource(id = R.drawable.chevron_right),
+                painter = painterResource(id = CoreR.drawable.chevron_right),
                 contentDescription = null,
                 contentScale = ContentScale.FillHeight,
                 alpha = if (spellSlot.left >= spellSlot.total) 0.2f else 1f,

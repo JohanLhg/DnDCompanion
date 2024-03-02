@@ -1,14 +1,18 @@
 package com.jlahougue.dndcompanion.feature_combat.presentation
 
+import com.jlahougue.ability_domain.model.AbilityView
+import com.jlahougue.character_spell_presentation.dialog.SpellDialogState
 import com.jlahougue.health_domain.model.DeathSaves
 import com.jlahougue.health_domain.model.Health
+import com.jlahougue.settings_domain.model.UnitSystem
+import com.jlahougue.stats_domain.model.StatsView
 
 data class CombatState(
-    val unitSystem: com.jlahougue.settings_domain.model.UnitSystem = com.jlahougue.settings_domain.model.UnitSystem.METRIC,
-    val abilities: List<com.jlahougue.ability_domain.model.AbilityView> = emptyList(),
-    val stats: com.jlahougue.stats_domain.model.StatsView = com.jlahougue.stats_domain.model.StatsView(),
+    val unitSystem: UnitSystem = UnitSystem.METRIC,
+    val abilities: List<AbilityView> = emptyList(),
+    val stats: StatsView = StatsView(),
     val health: Health = Health(),
     val deathSaves: DeathSaves = DeathSaves(),
     val tab: CombatTabState,
-    val spellDialog: com.jlahougue.character_spell_presentation.dialog.SpellDialogState = com.jlahougue.character_spell_presentation.dialog.SpellDialogState()
+    val spellDialog: SpellDialogState = SpellDialogState()
 )

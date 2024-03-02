@@ -9,11 +9,13 @@ import androidx.compose.material3.TabRow
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import com.jlahougue.character_spell_presentation.SpellLevelList
+import com.jlahougue.character_spell_presentation.components.SpellListMode
 import com.jlahougue.core_presentation.theme.spacing
-import com.jlahougue.dndcompanion.data_item.presentation.Inventory
-import com.jlahougue.dndcompanion.data_weapon.presentation.WeaponList
 import com.jlahougue.dndcompanion.feature_combat.presentation.CombatEvent
 import com.jlahougue.dndcompanion.feature_combat.presentation.CombatTabState
+import com.jlahougue.item_presentation.Inventory
+import com.jlahougue.weapon_presentation.WeaponList
 
 @Composable
 fun CombatTabs(
@@ -40,11 +42,11 @@ fun CombatTabs(
         }
         when (state.selectedTabIndex) {
             0 -> {
-                com.jlahougue.character_spell_presentation.SpellLevelList(
+                SpellLevelList(
                     spells = state.spells,
                     modifier = Modifier
                         .fillMaxHeight(),
-                    mode = com.jlahougue.character_spell_presentation.components.SpellListMode.Prepared,
+                    mode = SpellListMode.Prepared,
                     onEvent = { onEvent(CombatEvent.OnSpellEvent(it)) }
                 )
             }

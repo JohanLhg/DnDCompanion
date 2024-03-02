@@ -7,6 +7,10 @@ import com.jlahougue.character_spell_domain.model.SpellInfo
 import com.jlahougue.character_spell_domain.model.SpellLevel
 import com.jlahougue.character_spell_domain.model.SpellcasterView
 import com.jlahougue.character_spell_domain.use_case.SpellFilter
+import com.jlahougue.character_spell_presentation.SpellEvent
+import com.jlahougue.character_spell_presentation.components.SpellListMode
+import com.jlahougue.character_spell_presentation.dialog.SpellDialogEvent
+import com.jlahougue.character_spell_presentation.dialog.SpellDialogState
 import com.jlahougue.dndcompanion.feature_spells.di.ISpellsModule
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -45,14 +49,14 @@ class SpellsViewModel(
     private val _allSpells = MutableStateFlow(listOf<SpellInfo>())
     val allSpells = _allSpells.asStateFlow()
 
-    private val _mode = MutableStateFlow<com.jlahougue.character_spell_presentation.components.SpellListMode>(
-        com.jlahougue.character_spell_presentation.components.SpellListMode.Known)
+    private val _mode = MutableStateFlow<SpellListMode>(
+        SpellListMode.Known)
     val mode = _mode.asStateFlow()
 
     private var spellDialogJob: Job? = null
     private val _spellDialogState = MutableStateFlow(
-        com.jlahougue.character_spell_presentation.dialog.SpellDialogState(
-            mode = com.jlahougue.character_spell_presentation.dialog.SpellDialogState.Mode.Edit
+        SpellDialogState(
+            mode = SpellDialogState.Mode.Edit
         )
     )
     val spellDialogState = _spellDialogState.asStateFlow()
@@ -94,7 +98,7 @@ class SpellsViewModel(
                         mode to searchState
                     }.collectLatest { (mode, searchState) ->
                         when (mode) {
-                            com.jlahougue.character_spell_presentation.components.SpellListMode.Known -> {
+                            SpellListMode.Known -> {
                                 knownSpellsJob?.cancel()
                                 knownSpellsJob = viewModelScope.launch(module.dispatcherProvider.io) {
                                     module.spellUseCases.getSpells(
@@ -105,7 +109,7 @@ class SpellsViewModel(
                                     }
                                 }
                             }
-                            is com.jlahougue.character_spell_presentation.components.SpellListMode.All -> {
+                            is SpellListMode.All -> {
                                 viewModelScope.launch(module.dispatcherProvider.io) {
                                     _filteredLevels.update {
                                         module.spellUseCases.getFilteredLevels(
@@ -140,9 +144,9 @@ class SpellsViewModel(
             SpellSearchEvent.OnModeChanged -> {
                 _mode.update {
                     when (mode.value) {
-                        is com.jlahougue.character_spell_presentation.components.SpellListMode.Known -> com.jlahougue.character_spell_presentation.components.SpellListMode.All(0)
-                        is com.jlahougue.character_spell_presentation.components.SpellListMode.All -> com.jlahougue.character_spell_presentation.components.SpellListMode.Known
-                        else -> com.jlahougue.character_spell_presentation.components.SpellListMode.Known
+                        is SpellListMode.Known -> SpellListMode.All(0)
+                        is SpellListMode.All -> SpellListMode.Known
+                        else -> SpellListMode.Known
                     }
                 }
             }
@@ -174,9 +178,9 @@ class SpellsViewModel(
         }
     }
 
-    fun onSpellEvent(event: com.jlahougue.character_spell_presentation.SpellEvent) {
+    fun onSpellEvent(event: SpellEvent) {
         when(event) {
-            is com.jlahougue.character_spell_presentation.SpellEvent.OnSlotRestored -> {
+            is SpellEvent.OnSlotRestored -> {
                 if (event.spellSlot.left == event.spellSlot.total) return
                 viewModelScope.launch(module.dispatcherProvider.io) {
                     module.spellUseCases.saveSpellSlot(
@@ -186,7 +190,7 @@ class SpellsViewModel(
                     )
                 }
             }
-            is com.jlahougue.character_spell_presentation.SpellEvent.OnSlotUsed -> {
+            is SpellEvent.OnSlotUsed -> {
                 if (event.spellSlot.left == 0) return
                 viewModelScope.launch(module.dispatcherProvider.io) {
                     module.spellUseCases.saveSpellSlot(
@@ -196,7 +200,7 @@ class SpellsViewModel(
                     )
                 }
             }
-            is com.jlahougue.character_spell_presentation.SpellEvent.OnSpellClicked -> {
+            is SpellEvent.OnSpellClicked -> {
                 _spellDialogState.update {
                     it.copy(isShown = true)
                 }
@@ -209,7 +213,7 @@ class SpellsViewModel(
                     }
                 }
             }
-            is com.jlahougue.character_spell_presentation.SpellEvent.OnSpellStateChanged -> {
+            is SpellEvent.OnSpellStateChanged -> {
                 viewModelScope.launch(module.dispatcherProvider.io) {
                     module.spellUseCases.saveSpell(
                         event.spell.getCharacterSpell(
@@ -221,11 +225,11 @@ class SpellsViewModel(
         }
     }
 
-    fun onSpellDialogEvent(event: com.jlahougue.character_spell_presentation.dialog.SpellDialogEvent) {
+    fun onSpellDialogEvent(event: SpellDialogEvent) {
         when (event) {
-            is com.jlahougue.character_spell_presentation.dialog.SpellDialogEvent.OnClassClick -> TODO()
-            is com.jlahougue.character_spell_presentation.dialog.SpellDialogEvent.OnDamageTypeClick -> TODO()
-            com.jlahougue.character_spell_presentation.dialog.SpellDialogEvent.OnDismiss -> {
+            is SpellDialogEvent.OnClassClick -> TODO()
+            is SpellDialogEvent.OnDamageTypeClick -> TODO()
+            SpellDialogEvent.OnDismiss -> {
                 _spellDialogState.update {
                     it.copy(
                         isShown = false,
@@ -233,15 +237,15 @@ class SpellsViewModel(
                     )
                 }
             }
-            is com.jlahougue.character_spell_presentation.dialog.SpellDialogEvent.OnStateDropdownOpen -> {
+            is SpellDialogEvent.OnStateDropdownOpen -> {
                 _spellDialogState.update {
                     it.copy(
                         isStateDropdownOpened = event.opened
                     )
                 }
             }
-            is com.jlahougue.character_spell_presentation.dialog.SpellDialogEvent.OnStateChange -> {
-                onSpellEvent(com.jlahougue.character_spell_presentation.SpellEvent.OnSpellStateChanged(event.spell, event.state))
+            is SpellDialogEvent.OnStateChange -> {
+                onSpellEvent(SpellEvent.OnSpellStateChanged(event.spell, event.state))
             }
         }
     }

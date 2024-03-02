@@ -40,7 +40,10 @@ android {
 
 dependencies {
     implementation(project(":core:core-domain"))
+    
     implementation(libs.bundles.ui)
+
     testImplementation(libs.bundles.tests)
     androidTestImplementation(libs.bundles.android.tests)
+    debugImplementation(libs.compose.tooling)
 }

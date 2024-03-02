@@ -40,9 +40,9 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.jlahougue.core_presentation.R
 import com.jlahougue.core_presentation.theme.DnDCompanionTheme
 import com.jlahougue.core_presentation.theme.spacing
-import com.jlahougue.dndcompanion.R
 import com.jlahougue.dndcompanion.feature_authentication.presentation.util.AuthUiEvent
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch

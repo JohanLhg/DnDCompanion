@@ -5,6 +5,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -60,6 +61,7 @@ fun FramedBox(
                     .background(Color.White)
                     .padding(horizontal = MaterialTheme.spacing.medium)
             )
+            Spacer(modifier = Modifier.height(MaterialTheme.spacing.small))
             content()
         }
     }
