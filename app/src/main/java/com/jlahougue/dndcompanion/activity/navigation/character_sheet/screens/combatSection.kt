@@ -5,10 +5,10 @@ import androidx.compose.runtime.getValue
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import com.jlahougue.combat_presentation.CombatScreen
+import com.jlahougue.combat_presentation.CombatViewModel
 import com.jlahougue.core_domain.util.extension.viewModelFactory
 import com.jlahougue.dndcompanion.DnDCompanionApp
-import com.jlahougue.dndcompanion.feature_combat.presentation.CombatScreen
-import com.jlahougue.dndcompanion.feature_combat.presentation.CombatViewModel
 
 fun NavGraphBuilder.combatSection(route: String) {
     composable(

@@ -117,6 +117,17 @@ dependencies {
     implementation(project(":stats:stats-presentation"))
     implementation(project(":weapon:weapon-presentation"))
 
+    implementation(project(":feature-authentication:authentication-domain"))
+    implementation(project(":feature-character-selection:character-selection-domain"))
+    implementation(project(":feature-combat:combat-domain"))
+    implementation(project(":feature-equipment:equipment-domain"))
+
+    implementation(project(":feature-authentication:authentication-presentation"))
+    implementation(project(":feature-character-selection:character-selection-presentation"))
+    implementation(project(":feature-combat:combat-presentation"))
+    implementation(project(":feature-equipment:equipment-presentation"))
+    implementation(project(":feature-splash-screen:splash-screen-presentation"))
+
     // Compose
     implementation(libs.bundles.ui)
 

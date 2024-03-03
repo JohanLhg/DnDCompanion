@@ -8,10 +8,10 @@ import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import com.jlahougue.character_selection_presentation.CharacterSelectionScreen
+import com.jlahougue.character_selection_presentation.CharacterSelectionViewModel
 import com.jlahougue.core_domain.util.extension.viewModelFactory
 import com.jlahougue.dndcompanion.DnDCompanionApp
-import com.jlahougue.dndcompanion.feature_character_selection.presentation.CharacterSelectionScreen
-import com.jlahougue.dndcompanion.feature_character_selection.presentation.CharacterSelectionViewModel
 import kotlinx.coroutines.launch
 
 fun NavGraphBuilder.characterSelectionSection(

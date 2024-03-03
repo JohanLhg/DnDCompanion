@@ -19,7 +19,7 @@ import com.jlahougue.dndcompanion.DnDCompanionApp
 import com.jlahougue.dndcompanion.activity.navigation.authenticationSection
 import com.jlahougue.dndcompanion.activity.navigation.characterSelectionSection
 import com.jlahougue.dndcompanion.activity.navigation.character_sheet.characterSheetSection
-import com.jlahougue.dndcompanion.feature_splash_screen.presentation.SplashScreenViewModel
+import com.jlahougue.splash_screen_presentation.SplashScreenViewModel
 
 class DnDCompanionActivity : ComponentActivity() {
 

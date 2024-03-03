@@ -7,8 +7,8 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.jlahougue.core_domain.util.extension.viewModelFactory
 import com.jlahougue.dndcompanion.DnDCompanionApp
-import com.jlahougue.dndcompanion.feature_equipment.presentation.EquipmentScreen
-import com.jlahougue.dndcompanion.feature_equipment.presentation.EquipmentViewModel
+import com.jlahougue.equipment_presentation.EquipmentScreen
+import com.jlahougue.equipment_presentation.EquipmentViewModel
 
 fun NavGraphBuilder.equipmentSection(route: String) {
     composable(

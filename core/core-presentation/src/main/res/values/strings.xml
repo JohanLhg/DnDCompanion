@@ -13,6 +13,8 @@
     <string name="search">Search…</string>
     <string name="clear">Clear</string>
 
+    <string name="label_logo">App Logo</string>
+
     <!-- Currency -->
     <string name="copper_pieces_value">%dcp</string>
     <string name="silver_pieces_value">%dsp</string>
@@ -37,19 +39,6 @@
 
     <!-- AuthActivity -->
     <string name="title_activity_auth">Auth Activity</string>
-    <string name="label_logo">App Logo</string>
-    <string name="label_email">E-mail</string>
-    <string name="label_password">Password</string>
-    <string name="label_confirm_password">Confirm Password</string>
-    <string name="signup">Sign Up</string>
-    <string name="login">Login</string>
-    <string name="text_register_now">You don\'t have an account yet ? Click here to register right now !</string>
-    <string name="text_login_now">Already have an account ? Click here to login now !</string>
-
-    <string name="login_successful">Login successful</string>
-    <string name="error_login_failed">Login failed</string>
-    <string name="register_successful">Register successful</string>
-    <string name="error_register_failed">Register failed</string>
 
     <!-- LoadingActivity -->
     <string name="title_activity_loading">Loading Activity</string>

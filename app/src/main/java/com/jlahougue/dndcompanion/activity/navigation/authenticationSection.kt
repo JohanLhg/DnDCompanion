@@ -8,13 +8,13 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
+import com.jlahougue.authentication_presentation.login.LoginScreen
+import com.jlahougue.authentication_presentation.login.LoginViewModel
+import com.jlahougue.authentication_presentation.register.RegisterScreen
+import com.jlahougue.authentication_presentation.register.RegisterViewModel
 import com.jlahougue.core_domain.util.extension.viewModelFactory
 import com.jlahougue.dndcompanion.DnDCompanionApp
 import com.jlahougue.dndcompanion.activity.util.sharedViewModel
-import com.jlahougue.dndcompanion.feature_authentication.presentation.login.LoginScreen
-import com.jlahougue.dndcompanion.feature_authentication.presentation.login.LoginViewModel
-import com.jlahougue.dndcompanion.feature_authentication.presentation.register.RegisterScreen
-import com.jlahougue.dndcompanion.feature_authentication.presentation.register.RegisterViewModel
 import com.jlahougue.dndcompanion.feature_loading_data.presentation.LoadingEvent
 import com.jlahougue.dndcompanion.feature_loading_data.presentation.LoadingScreen
 import com.jlahougue.dndcompanion.feature_loading_data.presentation.LoadingViewModel
