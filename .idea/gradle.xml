@@ -33,6 +33,7 @@
             <option value="$PROJECT_DIR$/core" />
             <option value="$PROJECT_DIR$/core/core-data" />
             <option value="$PROJECT_DIR$/core/core-data-remote-instance" />
+            <option value="$PROJECT_DIR$/core/core-dependency-injection" />
             <option value="$PROJECT_DIR$/core/core-di" />
             <option value="$PROJECT_DIR$/core/core-domain" />
             <option value="$PROJECT_DIR$/core/core-presentation" />
@@ -51,6 +52,12 @@
             <option value="$PROJECT_DIR$/feature-equipment" />
             <option value="$PROJECT_DIR$/feature-equipment/equipment-domain" />
             <option value="$PROJECT_DIR$/feature-equipment/equipment-presentation" />
+            <option value="$PROJECT_DIR$/feature-loading" />
+            <option value="$PROJECT_DIR$/feature-loading/loading-domain" />
+            <option value="$PROJECT_DIR$/feature-loading/loading-presentation" />
+            <option value="$PROJECT_DIR$/feature-spells" />
+            <option value="$PROJECT_DIR$/feature-spells/spells-domain" />
+            <option value="$PROJECT_DIR$/feature-spells/spells-presentation" />
             <option value="$PROJECT_DIR$/feature-splash-screen" />
             <option value="$PROJECT_DIR$/feature-splash-screen/splash-screen-presentation" />
             <option value="$PROJECT_DIR$/health" />

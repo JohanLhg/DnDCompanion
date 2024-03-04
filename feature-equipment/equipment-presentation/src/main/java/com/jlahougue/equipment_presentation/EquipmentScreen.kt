@@ -6,14 +6,13 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.jlahougue.core_presentation.theme.DnDCompanionTheme
 import com.jlahougue.core_presentation.theme.spacing
 import com.jlahougue.item_presentation.Inventory
@@ -55,11 +54,7 @@ fun EquipmentScreen(
                     .fillMaxHeight()
             )
         }
-        HorizontalDivider(
-            modifier = Modifier
-                .fillMaxHeight()
-                .width(1.dp)
-        )
+        VerticalDivider()
         Column(
             modifier = Modifier
                 .weight(1f)

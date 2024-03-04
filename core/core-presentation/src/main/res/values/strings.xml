@@ -23,16 +23,6 @@
 
     <!-- Spells -->
     <string name="spells">Spells</string>
-    <string name="cantrips">Cantrips</string>
-    <string name="spell_level">Level %d</string>
-
-    <string name="spellcasting_ability">Spellcasting Ability</string>
-    <string name="spell_save_dc">Spell Save DC</string>
-    <string name="spell_attack_bonus">Spell Attack Bonus</string>
-
-    <string name="highlighted_spells">Highlighted Spells</string>
-    <string name="unlocked_spells">Unlocked Spells</string>
-    <string name="prepared_spells">Prepared Spells</string>
 
     <!-- Weapons -->
     <string name="weapons">Weapons</string>
@@ -42,17 +32,7 @@
 
     <!-- LoadingActivity -->
     <string name="title_activity_loading">Loading Activity</string>
-
     <string name="loading">Loading…</string>
-    <string name="loading_characters">Gathering your characters…</string>
-    <string name="loading_character_image">Fetching your character\'s image…</string>
-    <string name="loading_classes">Preparing classes…</string>
-    <string name="loading_damage_types">Learning about damage…</string>
-    <string name="loading_weapon_properties">Inspecting gear…</string>
-    <string name="loading_spells">Filling spell books…</string>
-    <string name="loading_weapons">Sharpening weapons…</string>
-
-    <string name="error_fetching_characters">Error while fetching your characters</string>
 
     <!-- CharacterSelectionActivity -->
     <string name="title_activity_character_selection">Character Selection Activity</string>

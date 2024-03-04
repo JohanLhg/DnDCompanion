@@ -71,6 +71,7 @@ dependencies {
     implementation(project(":core:core-di"))
     implementation(project(":core:core-domain"))
     implementation(project(":core:core-presentation"))
+    implementation(project(":core:core-dependency-injection"))
 
     implementation(project(":authentication:authentication-domain"))
     implementation(project(":settings:settings-domain"))
@@ -121,12 +122,16 @@ dependencies {
     implementation(project(":feature-character-selection:character-selection-domain"))
     implementation(project(":feature-combat:combat-domain"))
     implementation(project(":feature-equipment:equipment-domain"))
+    implementation(project(":feature-spells:spells-domain"))
+    implementation(project(":feature-loading:loading-domain"))
 
     implementation(project(":feature-authentication:authentication-presentation"))
     implementation(project(":feature-character-selection:character-selection-presentation"))
     implementation(project(":feature-combat:combat-presentation"))
     implementation(project(":feature-equipment:equipment-presentation"))
     implementation(project(":feature-splash-screen:splash-screen-presentation"))
+    implementation(project(":feature-spells:spells-presentation"))
+    implementation(project(":feature-loading:loading-presentation"))
 
     // Compose
     implementation(libs.bundles.ui)
