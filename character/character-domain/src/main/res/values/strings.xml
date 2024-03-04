@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="error_fetching_character_image">Error while fetching your character\'s image</string>
+</resources>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="empty">-</string>
+
+    <string name="ability_strength">Strength</string>
+    <string name="ability_dexterity">Dexterity</string>
+    <string name="ability_constitution">Constitution</string>
+    <string name="ability_intelligence">Intelligence</string>
+    <string name="ability_wisdom">Wisdom</string>
+    <string name="ability_charisma">Charisma</string>
+
+    <string name="ability_strength_short">STR</string>
+    <string name="ability_dexterity_short">DEX</string>
+    <string name="ability_constitution_short">CON</string>
+    <string name="ability_intelligence_short">INT</string>
+    <string name="ability_wisdom_short">WIS</string>
+    <string name="ability_charisma_short">CHA</string>
+</resources>

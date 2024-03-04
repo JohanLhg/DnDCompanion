@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="error_fetching_characters">Error while fetching your characters</string>
+    <string name="error_saving_character">Error while saving your character</string>
+</resources>

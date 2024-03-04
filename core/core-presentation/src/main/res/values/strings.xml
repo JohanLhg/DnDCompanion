@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- General -->
+    <string name="app_name">D&amp;D Companion</string>
+    <string name="empty">-</string>
+    <string name="amount">%d X %s</string>
+    <string name="parenthesis">(%s)</string>
+    <string name="quota">%d/%d</string>
+    <string name="edit">Edit</string>
+    <string name="done">Done</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
+    <string name="search">Search…</string>
+    <string name="clear">Clear</string>
+
+    <string name="label_logo">App Logo</string>
+
+    <!-- Currency -->
+    <string name="copper_pieces_value">%dcp</string>
+    <string name="silver_pieces_value">%dsp</string>
+    <string name="gold_pieces_value">%dgp</string>
+    <string name="platinum_pieces_value">%dpp</string>
+
+    <!-- Spells -->
+    <string name="spells">Spells</string>
+
+    <!-- Weapons -->
+    <string name="weapons">Weapons</string>
+
+    <!-- AuthActivity -->
+    <string name="title_activity_auth">Auth Activity</string>
+
+    <!-- LoadingActivity -->
+    <string name="title_activity_loading">Loading Activity</string>
+    <string name="loading">Loading…</string>
+
+    <!-- CharacterSelectionActivity -->
+    <string name="title_activity_character_selection">Character Selection Activity</string>
+    <string name="descr_character_image">Character Image</string>
+</resources>
