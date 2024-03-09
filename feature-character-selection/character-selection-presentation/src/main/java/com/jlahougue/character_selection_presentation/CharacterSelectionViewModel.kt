@@ -5,10 +5,8 @@ import androidx.lifecycle.viewModelScope
 import com.jlahougue.character_domain.model.Character
 import com.jlahougue.character_domain.use_case.LoadImageState
 import com.jlahougue.character_selection_domain.ICharacterSelectionModule
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.update
@@ -18,8 +16,8 @@ class CharacterSelectionViewModel(
     private val module: ICharacterSelectionModule
 ) : ViewModel() {
 
-    private val _characterIsSelected = MutableSharedFlow<Boolean>()
-    val characterIsSelected = _characterIsSelected.asSharedFlow()
+    private val _characterIsSelected = MutableStateFlow(false)
+    val characterIsSelected = _characterIsSelected.asStateFlow()
 
     private val _characters = MutableStateFlow(emptyList<Character>())
     val characters = _characters.asStateFlow()
@@ -40,7 +38,7 @@ class CharacterSelectionViewModel(
     private fun isCharacterSelected() {
         viewModelScope.launch(module.dispatcherProvider.io) {
             module.userInfoUseCases.getCurrentCharacterId().collectLatest { characterId ->
-                 if (characterId != -1L) _characterIsSelected.emit(true)
+                 if (characterId != -1L) _characterIsSelected.update { true }
             }
         }
     }
