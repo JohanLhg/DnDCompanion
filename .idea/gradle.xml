@@ -55,6 +55,8 @@
             <option value="$PROJECT_DIR$/feature-loading" />
             <option value="$PROJECT_DIR$/feature-loading/loading-domain" />
             <option value="$PROJECT_DIR$/feature-loading/loading-presentation" />
+            <option value="$PROJECT_DIR$/feature-settings" />
+            <option value="$PROJECT_DIR$/feature-settings/settings-presentation" />
             <option value="$PROJECT_DIR$/feature-spells" />
             <option value="$PROJECT_DIR$/feature-spells/spells-domain" />
             <option value="$PROJECT_DIR$/feature-spells/spells-presentation" />

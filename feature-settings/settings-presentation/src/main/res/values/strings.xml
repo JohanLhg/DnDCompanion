@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="language">Language</string>
+    <string name="english">English</string>
+    <string name="french">French</string>
+    <string name="unit_system">Unit System</string>
+    <string name="metric">Metric</string>
+    <string name="imperial">Imperial</string>
+    <string name="account">Account</string>
+</resources>
