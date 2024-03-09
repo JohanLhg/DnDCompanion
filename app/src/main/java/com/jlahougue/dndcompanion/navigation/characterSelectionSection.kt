@@ -12,6 +12,7 @@ import com.jlahougue.character_selection_presentation.CharacterSelectionScreen
 import com.jlahougue.character_selection_presentation.CharacterSelectionViewModel
 import com.jlahougue.core_dependency_injection.DnDCompanionApp
 import com.jlahougue.core_domain.util.extension.viewModelFactory
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 fun NavGraphBuilder.characterSelectionSection(
@@ -31,7 +32,7 @@ fun NavGraphBuilder.characterSelectionSection(
         val characters by viewModel.characters.collectAsState()
         LaunchedEffect(true) {
             launch {
-                viewModel.characterIsSelected.collect {
+                viewModel.characterIsSelected.collectLatest {
                     navigateToNext()
                 }
             }
