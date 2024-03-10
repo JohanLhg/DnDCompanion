@@ -3,3 +3,5 @@
 /workspace.xml
 /appInsightsSettings.xml
 /codeStyles
+# GitHub Copilot persisted chat sessions
+/copilot/chatSessions

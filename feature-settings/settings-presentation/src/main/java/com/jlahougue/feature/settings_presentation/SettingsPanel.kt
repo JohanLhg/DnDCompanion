@@ -1,4 +1,4 @@
-package com.jlahougue.settings_presentation
+package com.jlahougue.feature.settings_presentation
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -32,16 +32,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.jlahougue.core_presentation.theme.DnDCompanionTheme
 import com.jlahougue.core_presentation.theme.spacing
+import com.jlahougue.feature.settings_presentation.components.LanguageSelector
+import com.jlahougue.feature.settings_presentation.components.SettingsButton
+import com.jlahougue.feature.settings_presentation.components.UnitSystemSelector
 import com.jlahougue.settings_domain.model.Language
 import com.jlahougue.settings_domain.model.UnitSystem
-import com.jlahougue.settings_presentation.components.LanguageSelector
-import com.jlahougue.settings_presentation.components.SettingsButton
-import com.jlahougue.settings_presentation.components.UnitSystemSelector
+import com.jlahougue.settings_presentation.R
 import com.jlahougue.core_presentation.R as CoreR
 
 @Composable
 fun SettingsPanel(
-    state: SettingsState
+    state: SettingsState,
+    onEvent: (SettingsEvent) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -93,6 +95,7 @@ fun SettingsPanel(
                 label = stringResource(id = R.string.english),
                 language = Language.ENGLISH,
                 selectedLanguage = state.language,
+                onEvent = { onEvent(SettingsEvent.OnLanguageChanged(it)) },
                 modifier = Modifier
                     .weight(1f)
             )
@@ -101,6 +104,7 @@ fun SettingsPanel(
                 label = stringResource(id = R.string.french),
                 language = Language.FRENCH,
                 selectedLanguage = state.language,
+                onEvent = { onEvent(SettingsEvent.OnLanguageChanged(it)) },
                 modifier = Modifier
                     .weight(1f)
             )
@@ -123,12 +127,14 @@ fun SettingsPanel(
                 label = stringResource(id = R.string.imperial),
                 unitSystem = UnitSystem.IMPERIAL,
                 selectedUnitSystem = state.unitSystem,
+                onEvent = { onEvent(SettingsEvent.OnUnitSystemChanged(it)) },
                 modifier = Modifier.weight(1f)
             )
             UnitSystemSelector(
                 label = stringResource(id = R.string.metric),
                 unitSystem = UnitSystem.METRIC,
                 selectedUnitSystem = state.unitSystem,
+                onEvent = { onEvent(SettingsEvent.OnUnitSystemChanged(it)) },
                 modifier = Modifier.weight(1f)
             )
         }
@@ -148,22 +154,22 @@ fun SettingsPanel(
         SettingsButton(
             label = "change email address",
             icon = Icons.Filled.Email,
-            onClick = {  }
+            onClick = { onEvent(SettingsEvent.OnEmailChange) }
         )
         SettingsButton(
             label = "change password",
             icon = Icons.Filled.Lock,
-            onClick = {  }
+            onClick = { onEvent(SettingsEvent.OnPasswordChange) }
         )
         SettingsButton(
             label = "Sign out",
             icon = Icons.AutoMirrored.Filled.ExitToApp,
-            onClick = {  }
+            onClick = { onEvent(SettingsEvent.OnSignOut) }
         )
         SettingsButton(
             label = "Switch character",
             icon = Icons.Filled.Person,
-            onClick = {  }
+            onClick = { onEvent(SettingsEvent.OnCharacterSwitch) }
         )
     }
 }
@@ -177,7 +183,8 @@ fun SettingsPanel(
 fun SettingsPanelPreview() {
     DnDCompanionTheme {
         SettingsPanel(
-            state = SettingsState()
+            state = SettingsState(),
+            onEvent = {  }
         )
     }
 }

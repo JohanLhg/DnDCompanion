@@ -1,4 +1,4 @@
-package com.jlahougue.settings_presentation
+package com.jlahougue.feature.settings_presentation
 
 import com.jlahougue.settings_domain.model.Language
 import com.jlahougue.settings_domain.model.UnitSystem

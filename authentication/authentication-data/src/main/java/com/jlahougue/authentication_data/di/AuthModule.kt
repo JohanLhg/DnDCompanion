@@ -7,13 +7,14 @@ import com.jlahougue.authentication_domain.use_case.AuthUseCases
 import com.jlahougue.authentication_domain.use_case.IsLoggedIn
 import com.jlahougue.authentication_domain.use_case.Login
 import com.jlahougue.authentication_domain.use_case.Register
+import com.jlahougue.authentication_domain.use_case.SignOut
 import com.jlahougue.core_domain.util.dispatcherProvider.DispatcherProvider
 import com.jlahougue.user_info_domain.use_case.UserInfoUseCases
 
 class AuthModule(
     override val dispatcherProvider: DispatcherProvider,
-    val remoteDataSource: AuthRemoteDataSource,
-    val userInfoUseCases: UserInfoUseCases
+    private val remoteDataSource: AuthRemoteDataSource,
+    private val userInfoUseCases: UserInfoUseCases
 ) : IAuthModule {
 
     override val repository by lazy {
@@ -33,7 +34,8 @@ class AuthModule(
             register = Register(
                 repository,
                 userInfoUseCases
-            )
+            ),
+            signOut = SignOut(repository)
         )
     }
 }

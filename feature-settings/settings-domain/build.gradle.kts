@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.jlahougue.settings_presentation"
+    namespace = "com.jlahougue.feature.settings_domain"
     compileSdk = 34
 
     defaultConfig {
@@ -30,20 +30,11 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
-    buildFeatures {
-        compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.3"
-    }
 }
 
 dependencies {
-    implementation(project(":core:core-presentation"))
-    implementation(project(":feature-settings:settings-domain"))
-    implementation(project(":settings:settings-domain"))
-
-    implementation(libs.bundles.ui)
+    implementation(project(":authentication:authentication-domain"))
+    implementation(project(":user-info:user-info-domain"))
 
     testImplementation(libs.bundles.tests)
     androidTestImplementation(libs.bundles.android.tests)

@@ -1,4 +1,4 @@
-package com.jlahougue.settings_presentation.components
+package com.jlahougue.feature.settings_presentation.components
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues

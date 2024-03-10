@@ -14,6 +14,7 @@ import com.jlahougue.core_data.di.AppModule
 import com.jlahougue.core_data.di.DataSourceModule
 import com.jlahougue.damage_type_data.di.DamageTypeModule
 import com.jlahougue.equipment_domain.EquipmentModule
+import com.jlahougue.feature.settings_domain.SettingsModule
 import com.jlahougue.health_data.di.HealthModule
 import com.jlahougue.item_data.di.ItemModule
 import com.jlahougue.loading_domain.di.LoadingModule
@@ -55,6 +56,7 @@ class DnDCompanionApp: Application() {
         lateinit var loadingModule: LoadingModule
         lateinit var characterSelectionModule: CharacterSelectionModule
         lateinit var combatModule: CombatModule
+        lateinit var settingsModule: SettingsModule
         lateinit var spellsModule: SpellsModule
         lateinit var equipmentModule: EquipmentModule
     }
@@ -188,6 +190,10 @@ class DnDCompanionApp: Application() {
             characterSpellModule.useCases,
             weaponModule.useCases,
             itemModule.useCases
+        )
+        settingsModule = SettingsModule(
+            authModule.useCases,
+            userInfoModule.useCases
         )
         spellsModule = SpellsModule(
             appModule.dispatcherProvider,
