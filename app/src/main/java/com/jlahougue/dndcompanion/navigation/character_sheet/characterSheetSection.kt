@@ -4,8 +4,12 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.DrawerValue
+import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.VerticalDivider
+import androidx.compose.material3.rememberDrawerState
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavGraphBuilder
@@ -14,6 +18,8 @@ import androidx.navigation.compose.rememberNavController
 import com.jlahougue.dndcompanion.R
 import com.jlahougue.dndcompanion.components.NavigationItem
 import com.jlahougue.dndcompanion.components.NavigationSideBar
+import com.jlahougue.dndcompanion.navigation.character_sheet.components.SettingsDrawer
+import kotlinx.coroutines.launch
 
 fun NavGraphBuilder.characterSheetSection(
     route: String
@@ -43,20 +49,35 @@ fun NavGraphBuilder.characterSheetSection(
                 selectedIcon = R.drawable.backpack
             )
         )
-        Row {
-            NavigationSideBar(
-                navController = navController,
-                items = navigationItems
-            )
-            VerticalDivider()
-            Scaffold(
-                modifier = Modifier.fillMaxSize()
-            ) {
-                Box(modifier = Modifier.padding(it)) {
-                    CharacterSheetGraph(navController = navController)
+        val drawerState = rememberDrawerState(DrawerValue.Closed)
+        val scope = rememberCoroutineScope()
+        ModalNavigationDrawer(
+            drawerContent = {
+                SettingsDrawer()
+            },
+            drawerState = drawerState
+        ) {
+            Row {
+                NavigationSideBar(
+                    navController = navController,
+                    items = navigationItems,
+                    onSettingsClick = {
+                        scope.launch {
+                            drawerState.apply {
+                                if (isOpen) close() else open()
+                            }
+                        }
+                    }
+                )
+                VerticalDivider()
+                Scaffold(
+                    modifier = Modifier.fillMaxSize()
+                ) {
+                    Box(modifier = Modifier.padding(it)) {
+                        CharacterSheetGraph(navController = navController)
+                    }
                 }
             }
-
         }
     }
 }

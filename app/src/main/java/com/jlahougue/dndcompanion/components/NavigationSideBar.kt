@@ -23,12 +23,13 @@ import com.jlahougue.dndcompanion.R
 @Composable
 fun NavigationSideBar(
     navController: NavHostController,
-    items: List<NavigationItem>
+    items: List<NavigationItem>,
+    onSettingsClick: () -> Unit
 ) {
     val currentDestination = navController.currentBackStackEntryAsState().value?.destination
     NavigationRail(
         header = {
-            IconButton(onClick = { /*TODO*/ }) {
+            IconButton(onClick = onSettingsClick) {
                 Icon(
                     imageVector = Icons.Filled.Settings,
                     contentDescription = stringResource(id = R.string.settings)

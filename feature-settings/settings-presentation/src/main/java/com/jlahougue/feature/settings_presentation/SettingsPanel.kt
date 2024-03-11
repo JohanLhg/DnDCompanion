@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -20,7 +21,6 @@ import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -49,16 +49,11 @@ fun SettingsPanel(
         modifier = Modifier
             .fillMaxHeight()
             .verticalScroll(rememberScrollState())
-            .width(300.dp)
-            .background(
-                MaterialTheme.colorScheme.primary.copy(
-                    alpha = 0.5f
-                )
-            )
+            .width(IntrinsicSize.Max)
+            .background(MaterialTheme.colorScheme.primaryContainer)
     ) {
         Box(
             modifier = Modifier
-                .background(MaterialTheme.colorScheme.surface)
                 .fillMaxWidth()
         ) {
             Image(
@@ -70,19 +65,14 @@ fun SettingsPanel(
                     .align(Alignment.Center)
             )
         }
-        Surface(
-            color = MaterialTheme.colorScheme.surface,
-            shadowElevation = MaterialTheme.spacing.small
-        ) {
-            Text(
-                text = stringResource(id = R.string.language),
-                style = MaterialTheme.typography.titleMedium,
-                modifier = Modifier
-                    .background(MaterialTheme.colorScheme.surface)
-                    .padding(MaterialTheme.spacing.small)
-                    .fillMaxWidth()
-            )
-        }
+        Text(
+            text = stringResource(id = R.string.language),
+            style = MaterialTheme.typography.titleMedium,
+            modifier = Modifier
+                .background(MaterialTheme.colorScheme.surface)
+                .padding(MaterialTheme.spacing.small)
+                .fillMaxWidth()
+        )
         Row(
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically,
@@ -109,19 +99,14 @@ fun SettingsPanel(
                     .weight(1f)
             )
         }
-        Surface(
-            color = MaterialTheme.colorScheme.surface,
-            shadowElevation = MaterialTheme.spacing.small
-        ) {
-            Text(
-                text = stringResource(id = R.string.unit_system),
-                style = MaterialTheme.typography.titleMedium,
-                modifier = Modifier
-                    .background(MaterialTheme.colorScheme.surface)
-                    .padding(MaterialTheme.spacing.small)
-                    .fillMaxWidth()
-            )
-        }
+        Text(
+            text = stringResource(id = R.string.unit_system),
+            style = MaterialTheme.typography.titleMedium,
+            modifier = Modifier
+                .background(MaterialTheme.colorScheme.surface)
+                .padding(MaterialTheme.spacing.small)
+                .fillMaxWidth()
+        )
         Row {
             UnitSystemSelector(
                 label = stringResource(id = R.string.imperial),
@@ -138,19 +123,14 @@ fun SettingsPanel(
                 modifier = Modifier.weight(1f)
             )
         }
-        Surface(
-            color = MaterialTheme.colorScheme.surface,
-            shadowElevation = MaterialTheme.spacing.small
-        ) {
-            Text(
-                text = "Account",
-                style = MaterialTheme.typography.titleMedium,
-                modifier = Modifier
-                    .background(MaterialTheme.colorScheme.surface)
-                    .padding(MaterialTheme.spacing.small)
-                    .fillMaxWidth()
-            )
-        }
+        Text(
+            text = "Account",
+            style = MaterialTheme.typography.titleMedium,
+            modifier = Modifier
+                .background(MaterialTheme.colorScheme.surface)
+                .padding(MaterialTheme.spacing.small)
+                .fillMaxWidth()
+        )
         SettingsButton(
             label = "change email address",
             icon = Icons.Filled.Email,

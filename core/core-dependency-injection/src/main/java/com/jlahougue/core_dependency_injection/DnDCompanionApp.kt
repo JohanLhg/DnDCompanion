@@ -192,6 +192,7 @@ class DnDCompanionApp: Application() {
             itemModule.useCases
         )
         settingsModule = SettingsModule(
+            appModule.dispatcherProvider,
             authModule.useCases,
             userInfoModule.useCases
         )

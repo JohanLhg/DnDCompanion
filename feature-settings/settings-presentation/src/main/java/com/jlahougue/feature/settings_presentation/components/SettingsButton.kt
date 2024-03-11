@@ -30,7 +30,7 @@ fun SettingsButton(
         modifier = modifier
             .padding(
                 vertical = MaterialTheme.spacing.extraSmall,
-                horizontal = MaterialTheme.spacing.small
+                horizontal = MaterialTheme.spacing.medium
             )
             .fillMaxWidth()
     ) {
@@ -45,6 +45,7 @@ fun SettingsButton(
                 style = MaterialTheme.typography.bodyMedium,
                 textAlign = TextAlign.Center,
                 modifier = Modifier
+                    .padding(horizontal = MaterialTheme.spacing.large)
                     .fillMaxWidth()
                     .align(Alignment.Center)
             )

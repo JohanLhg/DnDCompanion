@@ -10,7 +10,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextAlign
 import com.jlahougue.core_presentation.theme.spacing
@@ -26,7 +25,10 @@ fun UnitSystemSelector(
 ) {
     Text(
         text = label,
-        style = MaterialTheme.typography.bodyMedium,
+        style = MaterialTheme.typography.bodyMedium.copy(
+            color = if (selectedUnitSystem == unitSystem) MaterialTheme.colorScheme.onPrimary
+            else MaterialTheme.colorScheme.onSurface
+        ),
         textAlign = TextAlign.Center,
         modifier = modifier
             .clickable(
@@ -34,13 +36,12 @@ fun UnitSystemSelector(
                 indication = null,
                 onClick = { onEvent(unitSystem) }
             )
-            .alpha(
-                if (selectedUnitSystem == unitSystem) 1f
-                else 0.5f
-            )
-            .padding(MaterialTheme.spacing.small)
+            .padding(MaterialTheme.spacing.medium)
             .clip(OutlinedTextFieldDefaults.shape)
-            .background(MaterialTheme.colorScheme.surface)
+            .background(
+                color = if (selectedUnitSystem == unitSystem) MaterialTheme.colorScheme.primary
+                else MaterialTheme.colorScheme.surface
+            )
             .padding(MaterialTheme.spacing.small)
     )
 }
