@@ -1,12 +1,12 @@
-package com.jlahougue.authentication_presentation.register
+package com.jlahougue.feature.authentication_presentation.register
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.jlahougue.authentication_domain.IAuthenticationModule
 import com.jlahougue.authentication_domain.model.InvalidAuthException
 import com.jlahougue.authentication_presentation.R
-import com.jlahougue.authentication_presentation.util.AuthUiEvent
 import com.jlahougue.core_domain.util.UiText
+import com.jlahougue.feature.authentication_domain.IAuthenticationModule
+import com.jlahougue.feature.authentication_presentation.util.AuthUiEvent
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow

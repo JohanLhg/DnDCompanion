@@ -71,6 +71,8 @@ class CombatViewModel(
                     )
                 }
 
+                if (characterId == -1L) return@collectLatest
+
                 viewModelScope.launch(module.dispatcherProvider.io) {
                     module.abilityUseCases.getAbilities(userInfo.characterId).collectLatest { abilities ->
                         _state.update {

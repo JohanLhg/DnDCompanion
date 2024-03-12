@@ -22,7 +22,9 @@ import com.jlahougue.dndcompanion.navigation.character_sheet.components.Settings
 import kotlinx.coroutines.launch
 
 fun NavGraphBuilder.characterSheetSection(
-    route: String
+    route: String,
+    navigateBackToAuthentication: () -> Unit,
+    navigateBackToCharacterSelection: () -> Unit
 ) {
     composable(
         route = route
@@ -53,7 +55,10 @@ fun NavGraphBuilder.characterSheetSection(
         val scope = rememberCoroutineScope()
         ModalNavigationDrawer(
             drawerContent = {
-                SettingsDrawer()
+                SettingsDrawer(
+                    navigateBackToAuthentication = navigateBackToAuthentication,
+                    navigateBackToCharacterSelection = navigateBackToCharacterSelection
+                )
             },
             drawerState = drawerState
         ) {

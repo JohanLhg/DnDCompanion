@@ -1,4 +1,4 @@
-package com.jlahougue.authentication_presentation.register
+package com.jlahougue.feature.authentication_presentation.register
 
 sealed class RegisterEvent {
     data class EmailChanged(val email: String) : RegisterEvent()

@@ -1,4 +1,4 @@
-package com.jlahougue.authentication_presentation.util
+package com.jlahougue.feature.authentication_presentation.util
 
 import com.jlahougue.core_domain.util.UiText
 

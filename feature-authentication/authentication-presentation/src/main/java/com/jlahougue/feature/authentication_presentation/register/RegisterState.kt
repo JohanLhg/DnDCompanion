@@ -1,6 +1,6 @@
-package com.jlahougue.authentication_presentation.login
+package com.jlahougue.feature.authentication_presentation.register
 
-data class LoginState(
+data class RegisterState(
     val email: String = "",
     val password: String = "",
     val confirmPassword: String = "",

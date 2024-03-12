@@ -1,4 +1,4 @@
-package com.jlahougue.authentication_presentation.login
+package com.jlahougue.feature.authentication_presentation.login
 
 sealed class LoginEvent {
     data class EmailChanged(val email: String) : LoginEvent()

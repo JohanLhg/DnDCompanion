@@ -3,7 +3,6 @@ package com.jlahougue.core_dependency_injection
 import android.app.Application
 import com.jlahougue.ability_data.di.AbilityModule
 import com.jlahougue.authentication_data.di.AuthModule
-import com.jlahougue.authentication_domain.AuthenticationModule
 import com.jlahougue.character_data.di.CharacterModule
 import com.jlahougue.character_selection_domain.CharacterSelectionModule
 import com.jlahougue.character_sheet_data.di.CharacterSheetModule
@@ -14,6 +13,7 @@ import com.jlahougue.core_data.di.AppModule
 import com.jlahougue.core_data.di.DataSourceModule
 import com.jlahougue.damage_type_data.di.DamageTypeModule
 import com.jlahougue.equipment_domain.EquipmentModule
+import com.jlahougue.feature.authentication_domain.AuthenticationModule
 import com.jlahougue.feature.settings_domain.SettingsModule
 import com.jlahougue.health_data.di.HealthModule
 import com.jlahougue.item_data.di.ItemModule

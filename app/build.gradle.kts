@@ -73,6 +73,7 @@ dependencies {
     implementation(project(":core:core-presentation"))
     implementation(project(":core:core-dependency-injection"))
 
+    implementation(project(":authentication:authentication-data"))
     implementation(project(":authentication:authentication-domain"))
     implementation(project(":settings:settings-domain"))
     implementation(project(":user-info:user-info-domain"))
