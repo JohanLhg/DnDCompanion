@@ -35,94 +35,91 @@ fun SpellDialog(
     onEvent: (SpellDialogEvent) -> Unit
 ) {
     val spell = state.spell ?: return
-    if (state.isShown) {
-        Dialog(
-            onDismissRequest = {
-                onEvent(SpellDialogEvent.OnDismiss)
-            }
-        ) {
-            Card(
-                modifier = Modifier
-                    .border(
-                        width = 1.dp,
-                        color = MaterialTheme.colorScheme.primary,
-                        shape = RoundedCornerShape(8.dp)
-                    ),
-                shape = RoundedCornerShape(8.dp),
-                colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.surface,
+    if (!state.isShown) return
+    Dialog(
+        onDismissRequest = {
+            onEvent(SpellDialogEvent.OnDismiss)
+        }
+    ) {
+        Card(
+            modifier = Modifier
+                .border(
+                    width = 1.dp,
+                    color = MaterialTheme.colorScheme.primary,
+                    shape = RoundedCornerShape(8.dp)
                 ),
-                elevation = CardDefaults.cardElevation(
-                    defaultElevation = 6.dp
-                )
+            shape = RoundedCornerShape(8.dp),
+            colors = CardDefaults.cardColors(
+                containerColor = MaterialTheme.colorScheme.surface,
+            ),
+            elevation = CardDefaults.cardElevation(
+                defaultElevation = 6.dp
+            )
+        ) {
+            SpellDialogHeader(
+                state = state,
+                onEvent = onEvent
+            )
+            HorizontalDivider(
+                modifier = Modifier.padding(horizontal = MaterialTheme.spacing.small)
+            )
+            Column(
+                modifier = Modifier
+                    .padding(horizontal = MaterialTheme.spacing.extraSmall)
+                    .padding(
+                        top = MaterialTheme.spacing.extraSmall,
+                        bottom = MaterialTheme.spacing.small
+                    )
             ) {
-                Column {
-                    SpellDialogHeader(
-                        state = state,
-                        onEvent = onEvent
-                    )
-                    HorizontalDivider(
-                        modifier = Modifier.padding(horizontal = MaterialTheme.spacing.small)
-                    )
-                    Column(
+                PropertyRow(
+                    label = stringResource(id = R.string.spell_casting_time),
+                    value = spell.castingTime
+                )
+                PropertyRow(
+                    label = stringResource(id = R.string.spell_range),
+                    value = spell.range
+                )
+                PropertyRow(
+                    label = stringResource(id = R.string.spell_materials),
+                    value = spell.materials
+                )
+                PropertyRow(
+                    label = stringResource(id = R.string.spell_duration),
+                    value = if (spell.concentration)
+                        stringResource(
+                            R.string.spell_concentration_duration,
+                            spell.duration
+                        )
+                    else spell.duration
+                )
+                if (spell.ritual) {
+                    Text(
+                        text = stringResource(id = R.string.spell_ritual),
+                        style = MaterialTheme.typography.bodySmall,
                         modifier = Modifier
-                            .padding(horizontal = MaterialTheme.spacing.extraSmall)
-                            .padding(
-                                top = MaterialTheme.spacing.extraSmall,
-                                bottom = MaterialTheme.spacing.small
-                            )
-                    ) {
-                        PropertyRow(
-                            label = stringResource(id = R.string.spell_casting_time),
-                            value = spell.castingTime
-                        )
-                        PropertyRow(
-                            label = stringResource(id = R.string.spell_range),
-                            value = spell.range
-                        )
-                        PropertyRow(
-                            label = stringResource(id = R.string.spell_materials),
-                            value = spell.materials
-                        )
-                        PropertyRow(
-                            label = stringResource(id = R.string.spell_duration),
-                            value = if (spell.concentration)
-                                stringResource(
-                                    R.string.spell_concentration_duration,
-                                    spell.duration
-                                )
-                            else spell.duration
-                        )
-                        if (spell.ritual) {
-                            Text(
-                                text = stringResource(id = R.string.spell_ritual),
-                                style = MaterialTheme.typography.bodySmall,
-                                modifier = Modifier
-                                    .padding(horizontal = MaterialTheme.spacing.small),
-                            )
-                        }
-                        PropertyColumn(
-                            label = stringResource(id = R.string.spell_description),
-                            value = spell.description
-                        )
-                        PropertyColumn(
-                            label = stringResource(id = R.string.spell_higher_levels),
-                            value = spell.higherLevels
-                        )
-                        ListOfLinkedItems(
-                            title = stringResource(id = R.string.spell_damage_types),
-                            items = spell.damageTypes,
-                            itemToString = { it.name },
-                            onEvent = { onEvent(SpellDialogEvent.OnDamageTypeClick(it)) }
-                        )
-                        ListOfLinkedItems(
-                            title = stringResource(id = R.string.spell_classes),
-                            items = spell.classes,
-                            itemToString = { it.name },
-                            onEvent = { onEvent(SpellDialogEvent.OnClassClick(it)) }
-                        )
-                    }
+                            .padding(horizontal = MaterialTheme.spacing.small),
+                    )
                 }
+                PropertyColumn(
+                    label = stringResource(id = R.string.spell_description),
+                    value = spell.description
+                )
+                PropertyColumn(
+                    label = stringResource(id = R.string.spell_higher_levels),
+                    value = spell.higherLevels
+                )
+                ListOfLinkedItems(
+                    title = stringResource(id = R.string.spell_damage_types),
+                    items = spell.damageTypes,
+                    itemToString = { it.name },
+                    onEvent = { onEvent(SpellDialogEvent.OnDamageTypeClick(it)) }
+                )
+                ListOfLinkedItems(
+                    title = stringResource(id = R.string.spell_classes),
+                    items = spell.classes,
+                    itemToString = { it.name },
+                    onEvent = { onEvent(SpellDialogEvent.OnClassClick(it)) }
+                )
             }
         }
     }

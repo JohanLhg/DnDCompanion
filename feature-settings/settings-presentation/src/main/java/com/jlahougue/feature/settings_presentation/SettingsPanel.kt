@@ -30,10 +30,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.jlahougue.authentication_presentation.email_change_dialog.EmailChangeDialog
+import com.jlahougue.core_presentation.components.CustomButton
 import com.jlahougue.core_presentation.theme.DnDCompanionTheme
 import com.jlahougue.core_presentation.theme.spacing
 import com.jlahougue.feature.settings_presentation.components.LanguageSelector
-import com.jlahougue.feature.settings_presentation.components.SettingsButton
 import com.jlahougue.feature.settings_presentation.components.UnitSystemSelector
 import com.jlahougue.settings_domain.model.Language
 import com.jlahougue.settings_domain.model.UnitSystem
@@ -131,27 +132,33 @@ fun SettingsPanel(
                 .padding(MaterialTheme.spacing.small)
                 .fillMaxWidth()
         )
-        SettingsButton(
+        CustomButton(
             label = "change email address",
             icon = Icons.Filled.Email,
             onClick = { onEvent(SettingsEvent.OnEmailChange) }
         )
-        SettingsButton(
+        CustomButton(
             label = "change password",
             icon = Icons.Filled.Lock,
             onClick = { onEvent(SettingsEvent.OnPasswordChange) }
         )
-        SettingsButton(
+        CustomButton(
             label = "Sign out",
             icon = Icons.AutoMirrored.Filled.ExitToApp,
             onClick = { onEvent(SettingsEvent.OnSignOut) }
         )
-        SettingsButton(
+        CustomButton(
             label = "Switch character",
             icon = Icons.Filled.Person,
             onClick = { onEvent(SettingsEvent.OnCharacterSwitch) }
         )
     }
+    EmailChangeDialog(
+        state = state.emailChangeDialogState,
+        onEvent = {
+            onEvent(SettingsEvent.OnEmailChangeDialogEvent(it))
+        }
+    )
 }
 
 @Preview(

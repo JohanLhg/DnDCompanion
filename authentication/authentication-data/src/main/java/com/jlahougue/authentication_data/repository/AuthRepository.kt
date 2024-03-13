@@ -15,7 +15,7 @@ class AuthRepository(private val remote: AuthRemoteDataSource) : IAuthRepository
         remote.login(email, password, callback)
     }
 
-    override fun changeEmail(email: String, callback: (Boolean) -> Unit) {
+    override fun changeEmail(email: String, callback: (String?) -> Unit) {
         remote.changeEmail(email, callback)
     }
 

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="email_change_dialog_title">Change your email address</string>
+    <string name="label_new_email">New email</string>
+</resources>

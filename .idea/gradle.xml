@@ -17,6 +17,7 @@
             <option value="$PROJECT_DIR$/authentication" />
             <option value="$PROJECT_DIR$/authentication/authentication-data" />
             <option value="$PROJECT_DIR$/authentication/authentication-domain" />
+            <option value="$PROJECT_DIR$/authentication/authentication-presentation" />
             <option value="$PROJECT_DIR$/character" />
             <option value="$PROJECT_DIR$/character-sheet" />
             <option value="$PROJECT_DIR$/character-sheet/character-sheet-data" />

@@ -4,6 +4,7 @@ import com.jlahougue.authentication_data.repository.AuthRepository
 import com.jlahougue.authentication_data.source.AuthRemoteDataSource
 import com.jlahougue.authentication_domain.di.IAuthModule
 import com.jlahougue.authentication_domain.use_case.AuthUseCases
+import com.jlahougue.authentication_domain.use_case.ChangeEmail
 import com.jlahougue.authentication_domain.use_case.IsLoggedIn
 import com.jlahougue.authentication_domain.use_case.Login
 import com.jlahougue.authentication_domain.use_case.Register
@@ -35,7 +36,16 @@ class AuthModule(
                 repository,
                 userInfoUseCases
             ),
-            signOut = SignOut(repository)
+            signOut = SignOut(
+                dispatcherProvider,
+                repository,
+                userInfoUseCases
+            ),
+            changeEmail = ChangeEmail(
+                dispatcherProvider,
+                repository,
+                userInfoUseCases
+            )
         )
     }
 }

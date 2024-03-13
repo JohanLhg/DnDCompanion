@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.jlahougue.settings_presentation"
+    namespace = "com.jlahougue.authentication_presentation"
     compileSdk = 34
 
     defaultConfig {
@@ -39,15 +39,8 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:core-domain"))
     implementation(project(":core:core-presentation"))
-    implementation(project(":feature-settings:settings-domain"))
-
-    implementation(project(":settings:settings-domain"))
-    implementation(project(":authentication:authentication-domain"))
-    implementation(project(":user-info:user-info-domain"))
-
-    implementation(project(":authentication:authentication-presentation"))
+    implementation(project(":core:core-domain"))
 
     implementation(libs.bundles.ui)
 

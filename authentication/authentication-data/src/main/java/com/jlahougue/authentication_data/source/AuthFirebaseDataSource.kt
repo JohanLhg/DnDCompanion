@@ -20,10 +20,10 @@ class AuthFirebaseDataSource(private val firebaseAuth: FirebaseAuth) : AuthRemot
             }
     }
 
-    override fun changeEmail(email: String, callback: (Boolean) -> Unit) {
-        firebaseAuth.currentUser?.updateEmail(email)
-            ?.addOnCompleteListener { task ->
-                callback(task.isSuccessful)
+    override fun changeEmail(email: String, callback: (String?) -> Unit) {
+        firebaseAuth.currentUser?.verifyBeforeUpdateEmail(email)
+            ?.addOnCompleteListener {
+                callback(getUserId())
             }
     }
 

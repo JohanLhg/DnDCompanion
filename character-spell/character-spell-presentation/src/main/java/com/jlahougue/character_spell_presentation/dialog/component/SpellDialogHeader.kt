@@ -39,8 +39,10 @@ fun SpellDialogHeader(
             else
                 MaterialTheme.colorScheme.onSurface,
             modifier = Modifier
-                .padding(vertical = MaterialTheme.spacing.medium)
-                .padding(horizontal = MaterialTheme.spacing.extraSmall)
+                .padding(
+                    vertical = MaterialTheme.spacing.medium,
+                    horizontal = MaterialTheme.spacing.extraSmall
+                )
         )
         if (spell.components.contains('V')) {
             ComponentImage(

@@ -1,4 +1,4 @@
-package com.jlahougue.feature.settings_presentation.components
+package com.jlahougue.core_presentation.components
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -17,11 +17,11 @@ import androidx.compose.ui.text.style.TextAlign
 import com.jlahougue.core_presentation.theme.spacing
 
 @Composable
-fun SettingsButton(
+fun CustomButton(
     label: String,
-    icon: ImageVector,
     onClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    icon: ImageVector? = null
 ) {
     Button(
         onClick = onClick,
@@ -35,11 +35,13 @@ fun SettingsButton(
             .fillMaxWidth()
     ) {
         Box(modifier = Modifier.fillMaxWidth()) {
-            Icon(
-                imageVector = icon,
-                contentDescription = null,
-                modifier = Modifier.align(Alignment.CenterStart)
-            )
+            if (icon != null) {
+                Icon(
+                    imageVector = icon,
+                    contentDescription = null,
+                    modifier = Modifier.align(Alignment.CenterStart)
+                )
+            }
             Text(
                 text = label.uppercase(),
                 style = MaterialTheme.typography.bodyMedium,
