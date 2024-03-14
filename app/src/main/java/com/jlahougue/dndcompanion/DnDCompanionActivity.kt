@@ -16,6 +16,7 @@ import androidx.navigation.compose.rememberNavController
 import com.jlahougue.core_dependency_injection.DnDCompanionApp
 import com.jlahougue.core_domain.util.extension.viewModelFactory
 import com.jlahougue.core_presentation.theme.DnDCompanionTheme
+import com.jlahougue.dndcompanion.navigation.AuthScreen
 import com.jlahougue.dndcompanion.navigation.authenticationSection
 import com.jlahougue.dndcompanion.navigation.characterSelectionSection
 import com.jlahougue.dndcompanion.navigation.character_sheet.characterSheetSection
@@ -69,7 +70,21 @@ class DnDCompanionActivity : ComponentActivity() {
                             }
                         )
                         characterSheetSection(
-                            route = ScreenGroup.CharacterSheet.route
+                            route = ScreenGroup.CharacterSheet.route,
+                            navigateBackToAuthentication = {
+                                navController.navigate(AuthScreen.Login.route) {
+                                    popUpTo(ScreenGroup.Authentication.route) {
+                                        inclusive = true
+                                    }
+                                }
+                            },
+                            navigateBackToCharacterSelection = {
+                                navController.navigate(ScreenGroup.CharacterSelection.route) {
+                                    popUpTo(ScreenGroup.CharacterSelection.route) {
+                                        inclusive = true
+                                    }
+                                }
+                            }
                         )
                     }
                 }
@@ -81,7 +96,7 @@ class DnDCompanionActivity : ComponentActivity() {
         when (screenGroup) {
             ScreenGroup.CharacterSelection -> {
                 navController.navigate(ScreenGroup.CharacterSelection.route) {
-                    popUpTo(ScreenGroup.Authentication.route) {
+                    popUpTo(ScreenGroup.CharacterSelection.route) {
                         inclusive = true
                     }
                 }

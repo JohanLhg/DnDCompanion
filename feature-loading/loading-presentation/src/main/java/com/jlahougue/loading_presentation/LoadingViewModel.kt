@@ -23,10 +23,12 @@ class LoadingViewModel(
     private val _state = MutableStateFlow(LoadingState(title  = UiText.StringResource(R.string.loading)))
     val state = _state.asStateFlow()
 
-    private val _event = MutableSharedFlow<LoadingUiEvent>()
+    private val _event = MutableSharedFlow<LoadingUiEvent>(replay = 1)
     val event: SharedFlow<LoadingUiEvent> = _event.asSharedFlow()
 
     private var loadingStarted = false
+
+    init { module.init() }
 
     fun onEvent(event: LoadingEvent) {
         when (event) {

@@ -34,6 +34,8 @@ class HealthRepository(
         local.insert(deathSaves)
     }
 
+    override suspend fun clearLocal() = local.clear()
+
     override suspend fun delete(characterId: Long) {
         local.deleteForCharacter(characterId)
     }

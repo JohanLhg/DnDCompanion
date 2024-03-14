@@ -10,10 +10,12 @@ import com.jlahougue.combat_domain.ICombatModule
 import com.jlahougue.combat_presentation.component.TabItem
 import com.jlahougue.core_domain.util.UiText
 import com.jlahougue.core_presentation.R
+import com.jlahougue.health_domain.model.DeathSaves
 import com.jlahougue.health_domain.model.Health
 import com.jlahougue.health_presentation.HealthEvent
 import com.jlahougue.item_presentation.ItemEvent
 import com.jlahougue.item_presentation.dialog.ItemDialogEvent
+import com.jlahougue.stats_domain.model.StatsView
 import com.jlahougue.stats_presentation.StatsEvent
 import com.jlahougue.weapon_presentation.WeaponEvent
 import com.jlahougue.weapon_presentation.dialog.WeaponDialogEvent
@@ -36,20 +38,20 @@ class CombatViewModel(
 
     private val _state = MutableStateFlow(
         CombatState(
-        tab = CombatTabState(
-            tabs = listOf(
-                TabItem(
-                    title = UiText.StringResource(R.string.spells),
-                    icon = R.drawable.spell_book
+            tab = CombatTabState(
+                tabs = listOf(
+                    TabItem(
+                        title = UiText.StringResource(R.string.spells),
+                        icon = R.drawable.spell_book
+                    ),
+                    TabItem(
+                        title = UiText.StringResource(R.string.weapons),
+                        icon = R.drawable.weapons
+                    )
                 ),
-                TabItem(
-                    title = UiText.StringResource(R.string.weapons),
-                    icon = R.drawable.weapons
-                )
-            ),
-            selectedTabIndex = 0
+                selectedTabIndex = 0
+            )
         )
-    )
     )
     val state = _state.asStateFlow()
 
@@ -71,6 +73,8 @@ class CombatViewModel(
                     )
                 }
 
+                if (characterId == -1L) return@collectLatest
+
                 viewModelScope.launch(module.dispatcherProvider.io) {
                     module.abilityUseCases.getAbilities(userInfo.characterId).collectLatest { abilities ->
                         _state.update {
@@ -82,7 +86,7 @@ class CombatViewModel(
                 viewModelScope.launch(module.dispatcherProvider.io) {
                     module.statsUseCases.getStats(userInfo.characterId).collectLatest { stats ->
                         _state.update {
-                            it.copy(stats = stats)
+                            it.copy(stats = stats?: StatsView())
                         }
                     }
                 }
@@ -90,7 +94,7 @@ class CombatViewModel(
                 viewModelScope.launch(module.dispatcherProvider.io) {
                     module.healthUseCases.getHealth(userInfo.characterId).collectLatest { health ->
                         _state.update {
-                            it.copy(health = health)
+                            it.copy(health = health?: Health())
                         }
                     }
                 }
@@ -98,7 +102,7 @@ class CombatViewModel(
                 viewModelScope.launch(module.dispatcherProvider.io) {
                     module.healthUseCases.getDeathSaves(userInfo.characterId).collectLatest { deathSaves ->
                         _state.update {
-                            it.copy(deathSaves = deathSaves)
+                            it.copy(deathSaves = deathSaves?: DeathSaves())
                         }
                     }
                 }

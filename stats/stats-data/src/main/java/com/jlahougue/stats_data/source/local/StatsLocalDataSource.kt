@@ -13,6 +13,9 @@ interface StatsLocalDataSource {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(stats: Stats)
 
+    @Query("DELETE FROM stats")
+    suspend fun clear()
+
     @Query("DELETE FROM stats WHERE cid = :characterID")
     suspend fun deleteForCharacter(characterID: Long)
 

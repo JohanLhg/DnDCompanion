@@ -10,12 +10,12 @@ import com.jlahougue.weapon_domain.model.WeaponProperty
 import com.jlahougue.weapon_domain.repository.IWeaponRepository
 
 class WeaponRepository(
-    private val remoteDataSource: WeaponRemoteDataSource,
-    private val localDataSource: WeaponLocalDataSource,
+    private val remote: WeaponRemoteDataSource,
+    private val local: WeaponLocalDataSource,
 ): IWeaponRepository, WeaponRemoteListener {
 
     override suspend fun loadAll(onApiEvent: (ApiEvent) -> Unit) {
-        remoteDataSource.load(
+        remote.load(
             getNames(),
             onApiEvent,
             this
@@ -23,34 +23,34 @@ class WeaponRepository(
     }
 
     override suspend fun save(weapon: Weapon): Boolean {
-        return localDataSource.insert(weapon) != -1L
+        return local.insert(weapon) != -1L
     }
 
     override suspend fun saveProperties(weaponProperties: List<WeaponProperty>) {
-        localDataSource.insertProperties(weaponProperties)
+        local.insertProperties(weaponProperties)
     }
 
     override suspend fun save(characterWeapon: CharacterWeapon) {
-        localDataSource.insert(characterWeapon)
-        remoteDataSource.save(characterWeapon)
+        local.insert(characterWeapon)
+        remote.save(characterWeapon)
     }
 
     override suspend fun saveToLocal(characterWeapons: List<CharacterWeapon>) {
-        localDataSource.insert(characterWeapons)
+        local.insert(characterWeapons)
     }
 
-    override suspend fun delete(characterId: Long) {
-        localDataSource.delete(characterId)
-    }
+    override suspend fun clearLocal() = local.clear()
 
-    private suspend fun getNames() = localDataSource.getNames()
+    override suspend fun delete(characterId: Long) = local.delete(characterId)
+
+    private suspend fun getNames() = local.getNames()
 
     override fun get(characterId: Long, weaponName: String)
-            = localDataSource.get(characterId, weaponName)
+            = local.get(characterId, weaponName)
 
-    override fun get(characterId: Long) = localDataSource.get(characterId)
+    override fun get(characterId: Long) = local.get(characterId)
 
-    override fun getOwned(characterId: Long) = localDataSource.getOwned(characterId)
+    override fun getOwned(characterId: Long) = local.getOwned(characterId)
 
-    override fun getStats(characterId: Long) = localDataSource.getStats(characterId)
+    override fun getStats(characterId: Long) = local.getStats(characterId)
 }

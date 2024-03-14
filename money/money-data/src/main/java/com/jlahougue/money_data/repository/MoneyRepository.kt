@@ -6,25 +6,23 @@ import com.jlahougue.money_domain.model.Money
 import com.jlahougue.money_domain.repository.IMoneyRepository
 
 class MoneyRepository(
-    private val remoteDataSource: MoneyRemoteDataSource,
-    private val localDataSource: MoneyLocalDataSource
+    private val remote: MoneyRemoteDataSource,
+    private val local: MoneyLocalDataSource
 ) : IMoneyRepository {
     override suspend fun create(characterId: Long) {
-        localDataSource.insert(Money(characterId))
+        local.insert(Money(characterId))
     }
 
     override suspend fun save(money: Money) {
-        localDataSource.insert(money)
-        remoteDataSource.save(money)
+        local.insert(money)
+        remote.save(money)
     }
 
-    override suspend fun saveToLocal(money: Money) {
-        localDataSource.insert(money)
-    }
+    override suspend fun saveToLocal(money: Money) = local.insert(money)
 
-    override suspend fun delete(characterId: Long) {
-        localDataSource.delete(characterId)
-    }
+    override suspend fun clearLocal() = local.clear()
 
-    override fun get(characterId: Long) = localDataSource.get(characterId)
+    override suspend fun delete(characterId: Long) = local.delete(characterId)
+
+    override fun get(characterId: Long) = local.get(characterId)
 }

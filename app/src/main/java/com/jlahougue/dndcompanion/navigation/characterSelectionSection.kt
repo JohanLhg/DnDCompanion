@@ -33,7 +33,7 @@ fun NavGraphBuilder.characterSelectionSection(
         LaunchedEffect(true) {
             launch {
                 viewModel.characterIsSelected.collectLatest {
-                    navigateToNext()
+                    if (it) navigateToNext()
                 }
             }
         }

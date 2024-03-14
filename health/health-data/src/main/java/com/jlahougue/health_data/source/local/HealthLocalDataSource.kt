@@ -16,6 +16,17 @@ interface HealthLocalDataSource {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(deathSaves: DeathSaves)
 
+    @Query("DELETE FROM health")
+    suspend fun clearHealth()
+
+    @Query("DELETE FROM death_saves")
+    suspend fun clearDeathSaves()
+
+    suspend fun clear() {
+        clearHealth()
+        clearDeathSaves()
+    }
+
     @Query("DELETE FROM health WHERE cid = :characterID")
     suspend fun deleteHealthForCharacter(characterID: Long)
 

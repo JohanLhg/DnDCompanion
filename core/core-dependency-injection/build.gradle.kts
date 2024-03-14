@@ -77,6 +77,7 @@ dependencies {
     implementation(project(":feature-character-selection:character-selection-domain"))
     implementation(project(":feature-combat:combat-domain"))
     implementation(project(":feature-equipment:equipment-domain"))
+    implementation(project(":feature-settings:settings-domain"))
     implementation(project(":feature-spells:spells-domain"))
     implementation(project(":feature-loading:loading-domain"))
 

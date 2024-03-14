@@ -26,6 +26,8 @@ class CharacterRepository(
         localDataSource.insert(character)
     }
 
+    override suspend fun clearLocal() = localDataSource.clear()
+
     override suspend fun delete(id: Long) {
         localDataSource.delete(id)
         remoteDataSource.delete(id)

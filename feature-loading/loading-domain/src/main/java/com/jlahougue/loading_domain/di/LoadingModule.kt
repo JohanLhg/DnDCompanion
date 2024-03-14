@@ -43,63 +43,58 @@ class LoadingModule(
     private val itemRepository: IItemRepository
 ) : ILoadingModule {
 
-    private val loadClasses by lazy {
-        LoadClasses(
-            dispatcherProvider,
-            classRepository
-        )
-    }
-    private val loadSpells by lazy {
-        LoadSpells(
-            dispatcherProvider,
-            spellRepository,
-            damageTypeRepository
-        )
-    }
-    private val loadDamageTypes by lazy {
-        LoadDamageTypes(
-            dispatcherProvider,
-            damageTypeRepository
-        )
-    }
-    private val loadProperties by lazy {
-        LoadProperties(
-            dispatcherProvider,
-            propertyRepository
-        )
-    }
-    private val loadWeapons by lazy {
-        LoadWeapons(
-            dispatcherProvider,
-            weaponRepository
-        )
-    }
-    private val loadCharacters by lazy {
-        LoadCharacters(
-            dispatcherProvider,
-            characterSheetRepository,
-            characterSheetUseCases,
-            characterRepository,
-            abilityRepository,
-            skillRepository,
-            statsRepository,
-            healthRepository,
-            characterSpellRepository,
-            weaponRepository,
-            moneyRepository,
-            itemRepository
-        )
-    }
+    override lateinit var loadAll: LoadAll
 
-    override val loadAll by lazy {
-        LoadAll(
+    private fun getClassLoader() = LoadClasses(
+        dispatcherProvider,
+        classRepository
+    )
+
+    private fun getSpellLoader() = LoadSpells(
+        dispatcherProvider,
+        spellRepository,
+        damageTypeRepository
+    )
+
+    private fun getDamageTypeLoader() = LoadDamageTypes(
+        dispatcherProvider,
+        damageTypeRepository
+    )
+
+    private fun getPropertyLoader() = LoadProperties(
+        dispatcherProvider,
+        propertyRepository
+    )
+
+    private fun getWeaponLoader() = LoadWeapons(
+        dispatcherProvider,
+        weaponRepository
+    )
+
+    private fun getCharacterLoader() = LoadCharacters(
+        dispatcherProvider,
+        characterSheetRepository,
+        characterSheetUseCases,
+        characterRepository,
+        abilityRepository,
+        skillRepository,
+        statsRepository,
+        healthRepository,
+        characterSpellRepository,
+        weaponRepository,
+        moneyRepository,
+        itemRepository
+    )
+
+    override fun init() {
+        loadAll = LoadAll(
             dispatcherProvider,
-            loadCharacters,
-            loadClasses,
-            loadSpells,
-            loadDamageTypes,
-            loadProperties,
-            loadWeapons
+            getCharacterLoader(),
+            getClassLoader(),
+            getSpellLoader(),
+            getDamageTypeLoader(),
+            getPropertyLoader(),
+            getWeaponLoader()
         )
     }
 }

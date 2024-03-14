@@ -8,6 +8,7 @@ interface ICharacterRepository {
     suspend fun create(): Character
     suspend fun save(character: Character)
     suspend fun saveToLocal(character: Character)
+    suspend fun clearLocal()
     suspend fun delete(id: Long)
     suspend fun exists(): Boolean
     fun get(): Flow<List<Character>>

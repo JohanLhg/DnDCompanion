@@ -8,6 +8,7 @@ interface IItemRepository {
     suspend fun save(item: Item)
     suspend fun saveToLocal(item: Item)
     suspend fun saveToLocal(items: List<Item>)
+    suspend fun clearLocal()
     suspend fun delete(characterId: Long)
     suspend fun delete(item: Item)
     fun get(characterId: Long, itemId: Long): Flow<Item>
