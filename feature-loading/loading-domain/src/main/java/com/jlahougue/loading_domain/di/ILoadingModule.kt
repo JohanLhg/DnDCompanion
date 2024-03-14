@@ -5,5 +5,6 @@ import com.jlahougue.loading_domain.use_case.LoadAll
 
 interface ILoadingModule {
     val dispatcherProvider: DispatcherProvider
-    val loadAll: LoadAll
+    var loadAll: LoadAll
+    fun init()
 }

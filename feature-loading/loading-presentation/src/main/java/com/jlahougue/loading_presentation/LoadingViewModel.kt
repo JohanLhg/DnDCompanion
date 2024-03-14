@@ -28,6 +28,8 @@ class LoadingViewModel(
 
     private var loadingStarted = false
 
+    init { module.init() }
+
     fun onEvent(event: LoadingEvent) {
         when (event) {
             is LoadingEvent.StartLoading -> {
