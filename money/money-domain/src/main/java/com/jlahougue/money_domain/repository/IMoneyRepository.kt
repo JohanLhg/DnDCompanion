@@ -7,6 +7,7 @@ interface IMoneyRepository {
     suspend fun create(characterId: Long)
     suspend fun save(money: Money)
     suspend fun saveToLocal(money: Money)
+    suspend fun clearLocal()
     suspend fun delete(characterId: Long)
     fun get(characterId: Long): Flow<Money>
 }

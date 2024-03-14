@@ -8,8 +8,8 @@ import com.jlahougue.skill_domain.model.SkillName
 import com.jlahougue.skill_domain.repository.ISkillRepository
 
 class SkillRepository(
-    private val remoteDataSource: SkillRemoteDataSource,
-    private val localDataSource: SkillLocalDataSource
+    private val remote: SkillRemoteDataSource,
+    private val local: SkillLocalDataSource
 ): ISkillRepository {
     override suspend fun create(characterID: Long): List<Skill> {
         val skills = listOf(
@@ -32,20 +32,22 @@ class SkillRepository(
             Skill(characterID, SkillName.STEALTH, AbilityName.DEXTERITY),
             Skill(characterID, SkillName.SURVIVAL, AbilityName.WISDOM)
         )
-        localDataSource.insert(skills)
+        local.insert(skills)
         return skills
     }
 
     override suspend fun save(skill: Skill) {
-        localDataSource.insert(skill)
-        remoteDataSource.save(skill)
+        local.insert(skill)
+        remote.save(skill)
     }
 
     override suspend fun saveToLocal(skills: List<Skill>) {
-        localDataSource.insert(skills)
+        local.insert(skills)
     }
 
+    override suspend fun clearLocal() = local.clear()
+
     override suspend fun delete(characterID: Long) {
-        localDataSource.delete(characterID)
+        local.delete(characterID)
     }
 }

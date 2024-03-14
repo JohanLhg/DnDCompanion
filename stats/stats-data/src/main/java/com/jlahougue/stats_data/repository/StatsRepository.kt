@@ -18,13 +18,11 @@ class StatsRepository(
         remote.save(stats)
     }
 
-    override suspend fun saveToLocal(stats: Stats) {
-        local.insert(stats)
-    }
+    override suspend fun saveToLocal(stats: Stats) = local.insert(stats)
 
-    override suspend fun delete(characterId: Long) {
-        local.deleteForCharacter(characterId)
-    }
+    override suspend fun clearLocal() = local.clear()
+
+    override suspend fun delete(characterId: Long) = local.deleteForCharacter(characterId)
 
     override fun get(characterId: Long) = local.get(characterId)
 }

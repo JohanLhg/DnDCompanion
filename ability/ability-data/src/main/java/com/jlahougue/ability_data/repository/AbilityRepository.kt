@@ -9,8 +9,8 @@ import com.jlahougue.ability_domain.repository.IAbilityRepository
 import kotlinx.coroutines.flow.Flow
 
 class AbilityRepository(
-    private val remoteDataSource: AbilityRemoteDataSource,
-    private val localDataSource: AbilityLocalDataSource
+    private val remote: AbilityRemoteDataSource,
+    private val local: AbilityLocalDataSource
 ): IAbilityRepository {
     override suspend fun create(characterID: Long): List<Ability> {
         val abilities = listOf(
@@ -39,24 +39,26 @@ class AbilityRepository(
                 name = AbilityName.CHARISMA
             )
         )
-        localDataSource.insert(abilities)
+        local.insert(abilities)
         return abilities
     }
 
     override suspend fun save(ability: Ability) {
-        localDataSource.insert(ability)
-        remoteDataSource.save(ability)
+        local.insert(ability)
+        remote.save(ability)
     }
 
     override suspend fun saveToLocal(abilities: List<Ability>) {
-        localDataSource.insert(abilities)
+        local.insert(abilities)
     }
 
+    override suspend fun clearLocal() = local.clear()
+
     override suspend fun delete(characterID: Long) {
-        localDataSource.deleteForCharacter(characterID)
+        local.deleteForCharacter(characterID)
     }
 
     override fun get(characterID: Long): Flow<List<AbilityView>> {
-        return localDataSource.get(characterID)
+        return local.get(characterID)
     }
 }

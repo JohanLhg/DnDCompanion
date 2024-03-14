@@ -3,4 +3,5 @@
     <string name="error_email_cannot_be_blank">Email cannot be blank</string>
     <string name="error_password_too_short">Password cannot be shorter than 6 characters</string>
     <string name="error_passwords_do_not_match">Password and Confirm Password must be the same</string>
+    <string name="error_user_not_found">Could not find your user, log in again and try again</string>
 </resources>

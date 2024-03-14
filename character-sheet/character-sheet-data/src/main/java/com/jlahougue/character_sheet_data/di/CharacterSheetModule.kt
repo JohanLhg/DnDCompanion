@@ -6,6 +6,7 @@ import com.jlahougue.character_sheet_data.repository.CharacterSheetRepository
 import com.jlahougue.character_sheet_data.source.remote.CharacterSheetRemoteDataSource
 import com.jlahougue.character_sheet_domain.di.ICharacterSheetModule
 import com.jlahougue.character_sheet_domain.use_case.CharacterSheetUseCases
+import com.jlahougue.character_sheet_domain.use_case.ClearCharacters
 import com.jlahougue.character_sheet_domain.use_case.CreateCharacter
 import com.jlahougue.character_sheet_domain.use_case.DeleteCharacter
 import com.jlahougue.character_spell_domain.repository.ICharacterSpellRepository
@@ -57,6 +58,18 @@ class CharacterSheetModule(
                 characterSpellRepository,
                 weaponRepository
             ),
+            clearCharacters = ClearCharacters(
+                dispatcherProvider,
+                characterRepository,
+                healthRepository,
+                abilityRepository,
+                skillRepository,
+                statsRepository,
+                moneyRepository,
+                itemRepository,
+                characterSpellRepository,
+                weaponRepository
+            )
         )
     }
 }

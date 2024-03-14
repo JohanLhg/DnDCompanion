@@ -14,6 +14,9 @@ interface SkillLocalDataSource {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(skills: List<Skill>)
 
+    @Query("DELETE FROM skill")
+    suspend fun clear()
+
     @Query("DELETE FROM skill WHERE cid = :characterID")
     suspend fun delete(characterID: Long)
 }

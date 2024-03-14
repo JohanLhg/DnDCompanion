@@ -2,4 +2,5 @@
 <resources>
     <string name="email_change_dialog_title">Change your email address</string>
     <string name="label_new_email">New email</string>
+    <string name="label_password">Password</string>
 </resources>

@@ -30,6 +30,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -106,6 +107,27 @@ fun EmailChangeDialog(
                     textStyle = MaterialTheme.typography.bodySmall,
                     keyboardOptions = KeyboardOptions(
                         keyboardType = KeyboardType.Email,
+                        imeAction = ImeAction.Next
+                    )
+                )
+                CustomLabeledOutlinedTextField(
+                    label = {
+                        Text(
+                            text = "Password",
+                            style = MaterialTheme.typography.bodySmall
+                        )
+                    },
+                    value = state.password,
+                    onValueChange = { onEvent(EmailChangeDialogEvent.OnPasswordChange(it)) },
+                    isError = !state.isPasswordValid,
+                    modifier = Modifier
+                        .padding(top = MaterialTheme.spacing.extraSmall)
+                        .height(40.dp)
+                        .padding(horizontal = MaterialTheme.spacing.small),
+                    textStyle = MaterialTheme.typography.bodySmall,
+                    visualTransformation = PasswordVisualTransformation(),
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Password,
                         imeAction = ImeAction.Done
                     ),
                     keyboardActions = KeyboardActions(
@@ -172,7 +194,13 @@ fun EmailChangeDialog(
 private fun EmailChangeDialogPreview() {
     DnDCompanionTheme {
         EmailChangeDialog(
-            state = EmailChangeDialogState(isShown = true),
+            state = EmailChangeDialogState(
+                isShown = true,
+                email = "test@test.com",
+                isEmailValid = true,
+                password = "password",
+                isPasswordValid = true
+            ),
             onEvent = {}
         )
     }

@@ -7,14 +7,19 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.material3.rememberDrawerState
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.jlahougue.core_domain.util.UiText
 import com.jlahougue.dndcompanion.R
 import com.jlahougue.dndcompanion.components.NavigationItem
 import com.jlahougue.dndcompanion.components.NavigationSideBar
@@ -51,13 +56,22 @@ fun NavGraphBuilder.characterSheetSection(
                 selectedIcon = R.drawable.backpack
             )
         )
+        val context = LocalContext.current
         val drawerState = rememberDrawerState(DrawerValue.Closed)
         val scope = rememberCoroutineScope()
+        val snackbarHostState = remember { SnackbarHostState() }
+
+        val showMessage: (UiText) -> Unit = { message ->
+            scope.launch {
+                snackbarHostState.showSnackbar(message.getString(context))
+            }
+        }
         ModalNavigationDrawer(
             drawerContent = {
                 SettingsDrawer(
                     navigateBackToAuthentication = navigateBackToAuthentication,
-                    navigateBackToCharacterSelection = navigateBackToCharacterSelection
+                    navigateBackToCharacterSelection = navigateBackToCharacterSelection,
+                    showMessage = showMessage
                 )
             },
             drawerState = drawerState
@@ -76,6 +90,7 @@ fun NavGraphBuilder.characterSheetSection(
                 )
                 VerticalDivider()
                 Scaffold(
+                    snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
                     modifier = Modifier.fillMaxSize()
                 ) {
                     Box(modifier = Modifier.padding(it)) {

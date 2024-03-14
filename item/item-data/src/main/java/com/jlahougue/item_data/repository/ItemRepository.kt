@@ -6,38 +6,34 @@ import com.jlahougue.item_domain.model.Item
 import com.jlahougue.item_domain.repository.IItemRepository
 
 class ItemRepository(
-    private val remoteDataSource: ItemRemoteDataSource,
-    private val localDataSource: ItemLocalDataSource
+    private val remote: ItemRemoteDataSource,
+    private val local: ItemLocalDataSource
 ) : IItemRepository {
     override suspend fun create(characterId: Long): Long {
-        val id = localDataSource.getLastId(characterId) + 1
+        val id = local.getLastId(characterId) + 1
         save(Item(cid = characterId, id = id))
         return id
     }
 
     override suspend fun save(item: Item) {
-        localDataSource.insert(item)
-        remoteDataSource.save(item)
+        local.insert(item)
+        remote.save(item)
     }
 
-    override suspend fun saveToLocal(item: Item) {
-        localDataSource.insert(item)
-    }
+    override suspend fun saveToLocal(item: Item) = local.insert(item)
 
-    override suspend fun saveToLocal(items: List<Item>) {
-        localDataSource.insert(items)
-    }
+    override suspend fun saveToLocal(items: List<Item>) = local.insert(items)
 
-    override suspend fun delete(characterId: Long) {
-        localDataSource.delete(characterId)
-    }
+    override suspend fun clearLocal() = local.clear()
+
+    override suspend fun delete(characterId: Long) = local.delete(characterId)
 
     override suspend fun delete(item: Item) {
-        localDataSource.delete(item)
-        remoteDataSource.delete(item)
+        local.delete(item)
+        remote.delete(item)
     }
 
-    override fun get(characterId: Long, itemId: Long) = localDataSource.get(characterId, itemId)
+    override fun get(characterId: Long, itemId: Long) = local.get(characterId, itemId)
 
-    override fun getAll(characterId: Long) = localDataSource.getAll(characterId)
+    override fun getAll(characterId: Long) = local.getAll(characterId)
 }

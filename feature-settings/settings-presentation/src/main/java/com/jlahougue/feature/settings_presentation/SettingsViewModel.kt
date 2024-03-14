@@ -3,7 +3,10 @@ package com.jlahougue.feature.settings_presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jlahougue.authentication_presentation.email_change_dialog.EmailChangeDialogEvent
+import com.jlahougue.authentication_presentation.email_change_dialog.EmailChangeDialogState
+import com.jlahougue.core_domain.util.UiText
 import com.jlahougue.feature.settings_domain.SettingsModule
+import com.jlahougue.settings_presentation.R
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -24,6 +27,9 @@ class SettingsViewModel(
 
     private val _switchCharacter = MutableSharedFlow<Boolean>()
     val switchCharacter = _switchCharacter.asSharedFlow()
+
+    private val _message = MutableSharedFlow<UiText>()
+    val message = _message.asSharedFlow()
 
     init {
         viewModelScope.launch(module.dispatcherProvider.io) {
@@ -78,9 +84,7 @@ class SettingsViewModel(
             EmailChangeDialogEvent.OnDismiss -> {
                 _state.update {
                     it.copy(
-                        emailChangeDialogState = it.emailChangeDialogState.copy(
-                            isShown = false
-                        )
+                        emailChangeDialogState = EmailChangeDialogState()
                     )
                 }
             }
@@ -94,24 +98,54 @@ class SettingsViewModel(
                     )
                 }
             }
+            is EmailChangeDialogEvent.OnPasswordChange -> {
+                _state.update {
+                    it.copy(
+                        emailChangeDialogState = it.emailChangeDialogState.copy(
+                            password = event.password,
+                            isPasswordValid = true
+                        )
+                    )
+                }
+            }
             EmailChangeDialogEvent.OnConfirm -> {
                 viewModelScope.launch(module.dispatcherProvider.io) {
-                    module.authUseCases.changeEmail(state.value.emailChangeDialogState.email) { success ->
-                        if (success) {
+                    state.value.emailChangeDialogState.let { state ->
+                        if (state.email.isBlank() && state.password.isBlank()) {
                             _state.update {
                                 it.copy(
-                                    emailChangeDialogState = it.emailChangeDialogState.copy(
-                                        isShown = false
+                                    emailChangeDialogState = state.copy(
+                                        isEmailValid = state.email.isNotBlank(),
+                                        isPasswordValid = state.password.isNotBlank()
                                     )
                                 )
                             }
-                        } else {
-                            _state.update {
-                                it.copy(
-                                    emailChangeDialogState = it.emailChangeDialogState.copy(
-                                        isEmailValid = false
+                            _message.emit(UiText.StringResource(R.string.error_email_password_empty))
+                            return@launch
+                        }
+                        module.authUseCases.changeEmail(
+                            state.email,
+                            state.password,
+                            onError = { message ->
+                                viewModelScope.launch(module.dispatcherProvider.main) {
+                                    _message.emit(message)
+                                }
+                            }
+                        ) { success ->
+                            if (success) {
+                                _state.update {
+                                    it.copy(
+                                        emailChangeDialogState = EmailChangeDialogState()
                                     )
-                                )
+                                }
+                            } else {
+                                _state.update {
+                                    it.copy(
+                                        emailChangeDialogState = it.emailChangeDialogState.copy(
+                                            isEmailValid = false
+                                        )
+                                    )
+                                }
                             }
                         }
                     }

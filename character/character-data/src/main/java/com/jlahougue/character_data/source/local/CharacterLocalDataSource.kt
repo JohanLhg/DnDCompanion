@@ -12,6 +12,9 @@ interface CharacterLocalDataSource {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(character: Character): Long
 
+    @Query("DELETE FROM character")
+    suspend fun clear()
+
     @Query("DELETE FROM character WHERE id = :id")
     suspend fun delete(id: Long)
 

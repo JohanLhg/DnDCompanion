@@ -5,6 +5,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.jlahougue.core_dependency_injection.DnDCompanionApp
+import com.jlahougue.core_domain.util.UiText
 import com.jlahougue.core_domain.util.extension.CollectAsEffect
 import com.jlahougue.core_domain.util.extension.viewModelFactory
 import com.jlahougue.feature.settings_presentation.SettingsPanel
@@ -13,7 +14,8 @@ import com.jlahougue.feature.settings_presentation.SettingsViewModel
 @Composable
 fun SettingsDrawer(
     navigateBackToAuthentication: () -> Unit,
-    navigateBackToCharacterSelection: () -> Unit
+    navigateBackToCharacterSelection: () -> Unit,
+    showMessage: (UiText) -> Unit
 ) {
     val viewModel = viewModel<SettingsViewModel>(
         factory = viewModelFactory {
@@ -28,6 +30,9 @@ fun SettingsDrawer(
     }
     viewModel.switchCharacter.CollectAsEffect {
         if (it) navigateBackToCharacterSelection()
+    }
+    viewModel.message.CollectAsEffect {
+        showMessage(it)
     }
     SettingsPanel(
         state = state,

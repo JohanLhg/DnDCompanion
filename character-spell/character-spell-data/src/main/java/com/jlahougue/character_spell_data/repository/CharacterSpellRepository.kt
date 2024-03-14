@@ -7,54 +7,54 @@ import com.jlahougue.character_spell_domain.model.SpellSlot
 import com.jlahougue.character_spell_domain.repository.ICharacterSpellRepository
 
 class CharacterSpellRepository(
-    private val remoteDataSource: CharacterSpellRemoteDataSource,
-    private val localDataSource: CharacterSpellLocalDataSource
+    private val remote: CharacterSpellRemoteDataSource,
+    private val local: CharacterSpellLocalDataSource
 ) : ICharacterSpellRepository {
 
     override suspend fun save(characterSpell: CharacterSpell) {
-        localDataSource.insert(characterSpell)
-        remoteDataSource.save(characterSpell)
+        local.insert(characterSpell)
+        remote.save(characterSpell)
     }
 
     override suspend fun saveToLocal(characterSpells: List<CharacterSpell>) {
-        localDataSource.insert(characterSpells)
+        local.insert(characterSpells)
     }
 
     override suspend fun saveSpellSlotsToLocal(spellSlots: List<SpellSlot>) {
-        localDataSource.insertSpellSlots(spellSlots)
+        local.insertSpellSlots(spellSlots)
     }
 
     override suspend fun save(spellSlot: SpellSlot) {
-        localDataSource.insert(spellSlot)
-        remoteDataSource.save(spellSlot)
+        local.insert(spellSlot)
+        remote.save(spellSlot)
     }
 
-    override suspend fun delete(characterId: Long) {
-        localDataSource.delete(characterId)
-    }
+    override suspend fun clearLocal() = local.clear()
+
+    override suspend fun delete(characterId: Long) = local.delete(characterId)
 
     override fun get(
         characterId: Long,
         spellId: String
-    ) = localDataSource.get(characterId, spellId)
+    ) = local.get(characterId, spellId)
 
     override suspend fun getFilteredLevels(
         search: String,
         clazz: String
-    ) = localDataSource.getFilteredLevels(search, clazz)
+    ) = local.getFilteredLevels(search, clazz)
 
     override fun getAllSpells(characterId: Long, level: Int)
-        = localDataSource.getAllSpells(characterId, level)
+        = local.getAllSpells(characterId, level)
 
     override fun getKnownSpells(characterId: Long)
-        = localDataSource.getKnownSpells(characterId)
+        = local.getKnownSpells(characterId)
 
     override fun getPreparedSpells(characterId: Long)
-        = localDataSource.getPreparedSpells(characterId)
+        = local.getPreparedSpells(characterId)
 
     override fun getSpellcasterStats(characterId: Long)
-            = localDataSource.getSpellcasterStats(characterId)
+            = local.getSpellcasterStats(characterId)
 
     override fun getCharacterSpellsStats(characterId: Long)
-            = localDataSource.getCharacterSpellsStats(characterId)
+            = local.getCharacterSpellsStats(characterId)
 }

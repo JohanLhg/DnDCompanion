@@ -74,11 +74,6 @@ class DnDCompanionApp: Application() {
             appModule.dispatcherProvider
         )
 
-        authModule = AuthModule(
-            appModule.dispatcherProvider,
-            dataSourceModule.remoteDataSource.authDao,
-            userInfoModule.useCases
-        )
         characterModule = CharacterModule(
             appModule.dispatcherProvider,
             dataSourceModule.remoteDataSource.characterDao,
@@ -151,6 +146,12 @@ class DnDCompanionApp: Application() {
             itemModule.repository,
             characterSpellModule.repository,
             weaponModule.repository
+        )
+        authModule = AuthModule(
+            appModule.dispatcherProvider,
+            dataSourceModule.remoteDataSource.authDao,
+            userInfoModule.useCases,
+            characterSheetModule.useCases
         )
 
         authenticationModule = AuthenticationModule(

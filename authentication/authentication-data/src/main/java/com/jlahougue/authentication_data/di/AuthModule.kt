@@ -9,18 +9,27 @@ import com.jlahougue.authentication_domain.use_case.IsLoggedIn
 import com.jlahougue.authentication_domain.use_case.Login
 import com.jlahougue.authentication_domain.use_case.Register
 import com.jlahougue.authentication_domain.use_case.SignOut
+import com.jlahougue.character_sheet_domain.use_case.CharacterSheetUseCases
 import com.jlahougue.core_domain.util.dispatcherProvider.DispatcherProvider
 import com.jlahougue.user_info_domain.use_case.UserInfoUseCases
 
 class AuthModule(
     override val dispatcherProvider: DispatcherProvider,
     private val remoteDataSource: AuthRemoteDataSource,
-    private val userInfoUseCases: UserInfoUseCases
+    private val userInfoUseCases: UserInfoUseCases,
+    characterSheetUseCases: CharacterSheetUseCases
 ) : IAuthModule {
 
     override val repository by lazy {
         AuthRepository(remoteDataSource)
     }
+
+    private val signOut = SignOut(
+        dispatcherProvider,
+        repository,
+        userInfoUseCases,
+        characterSheetUseCases
+    )
 
     override val useCases by lazy {
         AuthUseCases(
@@ -36,15 +45,11 @@ class AuthModule(
                 repository,
                 userInfoUseCases
             ),
-            signOut = SignOut(
-                dispatcherProvider,
-                repository,
-                userInfoUseCases
-            ),
+            signOut = signOut,
             changeEmail = ChangeEmail(
                 dispatcherProvider,
                 repository,
-                userInfoUseCases
+                signOut
             )
         )
     }

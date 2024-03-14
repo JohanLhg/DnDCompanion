@@ -1,29 +1,45 @@
 package com.jlahougue.authentication_domain.use_case
 
+import com.jlahougue.authentication_domain.R
 import com.jlahougue.authentication_domain.repository.IAuthRepository
+import com.jlahougue.core_domain.util.UiText
 import com.jlahougue.core_domain.util.dispatcherProvider.DispatcherProvider
-import com.jlahougue.user_info_domain.use_case.UserInfoUseCases
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 class ChangeEmail(
     private val dispatcherProvider: DispatcherProvider,
     private val authRepository: IAuthRepository,
-    private val userInfoUseCases: UserInfoUseCases
+    private val signOut: SignOut
 ) {
-    suspend operator fun invoke(email: String, callback: (Boolean) -> Unit) {
+    operator fun invoke(
+        email: String,
+        password: String,
+        onError: (UiText) -> Unit,
+        onComplete: (Boolean) -> Unit
+    ) {
         authRepository.changeEmail(
             email,
-            callback = {
+            password,
+            onUserError = {
+                disconnectUser()
+                onError(UiText.StringResource(R.string.error_user_not_found))
+            },
+            onReAuthenticationError = {
+                onError(UiText.DynamicString(it))
+            },
+            onComplete = {
                 if (it != null) {
-                    CoroutineScope(dispatcherProvider.io).launch {
-                        userInfoUseCases.updateUserInfo(userId = "")
-                    }
-                    callback(true)
+                    disconnectUser()
+                    onComplete(true)
                 } else {
-                    callback(false)
+                    onComplete(false)
                 }
             }
         )
+    }
+
+    private fun disconnectUser() {
+        CoroutineScope(dispatcherProvider.io).launch { signOut() }
     }
 }
