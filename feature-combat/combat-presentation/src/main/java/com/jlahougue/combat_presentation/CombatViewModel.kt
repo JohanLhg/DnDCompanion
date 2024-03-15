@@ -17,6 +17,8 @@ import com.jlahougue.health_domain.model.Health
 import com.jlahougue.health_presentation.HealthEvent
 import com.jlahougue.item_presentation.ItemEvent
 import com.jlahougue.item_presentation.dialog.ItemDialogEvent
+import com.jlahougue.property_presentation.PropertyDialogEvent
+import com.jlahougue.property_presentation.PropertyDialogState
 import com.jlahougue.stats_domain.model.StatsView
 import com.jlahougue.stats_presentation.StatsEvent
 import com.jlahougue.weapon_presentation.WeaponEvent
@@ -168,6 +170,7 @@ class CombatViewModel(
             is CombatEvent.OnSpellEvent -> onSpellEvent(event.event)
             is CombatEvent.OnSpellDialogEvent -> onSpellDialogEvent(event.event)
             is CombatEvent.OnDamageTypeDialogEvent -> onDamageTypeDialogEvent(event.event)
+            is CombatEvent.OnPropertyDialogEvent -> onPropertyDialogEvent(event.event)
         }
     }
 
@@ -440,7 +443,16 @@ class CombatViewModel(
                     )
                 }
             }
-            is WeaponDialogEvent.OnPropertyClick -> TODO()
+            is WeaponDialogEvent.OnPropertyClick -> {
+                _state.update {
+                    it.copy(
+                        propertyDialog = PropertyDialogState(
+                            isShown = true,
+                            property = event.property
+                        )
+                    )
+                }
+            }
         }
     }
 
@@ -647,6 +659,18 @@ class CombatViewModel(
                 _state.update {
                     it.copy(
                         damageTypeDialog = DamageTypeDialogState()
+                    )
+                }
+            }
+        }
+    }
+
+    private fun onPropertyDialogEvent(event: PropertyDialogEvent) {
+        when (event) {
+            PropertyDialogEvent.OnDismiss -> {
+                _state.update {
+                    it.copy(
+                        propertyDialog = PropertyDialogState()
                     )
                 }
             }

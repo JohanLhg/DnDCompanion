@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.jlahougue.equipment_presentation"
+    namespace = "com.jlahougue.property_presentation"
     compileSdk = 34
 
     defaultConfig {
@@ -39,22 +39,9 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:core-domain"))
     implementation(project(":core:core-presentation"))
-    implementation(project(":feature-equipment:equipment-domain"))
 
-    implementation(project(":user-info:user-info-domain"))
-    implementation(project(":settings:settings-domain"))
-    implementation(project(":ability:ability-domain"))
-    implementation(project(":item:item-domain"))
-    implementation(project(":money:money-domain"))
-    implementation(project(":weapon:weapon-domain"))
     implementation(project(":property:property-domain"))
-
-    implementation(project(":item:item-presentation"))
-    implementation(project(":money:money-presentation"))
-    implementation(project(":weapon:weapon-presentation"))
-    implementation(project(":property:property-presentation"))
 
     implementation(libs.bundles.ui)
 

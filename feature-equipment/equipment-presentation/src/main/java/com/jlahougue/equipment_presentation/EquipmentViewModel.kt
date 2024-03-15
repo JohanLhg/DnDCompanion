@@ -9,6 +9,8 @@ import com.jlahougue.money_domain.model.Currency
 import com.jlahougue.money_presentation.MoneyEvent
 import com.jlahougue.money_presentation.dialog.MoneyDialogEvent
 import com.jlahougue.money_presentation.dialog.MoneyDialogState.MoneyDialogType
+import com.jlahougue.property_presentation.PropertyDialogEvent
+import com.jlahougue.property_presentation.PropertyDialogState
 import com.jlahougue.weapon_presentation.WeaponEvent
 import com.jlahougue.weapon_presentation.dialog.WeaponDialogEvent
 import com.jlahougue.weapon_presentation.list_dialog.WeaponListDialogEvent
@@ -86,6 +88,7 @@ class EquipmentViewModel(private val module: IEquipmentModule): ViewModel() {
             is EquipmentEvent.OnMoneyDialogEvent -> onMoneyDialogEvent(event.event)
             is EquipmentEvent.OnItemEvent -> onItemEvent(event.event)
             is EquipmentEvent.OnItemDialogEvent -> onItemDialogEvent(event.event)
+            is EquipmentEvent.OnPropertyDialogEvent -> onPropertyDialogEvent(event.event)
         }
     }
 
@@ -246,7 +249,16 @@ class EquipmentViewModel(private val module: IEquipmentModule): ViewModel() {
                     )
                 }
             }
-            is WeaponDialogEvent.OnPropertyClick -> TODO()
+            is WeaponDialogEvent.OnPropertyClick -> {
+                _state.update {
+                    it.copy(
+                        propertyDialog = PropertyDialogState(
+                            isShown = true,
+                            property = event.property
+                        )
+                    )
+                }
+            }
         }
     }
 
@@ -466,6 +478,18 @@ class EquipmentViewModel(private val module: IEquipmentModule): ViewModel() {
                 viewModelScope.launch(module.dispatcherProvider.io) {
                     module.itemUseCases.saveItem(
                         event.item.copy(weight = event.weight)
+                    )
+                }
+            }
+        }
+    }
+
+    private fun onPropertyDialogEvent(event: PropertyDialogEvent) {
+        when (event) {
+            PropertyDialogEvent.OnDismiss -> {
+                _state.update {
+                    it.copy(
+                        propertyDialog = PropertyDialogState()
                     )
                 }
             }

@@ -40,7 +40,6 @@ android {
 
 dependencies {
     implementation(project(":core:core-presentation"))
-    implementation(project(":core:core-domain"))
 
     implementation(project(":damage-type:damage-type-domain"))
 

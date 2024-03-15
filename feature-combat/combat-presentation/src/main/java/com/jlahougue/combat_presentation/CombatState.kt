@@ -5,6 +5,7 @@ import com.jlahougue.character_spell_presentation.dialog.SpellDialogState
 import com.jlahougue.damage_type_presentation.DamageTypeDialogState
 import com.jlahougue.health_domain.model.DeathSaves
 import com.jlahougue.health_domain.model.Health
+import com.jlahougue.property_presentation.PropertyDialogState
 import com.jlahougue.settings_domain.model.UnitSystem
 import com.jlahougue.stats_domain.model.StatsView
 
@@ -16,5 +17,6 @@ data class CombatState(
     val deathSaves: DeathSaves = DeathSaves(),
     val tab: CombatTabState,
     val spellDialog: SpellDialogState = SpellDialogState(),
-    val damageTypeDialog: DamageTypeDialogState = DamageTypeDialogState()
+    val damageTypeDialog: DamageTypeDialogState = DamageTypeDialogState(),
+    val propertyDialog: PropertyDialogState = PropertyDialogState()
 )

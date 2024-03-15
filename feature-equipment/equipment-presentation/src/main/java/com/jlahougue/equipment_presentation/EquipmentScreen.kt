@@ -17,6 +17,7 @@ import com.jlahougue.core_presentation.theme.DnDCompanionTheme
 import com.jlahougue.core_presentation.theme.spacing
 import com.jlahougue.item_presentation.Inventory
 import com.jlahougue.money_presentation.MoneyBox
+import com.jlahougue.property_presentation.PropertyDialog
 import com.jlahougue.weapon_presentation.WeaponList
 import com.jlahougue.weapon_presentation.component.WeaponStatsBox
 
@@ -84,6 +85,12 @@ fun EquipmentScreen(
             )
         }
     }
+    PropertyDialog(
+        state = state.propertyDialog,
+        onEvent = {
+            onEvent(EquipmentEvent.OnPropertyDialogEvent(it))
+        }
+    )
 }
 
 @Preview(
