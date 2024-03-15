@@ -1,4 +1,4 @@
-package com.jlahougue.spells_presentation
+package com.jlahougue.spells_presentation.components
 
 sealed class SpellSearchEvent {
     data object OnModeChanged : SpellSearchEvent()

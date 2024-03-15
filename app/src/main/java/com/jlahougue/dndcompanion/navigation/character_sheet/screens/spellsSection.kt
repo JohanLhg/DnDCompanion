@@ -21,31 +21,11 @@ fun NavGraphBuilder.spellsSection(route: String) {
                 )
             }
         )
-        val spellcasting by viewModel.spellcasting.collectAsState()
-        val spellsStats by viewModel.spellsStats.collectAsState()
-        val searchState by viewModel.searchState.collectAsState()
-        val classes by viewModel.classes.collectAsState()
-        val levels by viewModel.filteredLevels.collectAsState()
-        val allSpells by viewModel.allSpells.collectAsState()
-        val knownSpells by viewModel.knownSpells.collectAsState()
-        val mode by viewModel.mode.collectAsState()
-        val dialogState by viewModel.spellDialogState.collectAsState()
+        val state by viewModel.state.collectAsState()
 
         SpellsScreen(
-            spellcasting = spellcasting,
-            spellsStats = spellsStats,
-            search = searchState.search,
-            classes = classes,
-            selectedClass = searchState.selectedClass,
-            spellLevels = levels,
-            selectedLevel = searchState.selectedLevel,
-            allSpells = allSpells,
-            knownSpells = knownSpells,
-            mode = mode,
-            onSearchEvent = viewModel::onSearchEvent,
-            onSpellEvent = viewModel::onSpellEvent,
-            dialogState = dialogState,
-            onDialogEvent = viewModel::onSpellDialogEvent,
+            state= state,
+            onEvent = viewModel::onEvent
         )
     }
 }

@@ -34,35 +34,23 @@ import com.jlahougue.character_spell_domain.model.SpellLevel
 import com.jlahougue.character_spell_domain.model.SpellSlotView
 import com.jlahougue.character_spell_domain.model.SpellState
 import com.jlahougue.character_spell_domain.model.SpellcasterView
-import com.jlahougue.character_spell_presentation.SpellEvent
 import com.jlahougue.character_spell_presentation.SpellLevelList
 import com.jlahougue.character_spell_presentation.components.SpellListMode
 import com.jlahougue.character_spell_presentation.dialog.SpellDialog
-import com.jlahougue.character_spell_presentation.dialog.SpellDialogEvent
-import com.jlahougue.character_spell_presentation.dialog.SpellDialogState
 import com.jlahougue.core_presentation.R
 import com.jlahougue.core_presentation.theme.DnDCompanionTheme
 import com.jlahougue.core_presentation.theme.spacing
+import com.jlahougue.damage_type_presentation.DamageTypeDialog
 import com.jlahougue.spells_presentation.components.FilteredSpellList
+import com.jlahougue.spells_presentation.components.SpellSearchEvent
+import com.jlahougue.spells_presentation.components.SpellSearchState
 import com.jlahougue.spells_presentation.components.SpellStats
 import com.jlahougue.spells_presentation.components.SpellcastingStats
 
 @Composable
 fun SpellsScreen(
-    spellcasting: SpellcasterView,
-    spellsStats: CharacterSpellsStatsView,
-    search: String,
-    classes: List<String>,
-    selectedClass: String,
-    spellLevels: List<Int>,
-    selectedLevel: Int,
-    allSpells: List<SpellInfo>,
-    knownSpells: List<SpellLevel>,
-    mode: SpellListMode,
-    onSearchEvent: (SpellSearchEvent) -> Unit,
-    onSpellEvent: (SpellEvent) -> Unit,
-    dialogState: SpellDialogState,
-    onDialogEvent: (SpellDialogEvent) -> Unit,
+    state: SpellsState,
+    onEvent: (SpellsEvent) -> Unit
 ) {
     Row(
         modifier = Modifier
@@ -74,19 +62,20 @@ fun SpellsScreen(
                 .width(IntrinsicSize.Max)
         ) {
             SpellcastingStats(
-                spellcasting = spellcasting,
+                spellcasting = state.spellcasting,
                 modifier = Modifier
                     .padding(MaterialTheme.spacing.small)
                     .width(125.dp)
             )
             Spacer(modifier = Modifier.weight(1f))
             SpellStats(
-                stats = spellsStats,
+                stats = state.spellsStats,
                 modifier = Modifier
                     .padding(MaterialTheme.spacing.small)
             )
             Button(
-                onClick = { onSearchEvent(SpellSearchEvent.OnModeChanged) },
+                onClick = {
+                    onEvent(SpellsEvent.OnSearchEvent(SpellSearchEvent.OnModeChanged)) },
                 shape = OutlinedTextFieldDefaults.shape,
                 contentPadding = PaddingValues(
                     vertical = MaterialTheme.spacing.small,
@@ -98,13 +87,13 @@ fun SpellsScreen(
             ) {
                 Box(modifier = Modifier.fillMaxWidth()) {
                     Icon(
-                        imageVector = if (mode is SpellListMode.All) Icons.Filled.Done
+                        imageVector = if (state.mode is SpellListMode.All) Icons.Filled.Done
                         else Icons.Filled.Edit,
                         contentDescription = null
                     )
                     Text(
                         text = stringResource(
-                            id = if (mode is SpellListMode.All) R.string.done
+                            id = if (state.mode is SpellListMode.All) R.string.done
                             else R.string.edit
                         ).uppercase(),
                         style = MaterialTheme.typography.bodyMedium,
@@ -115,33 +104,47 @@ fun SpellsScreen(
             }
         }
         VerticalDivider()
-        if (mode is SpellListMode.All) {
+        if (state.mode is SpellListMode.All) {
             FilteredSpellList(
-                search = search,
-                classes = classes,
-                selectedClass = selectedClass,
-                levels = spellLevels,
-                selectedLevel = selectedLevel,
-                spells = allSpells,
-                onSearchEvent = onSearchEvent,
-                onSpellEvent = onSpellEvent,
-                mode = mode,
+                search = state.search.search,
+                classes = state.classes,
+                selectedClass = state.search.selectedClass,
+                levels = state.spellLevels,
+                selectedLevel = state.search.selectedLevel,
+                spells = state.allSpells,
+                onSearchEvent = {
+                    onEvent(SpellsEvent.OnSearchEvent(it))
+                },
+                onSpellEvent = {
+                    onEvent(SpellsEvent.OnSpellEvent(it))
+                },
+                mode = state.mode,
                 modifier = Modifier
                     .fillMaxHeight()
             )
         } else {
             SpellLevelList(
-                spells = knownSpells,
-                onEvent = onSpellEvent,
-                mode = mode,
+                spells = state.knownSpells,
+                onEvent = {
+                    onEvent(SpellsEvent.OnSpellEvent(it))
+                },
+                mode = state.mode,
                 modifier = Modifier
                     .fillMaxHeight()
             )
         }
     }
     SpellDialog(
-        state = dialogState,
-        onEvent = onDialogEvent
+        state = state.spellDialog,
+        onEvent = {
+            onEvent(SpellsEvent.OnDialogEvent(it))
+        }
+    )
+    DamageTypeDialog(
+        state = state.damageTypeDialog,
+        onEvent = {
+            onEvent(SpellsEvent.OnDamageTypeDialogEvent(it))
+        }
     )
 }
 
@@ -154,188 +157,184 @@ fun SpellsScreen(
 fun SpellsScreenPreview() {
     DnDCompanionTheme {
         SpellsScreen(
-            spellcasting = SpellcasterView(
-                ability = AbilityName.CONSTITUTION
-            ),
-            spellsStats = CharacterSpellsStatsView(
-                totalHighlighted = 2,
-                totalUnlocked = 10,
-                totalPrepared = 4,
-                maxPrepared = 5
-            ),
-            search = "",
-            classes = listOf(
-                "Bard",
-                "Cleric",
-                "Druid",
-                "Paladin",
-                "Ranger",
-                "Sorcerer",
-                "Warlock",
-                "Wizard"
-            ),
-            selectedClass = "Wizard",
-            spellLevels = listOf(0, 1, 2, 3, 4, 5, 6, 7, 8, 9),
-            selectedLevel = 0,
-            allSpells = listOf(
-                SpellInfo(
-                    cid = 1,
-                    level = 0,
-                    id = "acid-splash",
-                    name = "Acid Splash",
-                    state = SpellState.PREPARED
+            SpellsState(
+                spellcasting = SpellcasterView(
+                    ability = AbilityName.CONSTITUTION
                 ),
-                SpellInfo(
-                    cid = 2,
-                    level = 0,
-                    id = "blade-ward",
-                    name = "Blade Ward",
-                    state = SpellState.PREPARED
+                spellsStats = CharacterSpellsStatsView(
+                    totalHighlighted = 2,
+                    totalUnlocked = 10,
+                    totalPrepared = 4,
+                    maxPrepared = 5
                 ),
-                SpellInfo(
-                    cid = 3,
-                    level = 0,
-                    id = "chill-touch",
-                    name = "Chill Touch",
-                    state = SpellState.HIGHLIGHTED
+                search = SpellSearchState(
+                    search = "chill",
+                    selectedClass = "Wizard",
+                    selectedLevel = 0
                 ),
-                SpellInfo(
-                    cid = 4,
-                    level = 0,
-                    id = "dancing-lights",
-                    name = "Dancing Lights",
-                    state = SpellState.LOCKED
+                classes = listOf(
+                    "Bard",
+                    "Cleric",
+                    "Druid",
+                    "Paladin",
+                    "Ranger",
+                    "Sorcerer",
+                    "Warlock",
+                    "Wizard"
                 ),
-                SpellInfo(
-                    cid = 5,
-                    level = 0,
-                    id = "fire-bolt",
-                    name = "Fire Bolt",
-                    state = SpellState.PREPARED
-                ),
-                SpellInfo(
-                    cid = 6,
-                    level = 1,
-                    id = "burning-hands",
-                    name = "Burning Hands",
-                    state = SpellState.PREPARED
-                ),
-                SpellInfo(
-                    cid = 7,
-                    level = 1,
-                    id = "charm-person",
-                    name = "Charm Person",
-                    state = SpellState.PREPARED
-                ),
-                SpellInfo(
-                    cid = 8,
-                    level = 1,
-                    id = "color-spray",
-                    name = "Color Spray",
-                    state = SpellState.PREPARED
-                ),
-                SpellInfo(
-                    cid = 9,
-                    level = 1,
-                    id = "comprehend-languages",
-                    name = "Comprehend Languages",
-                    state = SpellState.PREPARED
-                ),
-                SpellInfo(
-                    cid = 10,
-                    level = 1,
-                    id = "detect-magic",
-                    name = "Detect Magic",
-                    state = SpellState.PREPARED
-                ),
-                SpellInfo(
-                    cid = 11,
-                    level = 1,
-                    id = "disguise-self",
-                    name = "Disguise Self",
-                    state = SpellState.PREPARED
-                ),
-                SpellInfo(
-                    cid = 12,
-                    level = 1,
-                    id = "expeditious-retreat",
-                    name = "Expeditious Retreat",
-                    state = SpellState.PREPARED
-                )
-            ),
-            knownSpells = listOf(
-                SpellLevel(
-                    spellSlot = SpellSlotView(
+                spellLevels = listOf(0, 1, 2, 3, 4, 5, 6, 7, 8, 9),
+                allSpells = listOf(
+                    SpellInfo(
                         cid = 1,
                         level = 0,
-                        total = 0,
-                        left = 0
+                        id = "acid-splash",
+                        name = "Acid Splash",
+                        state = SpellState.PREPARED
                     ),
-                    spells = listOf(
-                        SpellInfo(
-                            cid = 1,
-                            id = "mage-hand",
-                            name = "Mage Hand",
-                            state = SpellState.PREPARED
-                        ),
+                    SpellInfo(
+                        cid = 2,
+                        level = 0,
+                        id = "blade-ward",
+                        name = "Blade Ward",
+                        state = SpellState.PREPARED
+                    ),
+                    SpellInfo(
+                        cid = 3,
+                        level = 0,
+                        id = "chill-touch",
+                        name = "Chill Touch",
+                        state = SpellState.HIGHLIGHTED
+                    ),
+                    SpellInfo(
+                        cid = 4,
+                        level = 0,
+                        id = "dancing-lights",
+                        name = "Dancing Lights",
+                        state = SpellState.LOCKED
+                    ),
+                    SpellInfo(
+                        cid = 5,
+                        level = 0,
+                        id = "fire-bolt",
+                        name = "Fire Bolt",
+                        state = SpellState.PREPARED
+                    ),
+                    SpellInfo(
+                        cid = 6,
+                        level = 1,
+                        id = "burning-hands",
+                        name = "Burning Hands",
+                        state = SpellState.PREPARED
+                    ),
+                    SpellInfo(
+                        cid = 7,
+                        level = 1,
+                        id = "charm-person",
+                        name = "Charm Person",
+                        state = SpellState.PREPARED
+                    ),
+                    SpellInfo(
+                        cid = 8,
+                        level = 1,
+                        id = "color-spray",
+                        name = "Color Spray",
+                        state = SpellState.PREPARED
+                    ),
+                    SpellInfo(
+                        cid = 9,
+                        level = 1,
+                        id = "comprehend-languages",
+                        name = "Comprehend Languages",
+                        state = SpellState.PREPARED
+                    ),
+                    SpellInfo(
+                        cid = 10,
+                        level = 1,
+                        id = "detect-magic",
+                        name = "Detect Magic",
+                        state = SpellState.PREPARED
+                    ),
+                    SpellInfo(
+                        cid = 11,
+                        level = 1,
+                        id = "disguise-self",
+                        name = "Disguise Self",
+                        state = SpellState.PREPARED
+                    ),
+                    SpellInfo(
+                        cid = 12,
+                        level = 1,
+                        id = "expeditious-retreat",
+                        name = "Expeditious Retreat",
+                        state = SpellState.PREPARED
                     )
                 ),
-                SpellLevel(
-                    spellSlot = SpellSlotView(
-                        cid = 1,
-                        level = 1,
-                        total = 4,
-                        left = 3
+                knownSpells = listOf(
+                    SpellLevel(
+                        spellSlot = SpellSlotView(
+                            cid = 1,
+                            level = 0,
+                            total = 0,
+                            left = 0
+                        ),
+                        spells = listOf(
+                            SpellInfo(
+                                cid = 1,
+                                id = "mage-hand",
+                                name = "Mage Hand",
+                                state = SpellState.PREPARED
+                            ),
+                        )
                     ),
-                    spells = listOf(
-                        SpellInfo(
+                    SpellLevel(
+                        spellSlot = SpellSlotView(
                             cid = 1,
                             level = 1,
-                            id = "acid-splash",
-                            name = "Acid Splash",
-                            state = SpellState.PREPARED
+                            total = 4,
+                            left = 3
                         ),
-                        SpellInfo(
-                            cid = 2,
-                            level = 1,
-                            id = "blade-ward",
-                            name = "Blade Ward",
-                            state = SpellState.PREPARED
-                        ),
-                        SpellInfo(
-                            cid = 3,
-                            level = 1,
-                            id = "chill-touch",
-                            name = "Chill Touch",
-                            state = SpellState.HIGHLIGHTED
-                        ),
-                        SpellInfo(
-                            cid = 4,
-                            level = 1,
-                            id = "dancing-lights",
-                            name = "Dancing Lights",
-                            state = SpellState.LOCKED
-                        ),
-                        SpellInfo(
-                            cid = 5,
-                            level = 1,
-                            id = "fire-bolt",
-                            name = "Fire Bolt",
-                            state = SpellState.PREPARED
-                        ),
+                        spells = listOf(
+                            SpellInfo(
+                                cid = 1,
+                                level = 1,
+                                id = "acid-splash",
+                                name = "Acid Splash",
+                                state = SpellState.PREPARED
+                            ),
+                            SpellInfo(
+                                cid = 2,
+                                level = 1,
+                                id = "blade-ward",
+                                name = "Blade Ward",
+                                state = SpellState.PREPARED
+                            ),
+                            SpellInfo(
+                                cid = 3,
+                                level = 1,
+                                id = "chill-touch",
+                                name = "Chill Touch",
+                                state = SpellState.HIGHLIGHTED
+                            ),
+                            SpellInfo(
+                                cid = 4,
+                                level = 1,
+                                id = "dancing-lights",
+                                name = "Dancing Lights",
+                                state = SpellState.LOCKED
+                            ),
+                            SpellInfo(
+                                cid = 5,
+                                level = 1,
+                                id = "fire-bolt",
+                                name = "Fire Bolt",
+                                state = SpellState.PREPARED
+                            ),
+                        )
                     )
-                )
+                ),
+                mode = SpellListMode.All(selectedLevel = 0)
             ),
-            mode = SpellListMode.All(selectedLevel = 0),
-            onSearchEvent = {},
-            onSpellEvent = {},
-            dialogState = SpellDialogState(
-                isShown = true,
-                spell = SpellInfo(
-                    name = "Acid Splash",
-                )
-            ),
-            onDialogEvent = {}
+            onEvent = {}
         )
     }
 }

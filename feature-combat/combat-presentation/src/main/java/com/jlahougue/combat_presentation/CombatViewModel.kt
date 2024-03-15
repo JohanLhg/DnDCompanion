@@ -10,6 +10,8 @@ import com.jlahougue.combat_domain.ICombatModule
 import com.jlahougue.combat_presentation.component.TabItem
 import com.jlahougue.core_domain.util.UiText
 import com.jlahougue.core_presentation.R
+import com.jlahougue.damage_type_presentation.DamageTypeDialogEvent
+import com.jlahougue.damage_type_presentation.DamageTypeDialogState
 import com.jlahougue.health_domain.model.DeathSaves
 import com.jlahougue.health_domain.model.Health
 import com.jlahougue.health_presentation.HealthEvent
@@ -165,6 +167,7 @@ class CombatViewModel(
             is CombatEvent.OnItemDialogEvent -> onItemDialogEvent(event.event)
             is CombatEvent.OnSpellEvent -> onSpellEvent(event.event)
             is CombatEvent.OnSpellDialogEvent -> onSpellDialogEvent(event.event)
+            is CombatEvent.OnDamageTypeDialogEvent -> onDamageTypeDialogEvent(event.event)
         }
     }
 
@@ -607,7 +610,18 @@ class CombatViewModel(
     private fun onSpellDialogEvent(event: SpellDialogEvent) {
         when (event) {
             is SpellDialogEvent.OnClassClick -> TODO()
-            is SpellDialogEvent.OnDamageTypeClick -> TODO()
+            is SpellDialogEvent.OnDamageTypeClick -> {
+                viewModelScope.launch(module.dispatcherProvider.io) {
+                    _state.update {
+                        it.copy(
+                            damageTypeDialog = DamageTypeDialogState(
+                                isShown = true,
+                                damageType = event.damageType
+                            )
+                        )
+                    }
+                }
+            }
             SpellDialogEvent.OnDismiss -> {
                 _state.update {
                     it.copy(
@@ -623,6 +637,18 @@ class CombatViewModel(
             }
             is SpellDialogEvent.OnStateDropdownOpen -> {
                 // No changes in combat screen
+            }
+        }
+    }
+
+    private fun onDamageTypeDialogEvent(event: DamageTypeDialogEvent) {
+        when (event) {
+            DamageTypeDialogEvent.OnDismiss -> {
+                _state.update {
+                    it.copy(
+                        damageTypeDialog = DamageTypeDialogState()
+                    )
+                }
             }
         }
     }

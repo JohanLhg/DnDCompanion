@@ -46,6 +46,7 @@ dependencies {
     implementation(project(":user-info:user-info-domain"))
     implementation(project(":settings:settings-domain"))
     implementation(project(":ability:ability-domain"))
+    implementation(project(":damage-type:damage-type-domain"))
     implementation(project(":stats:stats-domain"))
     implementation(project(":health:health-domain"))
     implementation(project(":character-spell:character-spell-domain"))
@@ -54,6 +55,7 @@ dependencies {
     implementation(project(":money:money-domain"))
 
     implementation(project(":ability:ability-presentation"))
+    implementation(project(":damage-type:damage-type-presentation"))
     implementation(project(":stats:stats-presentation"))
     implementation(project(":health:health-presentation"))
     implementation(project(":character-spell:character-spell-presentation"))

@@ -19,6 +19,7 @@ import com.jlahougue.combat_presentation.component.TabItem
 import com.jlahougue.core_domain.util.UiText
 import com.jlahougue.core_presentation.R
 import com.jlahougue.core_presentation.theme.DnDCompanionTheme
+import com.jlahougue.damage_type_presentation.DamageTypeDialog
 import com.jlahougue.health_presentation.HealthBox
 import com.jlahougue.stats_presentation.StatsList
 
@@ -67,6 +68,12 @@ fun CombatScreen(
         state = state.spellDialog,
         onEvent = {
             onEvent(CombatEvent.OnSpellDialogEvent(it))
+        }
+    )
+    DamageTypeDialog(
+        state = state.damageTypeDialog,
+        onEvent = {
+            onEvent(CombatEvent.OnDamageTypeDialogEvent(it))
         }
     )
 }
