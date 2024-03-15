@@ -39,7 +39,6 @@ import com.jlahougue.core_presentation.components.CustomSearchBar
 import com.jlahougue.core_presentation.theme.DnDCompanionTheme
 import com.jlahougue.core_presentation.theme.spacing
 import com.jlahougue.spells_presentation.R
-import com.jlahougue.spells_presentation.SpellSearchEvent
 
 @Composable
 fun FilteredSpellList(

@@ -57,7 +57,7 @@ class DamageTypeDnd5eDataSource(
 
         val json = JSONObject(response)
         val name = json.getString("name")
-        val desc = json.getJSONArray("desc").join("\n")
+        val desc = json.getJSONArray("desc").join("\n").replace("\"", "")
 
         damageTypeRemoteListener.save(DamageType(name, desc))
 

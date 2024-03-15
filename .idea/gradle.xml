@@ -41,6 +41,7 @@
             <option value="$PROJECT_DIR$/damage-type" />
             <option value="$PROJECT_DIR$/damage-type/damage-type-data" />
             <option value="$PROJECT_DIR$/damage-type/damage-type-domain" />
+            <option value="$PROJECT_DIR$/damage-type/damage-type-presentation" />
             <option value="$PROJECT_DIR$/feature-authentication" />
             <option value="$PROJECT_DIR$/feature-authentication/authentication-domain" />
             <option value="$PROJECT_DIR$/feature-authentication/authentication-presentation" />

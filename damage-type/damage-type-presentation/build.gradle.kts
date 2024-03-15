@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.jlahougue.spells_presentation"
+    namespace = "com.jlahougue.damage_type_presentation"
     compileSdk = 34
 
     defaultConfig {
@@ -39,20 +39,10 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:core-domain"))
     implementation(project(":core:core-presentation"))
-    implementation(project(":feature-spells:spells-domain"))
+    implementation(project(":core:core-domain"))
 
-    implementation(project(":user-info:user-info-domain"))
-    implementation(project(":settings:settings-domain"))
-    implementation(project(":character:character-domain"))
-    implementation(project(":ability:ability-domain"))
     implementation(project(":damage-type:damage-type-domain"))
-    implementation(project(":character-spell:character-spell-domain"))
-    implementation(project(":class:class-domain"))
-
-    implementation(project(":character-spell:character-spell-presentation"))
-    implementation(project(":damage-type:damage-type-presentation"))
 
     implementation(libs.bundles.ui)
 
