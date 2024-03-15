@@ -80,6 +80,7 @@
             <option value="$PROJECT_DIR$/property" />
             <option value="$PROJECT_DIR$/property/property-data" />
             <option value="$PROJECT_DIR$/property/property-domain" />
+            <option value="$PROJECT_DIR$/property/property-presentation" />
             <option value="$PROJECT_DIR$/settings" />
             <option value="$PROJECT_DIR$/settings/settings-domain" />
             <option value="$PROJECT_DIR$/skill" />

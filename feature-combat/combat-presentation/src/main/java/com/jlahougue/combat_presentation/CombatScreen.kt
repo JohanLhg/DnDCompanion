@@ -21,6 +21,7 @@ import com.jlahougue.core_presentation.R
 import com.jlahougue.core_presentation.theme.DnDCompanionTheme
 import com.jlahougue.damage_type_presentation.DamageTypeDialog
 import com.jlahougue.health_presentation.HealthBox
+import com.jlahougue.property_presentation.PropertyDialog
 import com.jlahougue.stats_presentation.StatsList
 
 @Composable
@@ -74,6 +75,12 @@ fun CombatScreen(
         state = state.damageTypeDialog,
         onEvent = {
             onEvent(CombatEvent.OnDamageTypeDialogEvent(it))
+        }
+    )
+    PropertyDialog(
+        state = state.propertyDialog,
+        onEvent = {
+            onEvent(CombatEvent.OnPropertyDialogEvent(it))
         }
     )
 }

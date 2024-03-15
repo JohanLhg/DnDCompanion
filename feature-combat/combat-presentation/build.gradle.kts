@@ -51,6 +51,7 @@ dependencies {
     implementation(project(":health:health-domain"))
     implementation(project(":character-spell:character-spell-domain"))
     implementation(project(":weapon:weapon-domain"))
+    implementation(project(":property:property-domain"))
     implementation(project(":item:item-domain"))
     implementation(project(":money:money-domain"))
 
@@ -60,6 +61,7 @@ dependencies {
     implementation(project(":health:health-presentation"))
     implementation(project(":character-spell:character-spell-presentation"))
     implementation(project(":weapon:weapon-presentation"))
+    implementation(project(":property:property-presentation"))
     implementation(project(":item:item-presentation"))
 
     implementation(libs.bundles.ui)

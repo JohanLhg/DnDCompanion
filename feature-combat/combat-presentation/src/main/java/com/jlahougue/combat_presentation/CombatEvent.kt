@@ -6,6 +6,7 @@ import com.jlahougue.damage_type_presentation.DamageTypeDialogEvent
 import com.jlahougue.health_presentation.HealthEvent
 import com.jlahougue.item_presentation.ItemEvent
 import com.jlahougue.item_presentation.dialog.ItemDialogEvent
+import com.jlahougue.property_presentation.PropertyDialogEvent
 import com.jlahougue.stats_presentation.StatsEvent
 import com.jlahougue.weapon_presentation.WeaponEvent
 import com.jlahougue.weapon_presentation.dialog.WeaponDialogEvent
@@ -23,4 +24,5 @@ sealed class CombatEvent {
     data class OnSpellEvent(val event: SpellEvent) : CombatEvent()
     data class OnSpellDialogEvent(val event: SpellDialogEvent) : CombatEvent()
     data class OnDamageTypeDialogEvent(val event: DamageTypeDialogEvent) : CombatEvent()
+    data class OnPropertyDialogEvent(val event: PropertyDialogEvent) : CombatEvent()
 }
