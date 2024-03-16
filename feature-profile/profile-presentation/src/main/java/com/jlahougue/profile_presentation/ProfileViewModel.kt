@@ -7,6 +7,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class ProfileViewModel(private val module: ProfileModule) : ViewModel() {
@@ -30,20 +31,33 @@ class ProfileViewModel(private val module: ProfileModule) : ViewModel() {
                         }
                 }
 
-                imageJob?.cancel()
-                imageJob = viewModelScope.launch(module.dispatcherProvider.io) {
-                    module.characterUseCases.loadCharacterImage(userInfo.characterId)
-                        .collectLatest { imageState ->
-                            _state.value = _state.value.copy(image = imageState)
-                        }
-                }
+                loadCharacterImage(userInfo.characterId)
             }
+        }
+    }
+
+    private fun loadCharacterImage(characterId: Long) {
+        imageJob?.cancel()
+        imageJob = viewModelScope.launch(module.dispatcherProvider.io) {
+            module.characterUseCases.loadCharacterImage(characterId)
+                .collectLatest { imageState ->
+                    _state.value = _state.value.copy(image = imageState)
+                }
         }
     }
 
     fun onEvent(event: ProfileEvent) {
         when (event) {
-            ProfileEvent.OnImageClicked -> TODO()
+            is ProfileEvent.OnImageSelected -> {
+                viewModelScope.launch(module.dispatcherProvider.io) {
+                    module.characterUseCases.uploadImage(state.value.character.id, event.uri)
+                        .collectLatest { imageState ->
+                            _state.update {
+                                it.copy(image = imageState)
+                            }
+                        }
+                }
+            }
             is ProfileEvent.OnNameChanged -> {
                 viewModelScope.launch(module.dispatcherProvider.io) {
                     module.characterUseCases.updateCharacter(

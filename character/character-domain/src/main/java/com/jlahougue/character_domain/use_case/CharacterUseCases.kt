@@ -5,5 +5,6 @@ data class CharacterUseCases(
     val getCharacter: GetCharacter,
     val updateCharacter: UpdateCharacter,
     val loadCharacterImage: LoadCharacterImage,
+    val uploadImage: UploadImage,
     val getCharacterClass: GetCharacterClass
 )

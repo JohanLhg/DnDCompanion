@@ -1,10 +1,15 @@
 package com.jlahougue.character_data.source.remote
 
+import android.net.Uri
 import com.jlahougue.character_data.R
 import com.jlahougue.character_domain.model.Character
-import com.jlahougue.character_domain.use_case.CharacterImageEvent
 import com.jlahougue.core_data_remote_instance.FirebaseDataSource
+import com.jlahougue.core_domain.util.LoadImageState
 import com.jlahougue.core_domain.util.UiText
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 
 class CharacterFirebaseDataSource(
     private val dataSource: FirebaseDataSource
@@ -19,24 +24,44 @@ class CharacterFirebaseDataSource(
         dataSource.deleteImage(characterID)
     }
 
-    override fun loadImage(
-        characterId: Long,
-        onEvent: (CharacterImageEvent) -> Unit
-    ) {
+    override fun loadImage(characterId: Long): StateFlow<LoadImageState> {
+        val state = MutableStateFlow(LoadImageState(actionState = LoadImageState.ActionState.STARTED))
         dataSource.storage.reference
             .child("Images/Characters/${dataSource.uid}/$characterId.png")
             .downloadUrl
             .addOnCanceledListener {
-                onEvent(CharacterImageEvent.Canceled)
+                state.update {
+                    LoadImageState(
+                        errorMessage = UiText.StringResource(R.string.cancelled_loading_character_image),
+                        actionState = LoadImageState.ActionState.ERROR
+                    )
+                }
             }
             .addOnFailureListener { exception ->
                 val message = if (exception.localizedMessage != null)
                     UiText.DynamicString(exception.localizedMessage!!)
-                else UiText.StringResource(R.string.error_saving_character)
-                onEvent(CharacterImageEvent.Failure(message))
+                else UiText.StringResource(R.string.error_loading_character_image)
+                state.update {
+                    LoadImageState(
+                        errorMessage = message,
+                        actionState = LoadImageState.ActionState.ERROR
+                    )
+                }
             }
             .addOnSuccessListener { uri ->
-                onEvent(CharacterImageEvent.Success(uri.toString()))
+                state.update {
+                    LoadImageState(
+                        uri = uri.toString(),
+                        actionState = LoadImageState.ActionState.FINISHED
+                    )
+                }
             }
+        return state.asStateFlow()
+    }
+
+    override fun uploadImage(characterId: Long, uri: Uri): StateFlow<LoadImageState> {
+        val imageRef = dataSource.storage.reference
+            .child("Images/Characters/${dataSource.uid}/$characterId.png")
+        return dataSource.uploadImage(imageRef, uri)
     }
 }

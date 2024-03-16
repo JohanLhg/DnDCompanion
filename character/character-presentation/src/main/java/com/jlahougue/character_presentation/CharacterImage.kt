@@ -14,7 +14,7 @@ import coil.decode.GifDecoder
 import coil.decode.ImageDecoderDecoder
 import coil.request.ImageRequest
 import coil.size.Size
-import com.jlahougue.character_domain.use_case.LoadImageState
+import com.jlahougue.core_domain.util.LoadImageState
 import com.jlahougue.core_presentation.R
 
 
@@ -33,27 +33,35 @@ fun CharacterImage(
             }
         }
         .build()
-    if (state.hasFinished() && state.uri.isEmpty()) {
-        Image(
-            painter = painterResource(id = R.drawable.anonymous),
-            contentDescription = stringResource(id = R.string.descr_character_image),
-            modifier = modifier
-        )
-    }
-    else {
+    if (!state.hasFinished()) {
         AsyncImage(
-            model = state.uri,
+            model = R.drawable.loading,
             imageLoader = imageLoader,
-            placeholder = rememberAsyncImagePainter(
-                ImageRequest.Builder(context)
-                    .data(data = R.drawable.loading)
-                    .apply {
-                        size(Size.ORIGINAL)
-                    }.build(),
-                imageLoader = imageLoader
-            ),
             contentDescription = stringResource(id = R.string.descr_character_image),
             modifier = modifier
         )
+    } else {
+        if (state.uri.isEmpty()) {
+            Image(
+                painter = painterResource(id = R.drawable.anonymous),
+                contentDescription = stringResource(id = R.string.descr_character_image),
+                modifier = modifier
+            )
+        } else {
+            AsyncImage(
+                model = state.uri,
+                imageLoader = imageLoader,
+                placeholder = rememberAsyncImagePainter(
+                    ImageRequest.Builder(context)
+                        .data(data = R.drawable.loading)
+                        .apply {
+                            size(Size.ORIGINAL)
+                        }.build(),
+                    imageLoader = imageLoader
+                ),
+                contentDescription = stringResource(id = R.string.descr_character_image),
+                modifier = modifier
+            )
+        }
     }
 }

@@ -11,6 +11,7 @@ import com.jlahougue.character_domain.use_case.GetCharacterClass
 import com.jlahougue.character_domain.use_case.GetCharacters
 import com.jlahougue.character_domain.use_case.LoadCharacterImage
 import com.jlahougue.character_domain.use_case.UpdateCharacter
+import com.jlahougue.character_domain.use_case.UploadImage
 import com.jlahougue.core_domain.util.dispatcherProvider.DispatcherProvider
 
 class CharacterModule(
@@ -33,10 +34,8 @@ class CharacterModule(
                 dispatcherProvider,
                 repository
             ),
-            LoadCharacterImage(
-                dispatcherProvider,
-                repository
-            ),
+            LoadCharacterImage(repository),
+            UploadImage(repository),
             GetCharacterClass(
                 dispatcherProvider,
                 repository

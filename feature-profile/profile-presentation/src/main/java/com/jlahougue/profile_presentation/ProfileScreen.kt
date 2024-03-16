@@ -1,5 +1,8 @@
 package com.jlahougue.profile_presentation
 
+import android.net.Uri
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -9,6 +12,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -32,8 +36,8 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.jlahougue.character_domain.model.Character
-import com.jlahougue.character_domain.use_case.LoadImageState
 import com.jlahougue.character_presentation.CharacterImage
+import com.jlahougue.core_domain.util.LoadImageState
 import com.jlahougue.core_domain.util.extension.toDoubleOrZero
 import com.jlahougue.core_domain.util.extension.toIntOrZero
 import com.jlahougue.core_presentation.components.CustomOutlinedTextField
@@ -48,15 +52,21 @@ fun ProfileScreen(
     state: ProfileState,
     onEvent: (ProfileEvent) -> Unit
 ) {
-    val titleStyle = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold)
     val valueStyle = MaterialTheme.typography.bodyMedium
     Column {
         MaxedRow(
             modifier = Modifier
                 .padding(vertical = MaterialTheme.spacing.extraSmall)
         ) { height ->
+            val launcher = rememberLauncherForActivityResult(
+                contract = ActivityResultContracts.GetContent()
+            ) { uri: Uri? ->
+                if (uri != null) onEvent(ProfileEvent.OnImageSelected(uri))
+            }
             Card(
-                onClick = { onEvent(ProfileEvent.OnImageClicked) },
+                onClick = {
+                    launcher.launch("image/*")
+                },
                 modifier = Modifier
                     .background(MaterialTheme.colorScheme.surface)
                     .size(height)
@@ -65,7 +75,10 @@ fun ProfileScreen(
                     defaultElevation = MaterialTheme.spacing.medium
                 )
             ) {
-                CharacterImage(state = state.image)
+                CharacterImage(
+                    state = state.image,
+                    modifier = Modifier.fillMaxSize()
+                )
             }
             Column(
                 verticalArrangement = Arrangement.SpaceEvenly,

@@ -7,6 +7,12 @@ import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import com.jlahougue.core_domain.util.LoadImageState
+import com.jlahougue.core_domain.util.UiText
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 
 class FirebaseDataSource {
 
@@ -34,18 +40,30 @@ class FirebaseDataSource {
     fun uploadImage(
         imageReference: StorageReference,
         uri: Uri
-    ) {
+    ): StateFlow<LoadImageState> {
+        val state = MutableStateFlow(
+            LoadImageState(
+                actionState = LoadImageState.ActionState.STARTED
+            )
+        )
         imageReference.putFile(uri)
-            .addOnProgressListener {
-                //updateProgress(UPLOAD_IMAGE, it)
-            }
             .addOnSuccessListener {
-                //finishTask(UPLOAD_IMAGE)
+                state.update {
+                    LoadImageState(
+                        uri = uri.toString(),
+                        actionState = LoadImageState.ActionState.FINISHED
+                    )
+                }
             }
-            .addOnFailureListener {
-                it.localizedMessage
-                //finishTask(UPLOAD_IMAGE)
+            .addOnFailureListener { exception ->
+                state.update {
+                    LoadImageState(
+                        errorMessage = UiText.DynamicString(exception.localizedMessage?:""),
+                        actionState = LoadImageState.ActionState.ERROR
+                    )
+                }
             }
+        return state.asStateFlow()
     }
 
     fun deleteImage(characterID: Long) {

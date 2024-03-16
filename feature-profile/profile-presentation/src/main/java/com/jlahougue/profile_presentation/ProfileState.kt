@@ -1,7 +1,7 @@
 package com.jlahougue.profile_presentation
 
 import com.jlahougue.character_domain.model.Character
-import com.jlahougue.character_domain.use_case.LoadImageState
+import com.jlahougue.core_domain.util.LoadImageState
 
 data class ProfileState(
     val character: Character = Character(),

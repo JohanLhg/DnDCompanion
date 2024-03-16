@@ -1,7 +1,9 @@
 package com.jlahougue.profile_presentation
 
+import android.net.Uri
+
 sealed class ProfileEvent {
-    data object OnImageClicked : ProfileEvent()
+    data class OnImageSelected(val uri: Uri) : ProfileEvent()
     data class OnNameChanged(val name: String) : ProfileEvent()
     data class OnRaceChanged(val race: String) : ProfileEvent()
     data object OnClassListOpened : ProfileEvent()

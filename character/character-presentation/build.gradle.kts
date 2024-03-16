@@ -40,6 +40,7 @@ android {
 
 dependencies {
     implementation(project(":core:core-presentation"))
+    implementation(project(":core:core-domain"))
     implementation(project(":character:character-domain"))
 
     implementation(libs.bundles.ui)
