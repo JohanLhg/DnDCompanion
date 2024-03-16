@@ -37,6 +37,8 @@ class CharacterRepository(
 
     override fun get() = localDataSource.get()
 
+    override fun get(characterId: Long) = localDataSource.get(characterId)
+
     override fun loadImage(
         characterId: Long,
         onEvent: (CharacterImageEvent) -> Unit

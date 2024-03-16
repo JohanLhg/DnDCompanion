@@ -38,6 +38,12 @@ fun NavGraphBuilder.characterSheetSection(
         /* NEED TO ADD RESPONSIVE LAYOUT */
         val navigationItems = listOf(
             NavigationItem(
+                label = stringResource(id = R.string.title_profile_screen),
+                route = CharacterSheetScreen.Profile.route,
+                unselectedIcon = com.jlahougue.core_presentation.R.drawable.profile,
+                selectedIcon = com.jlahougue.core_presentation.R.drawable.profile
+            ),
+            NavigationItem(
                 label = stringResource(id = R.string.title_combat_screen),
                 route = CharacterSheetScreen.Combat.route,
                 unselectedIcon = R.drawable.combat,

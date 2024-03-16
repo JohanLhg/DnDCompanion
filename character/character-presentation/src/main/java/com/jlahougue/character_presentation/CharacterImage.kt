@@ -1,4 +1,4 @@
-package com.jlahougue.character_selection_presentation.components
+package com.jlahougue.character_presentation
 
 import android.os.Build.VERSION.SDK_INT
 import androidx.compose.foundation.Image

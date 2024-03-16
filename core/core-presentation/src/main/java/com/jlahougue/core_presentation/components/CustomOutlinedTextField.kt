@@ -23,6 +23,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.jlahougue.core_presentation.theme.DnDCompanionTheme
 import com.jlahougue.core_presentation.theme.spacing
@@ -32,6 +33,8 @@ fun CustomOutlinedTextField(
     value: String,
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
+    horizontalPadding: Dp = MaterialTheme.spacing.small,
+    verticalPadding: Dp = 0.dp,
     textStyle: TextStyle = TextStyle.Default,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
@@ -74,7 +77,10 @@ fun CustomOutlinedTextField(
                 Color.Gray,
                 MaterialTheme.shapes.extraSmall
             )
-            .padding(horizontal = MaterialTheme.spacing.small),
+            .padding(
+                horizontal = horizontalPadding,
+                vertical = verticalPadding
+            ),
         textStyle = textStyle,
         interactionSource = interactionSource,
         keyboardOptions = keyboardOptions,

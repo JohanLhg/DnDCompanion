@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="title_profile_screen">Profile</string>
     <string name="title_combat_screen">Combat</string>
     <string name="title_spells_screen">Spells</string>
     <string name="title_equipment_screen">Equipment</string>

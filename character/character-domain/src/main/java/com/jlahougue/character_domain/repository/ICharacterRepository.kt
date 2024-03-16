@@ -12,6 +12,7 @@ interface ICharacterRepository {
     suspend fun delete(id: Long)
     suspend fun exists(): Boolean
     fun get(): Flow<List<Character>>
+    fun get(characterId: Long): Flow<Character>
     fun loadImage(
         characterId: Long,
         onEvent: (CharacterImageEvent) -> Unit
