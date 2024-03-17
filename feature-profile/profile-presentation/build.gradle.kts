@@ -43,9 +43,11 @@ dependencies {
     implementation(project(":feature-profile:profile-domain"))
     implementation(project(":user-info:user-info-domain"))
     implementation(project(":character:character-domain"))
+    implementation(project(":class:class-domain"))
 
     implementation(project(":core:core-presentation"))
     implementation(project(":character:character-presentation"))
+    implementation(project(":class:class-presentation"))
 
     implementation(libs.bundles.ui)
     implementation(libs.bundles.coil)

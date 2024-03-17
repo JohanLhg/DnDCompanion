@@ -43,5 +43,7 @@ class ClassRepository(
         this
     )
 
+    override fun get(name: String) = localDataSource.get(name)
+
     override suspend fun getSpellcasterClasses() = localDataSource.getSpellcasterClasses()
 }

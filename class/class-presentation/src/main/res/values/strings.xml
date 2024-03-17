@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hit_die">Hit die :</string>
+    <string name="die">d%d</string>
+    <string name="spellcasting_ability">Spellcasting Ability :</string>
+    <string name="equipment">Equipment :</string>
+    <string name="proficiencies">Proficiencies</string>
+    <string name="saving_throws">Saving Throws :</string>
+    <string name="skills">Skills :</string>
+    <string name="armor">Armor :</string>
+    <string name="weapons">Weapons :</string>
+    <string name="tools">Tools :</string>
+</resources>

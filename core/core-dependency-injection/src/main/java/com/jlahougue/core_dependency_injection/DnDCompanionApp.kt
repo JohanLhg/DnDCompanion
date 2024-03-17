@@ -216,7 +216,8 @@ class DnDCompanionApp: Application() {
         profileModule = ProfileModule(
             appModule.dispatcherProvider,
             userInfoModule.useCases,
-            characterModule.useCases
+            characterModule.useCases,
+            classModule.useCases
         )
     }
 }

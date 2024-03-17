@@ -32,6 +32,7 @@
             <option value="$PROJECT_DIR$/class" />
             <option value="$PROJECT_DIR$/class/class-data" />
             <option value="$PROJECT_DIR$/class/class-domain" />
+            <option value="$PROJECT_DIR$/class/class-presentation" />
             <option value="$PROJECT_DIR$/core" />
             <option value="$PROJECT_DIR$/core/core-data" />
             <option value="$PROJECT_DIR$/core/core-data-remote-instance" />

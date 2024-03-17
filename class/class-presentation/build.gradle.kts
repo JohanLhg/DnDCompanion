@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.jlahougue.profile_domain"
+    namespace = "com.jlahougue.class_presentation"
     compileSdk = 34
 
     defaultConfig {
@@ -30,13 +30,22 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
+    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.3"
+    }
 }
 
 dependencies {
     implementation(project(":core:core-domain"))
-    implementation(project(":character:character-domain"))
-    implementation(project(":user-info:user-info-domain"))
+    implementation(project(":core:core-presentation"))
+
     implementation(project(":class:class-domain"))
+    implementation(project(":ability:ability-domain"))
+
+    implementation(libs.bundles.ui)
 
     testImplementation(libs.bundles.tests)
     androidTestImplementation(libs.bundles.android.tests)

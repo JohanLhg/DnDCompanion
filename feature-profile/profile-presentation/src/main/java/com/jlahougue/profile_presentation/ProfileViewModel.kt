@@ -2,6 +2,7 @@ package com.jlahougue.profile_presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.jlahougue.class_presentation.ClassDialogState
 import com.jlahougue.profile_domain.ProfileModule
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -72,7 +73,20 @@ class ProfileViewModel(private val module: ProfileModule) : ViewModel() {
                     )
                 }
             }
-            ProfileEvent.OnClassListOpened -> TODO()
+            ProfileEvent.OnClassListOpened -> {
+                viewModelScope.launch(module.dispatcherProvider.io) {
+                    module.classUseCases.getClass("Wizard").collectLatest { wizard ->
+                        _state.update {
+                            it.copy(
+                                classDialog = ClassDialogState(
+                                    isShown = true,
+                                    clazz = wizard
+                                )
+                            )
+                        }
+                    }
+                }
+            }
             is ProfileEvent.OnLevelChanged -> {
                 viewModelScope.launch(module.dispatcherProvider.io) {
                     module.characterUseCases.updateCharacter(

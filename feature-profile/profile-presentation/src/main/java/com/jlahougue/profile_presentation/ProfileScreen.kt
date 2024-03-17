@@ -37,6 +37,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.jlahougue.character_domain.model.Character
 import com.jlahougue.character_presentation.CharacterImage
+import com.jlahougue.class_presentation.ClassDialog
 import com.jlahougue.core_domain.util.LoadImageState
 import com.jlahougue.core_domain.util.extension.toDoubleOrZero
 import com.jlahougue.core_domain.util.extension.toIntOrZero
@@ -230,6 +231,10 @@ fun ProfileScreen(
             }
         }
     }
+    ClassDialog(
+        state = state.classDialog,
+        onEvent = {}
+    )
 }
 
 @Composable

@@ -7,6 +7,7 @@ import androidx.room.Query
 import com.jlahougue.class_domain.model.Class
 import com.jlahougue.class_domain.model.ClassLevel
 import com.jlahougue.class_domain.model.ClassSpellSlot
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ClassLocalDataSource {
@@ -21,6 +22,9 @@ interface ClassLocalDataSource {
 
     @Query("SELECT class_name FROM class ORDER BY class_name ASC")
     suspend fun getNames(): List<String>
+
+    @Query("SELECT * FROM class WHERE class_name = :name")
+    fun get(name: String): Flow<Class>
 
     @Query("SELECT class_name FROM class WHERE spellcasting_ability <> 'NONE'")
     suspend fun getSpellcasterClasses(): List<String>
