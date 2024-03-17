@@ -2,10 +2,12 @@ package com.jlahougue.feature.authentication_presentation.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.jlahougue.authentication_domain.model.InvalidAuthException
+import com.jlahougue.authentication_domain.util.AuthenticationError
 import com.jlahougue.authentication_presentation.R
 import com.jlahougue.core_domain.util.UiText
+import com.jlahougue.core_domain.util.response.Result
 import com.jlahougue.feature.authentication_domain.IAuthenticationModule
+import com.jlahougue.feature.authentication_presentation.asUiText
 import com.jlahougue.feature.authentication_presentation.util.AuthUiEvent
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -39,35 +41,35 @@ class LoginViewModel(
             }
             is LoginEvent.Login -> {
                 viewModelScope.launch(module.dispatcherProvider.io) {
-                    try {
-                        module.authUseCases.login(
-                            state.value.email,
-                            state.value.password
-                        ) { success ->
-                            if (success) {
-                                viewModelScope.launch {
-                                    _event.emit(
-                                        AuthUiEvent.ShowSnackbar(
-                                            UiText.StringResource(R.string.login_successful)
-                                        )
-                                    )
-                                    _event.emit(AuthUiEvent.NavigateToNextScreen)
-                                }
-                                return@login
-                            }
-                            viewModelScope.launch {
-                                _event.emit(
-                                    AuthUiEvent.ShowSnackbar(
-                                        UiText.StringResource(R.string.error_login_failed)
-                                    )
-                                )
-                            }
-                        }
-                    } catch (e: InvalidAuthException) {
-                        _event.emit(
-                            AuthUiEvent.ShowSnackbar(e.uiMessage)
+                    module.authUseCases.login(
+                        state.value.email,
+                        state.value.password,
+                        ::onAuthenticationResult
+                    )
+                }
+            }
+        }
+    }
+
+    private fun onAuthenticationResult(result: Result<String, AuthenticationError>) {
+        when (result) {
+            is Result.Success -> {
+                viewModelScope.launch {
+                    _event.emit(
+                        AuthUiEvent.ShowSnackbar(
+                            UiText.StringResource(R.string.login_successful)
                         )
-                    }
+                    )
+                    _event.emit(AuthUiEvent.NavigateToNextScreen)
+                }
+            }
+            is Result.Failure -> {
+                viewModelScope.launch {
+                    _event.emit(
+                        AuthUiEvent.ShowSnackbar(
+                            result.error.asUiText()
+                        )
+                    )
                 }
             }
         }
