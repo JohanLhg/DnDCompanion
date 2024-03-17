@@ -21,7 +21,6 @@ firebase-auth = "22.3.1"
 firebase-firestore = "24.10.3"
 firebase-installations = "17.2.0"
 firebase-storage = "20.3.0"
-firebase-storage-ktx = "20.3.0"
 firebase-storage-ui = "8.0.2"
 
 okhttp = "4.11.0"
@@ -78,7 +77,6 @@ firebase-auth = { module = "com.google.firebase:firebase-auth", version.ref = "f
 firebase-firestore = { module = "com.google.firebase:firebase-firestore", version.ref = "firebase-firestore"}
 firebase-installations = { module = "com.google.firebase:firebase-installations", version.ref = "firebase-installations"}
 firebase-storage = { module = "com.google.firebase:firebase-storage", version.ref = "firebase-storage"}
-firebase-storage-ktx = { module = "com.google.firebase:firebase-storage-ktx", version.ref = "firebase-storage-ktx"}
 firebase-storage-ui = { module = "com.firebaseui:firebase-ui-storage", version.ref = "firebase-storage-ui"}
 
 okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
@@ -118,7 +116,7 @@ glide = ["glide", "glide-compiler"]
 datastore = ["datastore", "serialization"]
 room = ["room-runtime", "room-ktx", "room-compiler"]
 firebase = ["firebase-auth", "firebase-firestore", "firebase-installations", "firebase-storage",
-    "firebase-storage-ktx", "firebase-storage-ui"]
+    "firebase-storage-ui"]
 network = ["okhttp", "gson"]
 
 tests = ["test-core", "junit", "jupiter", "coroutines", "truth", "compose-tooling", "compose-manifest"]

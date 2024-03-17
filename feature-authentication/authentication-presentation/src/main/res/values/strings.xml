@@ -9,7 +9,5 @@
     <string name="text_login_now">Already have an account ? Click here to login now !</string>
 
     <string name="login_successful">Login successful</string>
-    <string name="error_login_failed">Login failed</string>
     <string name="register_successful">Register successful</string>
-    <string name="error_register_failed">Register failed</string>
 </resources>

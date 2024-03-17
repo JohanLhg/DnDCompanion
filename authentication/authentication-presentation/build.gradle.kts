@@ -41,6 +41,7 @@ android {
 dependencies {
     implementation(project(":core:core-presentation"))
     implementation(project(":core:core-domain"))
+    implementation(project(":authentication:authentication-domain"))
 
     implementation(libs.bundles.ui)
 

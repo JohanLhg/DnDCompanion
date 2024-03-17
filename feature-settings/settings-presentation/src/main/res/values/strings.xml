@@ -7,5 +7,6 @@
     <string name="metric">Metric</string>
     <string name="imperial">Imperial</string>
     <string name="account">Account</string>
-    <string name="error_email_password_empty">Error : Email and password must be filled</string>
+
+    <string name="email_changed_successfully">Email changed successfully</string>
 </resources>
