@@ -5,6 +5,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthException
 import com.jlahougue.authentication_domain.util.AuthenticationError
 import com.jlahougue.authentication_domain.util.EmailChangeError
+import com.jlahougue.authentication_domain.util.PasswordChangeError
 import com.jlahougue.core_domain.util.response.Result
 
 class AuthFirebaseDataSource(private val firebaseAuth: FirebaseAuth) : AuthRemoteDataSource {
@@ -105,11 +106,45 @@ class AuthFirebaseDataSource(private val firebaseAuth: FirebaseAuth) : AuthRemot
         }
     }
 
-    override fun changePassword(password: String, onComplete: (Boolean) -> Unit) {
-        firebaseAuth.currentUser?.updatePassword(password)
-            ?.addOnCompleteListener { task ->
-                onComplete(task.isSuccessful)
+    override fun changePassword(
+        password: String,
+        newPassword: String,
+        onComplete: (Result<String, PasswordChangeError>) -> Unit
+    ) {
+        reAuthenticate(password) { result ->
+            when (result) {
+                is Result.Success -> {
+                    val user = firebaseAuth.currentUser?: return@reAuthenticate onComplete(Result.Failure(PasswordChangeError.USER_NOT_FOUND))
+                    user.updatePassword(newPassword)
+                        .addOnSuccessListener {
+                            onComplete(Result.Success(getUserId()!!))
+                        }
+                        .addOnFailureListener { exception ->
+                            val error = when (exception) {
+                                is FirebaseAuthException -> {
+                                    when (exception.errorCode) {
+                                        "ERROR_USER_NOT_FOUND" -> PasswordChangeError.USER_NOT_FOUND
+                                        "ERROR_INVALID_CREDENTIAL" -> PasswordChangeError.INVALID_CREDENTIAL
+                                        "ERROR_WEAK_PASSWORD" -> PasswordChangeError.WEAK_PASSWORD
+                                        else -> PasswordChangeError.UNKNOWN
+                                    }
+                                }
+                                else -> PasswordChangeError.UNKNOWN
+                            }
+                            onComplete(Result.Failure(error))
+                        }
+                }
+                is Result.Failure -> {
+                    val error = when (result.error) {
+                        AuthenticationError.PASSWORD_EMPTY -> PasswordChangeError.PASSWORD_EMPTY
+                        AuthenticationError.USER_NOT_FOUND -> PasswordChangeError.USER_NOT_FOUND
+                        AuthenticationError.INVALID_CREDENTIAL -> PasswordChangeError.INVALID_CREDENTIAL
+                        else -> PasswordChangeError.ERROR_RE_AUTHENTICATING
+                    }
+                    onComplete(Result.Failure(error))
+                }
             }
+        }
     }
 
     override fun signOut() = firebaseAuth.signOut()

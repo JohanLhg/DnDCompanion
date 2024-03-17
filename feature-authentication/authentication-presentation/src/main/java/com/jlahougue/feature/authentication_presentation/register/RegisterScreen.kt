@@ -38,8 +38,8 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.jlahougue.authentication_presentation.R
 import com.jlahougue.core_presentation.theme.spacing
+import com.jlahougue.feature.authentication_presentation.R
 import com.jlahougue.feature.authentication_presentation.util.AuthUiEvent
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch

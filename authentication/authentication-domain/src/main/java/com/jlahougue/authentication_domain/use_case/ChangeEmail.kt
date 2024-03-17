@@ -1,5 +1,6 @@
 package com.jlahougue.authentication_domain.use_case
 
+import android.util.Patterns
 import com.jlahougue.authentication_domain.repository.IAuthRepository
 import com.jlahougue.authentication_domain.util.EmailChangeError
 import com.jlahougue.core_domain.util.dispatcherProvider.DispatcherProvider
@@ -17,6 +18,12 @@ class ChangeEmail(
         password: String,
         onComplete: (Result<String, EmailChangeError>) -> Unit
     ) {
+        if (email.isBlank()) {
+            return onComplete(Result.Failure(EmailChangeError.EMAIL_EMPTY))
+        }
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            return onComplete(Result.Failure(EmailChangeError.EMAIL_INVALID))
+        }
         authRepository.changeEmail(email, password) {
             if (it is Result.Failure && it.error == EmailChangeError.USER_NOT_FOUND) {
                 CoroutineScope(dispatcherProvider.io).launch { signOut() }

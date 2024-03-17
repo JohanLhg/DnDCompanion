@@ -9,18 +9,5 @@
     <string name="text_login_now">Already have an account ? Click here to login now !</string>
 
     <string name="login_successful">Login successful</string>
-    <string name="error_login_failed">Login failed</string>
     <string name="register_successful">Register successful</string>
-    <string name="error_register_failed">Register failed</string>
-    <string name="error_no_internet">Couldn\'t connect to internet, check your connection and try again</string>
-    <string name="error_email_empty">You must enter an email address</string>
-    <string name="error_email_invalid">You must enter a valid email address</string>
-    <string name="error_email_already_in_use">This email is already in use</string>
-    <string name="error_password_empty">You must enter a password</string>
-    <string name="error_password_too_short">You must enter a password of at least 6 characters</string>
-    <string name="error_password_invalid">You must enter a valid password</string>
-    <string name="error_invalid_credentials">Wrong email/password</string>
-    <string name="error_user_not_found">User not found</string>
-    <string name="error_passwords_do_not_match">The passwords you entered don\'t match</string>
-    <string name="error_weak_password">The password you entered is too weak</string>
 </resources>
