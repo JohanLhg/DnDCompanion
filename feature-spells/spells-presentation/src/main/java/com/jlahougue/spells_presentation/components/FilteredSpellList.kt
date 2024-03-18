@@ -35,7 +35,7 @@ import com.jlahougue.character_spell_domain.model.SpellInfo
 import com.jlahougue.character_spell_presentation.SpellEvent
 import com.jlahougue.character_spell_presentation.components.SpellList
 import com.jlahougue.character_spell_presentation.components.SpellListMode
-import com.jlahougue.core_presentation.components.CustomSearchBar
+import com.jlahougue.core_presentation.components.text_fileds.CustomSearchBar
 import com.jlahougue.core_presentation.theme.DnDCompanionTheme
 import com.jlahougue.core_presentation.theme.spacing
 import com.jlahougue.spells_presentation.R

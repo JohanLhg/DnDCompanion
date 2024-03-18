@@ -1,6 +1,6 @@
-package com.jlahougue.core_presentation.components
+package com.jlahougue.core_presentation.components.labeled_values
 
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -10,27 +10,28 @@ import androidx.compose.ui.text.style.TextOverflow
 import com.jlahougue.core_presentation.theme.spacing
 
 @Composable
-fun PropertyRow(
+fun PropertyColumn(
     label: String,
     value: String,
     modifier: Modifier = Modifier,
     maxLines: Int = Int.MAX_VALUE
 ) {
     if (value.isBlank()) return
-    Row(
+    Column(
         modifier = modifier
-            .padding(horizontal = MaterialTheme.spacing.small)
     ) {
         Text(
             text = label,
             style = MaterialTheme.typography.titleSmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier
+                .padding(horizontal = MaterialTheme.spacing.small)
         )
         Text(
             text = value,
             style = MaterialTheme.typography.bodySmall,
             modifier = Modifier
-                .padding(start = MaterialTheme.spacing.extraSmall),
+                .padding(horizontal = MaterialTheme.spacing.small),
             overflow = TextOverflow.Ellipsis,
             maxLines = maxLines
         )

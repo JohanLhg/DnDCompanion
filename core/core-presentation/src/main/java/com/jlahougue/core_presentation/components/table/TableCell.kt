@@ -1,6 +1,5 @@
 package com.jlahougue.core_presentation.components.table
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material3.MaterialTheme
@@ -33,8 +32,7 @@ fun TableCell(
         modifier = Modifier
             .padding(4.dp)
             .widthIn(width, maxColumnWidth)
-            .onSizeChanged { onWidthSet(it.width.asDp()) }
-            .background(MaterialTheme.colorScheme.secondary),
+            .onSizeChanged { onWidthSet(it.width.asDp()) },
         textAlign = TextAlign.Center
     )
 }

@@ -1,4 +1,4 @@
-package com.jlahougue.class_presentation
+package com.jlahougue.class_presentation.detail_dialog
 
 import com.jlahougue.class_domain.model.Class
 

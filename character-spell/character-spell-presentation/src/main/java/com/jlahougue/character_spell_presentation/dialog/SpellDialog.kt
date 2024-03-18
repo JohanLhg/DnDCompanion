@@ -23,8 +23,8 @@ import com.jlahougue.character_spell_presentation.R
 import com.jlahougue.character_spell_presentation.dialog.component.SpellDialogHeader
 import com.jlahougue.class_domain.model.Class
 import com.jlahougue.core_presentation.components.ListOfLinkedItems
-import com.jlahougue.core_presentation.components.PropertyColumn
-import com.jlahougue.core_presentation.components.PropertyRow
+import com.jlahougue.core_presentation.components.labeled_values.PropertyColumn
+import com.jlahougue.core_presentation.components.labeled_values.PropertyRow
 import com.jlahougue.core_presentation.theme.DnDCompanionTheme
 import com.jlahougue.core_presentation.theme.spacing
 import com.jlahougue.damage_type_domain.model.DamageType

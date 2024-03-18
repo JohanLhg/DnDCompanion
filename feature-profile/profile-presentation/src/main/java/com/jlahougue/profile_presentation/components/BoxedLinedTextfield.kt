@@ -10,7 +10,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.jlahougue.core_presentation.components.LinedTextField
+import com.jlahougue.core_presentation.components.text_fileds.LinedTextField
 import com.jlahougue.core_presentation.theme.spacing
 
 @Composable

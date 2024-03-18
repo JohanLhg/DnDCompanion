@@ -16,8 +16,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.jlahougue.ability_domain.model.AbilityName
 import com.jlahougue.core_domain.util.extension.toSignedString
-import com.jlahougue.core_presentation.components.PropertyColumn
-import com.jlahougue.core_presentation.components.PropertyRow
+import com.jlahougue.core_presentation.components.labeled_values.PropertyColumn
+import com.jlahougue.core_presentation.components.labeled_values.PropertyRow
 import com.jlahougue.core_presentation.theme.DnDCompanionTheme
 import com.jlahougue.core_presentation.theme.spacing
 import com.jlahougue.settings_domain.model.UnitSystem

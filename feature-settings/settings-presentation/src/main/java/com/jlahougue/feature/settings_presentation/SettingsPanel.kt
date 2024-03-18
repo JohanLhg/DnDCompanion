@@ -31,7 +31,7 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.jlahougue.authentication_presentation.email_change_dialog.EmailChangeDialog
-import com.jlahougue.core_presentation.components.CustomButton
+import com.jlahougue.core_presentation.components.MenuButton
 import com.jlahougue.core_presentation.theme.DnDCompanionTheme
 import com.jlahougue.core_presentation.theme.spacing
 import com.jlahougue.feature.settings_presentation.components.LanguageSelector
@@ -125,30 +125,30 @@ fun SettingsPanel(
             )
         }
         Text(
-            text = "Account",
+            text = stringResource(id = R.string.account),
             style = MaterialTheme.typography.titleMedium,
             modifier = Modifier
                 .background(MaterialTheme.colorScheme.surface)
                 .padding(MaterialTheme.spacing.small)
                 .fillMaxWidth()
         )
-        CustomButton(
-            label = "change email address",
+        MenuButton(
+            label = stringResource(id = R.string.change_email),
             icon = Icons.Filled.Email,
             onClick = { onEvent(SettingsEvent.OnEmailChange) }
         )
-        CustomButton(
-            label = "change password",
+        MenuButton(
+            label = stringResource(id = R.string.change_password),
             icon = Icons.Filled.Lock,
             onClick = { onEvent(SettingsEvent.OnPasswordChange) }
         )
-        CustomButton(
-            label = "Sign out",
+        MenuButton(
+            label = stringResource(id = R.string.sign_out),
             icon = Icons.AutoMirrored.Filled.ExitToApp,
             onClick = { onEvent(SettingsEvent.OnSignOut) }
         )
-        CustomButton(
-            label = "Switch character",
+        MenuButton(
+            label = stringResource(id = R.string.switch_character),
             icon = Icons.Filled.Person,
             onClick = { onEvent(SettingsEvent.OnCharacterSwitch) }
         )

@@ -1,4 +1,4 @@
-package com.jlahougue.class_presentation
+package com.jlahougue.class_presentation.detail_dialog
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Column
@@ -18,8 +18,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.jlahougue.ability_domain.model.AbilityName
 import com.jlahougue.class_domain.model.Class
+import com.jlahougue.class_presentation.R
 import com.jlahougue.class_presentation.components.ClassLevelArray
-import com.jlahougue.core_presentation.components.PropertyRow
+import com.jlahougue.core_presentation.components.labeled_values.PropertyRow
 import com.jlahougue.core_presentation.theme.DnDCompanionTheme
 import com.jlahougue.core_presentation.theme.spacing
 
@@ -33,7 +34,6 @@ fun ClassDialog(
 
     Dialog(onDismissRequest = { onEvent(ClassDialogEvent.OnDismiss) }) {
         Card(
-            //modifier = Modifier.width(IntrinsicSize.Max),
             shape = RoundedCornerShape(8.dp),
             colors = CardDefaults.cardColors(
                 containerColor = MaterialTheme.colorScheme.surface,

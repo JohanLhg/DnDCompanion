@@ -2,7 +2,7 @@ package com.jlahougue.profile_presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.jlahougue.class_presentation.ClassDialogState
+import com.jlahougue.class_presentation.detail_dialog.ClassDialogState
 import com.jlahougue.profile_domain.ProfileModule
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow

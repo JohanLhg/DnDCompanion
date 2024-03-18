@@ -6,7 +6,6 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -17,16 +16,13 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Done
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.ripple.rememberRipple
-import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -35,11 +31,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import com.jlahougue.core_presentation.components.ConfirmButton
 import com.jlahougue.core_presentation.theme.DnDCompanionTheme
 import com.jlahougue.core_presentation.theme.spacing
 import com.jlahougue.money_domain.model.Currency
@@ -196,35 +192,9 @@ fun MoneyDialog(
                     modifier = Modifier
                         .fillMaxWidth()
                 ) {
-                    Button(
-                        onClick = { onEvent(MoneyDialogEvent.OnConfirm) },
-                        shape = OutlinedTextFieldDefaults.shape,
-                        contentPadding = PaddingValues(
-                            vertical = MaterialTheme.spacing.small,
-                            horizontal = MaterialTheme.spacing.small
-                        ),
-                        modifier = Modifier
-                            .padding(
-                                horizontal = MaterialTheme.spacing.small,
-                                vertical = MaterialTheme.spacing.extraSmall
-                            )
-                    ) {
-                        Row {
-                            Icon(
-                                imageVector = Icons.Filled.Done,
-                                contentDescription = null
-                            )
-                            Text(
-                                text = stringResource(
-                                    id = R.string.confirm
-                                ).uppercase(),
-                                style = MaterialTheme.typography.bodyMedium,
-                                textAlign = TextAlign.Center,
-                                modifier = Modifier
-                                    .padding(horizontal = MaterialTheme.spacing.extraSmall)
-                            )
-                        }
-                    }
+                    ConfirmButton(
+                        onClick = { onEvent(MoneyDialogEvent.OnConfirm) }
+                    )
                 }
             }
         }

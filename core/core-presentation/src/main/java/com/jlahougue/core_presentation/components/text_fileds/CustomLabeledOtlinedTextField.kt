@@ -1,4 +1,4 @@
-package com.jlahougue.core_presentation.components
+package com.jlahougue.core_presentation.components.text_fileds
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.PaddingValues

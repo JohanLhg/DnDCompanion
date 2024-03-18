@@ -19,7 +19,7 @@ fun ClassLevelArray() {
             DataTable(
                 headers = listOf("Level", "Ability Score Bonus", "Proficiency Bonus", "Cantrips Known", "Spells Known", "1", "2", "3", "4", "5", "6", "7", "8", "9"),
                 rows = listOf(
-                    listOf("1hdf fhd ghd", "+2", "+2", "2", "2", "2", "", "", "", "", "", "", "", ""),
+                    listOf("1", "+2", "+2", "2", "2", "2", "", "", "", "", "", "", "", ""),
                     listOf("2", "+2", "+2", "2", "3", "3", "", "", "", "", "", "", "", ""),
                     listOf("3", "+2", "+2", "2", "4", "4", "2", "", "", "", "", "", "", ""),
                     listOf("4", "+2", "+2", "2", "5", "4", "3", "", "", "", "", "", "", ""),
