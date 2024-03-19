@@ -37,7 +37,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.jlahougue.core_domain.util.extension.asDp
-import com.jlahougue.core_presentation.components.CustomSearchBar
+import com.jlahougue.core_presentation.components.text_fileds.CustomSearchBar
 import com.jlahougue.core_presentation.theme.DnDCompanionTheme
 import com.jlahougue.core_presentation.theme.spacing
 import com.jlahougue.settings_domain.model.UnitSystem
@@ -45,6 +45,7 @@ import com.jlahougue.weapon_domain.model.WeaponInfo
 import com.jlahougue.weapon_presentation.R
 import com.jlahougue.weapon_presentation.WeaponEvent
 import com.jlahougue.weapon_presentation.component.WeaponCard
+import com.jlahougue.core_presentation.R as CoreR
 
 @Composable
 fun WeaponListDialog(
@@ -158,7 +159,7 @@ fun WeaponListDialog(
                             .padding(MaterialTheme.spacing.small)
                     )
                     Image(
-                        painter = painterResource(id = R.drawable.magic),
+                        painter = painterResource(id = CoreR.drawable.magic),
                         contentDescription = null,
                         contentScale = ContentScale.FillHeight,
                         colorFilter = ColorFilter.tint(

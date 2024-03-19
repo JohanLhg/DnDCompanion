@@ -28,9 +28,11 @@
             <option value="$PROJECT_DIR$/character-spell/character-spell-presentation" />
             <option value="$PROJECT_DIR$/character/character-data" />
             <option value="$PROJECT_DIR$/character/character-domain" />
+            <option value="$PROJECT_DIR$/character/character-presentation" />
             <option value="$PROJECT_DIR$/class" />
             <option value="$PROJECT_DIR$/class/class-data" />
             <option value="$PROJECT_DIR$/class/class-domain" />
+            <option value="$PROJECT_DIR$/class/class-presentation" />
             <option value="$PROJECT_DIR$/core" />
             <option value="$PROJECT_DIR$/core/core-data" />
             <option value="$PROJECT_DIR$/core/core-data-remote-instance" />
@@ -57,6 +59,9 @@
             <option value="$PROJECT_DIR$/feature-loading" />
             <option value="$PROJECT_DIR$/feature-loading/loading-domain" />
             <option value="$PROJECT_DIR$/feature-loading/loading-presentation" />
+            <option value="$PROJECT_DIR$/feature-profile" />
+            <option value="$PROJECT_DIR$/feature-profile/profile-domain" />
+            <option value="$PROJECT_DIR$/feature-profile/profile-presentation" />
             <option value="$PROJECT_DIR$/feature-settings" />
             <option value="$PROJECT_DIR$/feature-settings/settings-domain" />
             <option value="$PROJECT_DIR$/feature-settings/settings-presentation" />

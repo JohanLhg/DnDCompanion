@@ -32,7 +32,7 @@ class SpellsViewModel(
     private var spellDialogJob: Job? = null
 
     init {
-        viewModelScope.launch(module.dispatcherProvider.io) {
+        viewModelScope.launch {
             _state.update {
                 it.copy(
                     classes = module.classUseCases.getSpellcasterClasses(),

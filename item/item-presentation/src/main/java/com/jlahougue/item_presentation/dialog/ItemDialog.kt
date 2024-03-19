@@ -36,9 +36,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
-import com.jlahougue.core_presentation.components.CustomOutlinedTextField
-import com.jlahougue.core_presentation.components.PropertyEditColumn
-import com.jlahougue.core_presentation.components.PropertyEditRow
+import com.jlahougue.core_presentation.components.labeled_values.PropertyEditColumn
+import com.jlahougue.core_presentation.components.labeled_values.PropertyEditRow
+import com.jlahougue.core_presentation.components.text_fileds.CustomOutlinedTextField
 import com.jlahougue.core_presentation.theme.DnDCompanionTheme
 import com.jlahougue.core_presentation.theme.spacing
 import com.jlahougue.item_domain.model.Item

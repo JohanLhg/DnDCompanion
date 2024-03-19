@@ -22,8 +22,8 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.jlahougue.core_domain.util.extension.toSignedString
-import com.jlahougue.core_presentation.components.CustomOutlinedTextField
 import com.jlahougue.core_presentation.components.FramedBox
+import com.jlahougue.core_presentation.components.text_fileds.CustomOutlinedTextField
 import com.jlahougue.core_presentation.theme.DnDCompanionTheme
 import com.jlahougue.core_presentation.theme.spacing
 import com.jlahougue.stats_domain.model.StatsView

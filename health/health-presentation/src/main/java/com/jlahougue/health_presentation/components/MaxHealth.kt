@@ -13,7 +13,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.jlahougue.core_presentation.components.CustomOutlinedTextField
+import com.jlahougue.core_presentation.components.text_fileds.CustomOutlinedTextField
 import com.jlahougue.core_presentation.theme.spacing
 import com.jlahougue.health_domain.model.Health
 import com.jlahougue.health_presentation.HealthEvent

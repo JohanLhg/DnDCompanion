@@ -29,8 +29,8 @@ import com.jlahougue.character_spell_domain.model.SpellInfo
 import com.jlahougue.character_spell_domain.model.SpellState
 import com.jlahougue.character_spell_presentation.R
 import com.jlahougue.character_spell_presentation.SpellEvent
-import com.jlahougue.core_presentation.components.PropertyColumn
-import com.jlahougue.core_presentation.components.PropertyRow
+import com.jlahougue.core_presentation.components.labeled_values.PropertyColumn
+import com.jlahougue.core_presentation.components.labeled_values.PropertyRow
 import com.jlahougue.core_presentation.theme.DnDCompanionTheme
 import com.jlahougue.core_presentation.theme.spacing
 

@@ -76,7 +76,9 @@ class ClassDnd5eDataSource(
         var slotLevel = 1
         while (spellcasting.has("spell_slots_level_$slotLevel")) {
             val spellSlots = spellcasting.getInt("spell_slots_level_$slotLevel")
-            classSpellSlots.add(ClassSpellSlot(clazz, level, slotLevel, spellSlots))
+            if (spellSlots > 0) {
+                classSpellSlots.add(ClassSpellSlot(clazz, level, slotLevel, spellSlots))
+            }
             slotLevel++
         }
         return classSpellSlots

@@ -32,10 +32,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.jlahougue.ability_domain.model.AbilityName
 import com.jlahougue.core_domain.util.extension.toSignedString
-import com.jlahougue.core_presentation.components.CustomOutlinedTextField
 import com.jlahougue.core_presentation.components.ListOfLinkedItems
-import com.jlahougue.core_presentation.components.PropertyColumn
-import com.jlahougue.core_presentation.components.PropertyRow
+import com.jlahougue.core_presentation.components.labeled_values.PropertyColumn
+import com.jlahougue.core_presentation.components.labeled_values.PropertyRow
+import com.jlahougue.core_presentation.components.text_fileds.CustomOutlinedTextField
 import com.jlahougue.core_presentation.theme.DnDCompanionTheme
 import com.jlahougue.core_presentation.theme.spacing
 import com.jlahougue.settings_domain.model.UnitSystem

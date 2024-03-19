@@ -19,6 +19,7 @@ import com.jlahougue.health_data.di.HealthModule
 import com.jlahougue.item_data.di.ItemModule
 import com.jlahougue.loading_domain.di.LoadingModule
 import com.jlahougue.money_data.di.MoneyModule
+import com.jlahougue.profile_domain.ProfileModule
 import com.jlahougue.property_data.di.PropertyModule
 import com.jlahougue.skill_data.di.SkillModule
 import com.jlahougue.spell_data.di.SpellModule
@@ -59,6 +60,7 @@ class DnDCompanionApp: Application() {
         lateinit var settingsModule: SettingsModule
         lateinit var spellsModule: SpellsModule
         lateinit var equipmentModule: EquipmentModule
+        lateinit var profileModule: ProfileModule
     }
 
     override fun onCreate() {
@@ -108,6 +110,7 @@ class DnDCompanionApp: Application() {
             dataSourceModule.localDataSource.itemDao()
         )
         classModule = ClassModule(
+            appModule.dispatcherProvider,
             dataSourceModule.remoteDataSource.classDao,
             dataSourceModule.localDataSource.classDao()
         )
@@ -210,6 +213,12 @@ class DnDCompanionApp: Application() {
             weaponModule.useCases,
             moneyModule.useCases,
             itemModule.useCases
+        )
+        profileModule = ProfileModule(
+            appModule.dispatcherProvider,
+            userInfoModule.useCases,
+            characterModule.useCases,
+            classModule.useCases
         )
     }
 }

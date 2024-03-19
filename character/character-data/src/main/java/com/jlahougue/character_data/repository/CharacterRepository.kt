@@ -1,10 +1,10 @@
 package com.jlahougue.character_data.repository
 
+import android.net.Uri
 import com.jlahougue.character_data.source.local.CharacterLocalDataSource
 import com.jlahougue.character_data.source.remote.CharacterRemoteDataSource
 import com.jlahougue.character_domain.model.Character
 import com.jlahougue.character_domain.repository.ICharacterRepository
-import com.jlahougue.character_domain.use_case.CharacterImageEvent
 
 class CharacterRepository(
     private val remoteDataSource: CharacterRemoteDataSource,
@@ -37,10 +37,12 @@ class CharacterRepository(
 
     override fun get() = localDataSource.get()
 
-    override fun loadImage(
-        characterId: Long,
-        onEvent: (CharacterImageEvent) -> Unit
-    ) = remoteDataSource.loadImage(characterId, onEvent)
+    override fun get(characterId: Long) = localDataSource.get(characterId)
+
+    override fun loadImage(characterId: Long) = remoteDataSource.loadImage(characterId)
+
+    override fun uploadImage(characterId: Long, uri: Uri)
+            = remoteDataSource.uploadImage(characterId, uri)
 
     override suspend fun getClass(characterId: Long) = localDataSource.getClass(characterId)
 }

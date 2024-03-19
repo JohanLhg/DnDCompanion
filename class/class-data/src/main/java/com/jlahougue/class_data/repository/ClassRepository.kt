@@ -43,5 +43,11 @@ class ClassRepository(
         this
     )
 
+    override suspend fun get(name: String) = localDataSource.get(name)
+
+    override suspend fun get() = localDataSource.get()
+
+    override suspend fun getLevels(name: String) = localDataSource.getLevels(name)
+
     override suspend fun getSpellcasterClasses() = localDataSource.getSpellcasterClasses()
 }

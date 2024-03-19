@@ -16,9 +16,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import com.jlahougue.core_presentation.components.CustomOutlinedTextField
 import com.jlahougue.core_presentation.components.dropdown.CustomDropDown
 import com.jlahougue.core_presentation.components.dropdown.DropDownItem
+import com.jlahougue.core_presentation.components.text_fileds.CustomOutlinedTextField
 import com.jlahougue.core_presentation.theme.DnDCompanionTheme
 import com.jlahougue.core_presentation.theme.spacing
 import com.jlahougue.money_domain.model.Currency

@@ -80,6 +80,7 @@ dependencies {
     implementation(project(":feature-settings:settings-domain"))
     implementation(project(":feature-spells:spells-domain"))
     implementation(project(":feature-loading:loading-domain"))
+    implementation(project(":feature-profile:profile-domain"))
 
     testImplementation(libs.bundles.tests)
     androidTestImplementation(libs.bundles.android.tests)

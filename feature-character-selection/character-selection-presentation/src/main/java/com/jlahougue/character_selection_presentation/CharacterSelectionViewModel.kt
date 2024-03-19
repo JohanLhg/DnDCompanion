@@ -3,8 +3,8 @@ package com.jlahougue.character_selection_presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jlahougue.character_domain.model.Character
-import com.jlahougue.character_domain.use_case.LoadImageState
 import com.jlahougue.character_selection_domain.ICharacterSelectionModule
+import com.jlahougue.core_domain.util.LoadImageState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
