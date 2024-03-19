@@ -13,7 +13,7 @@ import com.jlahougue.ability_domain.model.AbilityName
 import com.jlahougue.class_domain.model.Class
 import com.jlahougue.class_presentation.R
 import com.jlahougue.class_presentation.components.ClassLevelArray
-import com.jlahougue.core_presentation.components.CustomDialog
+import com.jlahougue.core_presentation.components.containers.CustomDialog
 import com.jlahougue.core_presentation.components.labeled_values.PropertyColumn
 import com.jlahougue.core_presentation.components.labeled_values.PropertyRow
 import com.jlahougue.core_presentation.theme.DnDCompanionTheme

@@ -14,5 +14,8 @@
     <string name="test_ranged">Ranged Test</string>
 
     <string name="add_weapon">Add weapon</string>
+    <string name="melee_weapon">Melee weapons</string>
+    <string name="ranged_weapon">Ranged weapons</string>
+    <string name="magic_weapon">Magic weapons</string>
 
 </resources>

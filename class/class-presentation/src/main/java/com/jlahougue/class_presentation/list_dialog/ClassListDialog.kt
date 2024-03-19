@@ -35,7 +35,7 @@ import com.jlahougue.class_domain.model.Class
 import com.jlahougue.class_presentation.R
 import com.jlahougue.core_presentation.components.CancelButton
 import com.jlahougue.core_presentation.components.ConfirmButton
-import com.jlahougue.core_presentation.components.CustomDialog
+import com.jlahougue.core_presentation.components.containers.CustomDialog
 import com.jlahougue.core_presentation.theme.DnDCompanionTheme
 import com.jlahougue.core_presentation.theme.spacing
 import com.jlahougue.core_presentation.R as CoreR

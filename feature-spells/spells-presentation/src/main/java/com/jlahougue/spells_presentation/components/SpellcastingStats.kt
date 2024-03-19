@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.dp
 import com.jlahougue.ability_domain.model.AbilityName
 import com.jlahougue.character_spell_domain.model.SpellcasterView
 import com.jlahougue.core_domain.util.extension.toSignedString
-import com.jlahougue.core_presentation.components.StatBox
+import com.jlahougue.core_presentation.components.containers.StatBox
 import com.jlahougue.core_presentation.theme.DnDCompanionTheme
 import com.jlahougue.core_presentation.theme.spacing
 import com.jlahougue.spells_presentation.R

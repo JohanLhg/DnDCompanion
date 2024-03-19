@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.dp
 import com.jlahougue.ability_domain.model.AbilityName
 import com.jlahougue.ability_domain.model.AbilityView
 import com.jlahougue.core_domain.util.extension.toSignedString
-import com.jlahougue.core_presentation.components.FramedBox
+import com.jlahougue.core_presentation.components.containers.FramedBox
 import com.jlahougue.core_presentation.theme.DnDCompanionTheme
 import com.jlahougue.core_presentation.theme.spacing
 
@@ -35,29 +35,27 @@ fun Abilities(
         title = stringResource(id = R.string.abilities),
         modifier = modifier
     ) {
-        Column {
-            Row {
-                Spacer(
-                    modifier = Modifier
-                        .width(0.dp)
-                        .weight(1f)
-                )
-                Text(
-                    text = stringResource(id = R.string.ability_modifier_short),
-                    modifier = Modifier.width(50.dp),
-                    textAlign = TextAlign.Center,
-                    style = MaterialTheme.typography.bodySmall
-                )
-                Text(
-                    text = stringResource(id = R.string.ability_saving_throws_short),
-                    modifier = Modifier.width(50.dp),
-                    textAlign = TextAlign.Center,
-                    style = MaterialTheme.typography.bodySmall
-                )
-            }
-            for (ability in abilities)
-                AbilityRow(ability)
+        Row {
+            Spacer(
+                modifier = Modifier
+                    .width(0.dp)
+                    .weight(1f)
+            )
+            Text(
+                text = stringResource(id = R.string.ability_modifier_short),
+                modifier = Modifier.width(50.dp),
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.bodySmall
+            )
+            Text(
+                text = stringResource(id = R.string.ability_saving_throws_short),
+                modifier = Modifier.width(50.dp),
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.bodySmall
+            )
         }
+        for (ability in abilities)
+            AbilityRow(ability)
     }
 }
 

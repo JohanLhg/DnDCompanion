@@ -1,4 +1,4 @@
-package com.jlahougue.core_presentation.components
+package com.jlahougue.core_presentation.components.containers
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box

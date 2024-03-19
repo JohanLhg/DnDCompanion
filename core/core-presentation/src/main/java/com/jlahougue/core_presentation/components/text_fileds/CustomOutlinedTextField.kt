@@ -33,6 +33,7 @@ fun CustomOutlinedTextField(
     value: String,
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
+    borderColor: Color = MaterialTheme.colorScheme.secondary,
     horizontalPadding: Dp = MaterialTheme.spacing.small,
     verticalPadding: Dp = 0.dp,
     textStyle: TextStyle = TextStyle.Default,
@@ -74,7 +75,7 @@ fun CustomOutlinedTextField(
         modifier = modifier
             .border(
                 1.dp,
-                Color.Gray,
+                borderColor,
                 MaterialTheme.shapes.extraSmall
             )
             .padding(
