@@ -2,7 +2,7 @@
 <resources>
     <string name="hit_die">Hit die :</string>
     <string name="die">d%d</string>
-    <string name="spellcasting_ability">Spellcasting Ability :</string>
+    <string name="class_spellcasting_ability">Spellcasting Ability :</string>
     <string name="equipment">Equipment :</string>
     <string name="proficiencies">Proficiencies</string>
     <string name="saving_throws">Saving Throws :</string>
@@ -13,4 +13,9 @@
     <string name="class_list_dialog_title">Select your class</string>
     <string name="spellcaster">Spellcaster</string>
     <string name="more_info">More info</string>
+    <string name="level">Level</string>
+    <string name="ability_score_bonus">Ability S. Bonus</string>
+    <string name="proficiency_bonus">Proficiency Bonus</string>
+    <string name="cantrips_known">Cantrips Known</string>
+    <string name="spells_known">Spells Known</string>
 </resources>

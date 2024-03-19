@@ -2,7 +2,11 @@ package com.jlahougue.profile_presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.jlahougue.character_domain.model.Character
+import com.jlahougue.class_presentation.detail_dialog.ClassDialogEvent
 import com.jlahougue.class_presentation.detail_dialog.ClassDialogState
+import com.jlahougue.class_presentation.list_dialog.ClassListDialogEvent
+import com.jlahougue.class_presentation.list_dialog.ClassListDialogState
 import com.jlahougue.profile_domain.ProfileModule
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,6 +22,7 @@ class ProfileViewModel(private val module: ProfileModule) : ViewModel() {
 
     private var characterJob: Job? = null
     private var imageJob: Job? = null
+    private var uploadImageJob: Job? = null
 
     init {
         viewModelScope.launch(module.dispatcherProvider.io) {
@@ -50,7 +55,8 @@ class ProfileViewModel(private val module: ProfileModule) : ViewModel() {
     fun onEvent(event: ProfileEvent) {
         when (event) {
             is ProfileEvent.OnImageSelected -> {
-                viewModelScope.launch(module.dispatcherProvider.io) {
+                uploadImageJob?.cancel()
+                uploadImageJob = viewModelScope.launch(module.dispatcherProvider.io) {
                     module.characterUseCases.uploadImage(state.value.character.id, event.uri)
                         .collectLatest { imageState ->
                             _state.update {
@@ -60,87 +66,126 @@ class ProfileViewModel(private val module: ProfileModule) : ViewModel() {
                 }
             }
             is ProfileEvent.OnNameChanged -> {
-                viewModelScope.launch(module.dispatcherProvider.io) {
-                    module.characterUseCases.updateCharacter(
-                        state.value.character.copy(name = event.name)
-                    )
-                }
+                updateCharacter(state.value.character.copy(name = event.name))
             }
             is ProfileEvent.OnRaceChanged -> {
-                viewModelScope.launch(module.dispatcherProvider.io) {
-                    module.characterUseCases.updateCharacter(
-                        state.value.character.copy(race = event.race)
-                    )
+                updateCharacter(state.value.character.copy(race = event.race))
+            }
+            ProfileEvent.OnClassDetailsOpened -> {
+                viewModelScope.launch {
+                    _state.update {
+                        it.copy(
+                            classDialog = ClassDialogState(
+                                isShown = true,
+                                clazz = module.classUseCases.getClass(state.value.character.clazz),
+                                levels = module.classUseCases.getClassLevels(state.value.character.clazz)
+                            )
+                        )
+                    }
                 }
             }
             ProfileEvent.OnClassListOpened -> {
-                viewModelScope.launch(module.dispatcherProvider.io) {
-                    module.classUseCases.getClass("Wizard").collectLatest { wizard ->
-                        _state.update {
-                            it.copy(
-                                classDialog = ClassDialogState(
-                                    isShown = true,
-                                    clazz = wizard
-                                )
+                viewModelScope.launch {
+                    _state.update {
+                        it.copy(
+                            classListDialog = it.classListDialog.copy(
+                                isShown = true,
+                                classes = module.classUseCases.getClasses()
                             )
-                        }
+                        )
                     }
                 }
             }
             is ProfileEvent.OnLevelChanged -> {
-                viewModelScope.launch(module.dispatcherProvider.io) {
-                    module.characterUseCases.updateCharacter(
-                        state.value.character.copy(level = event.level)
-                    )
-                }
+                updateCharacter(state.value.character.copy(level = event.level))
             }
             ProfileEvent.OnLevelUp -> {
-                viewModelScope.launch(module.dispatcherProvider.io) {
-                    module.characterUseCases.updateCharacter(
-                        state.value.character.copy(level = state.value.character.level + 1)
-                    )
-                }
+                updateCharacter(state.value.character.copy(level = state.value.character.level + 1))
             }
             is ProfileEvent.OnGenderChanged -> {
-                viewModelScope.launch(module.dispatcherProvider.io) {
-                    module.characterUseCases.updateCharacter(
-                        state.value.character.copy(gender = event.gender)
-                    )
-                }
+                updateCharacter(state.value.character.copy(gender = event.gender))
             }
             is ProfileEvent.OnAgeChanged -> {
-                viewModelScope.launch(module.dispatcherProvider.io) {
-                    module.characterUseCases.updateCharacter(
-                        state.value.character.copy(age = event.age)
-                    )
-                }
+                updateCharacter(state.value.character.copy(age = event.age))
             }
             is ProfileEvent.OnHeightChanged -> {
-                viewModelScope.launch(module.dispatcherProvider.io) {
-                    module.characterUseCases.updateCharacter(
-                        state.value.character.copy(height = event.height)
-                    )
-                }
+                updateCharacter(state.value.character.copy(height = event.height))
             }
             is ProfileEvent.OnWeightChanged -> {
-                viewModelScope.launch(module.dispatcherProvider.io) {
-                    module.characterUseCases.updateCharacter(
-                        state.value.character.copy(weight = event.weight)
-                    )
-                }
+                updateCharacter(state.value.character.copy(weight = event.weight))
             }
             is ProfileEvent.OnBackgroundChanged -> {
-                viewModelScope.launch(module.dispatcherProvider.io) {
-                    module.characterUseCases.updateCharacter(
-                        state.value.character.copy(background = event.background)
+                updateCharacter(state.value.character.copy(background = event.background))
+            }
+            is ProfileEvent.OnPersonalityChanged -> {
+                updateCharacter(state.value.character.copy(personality = event.personality))
+            }
+            is ProfileEvent.OnIdealsChanged -> {
+                updateCharacter(state.value.character.copy(ideals = event.ideals))
+            }
+            is ProfileEvent.OnBondsChanged -> {
+                updateCharacter(state.value.character.copy(bonds = event.bonds))
+            }
+            is ProfileEvent.OnFlawsChanged -> {
+                updateCharacter(state.value.character.copy(flaws = event.flaws))
+            }
+            is ProfileEvent.OnClassListDialogEvent -> onClassListDialogEvent(event.event)
+            is ProfileEvent.OnClassDialogEvent -> onClassDialogEvent(event.event)
+        }
+    }
+
+    private fun updateCharacter(character: Character) {
+        viewModelScope.launch(module.dispatcherProvider.io) {
+            module.characterUseCases.updateCharacter(character)
+        }
+    }
+
+    private fun onClassListDialogEvent(event: ClassListDialogEvent) {
+        when (event) {
+            ClassListDialogEvent.OnDismiss -> {
+                _state.update {
+                    it.copy(classListDialog = ClassListDialogState())
+                }
+            }
+            is ClassListDialogEvent.OnClassSelected -> {
+                _state.update {
+                    it.copy(
+                        classListDialog = it.classListDialog.copy(
+                            selectedClass = event.clazz
+                        )
                     )
                 }
             }
-            is ProfileEvent.OnPersonalityChanged -> {
+            is ClassListDialogEvent.OnClassDetailsOpened -> {
+                viewModelScope.launch {
+                    _state.update {
+                        it.copy(
+                            classDialog = ClassDialogState(
+                                isShown = true,
+                                clazz = event.clazz,
+                                levels = module.classUseCases.getClassLevels(event.clazz.name)
+                            )
+                        )
+                    }
+                }
+            }
+            ClassListDialogEvent.OnConfirm -> {
                 viewModelScope.launch(module.dispatcherProvider.io) {
+                    val clazz = state.value.classListDialog.selectedClass ?: return@launch
                     module.characterUseCases.updateCharacter(
-                        state.value.character.copy(personality = event.personality)
+                        state.value.character.copy(clazz = clazz.name)
                     )
+                    onEvent(ProfileEvent.OnClassListDialogEvent(ClassListDialogEvent.OnDismiss))
+                }
+            }
+        }
+    }
+
+    private fun onClassDialogEvent(event: ClassDialogEvent) {
+        when (event) {
+            ClassDialogEvent.OnDismiss -> {
+                _state.update {
+                    it.copy(classDialog = ClassDialogState())
                 }
             }
         }

@@ -13,7 +13,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -24,6 +24,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Devices
@@ -50,7 +51,9 @@ fun ClassListDialog(
         title = stringResource(id = R.string.class_list_dialog_title),
         hasContentPadding = false
     ) {
-        LazyColumn {
+        LazyColumn(
+            modifier = Modifier.weight(1f)
+        ) {
             itemsIndexed(state.classes) { index, clazz ->
                 ClassItem(
                     clazz = clazz,
@@ -70,7 +73,8 @@ fun ClassListDialog(
                 onClick = { onEvent(ClassListDialogEvent.OnDismiss) }
             )
             ConfirmButton(
-                onClick = { onEvent(ClassListDialogEvent.OnConfirm) }
+                onClick = { onEvent(ClassListDialogEvent.OnConfirm) },
+                enabled = state.selectedClass != null
             )
         }
     }
@@ -83,6 +87,8 @@ fun ClassItem(
     backgroundColor: Color,
     onEvent: (ClassListDialogEvent) -> Unit
 ) {
+    val color = if (selected) MaterialTheme.colorScheme.onPrimary
+    else MaterialTheme.colorScheme.onSurface
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
@@ -99,26 +105,20 @@ fun ClassItem(
         Text(
             text = clazz.name,
             style = MaterialTheme.typography.titleSmall,
-            color = if (selected) MaterialTheme.colorScheme.onPrimary
-            else MaterialTheme.colorScheme.onSurface
+            color = color
         )
         Spacer(modifier = Modifier.weight(1f))
         if (clazz.isSpellcaster()) {
             Image(
                 painter = painterResource(id = CoreR.drawable.spell_book),
                 contentDescription = stringResource(id = R.string.spellcaster),
-                modifier = Modifier.size(24.dp)
+                modifier = Modifier.size(35.dp)
+                    .padding(MaterialTheme.spacing.extraSmall),
+                colorFilter = ColorFilter.tint(color)
             )
         }
-        Image(
-            painter = painterResource(id = CoreR.drawable.spell_book),
-            contentDescription = stringResource(id = R.string.spellcaster),
-            modifier = Modifier
-                .size(35.dp)
-                .padding(MaterialTheme.spacing.extraSmall)
-        )
         Icon(
-            imageVector = Icons.Filled.Info,
+            imageVector = Icons.Outlined.Info,
             contentDescription = stringResource(id = R.string.more_info),
             modifier = Modifier
                 .size(35.dp)
@@ -126,10 +126,11 @@ fun ClassItem(
                     interactionSource = remember { MutableInteractionSource() },
                     indication = rememberRipple(bounded = false),
                     onClick = {
-                        onEvent(ClassListDialogEvent.OnClassDetail(clazz))
+                        onEvent(ClassListDialogEvent.OnClassDetailsOpened(clazz))
                     }
                 )
-                .padding(MaterialTheme.spacing.extraSmall)
+                .padding(MaterialTheme.spacing.extraSmall),
+            tint = color
         )
     }
 }
@@ -145,6 +146,17 @@ private fun ClassListDialogPreview() {
         ClassListDialog(
             state = ClassListDialogState(
                 isShown = true,
+                selectedClass = Class(
+                    name = "Wizard",
+                    hitDice = 8,
+                    equipment = "A rapier, a longsword, a diplomat's pack, and a lute",
+                    profSavingThrows = "Dexterity, Charisma",
+                    profSkills = "Any three",
+                    profArmor = "Light armor",
+                    profWeapons = "Simple weapons, hand crossbows, longswords, rapiers, shortswords",
+                    profTools = "Three musical instruments",
+                    spellcastingAbility = AbilityName.INTELLIGENCE
+                ),
                 classes = listOf(
                     Class(
                         name = "Barbarian",
@@ -211,6 +223,17 @@ private fun ClassListDialogPreview() {
                         profWeapons = "Simple weapons, hand crossbows, longswords, rapiers, shortswords",
                         profTools = "Three musical instruments",
                         spellcastingAbility = AbilityName.CHARISMA
+                    ),
+                    Class(
+                        name = "Wizard",
+                        hitDice = 8,
+                        equipment = "A rapier, a longsword, a diplomat's pack, and a lute",
+                        profSavingThrows = "Dexterity, Charisma",
+                        profSkills = "Any three",
+                        profArmor = "Light armor",
+                        profWeapons = "Simple weapons, hand crossbows, longswords, rapiers, shortswords",
+                        profTools = "Three musical instruments",
+                        spellcastingAbility = AbilityName.INTELLIGENCE
                     ),
                     Class(
                         name = "Barbarian",

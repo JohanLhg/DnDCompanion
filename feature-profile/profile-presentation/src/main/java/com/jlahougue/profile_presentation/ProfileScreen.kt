@@ -5,6 +5,7 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
@@ -38,6 +39,7 @@ import androidx.compose.ui.unit.dp
 import com.jlahougue.character_domain.model.Character
 import com.jlahougue.character_presentation.CharacterImage
 import com.jlahougue.class_presentation.detail_dialog.ClassDialog
+import com.jlahougue.class_presentation.list_dialog.ClassListDialog
 import com.jlahougue.core_domain.util.LoadImageState
 import com.jlahougue.core_domain.util.extension.toDoubleOrZero
 import com.jlahougue.core_domain.util.extension.toIntOrZero
@@ -114,6 +116,7 @@ fun ProfileScreen(
                         text = state.character.clazz,
                         style = valueStyle,
                         modifier = Modifier
+                            .clickable { onEvent(ProfileEvent.OnClassDetailsOpened) }
                             .padding(horizontal = MaterialTheme.spacing.small)
                             .padding(vertical = MaterialTheme.spacing.extraSmall)
                     )
@@ -201,7 +204,7 @@ fun ProfileScreen(
                     modifier = Modifier.weight(2f)
                 )
                 BoxedLinedTextField(
-                    label = "Personality Traits",
+                    label = stringResource(id = R.string.character_personality),
                     value = state.character.personality,
                     onValueChange = { onEvent(ProfileEvent.OnPersonalityChanged(it)) },
                     modifier = Modifier.weight(1f)
@@ -211,29 +214,37 @@ fun ProfileScreen(
                 modifier = Modifier.weight(1f)
             ) {
                 BoxedLinedTextField(
-                    label = "Ideals",
+                    label = stringResource(id = R.string.character_ideals),
                     value = state.character.ideals,
-                    onValueChange = { onEvent(ProfileEvent.OnPersonalityChanged(it)) },
+                    onValueChange = { onEvent(ProfileEvent.OnIdealsChanged(it)) },
                     modifier = Modifier.weight(1f)
                 )
                 BoxedLinedTextField(
-                    label = "Bonds",
+                    label = stringResource(id = R.string.character_bonds),
                     value = state.character.bonds,
-                    onValueChange = { onEvent(ProfileEvent.OnPersonalityChanged(it)) },
+                    onValueChange = { onEvent(ProfileEvent.OnBondsChanged(it)) },
                     modifier = Modifier.weight(1f)
                 )
                 BoxedLinedTextField(
-                    label = "Flaws",
+                    label = stringResource(id = R.string.character_flaws),
                     value = state.character.flaws,
-                    onValueChange = { onEvent(ProfileEvent.OnPersonalityChanged(it)) },
+                    onValueChange = { onEvent(ProfileEvent.OnFlawsChanged(it)) },
                     modifier = Modifier.weight(1f)
                 )
             }
         }
     }
+    ClassListDialog(
+        state = state.classListDialog,
+        onEvent = {
+            onEvent(ProfileEvent.OnClassListDialogEvent(it))
+        }
+    )
     ClassDialog(
         state = state.classDialog,
-        onEvent = {}
+        onEvent = {
+            onEvent(ProfileEvent.OnClassDialogEvent(it))
+        }
     )
 }
 
@@ -256,10 +267,7 @@ fun Field(
         value = value,
         onValueChange = onValueChange,
         modifier = Modifier
-            .padding(
-                vertical = MaterialTheme.spacing.extraSmall,
-                horizontal = MaterialTheme.spacing.extraSmall
-            )
+            .padding(MaterialTheme.spacing.extraSmall)
             .fillMaxWidth(),
         verticalPadding = MaterialTheme.spacing.extraSmall,
         textStyle = MaterialTheme.typography.bodyMedium

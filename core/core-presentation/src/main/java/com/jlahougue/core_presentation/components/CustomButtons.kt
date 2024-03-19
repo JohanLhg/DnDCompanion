@@ -36,6 +36,7 @@ fun ActionButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     icon: ImageVector? = null,
+    enabled: Boolean = true,
     border: BorderStroke? = null,
     colors: ButtonColors = ButtonDefaults.buttonColors()
 ) {
@@ -44,6 +45,7 @@ fun ActionButton(
         modifier = modifier
             .height(48.dp)
             .padding(MaterialTheme.spacing.small),
+        enabled = enabled,
         contentPadding = PaddingValues(MaterialTheme.spacing.extraSmall),
         border = border,
         colors = colors
@@ -69,13 +71,15 @@ fun SecondaryButton(
     label: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    icon: ImageVector? = null
+    icon: ImageVector? = null,
+    enabled: Boolean = true
 ) {
     ActionButton(
         label = label,
         onClick = onClick,
         modifier = modifier,
         icon = icon,
+        enabled = enabled,
         border = BorderStroke(
             width = 1.dp,
             color = MaterialTheme.colorScheme.primary
@@ -92,7 +96,8 @@ fun MenuButton(
     label: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    icon: ImageVector? = null
+    icon: ImageVector? = null,
+    enabled: Boolean = true
 ) {
     CustomButton(
         onClick = onClick,
@@ -102,6 +107,7 @@ fun MenuButton(
                 horizontal = MaterialTheme.spacing.medium
             )
             .fillMaxWidth(),
+        enabled = enabled
     ) {
         Box(modifier = Modifier.fillMaxWidth()) {
             if (icon != null) {
@@ -130,6 +136,7 @@ fun MenuButton(
 fun CustomButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
+    enabled: Boolean = true,
     contentPadding: PaddingValues = PaddingValues(MaterialTheme.spacing.small),
     border: BorderStroke? = null,
     colors: ButtonColors = ButtonDefaults.buttonColors(),
@@ -137,11 +144,12 @@ fun CustomButton(
 ) {
     Button(
         onClick = onClick,
+        modifier = modifier,
+        enabled = enabled,
         shape = OutlinedTextFieldDefaults.shape,
         contentPadding = contentPadding,
         border = border,
         colors = colors,
-        modifier = modifier,
         content = content
     )
 }
@@ -149,26 +157,30 @@ fun CustomButton(
 @Composable
 fun ConfirmButton(
     onClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true
 ) {
     ActionButton(
         label = stringResource(id = R.string.confirm),
         onClick = onClick,
         modifier = modifier,
-        icon = Icons.Filled.Check
+        icon = Icons.Filled.Check,
+        enabled = enabled
     )
 }
 
 @Composable
 fun CancelButton(
     onClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true
 ) {
     SecondaryButton(
         label = stringResource(id = R.string.cancel),
         onClick = onClick,
         modifier = modifier,
-        icon = Icons.Filled.Close
+        icon = Icons.Filled.Close,
+        enabled = enabled
     )
 }
 

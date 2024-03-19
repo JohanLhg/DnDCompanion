@@ -33,7 +33,7 @@ fun CustomDialog(
 
     Dialog(onDismissRequest = onDismissRequest) {
         Card(
-            shape = RoundedCornerShape(8.dp),
+            shape = RoundedCornerShape(MaterialTheme.spacing.medium),
             colors = CardDefaults.cardColors(
                 containerColor = MaterialTheme.colorScheme.surface,
             ),
@@ -50,10 +50,7 @@ fun CustomDialog(
                     modifier = Modifier
                         .background(MaterialTheme.colorScheme.primary)
                         .fillMaxWidth()
-                        .padding(
-                            vertical = MaterialTheme.spacing.medium,
-                            horizontal = MaterialTheme.spacing.medium
-                        )
+                        .padding(MaterialTheme.spacing.medium)
                 ) {
                     titleContent()
                 }

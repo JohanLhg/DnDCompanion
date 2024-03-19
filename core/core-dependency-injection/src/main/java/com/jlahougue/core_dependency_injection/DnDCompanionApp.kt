@@ -110,6 +110,7 @@ class DnDCompanionApp: Application() {
             dataSourceModule.localDataSource.itemDao()
         )
         classModule = ClassModule(
+            appModule.dispatcherProvider,
             dataSourceModule.remoteDataSource.classDao,
             dataSourceModule.localDataSource.classDao()
         )
