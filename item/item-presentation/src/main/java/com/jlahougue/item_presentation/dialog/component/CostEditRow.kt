@@ -22,6 +22,8 @@ import com.jlahougue.core_presentation.components.text_fileds.CustomOutlinedText
 import com.jlahougue.core_presentation.theme.DnDCompanionTheme
 import com.jlahougue.core_presentation.theme.spacing
 import com.jlahougue.money_domain.model.Currency
+import com.jlahougue.money_presentation.util.asShortUiText
+import com.jlahougue.money_presentation.util.asUiText
 
 @Composable
 fun CostEditRow(
@@ -36,7 +38,7 @@ fun CostEditRow(
         mutableStateOf(Currency.entries.map {
             DropDownItem(
                 value = it.name,
-                label = it.label
+                label = it.asUiText()
             )
         })
     }
@@ -66,7 +68,7 @@ fun CostEditRow(
             )
         )
         CustomDropDown(
-            value = currency.shortLabel.getString(),
+            value = currency.asShortUiText().getString(),
             options = options,
             onOptionSelected = {
                 onCurrencyChange(Currency.from(it))

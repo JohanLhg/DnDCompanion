@@ -70,7 +70,7 @@ fun AbilityRow(ability: AbilityView) {
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
-                text = ability.name.getShortString(),
+                text = ability.name.asShortUiText().getString(),
                 style = MaterialTheme.typography.titleSmall
             )
             Spacer(modifier = Modifier

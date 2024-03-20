@@ -102,10 +102,6 @@ fun MenuButton(
     CustomButton(
         onClick = onClick,
         modifier = modifier
-            .padding(
-                vertical = MaterialTheme.spacing.extraSmall,
-                horizontal = MaterialTheme.spacing.medium
-            )
             .fillMaxWidth(),
         enabled = enabled
     ) {
@@ -130,6 +126,27 @@ fun MenuButton(
             )
         }
     }
+}
+
+@Composable
+fun PrimaryMenuButton(
+    label: String,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    icon: ImageVector? = null,
+    enabled: Boolean = true
+) {
+    MenuButton(
+        label = label,
+        onClick = onClick,
+        modifier = modifier
+            .padding(
+                vertical = MaterialTheme.spacing.extraSmall,
+                horizontal = MaterialTheme.spacing.medium
+            ),
+        icon = icon,
+        enabled = enabled
+    )
 }
 
 @Composable
@@ -204,7 +221,7 @@ private fun CancelButtonPreview() {
 @Composable
 private fun MenuButtonPreview() {
     DnDCompanionTheme {
-        MenuButton(
+        PrimaryMenuButton(
             label = "Menu",
             onClick = {},
             icon = Icons.Filled.Menu

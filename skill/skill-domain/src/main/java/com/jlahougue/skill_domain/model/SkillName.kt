@@ -1,28 +1,25 @@
 package com.jlahougue.skill_domain.model
 
-import com.jlahougue.core_domain.util.UiText
-import com.jlahougue.skill_domain.R
-
-enum class SkillName(val localName: UiText) {
-    ACROBATICS(UiText.StringResource(R.string.skill_acrobatics)),
-    ANIMAL_HANDLING(UiText.StringResource(R.string.skill_animal_handling)),
-    ARCANA(UiText.StringResource(R.string.skill_arcana)),
-    ATHLETICS(UiText.StringResource(R.string.skill_athletics)),
-    DECEPTION(UiText.StringResource(R.string.skill_deception)),
-    HISTORY(UiText.StringResource(R.string.skill_history)),
-    INSIGHT(UiText.StringResource(R.string.skill_insight)),
-    INTIMIDATION(UiText.StringResource(R.string.skill_intimidation)),
-    INVESTIGATION(UiText.StringResource(R.string.skill_investigation)),
-    MEDICINE(UiText.StringResource(R.string.skill_medicine)),
-    NATURE(UiText.StringResource(R.string.skill_nature)),
-    PERCEPTION(UiText.StringResource(R.string.skill_perception)),
-    PERFORMANCE(UiText.StringResource(R.string.skill_performance)),
-    PERSUASION(UiText.StringResource(R.string.skill_persuasion)),
-    RELIGION(UiText.StringResource(R.string.skill_religion)),
-    SLEIGHT_OF_HAND(UiText.StringResource(R.string.skill_sleight_of_hand)),
-    STEALTH(UiText.StringResource(R.string.skill_stealth)),
-    SURVIVAL(UiText.StringResource(R.string.skill_survival)),
-    NONE(UiText.StringResource(R.string.empty));
+enum class SkillName {
+    ACROBATICS,
+    ANIMAL_HANDLING,
+    ARCANA,
+    ATHLETICS,
+    DECEPTION,
+    HISTORY,
+    INSIGHT,
+    INTIMIDATION,
+    INVESTIGATION,
+    MEDICINE,
+    NATURE,
+    PERCEPTION,
+    PERFORMANCE,
+    PERSUASION,
+    RELIGION,
+    SLEIGHT_OF_HAND,
+    STEALTH,
+    SURVIVAL,
+    NONE;
 
     companion object {
         fun from(findValue: String) = entries.find { it.name.equals(findValue, true) } ?: NONE

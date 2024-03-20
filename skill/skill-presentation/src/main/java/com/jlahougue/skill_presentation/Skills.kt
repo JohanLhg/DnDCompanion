@@ -24,6 +24,7 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.jlahougue.ability_domain.model.AbilityName
+import com.jlahougue.ability_presentation.asShortUiText
 import com.jlahougue.core_domain.util.extension.toSignedString
 import com.jlahougue.core_presentation.components.containers.FramedBox
 import com.jlahougue.core_presentation.theme.DnDCompanionTheme
@@ -81,8 +82,8 @@ fun SkillRow(
         Text(
             text = stringResource(
                 id = R.string.skill_display,
-                skill.name.localName.getString(),
-                skill.modifierType.getShortString()
+                skill.name.asUiText().getString(),
+                skill.modifierType.asShortUiText().getString()
             ),
             modifier = Modifier
                 .fillMaxWidth()

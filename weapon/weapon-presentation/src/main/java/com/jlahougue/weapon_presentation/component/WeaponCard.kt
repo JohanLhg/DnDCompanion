@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.jlahougue.ability_domain.model.AbilityName
+import com.jlahougue.ability_presentation.asShortUiText
 import com.jlahougue.core_domain.util.extension.toSignedString
 import com.jlahougue.core_presentation.components.containers.DetailCard
 import com.jlahougue.core_presentation.components.labeled_values.PropertyColumn
@@ -51,7 +52,7 @@ fun WeaponCard(
                 value = stringResource(
                     R.string.weapon_test_value,
                     weapon.modifier.toSignedString(),
-                    weapon.test.getShortString()
+                    weapon.test.asShortUiText().getString()
                 )
             )
         }

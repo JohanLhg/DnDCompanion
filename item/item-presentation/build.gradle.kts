@@ -40,9 +40,11 @@ android {
 
 dependencies {
     implementation(project(":core:core-domain"))
-    implementation(project(":core:core-presentation"))
     implementation(project(":item:item-domain"))
     implementation(project(":money:money-domain"))
+
+    implementation(project(":core:core-presentation"))
+    implementation(project(":money:money-presentation"))
 
     implementation(libs.bundles.ui)
 

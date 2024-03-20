@@ -10,6 +10,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import com.jlahougue.ability_domain.model.AbilityName
+import com.jlahougue.ability_presentation.asUiText
 import com.jlahougue.class_domain.model.Class
 import com.jlahougue.class_presentation.R
 import com.jlahougue.class_presentation.components.ClassLevelArray
@@ -37,7 +38,7 @@ fun ClassDialog(
         if (clazz.spellcastingAbility != AbilityName.NONE) {
             PropertyRow(
                 label = stringResource(id = R.string.class_spellcasting_ability),
-                value = clazz.spellcastingAbility.getString()
+                value = clazz.spellcastingAbility.asUiText().getString()
             )
         }
         PropertyColumn(

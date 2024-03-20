@@ -9,13 +9,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.jlahougue.core_presentation.components.text_fileds.CustomOutlinedTextField
 import com.jlahougue.core_presentation.theme.spacing
 import com.jlahougue.money_domain.model.Currency
+import com.jlahougue.money_presentation.util.asColor
+import com.jlahougue.money_presentation.util.asShortUiText
 
 @Composable
 fun CurrencyEntry(
@@ -41,9 +42,9 @@ fun CurrencyEntry(
             maxLines = 1
         )
         Text(
-            text = currency.shortLabel.getString(),
+            text = currency.asShortUiText().getString(),
             style = MaterialTheme.typography.titleLarge,
-            color = Color(currency.color),
+            color = currency.asColor(),
             modifier = Modifier
                 .padding(vertical = MaterialTheme.spacing.small)
                 .padding(horizontal = MaterialTheme.spacing.extraSmall)

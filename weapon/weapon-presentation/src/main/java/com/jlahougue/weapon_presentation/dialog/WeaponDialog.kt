@@ -14,6 +14,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
 import com.jlahougue.ability_domain.model.AbilityName
+import com.jlahougue.ability_presentation.asShortUiText
 import com.jlahougue.core_domain.util.extension.toSignedString
 import com.jlahougue.core_presentation.components.ListOfLinkedItems
 import com.jlahougue.core_presentation.components.containers.CustomDialog
@@ -53,7 +54,7 @@ fun WeaponDialog(
                 value = stringResource(
                     R.string.weapon_test_value,
                     weapon.modifier.toSignedString(),
-                    weapon.test.getShortString()
+                    weapon.test.asShortUiText().getString()
                 )
             )
         }

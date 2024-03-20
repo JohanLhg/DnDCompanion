@@ -1,29 +1,21 @@
 package com.jlahougue.spells_presentation
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material.icons.filled.Edit
-import androidx.compose.material3.Button
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextFieldDefaults
-import androidx.compose.material3.Text
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -38,6 +30,7 @@ import com.jlahougue.character_spell_presentation.SpellLevelList
 import com.jlahougue.character_spell_presentation.components.SpellListMode
 import com.jlahougue.character_spell_presentation.dialog.SpellDialog
 import com.jlahougue.core_presentation.R
+import com.jlahougue.core_presentation.components.MenuButton
 import com.jlahougue.core_presentation.theme.DnDCompanionTheme
 import com.jlahougue.core_presentation.theme.spacing
 import com.jlahougue.damage_type_presentation.DamageTypeDialog
@@ -73,35 +66,19 @@ fun SpellsScreen(
                 modifier = Modifier
                     .padding(MaterialTheme.spacing.small)
             )
-            Button(
-                onClick = {
-                    onEvent(SpellsEvent.OnSearchEvent(SpellSearchEvent.OnModeChanged)) },
-                shape = OutlinedTextFieldDefaults.shape,
-                contentPadding = PaddingValues(
-                    vertical = MaterialTheme.spacing.small,
-                    horizontal = MaterialTheme.spacing.small
+            MenuButton(
+                label = stringResource(
+                    id = if (state.mode is SpellListMode.All) R.string.done
+                    else R.string.edit
                 ),
+                icon = if (state.mode is SpellListMode.All) Icons.Filled.Done
+                else Icons.Filled.Edit,
+                onClick = {
+                    onEvent(SpellsEvent.OnSearchEvent(SpellSearchEvent.OnModeChanged))
+                },
                 modifier = Modifier
-                    .padding(MaterialTheme.spacing.extraSmall)
-                    .fillMaxWidth()
-            ) {
-                Box(modifier = Modifier.fillMaxWidth()) {
-                    Icon(
-                        imageVector = if (state.mode is SpellListMode.All) Icons.Filled.Done
-                        else Icons.Filled.Edit,
-                        contentDescription = null
-                    )
-                    Text(
-                        text = stringResource(
-                            id = if (state.mode is SpellListMode.All) R.string.done
-                            else R.string.edit
-                        ).uppercase(),
-                        style = MaterialTheme.typography.bodyMedium,
-                        textAlign = TextAlign.Center,
-                        modifier = Modifier.fillMaxWidth()
-                    )
-                }
-            }
+                    .padding(MaterialTheme.spacing.small)
+            )
         }
         VerticalDivider()
         if (state.mode is SpellListMode.All) {
