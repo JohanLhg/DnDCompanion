@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.dp
 import com.jlahougue.core_presentation.theme.spacing
@@ -18,8 +19,9 @@ fun ComponentImage(
     Image(
         painter = painter,
         contentDescription = contentDescription,
+        colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onPrimary),
         modifier = Modifier
-            .size(28.dp)
-            .padding(MaterialTheme.spacing.extraSmall)
+            .size(24.dp)
+            .padding(horizontal = MaterialTheme.spacing.extraSmall)
     )
 }

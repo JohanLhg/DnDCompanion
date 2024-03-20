@@ -1,6 +1,5 @@
 package com.jlahougue.stats_presentation
 
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -22,7 +21,7 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.jlahougue.core_domain.util.extension.toSignedString
-import com.jlahougue.core_presentation.components.FramedBox
+import com.jlahougue.core_presentation.components.containers.FramedBox
 import com.jlahougue.core_presentation.components.text_fileds.CustomOutlinedTextField
 import com.jlahougue.core_presentation.theme.DnDCompanionTheme
 import com.jlahougue.core_presentation.theme.spacing
@@ -38,106 +37,101 @@ fun StatsList(
         title = stringResource(id = R.string.stats),
         modifier = modifier
     ) {
-        Column(
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = MaterialTheme.spacing.small)
+        ) {
+            Text(
+                text = stringResource(id = R.string.stats_initiative),
+                style = MaterialTheme.typography.titleSmall,
+                modifier = Modifier
+                    .padding(end = MaterialTheme.spacing.small)
+            )
+            Spacer(
+                modifier = Modifier
+                    .width(0.dp)
+                    .weight(1f)
+            )
+            Text(
+                text = stats.initiative.toSignedString(),
+                style = MaterialTheme.typography.bodySmall,
+                textAlign = TextAlign.Center,
+                modifier = Modifier
+                    .width(40.dp)
+            )
+        }
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = MaterialTheme.spacing.small)
+        ) {
+            Text(
+                text = stringResource(id = R.string.stats_armor_class),
+                style = MaterialTheme.typography.titleSmall,
+                modifier = Modifier
+                    .padding(end = MaterialTheme.spacing.small)
+            )
+            Spacer(
+                modifier = Modifier
+                    .width(0.dp)
+                    .weight(1f)
+            )
+            CustomOutlinedTextField(
+                value = stats.armorClass.toString(),
+                onValueChange = {
+                    try {
+                        onEvent(StatsEvent.OnArmorClassChanged(it.toInt()))
+                    } catch (e: Exception) {
+                        onEvent(StatsEvent.OnArmorClassChanged(0))
+                    }
+                },
+                textStyle = MaterialTheme.typography.bodySmall.copy(
+                    textAlign = TextAlign.Center
+                ),
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Number,
+                    imeAction = ImeAction.Next
+                ),
+                modifier = Modifier
+                    .width(40.dp)
+            )
+        }
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .fillMaxWidth()
         ) {
-            Row(
+            Text(
+                text = stringResource(id = R.string.stats_speed),
+                style = MaterialTheme.typography.titleSmall,
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = MaterialTheme.spacing.small)
-            ) {
-                Text(
-                    text = stringResource(id = R.string.stats_initiative),
-                    style = MaterialTheme.typography.titleSmall,
-                    modifier = Modifier
-                        .padding(end = MaterialTheme.spacing.small)
-                )
-                Spacer(
-                    modifier = Modifier
-                        .width(0.dp)
-                        .weight(1f)
-                )
-                Text(
-                    text = stats.initiative.toSignedString(),
-                    style = MaterialTheme.typography.bodySmall,
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier
-                        .width(40.dp)
-                )
-            }
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
+                    .padding(end = MaterialTheme.spacing.small)
+            )
+            Spacer(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = MaterialTheme.spacing.small)
-            ) {
-                Text(
-                    text = stringResource(id = R.string.stats_armor_class),
-                    style = MaterialTheme.typography.titleSmall,
-                    modifier = Modifier
-                        .padding(end = MaterialTheme.spacing.small)
-                )
-                Spacer(
-                    modifier = Modifier
-                        .width(0.dp)
-                        .weight(1f)
-                )
-                CustomOutlinedTextField(
-                    value = stats.armorClass.toString(),
-                    onValueChange = {
-                        try {
-                            onEvent(StatsEvent.OnArmorClassChanged(it.toInt()))
-                        } catch (e: Exception) {
-                            onEvent(StatsEvent.OnArmorClassChanged(0))
-                        }
-                    },
-                    textStyle = MaterialTheme.typography.bodySmall.copy(
-                        textAlign = TextAlign.Center
-                    ),
-                    keyboardOptions = KeyboardOptions(
-                        keyboardType = KeyboardType.Number,
-                        imeAction = ImeAction.Next
-                    ),
-                    modifier = Modifier
-                        .width(40.dp)
-                )
-            }
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
+                    .width(0.dp)
+                    .weight(1f)
+            )
+            CustomOutlinedTextField(
+                value = stats.speed.toString(),
+                onValueChange = {
+                    try {
+                        onEvent(StatsEvent.OnSpeedChanged(it.toInt()))
+                    } catch (e: Exception) {
+                        onEvent(StatsEvent.OnSpeedChanged(0))
+                    }
+                },
+                textStyle = MaterialTheme.typography.bodySmall.copy(
+                    textAlign = TextAlign.Center
+                ),
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Number
+                ),
                 modifier = Modifier
-                    .fillMaxWidth()
-            ) {
-                Text(
-                    text = stringResource(id = R.string.stats_speed),
-                    style = MaterialTheme.typography.titleSmall,
-                    modifier = Modifier
-                        .padding(end = MaterialTheme.spacing.small)
-                )
-                Spacer(
-                    modifier = Modifier
-                        .width(0.dp)
-                        .weight(1f)
-                )
-                CustomOutlinedTextField(
-                    value = stats.speed.toString(),
-                    onValueChange = {
-                        try {
-                            onEvent(StatsEvent.OnSpeedChanged(it.toInt()))
-                        } catch (e: Exception) {
-                            onEvent(StatsEvent.OnSpeedChanged(0))
-                        }
-                    },
-                    textStyle = MaterialTheme.typography.bodySmall.copy(
-                        textAlign = TextAlign.Center
-                    ),
-                    keyboardOptions = KeyboardOptions(
-                        keyboardType = KeyboardType.Number
-                    ),
-                    modifier = Modifier
-                        .width(40.dp)
-                )
-            }
+                    .width(40.dp)
+            )
         }
     }
 }

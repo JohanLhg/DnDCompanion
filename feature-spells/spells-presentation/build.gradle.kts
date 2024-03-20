@@ -53,6 +53,7 @@ dependencies {
 
     implementation(project(":character-spell:character-spell-presentation"))
     implementation(project(":damage-type:damage-type-presentation"))
+    implementation(project(":ability:ability-presentation"))
 
     implementation(libs.bundles.ui)
 

@@ -227,6 +227,7 @@ class SpellsViewModel(
                     it.copy(
                         spellDialog = it.spellDialog.copy(
                             isShown = true,
+                            mode = SpellDialogState.Mode.Edit
                         )
                     )
                 }

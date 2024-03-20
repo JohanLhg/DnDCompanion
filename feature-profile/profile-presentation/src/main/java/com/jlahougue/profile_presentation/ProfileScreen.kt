@@ -43,7 +43,7 @@ import com.jlahougue.class_presentation.list_dialog.ClassListDialog
 import com.jlahougue.core_domain.util.LoadImageState
 import com.jlahougue.core_domain.util.extension.toDoubleOrZero
 import com.jlahougue.core_domain.util.extension.toIntOrZero
-import com.jlahougue.core_presentation.components.MaxedRow
+import com.jlahougue.core_presentation.components.containers.MaxedRow
 import com.jlahougue.core_presentation.components.text_fileds.CustomOutlinedTextField
 import com.jlahougue.core_presentation.theme.DnDCompanionTheme
 import com.jlahougue.core_presentation.theme.spacing

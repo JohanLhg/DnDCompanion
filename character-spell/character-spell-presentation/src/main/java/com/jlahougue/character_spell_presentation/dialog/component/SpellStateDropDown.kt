@@ -1,21 +1,28 @@
 package com.jlahougue.character_spell_presentation.dialog.component
 
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
-import androidx.compose.material3.ExposedDropdownMenuDefaults.TrailingIcon
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.unit.dp
 import com.jlahougue.character_spell_domain.model.SpellState
+import com.jlahougue.core_presentation.theme.spacing
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -31,20 +38,28 @@ fun SpellStateDropDown(
     }
     ExposedDropdownMenuBox(
         expanded = isOpened,
-        onExpandedChange = { onOpenedChange(it) },
-        modifier = Modifier
-            .width(200.dp)
+        onExpandedChange = { onOpenedChange(it) }
     ) {
-        TextField(
-            value = state.label.getString(),
-            onValueChange = {},
-            textStyle = MaterialTheme.typography.bodySmall,
-            readOnly = true,
-            trailingIcon = {
-                TrailingIcon(expanded = isOpened)
-            },
-            modifier = Modifier.menuAnchor()
-        )
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.End,
+            modifier = Modifier
+                .width(150.dp)
+                .menuAnchor()
+        ) {
+            Text(
+                text = state.label.getString(),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onPrimary
+            )
+            Spacer(modifier = Modifier.width(MaterialTheme.spacing.small))
+            Icon(
+                imageVector = Icons.Filled.ArrowDropDown,
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.onPrimary,
+                modifier = Modifier.rotate(if (isOpened) 180f else 0f)
+            )
+        }
 
         ExposedDropdownMenu(
             expanded = isOpened,

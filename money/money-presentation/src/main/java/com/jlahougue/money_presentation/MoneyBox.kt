@@ -21,7 +21,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.tooling.preview.Preview
@@ -33,6 +32,8 @@ import com.jlahougue.money_domain.model.Currency
 import com.jlahougue.money_domain.model.Money
 import com.jlahougue.money_presentation.dialog.MoneyDialog
 import com.jlahougue.money_presentation.dialog.MoneyDialogEvent
+import com.jlahougue.money_presentation.util.asColor
+import com.jlahougue.money_presentation.util.asValuedString
 
 @Composable
 fun MoneyBox(
@@ -72,30 +73,30 @@ fun MoneyBox(
         HorizontalDivider()
         Row {
             Text(
-                text = Currency.COPPER.getString(state.money.copperPieces),
+                text = Currency.COPPER.asValuedString(state.money.copperPieces),
                 style = MaterialTheme.typography.bodyLarge,
-                color = Color(Currency.COPPER.color),
+                color = Currency.COPPER.asColor(),
                 modifier = Modifier
                     .padding(MaterialTheme.spacing.small)
             )
             Text(
-                text = Currency.SILVER.getString(state.money.copperPieces),
+                text = Currency.SILVER.asValuedString(state.money.copperPieces),
                 style = MaterialTheme.typography.bodyLarge,
-                color = Color(Currency.SILVER.color),
+                color = Currency.SILVER.asColor(),
                 modifier = Modifier
                     .padding(MaterialTheme.spacing.small)
             )
             Text(
-                text = Currency.GOLD.getString(state.money.copperPieces),
+                text = Currency.GOLD.asValuedString(state.money.copperPieces),
                 style = MaterialTheme.typography.bodyLarge,
-                color = Color(Currency.GOLD.color),
+                color = Currency.GOLD.asColor(),
                 modifier = Modifier
                     .padding(MaterialTheme.spacing.small)
             )
             Text(
-                text = Currency.PLATINUM.getString(state.money.copperPieces),
+                text = Currency.PLATINUM.asValuedString(state.money.copperPieces),
                 style = MaterialTheme.typography.bodyLarge,
-                color = Color(Currency.PLATINUM.color),
+                color = Currency.PLATINUM.asColor(),
                 modifier = Modifier
                     .padding(MaterialTheme.spacing.small)
             )

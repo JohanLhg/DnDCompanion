@@ -26,6 +26,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -38,7 +39,9 @@ import com.jlahougue.core_presentation.theme.spacing
 fun CustomSearchBar(
     value: String,
     onValueChange: (String) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    color: Color = MaterialTheme.colorScheme.onSurface,
+    focusedColor: Color = MaterialTheme.colorScheme.primary
 ) {
     val interactionSource = remember { MutableInteractionSource() }
     val isFocused by interactionSource.collectIsFocusedAsState()
@@ -54,12 +57,14 @@ fun CustomSearchBar(
                 value = value,
                 onValueChange = onValueChange,
                 modifier = Modifier.fillMaxWidth(),
-                textStyle = MaterialTheme.typography.bodyMedium,
+                textStyle = MaterialTheme.typography.bodyMedium.copy(
+                    color = color
+                ),
                 singleLine = true,
                 interactionSource = interactionSource,
                 cursorBrush = SolidColor(
-                    if (isFocused) MaterialTheme.colorScheme.primary
-                    else MaterialTheme.colorScheme.onSurface
+                    if (isFocused) focusedColor
+                    else color
                 )
             ) { innerTextField ->
                 Box(
@@ -82,7 +87,9 @@ fun CustomSearchBar(
                                 if (value.isEmpty())
                                     Text(
                                         text = stringResource(R.string.search),
-                                        style = MaterialTheme.typography.bodyMedium
+                                        style = MaterialTheme.typography.bodyMedium.copy(
+                                            color = color
+                                        )
                                     )
                             }
                             if (value.isNotEmpty()) {
@@ -96,8 +103,8 @@ fun CustomSearchBar(
                                             indication = rememberRipple(bounded = false),
                                             onClick = { onValueChange("") },
                                         ),
-                                    tint = if (isFocused) MaterialTheme.colorScheme.primary
-                                    else MaterialTheme.colorScheme.onSurface
+                                    tint = if (isFocused) focusedColor
+                                    else color
                                 )
                             } else {
                                 Icon(
@@ -105,16 +112,16 @@ fun CustomSearchBar(
                                     contentDescription = stringResource(R.string.search),
                                     modifier = Modifier
                                         .size(24.dp),
-                                    tint = if (isFocused) MaterialTheme.colorScheme.primary
-                                    else MaterialTheme.colorScheme.onSurface
+                                    tint = if (isFocused) focusedColor
+                                    else color
                                 )
                             }
                         }
                         HorizontalDivider(
                             modifier = Modifier
                                 .fillMaxWidth(),
-                            color = if (isFocused) MaterialTheme.colorScheme.primary
-                            else MaterialTheme.colorScheme.onSurface
+                            color = if (isFocused) focusedColor
+                            else color
                         )
                     }
                 }

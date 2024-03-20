@@ -1,7 +1,6 @@
 package com.jlahougue.health_presentation.components
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
@@ -16,17 +15,17 @@ fun DividerTitle(
     title: String,
     modifier: Modifier = Modifier
 ) {
-    Box(
-        contentAlignment = Alignment.Center,
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
     ) {
-        HorizontalDivider()
+        HorizontalDivider(modifier.weight(1f))
         Text(
             text = title,
             style = MaterialTheme.typography.bodyMedium,
             modifier = Modifier
-                .background(MaterialTheme.colorScheme.background)
                 .padding(MaterialTheme.spacing.small)
         )
+        HorizontalDivider(modifier.weight(1f))
     }
 }

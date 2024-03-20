@@ -1,12 +1,10 @@
 package com.jlahougue.weapon_presentation.component
 
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.HorizontalDivider
+import androidx.compose.foundation.layout.sizeIn
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -15,7 +13,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.jlahougue.ability_domain.model.AbilityName
+import com.jlahougue.ability_presentation.asShortUiText
 import com.jlahougue.core_domain.util.extension.toSignedString
+import com.jlahougue.core_presentation.components.containers.DetailCard
 import com.jlahougue.core_presentation.components.labeled_values.PropertyColumn
 import com.jlahougue.core_presentation.components.labeled_values.PropertyRow
 import com.jlahougue.core_presentation.theme.DnDCompanionTheme
@@ -33,80 +33,83 @@ fun WeaponCard(
     onEvent: (WeaponEvent) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Column(
-        modifier = modifier
-            .clickable(
-                onClick = {
-                    onEvent(WeaponEvent.OnWeaponClicked(weapon.name))
-                }
+    DetailCard(
+        onClick = {
+            onEvent(WeaponEvent.OnWeaponClicked(weapon.name))
+        },
+        modifier = modifier,
+        headerAlignment = Alignment.Bottom,
+        header = {
+            WeaponCardHeader(
+                weapon = weapon,
+                unitSystem = unitSystem
             )
+        }
     ) {
-        Row(
-            verticalAlignment = Alignment.Bottom,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = MaterialTheme.spacing.small)
-        ) {
-            Text(
-                text = weapon.name,
-                style = MaterialTheme.typography.titleMedium,
-                modifier = Modifier
-                    .padding(vertical = MaterialTheme.spacing.small)
-                    .padding(horizontal = MaterialTheme.spacing.extraSmall)
-            )
-            if (weapon.getRangeString(unitSystem).isNotBlank()) {
-                Text(
-                    text = stringResource(
-                        id = CoreR.string.parenthesis,
-                        weapon.getRangeString(unitSystem)
-                    ),
-                    style = MaterialTheme.typography.titleSmall,
-                    modifier = Modifier
-                        .padding(vertical = MaterialTheme.spacing.small)
+        if (weapon.test != AbilityName.NONE) {
+            PropertyRow(
+                label = stringResource(id = R.string.weapon_test),
+                value = stringResource(
+                    R.string.weapon_test_value,
+                    weapon.modifier.toSignedString(),
+                    weapon.test.asShortUiText().getString()
                 )
-            }
-            Spacer(modifier = Modifier.weight(1f))
-            Text(
-                text = "x" + weapon.count,
-                style = MaterialTheme.typography.titleMedium,
-                modifier = Modifier
-                    .padding(vertical = MaterialTheme.spacing.small)
-                    .padding(horizontal = MaterialTheme.spacing.extraSmall)
             )
         }
-        HorizontalDivider(
-            modifier = Modifier.padding(horizontal = MaterialTheme.spacing.small)
+        PropertyRow(
+            label = stringResource(id = R.string.weapon_damage),
+            value = if (weapon.damageType.isNotBlank()) weapon.damage + " " + weapon.damageType
+            else weapon.damage
         )
-        Column (
-            modifier = Modifier.padding(MaterialTheme.spacing.extraSmall)
-        ) {
-            if (weapon.test != AbilityName.NONE) {
-                PropertyRow(
-                    label = stringResource(id = R.string.weapon_test),
-                    value = stringResource(
-                        R.string.weapon_test_value,
-                        weapon.modifier.toSignedString(),
-                        weapon.test.getShortString()
-                    )
-                )
-            }
-            PropertyRow(
-                label = stringResource(id = R.string.weapon_damage),
-                value = if (weapon.damageType.isNotBlank()) weapon.damage + " " + weapon.damageType
-                else weapon.damage
-            )
-            PropertyRow(
-                label = stringResource(id = R.string.weapon_damage_special),
-                value = if (weapon.twoHandedDamageType.isNotBlank())
-                    weapon.twoHandedDamage + " " + weapon.twoHandedDamageType
-                else weapon.twoHandedDamage
-            )
-            PropertyColumn(
-                label = stringResource(id = R.string.weapon_description),
-                value = weapon.description,
-                maxLines = 3
+        PropertyRow(
+            label = stringResource(id = R.string.weapon_damage_special),
+            value = if (weapon.twoHandedDamageType.isNotBlank())
+                weapon.twoHandedDamage + " " + weapon.twoHandedDamageType
+            else weapon.twoHandedDamage
+        )
+        PropertyColumn(
+            label = stringResource(id = R.string.weapon_description),
+            value = weapon.description,
+            maxLines = 3
+        )
+    }
+}
+
+@Composable
+fun WeaponCardHeader(
+    weapon: WeaponInfo,
+    unitSystem: UnitSystem
+) {
+    Row(
+        verticalAlignment = Alignment.Bottom,
+        modifier = Modifier.padding(vertical = MaterialTheme.spacing.small)
+    ) {
+        Text(
+            text = weapon.name,
+            style = MaterialTheme.typography.titleMedium
+        )
+        Spacer(
+            modifier = Modifier
+                .width(MaterialTheme.spacing.extraSmall)
+        )
+        if (weapon.getRangeString(unitSystem).isNotBlank()) {
+            Text(
+                text = stringResource(
+                    id = CoreR.string.parenthesis,
+                    weapon.getRangeString(unitSystem)
+                ),
+                style = MaterialTheme.typography.titleSmall
             )
         }
+        Spacer(
+            modifier = Modifier
+                .sizeIn(minWidth = MaterialTheme.spacing.small)
+            .weight(1f)
+        )
+        Text(
+            text = "x" + weapon.count,
+            style = MaterialTheme.typography.titleMedium
+        )
     }
 }
 
