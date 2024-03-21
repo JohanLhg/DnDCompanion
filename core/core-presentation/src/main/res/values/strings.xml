@@ -37,4 +37,13 @@
     <!-- CharacterSelectionActivity -->
     <string name="title_activity_character_selection">Character Selection Activity</string>
     <string name="descr_character_image">Character Image</string>
+
+    <!-- Errors -->
+    <string name="no_internet_connection">Couldn\\\'t connect to internet, check your connection and try again</string>
+    <string name="not_authenticated">You must be authenticated to perform this action</string>
+    <string name="not_authorized">You are not authorized to perform this action</string>
+    <string name="invalid_url">The URL used is not valid</string>
+    <string name="load_image_cancelled">Operation cancelled : Loading character\'s image</string>
+    <string name="load_image_unknown_error">An error occured while loading your character\'s image</string>
+    <string name="no_image">No Image found for this character</string>
 </resources>

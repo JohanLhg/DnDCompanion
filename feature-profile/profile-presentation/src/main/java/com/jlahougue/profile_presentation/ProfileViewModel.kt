@@ -7,9 +7,15 @@ import com.jlahougue.class_presentation.detail_dialog.ClassDialogEvent
 import com.jlahougue.class_presentation.detail_dialog.ClassDialogState
 import com.jlahougue.class_presentation.list_dialog.ClassListDialogEvent
 import com.jlahougue.class_presentation.list_dialog.ClassListDialogState
+import com.jlahougue.core_domain.util.LoadImageError
+import com.jlahougue.core_domain.util.response.Result
+import com.jlahougue.core_presentation.util.UiEvent
+import com.jlahougue.core_presentation.util.asUiText
 import com.jlahougue.profile_domain.ProfileModule
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.update
@@ -17,12 +23,13 @@ import kotlinx.coroutines.launch
 
 class ProfileViewModel(private val module: ProfileModule) : ViewModel() {
 
+    private val _uiEvent = MutableSharedFlow<UiEvent>(1)
+    val uiEvent = _uiEvent.asSharedFlow()
+
     private val _state = MutableStateFlow(ProfileState())
     val state = _state.asStateFlow()
 
     private var characterJob: Job? = null
-    private var imageJob: Job? = null
-    private var uploadImageJob: Job? = null
 
     init {
         viewModelScope.launch(module.dispatcherProvider.io) {
@@ -43,27 +50,17 @@ class ProfileViewModel(private val module: ProfileModule) : ViewModel() {
     }
 
     private fun loadCharacterImage(characterId: Long) {
-        imageJob?.cancel()
-        imageJob = viewModelScope.launch(module.dispatcherProvider.io) {
-            module.characterUseCases.loadCharacterImage(characterId)
-                .collectLatest { imageState ->
-                    _state.value = _state.value.copy(image = imageState)
-                }
-        }
+        module.characterUseCases.loadCharacterImage(characterId, ::onImageLoadResult)
     }
 
     fun onEvent(event: ProfileEvent) {
         when (event) {
             is ProfileEvent.OnImageSelected -> {
-                uploadImageJob?.cancel()
-                uploadImageJob = viewModelScope.launch(module.dispatcherProvider.io) {
-                    module.characterUseCases.uploadImage(state.value.character.id, event.uri)
-                        .collectLatest { imageState ->
-                            _state.update {
-                                it.copy(image = imageState)
-                            }
-                        }
-                }
+                module.characterUseCases.uploadImage(
+                    state.value.character.id,
+                    event.uri,
+                    ::onImageLoadResult
+                )
             }
             is ProfileEvent.OnNameChanged -> {
                 updateCharacter(state.value.character.copy(name = event.name))
@@ -186,6 +183,25 @@ class ProfileViewModel(private val module: ProfileModule) : ViewModel() {
             ClassDialogEvent.OnDismiss -> {
                 _state.update {
                     it.copy(classDialog = ClassDialogState())
+                }
+            }
+        }
+    }
+
+    private fun onImageLoadResult(result: Result<String, LoadImageError>) {
+        when (result) {
+            is Result.Success -> {
+                _state.update {
+                    it.copy(imageUri = result.data)
+                }
+            }
+            is Result.Failure -> {
+                _state.update {
+                    it.copy(imageUri = "")
+                }
+                if (result.error == LoadImageError.NO_IMAGE) return
+                viewModelScope.launch(module.dispatcherProvider.main) {
+                    _uiEvent.emit(UiEvent.ShowError(result.error.asUiText()))
                 }
             }
         }

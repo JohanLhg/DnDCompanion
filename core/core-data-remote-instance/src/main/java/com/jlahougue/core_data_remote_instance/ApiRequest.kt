@@ -1,4 +1,4 @@
-package com.jlahougue.core_domain.util
+package com.jlahougue.core_data_remote_instance
 
 import okhttp3.OkHttpClient
 import okhttp3.Request

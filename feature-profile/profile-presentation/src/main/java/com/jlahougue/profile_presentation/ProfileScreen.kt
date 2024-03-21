@@ -40,7 +40,6 @@ import com.jlahougue.character_domain.model.Character
 import com.jlahougue.character_presentation.CharacterImage
 import com.jlahougue.class_presentation.detail_dialog.ClassDialog
 import com.jlahougue.class_presentation.list_dialog.ClassListDialog
-import com.jlahougue.core_domain.util.LoadImageState
 import com.jlahougue.core_domain.util.extension.toDoubleOrZero
 import com.jlahougue.core_domain.util.extension.toIntOrZero
 import com.jlahougue.core_presentation.components.containers.MaxedRow
@@ -79,7 +78,7 @@ fun ProfileScreen(
                 )
             ) {
                 CharacterImage(
-                    state = state.image,
+                    imageUri = state.imageUri,
                     modifier = Modifier.fillMaxSize()
                 )
             }
@@ -295,9 +294,7 @@ fun ProfileScreenPreview() {
                     weight = 80,
                     backgroundTitle = "Tourmenté"
                 ),
-                image = LoadImageState(
-                    actionState = LoadImageState.ActionState.FINISHED
-                )
+                imageUri = null,
             ),
             onEvent = {}
         )

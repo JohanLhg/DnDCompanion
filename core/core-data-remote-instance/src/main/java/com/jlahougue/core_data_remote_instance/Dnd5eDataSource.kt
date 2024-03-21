@@ -1,6 +1,5 @@
 package com.jlahougue.core_data_remote_instance
 
-import com.jlahougue.core_domain.util.ApiRequest
 import okhttp3.OkHttpClient
 
 class Dnd5eDataSource(client: OkHttpClient): ApiRequest(client) {

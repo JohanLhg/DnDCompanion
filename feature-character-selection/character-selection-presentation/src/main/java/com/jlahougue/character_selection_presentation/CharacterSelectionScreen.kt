@@ -17,17 +17,15 @@ import androidx.compose.ui.unit.dp
 import com.jlahougue.character_domain.model.Character
 import com.jlahougue.character_selection_presentation.components.AddCharacterButton
 import com.jlahougue.character_selection_presentation.components.CharacterCard
-import com.jlahougue.core_domain.util.LoadImageState
 import com.jlahougue.core_presentation.theme.DnDCompanionTheme
 import com.jlahougue.core_presentation.theme.spacing
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun CharacterSelectionScreen(
     characters: List<Character>,
-    getImage: (Long) -> StateFlow<LoadImageState>,
+    getImage: (Long) -> Unit,
+    imageUris: Map<Long, String>,
     onCharacterClicked: (Character) -> Unit,
     onCharacterAddClicked: () -> Unit,
     modifier: Modifier = Modifier
@@ -41,6 +39,7 @@ fun CharacterSelectionScreen(
         for (character in characters) {
             CharacterCard(
                 character = character,
+                imageUri = imageUris[character.id],
                 getImage = getImage,
                 modifier = Modifier
                     .padding(MaterialTheme.spacing.large)
@@ -86,7 +85,8 @@ fun CharacterSelectionPreview() {
         )
         CharacterSelectionScreen(
             characters = characters,
-            getImage = { _ -> MutableStateFlow(LoadImageState()) },
+            imageUris = emptyMap(),
+            getImage = {},
             onCharacterClicked = {},
             onCharacterAddClicked = {},
             modifier = Modifier

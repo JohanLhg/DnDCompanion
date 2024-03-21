@@ -5,6 +5,8 @@ import com.jlahougue.character_data.source.local.CharacterLocalDataSource
 import com.jlahougue.character_data.source.remote.CharacterRemoteDataSource
 import com.jlahougue.character_domain.model.Character
 import com.jlahougue.character_domain.repository.ICharacterRepository
+import com.jlahougue.core_domain.util.LoadImageError
+import com.jlahougue.core_domain.util.response.Result
 
 class CharacterRepository(
     private val remoteDataSource: CharacterRemoteDataSource,
@@ -39,10 +41,24 @@ class CharacterRepository(
 
     override fun get(characterId: Long) = localDataSource.get(characterId)
 
-    override fun loadImage(characterId: Long) = remoteDataSource.loadImage(characterId)
+    override fun loadImage(
+        characterId: Long,
+        onComplete: (Result<String, LoadImageError>) -> Unit
+    ) {
+        remoteDataSource.loadImage(characterId, onComplete)
+    }
 
-    override fun uploadImage(characterId: Long, uri: Uri)
-            = remoteDataSource.uploadImage(characterId, uri)
+    override fun uploadImage(
+        characterId: Long,
+        uri: Uri,
+        onComplete: (Result<String, LoadImageError>) -> Unit
+    ) {
+        remoteDataSource.uploadImage(
+            characterId,
+            uri,
+            onComplete
+        )
+    }
 
     override suspend fun getClass(characterId: Long) = localDataSource.getClass(characterId)
 }

@@ -6,13 +6,14 @@ import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageException
+import com.google.firebase.storage.StorageException.ERROR_BUCKET_NOT_FOUND
+import com.google.firebase.storage.StorageException.ERROR_NOT_AUTHENTICATED
+import com.google.firebase.storage.StorageException.ERROR_NOT_AUTHORIZED
+import com.google.firebase.storage.StorageException.ERROR_PROJECT_NOT_FOUND
 import com.google.firebase.storage.StorageReference
-import com.jlahougue.core_domain.util.LoadImageState
-import com.jlahougue.core_domain.util.UiText
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
+import com.jlahougue.core_domain.util.LoadImageError
+import com.jlahougue.core_domain.util.response.Result
 
 class FirebaseDataSource {
 
@@ -39,31 +40,31 @@ class FirebaseDataSource {
     //region Image Functions
     fun uploadImage(
         imageReference: StorageReference,
-        uri: Uri
-    ): StateFlow<LoadImageState> {
-        val state = MutableStateFlow(
-            LoadImageState(
-                actionState = LoadImageState.ActionState.STARTED
-            )
-        )
+        uri: Uri,
+        onComplete: (Result<String, LoadImageError>) -> Unit
+    ) {
         imageReference.putFile(uri)
             .addOnSuccessListener {
-                state.update {
-                    LoadImageState(
-                        uri = uri.toString(),
-                        actionState = LoadImageState.ActionState.FINISHED
-                    )
-                }
+                onComplete(Result.Success(uri.toString()))
+            }
+            .addOnCanceledListener {
+                onComplete(Result.Failure(LoadImageError.CANCELLED))
             }
             .addOnFailureListener { exception ->
-                state.update {
-                    LoadImageState(
-                        errorMessage = UiText.DynamicString(exception.localizedMessage?:""),
-                        actionState = LoadImageState.ActionState.ERROR
-                    )
+                val error = when (exception) {
+                    is StorageException -> {
+                        when (exception.errorCode) {
+                            ERROR_BUCKET_NOT_FOUND,
+                            ERROR_PROJECT_NOT_FOUND -> LoadImageError.INVALID_URL
+                            ERROR_NOT_AUTHENTICATED -> LoadImageError.NOT_AUTHENTICATED
+                            ERROR_NOT_AUTHORIZED -> LoadImageError.NOT_AUTHORIZED
+                            else -> LoadImageError.UNKNOWN
+                        }
+                    }
+                    else -> LoadImageError.UNKNOWN
                 }
+                onComplete(Result.Failure(error))
             }
-        return state.asStateFlow()
     }
 
     fun deleteImage(characterID: Long) {
