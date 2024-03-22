@@ -1,7 +1,7 @@
 package com.jlahougue.ability_presentation
 
 import com.jlahougue.ability_domain.model.AbilityName
-import com.jlahougue.core_domain.util.UiText
+import com.jlahougue.core_presentation.util.UiText
 
 fun AbilityName.asUiText(): UiText {
     return when (this) {

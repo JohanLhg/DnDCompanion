@@ -2,9 +2,8 @@ package com.jlahougue.property_data.source.remote
 
 import com.jlahougue.core_data_remote_instance.Dnd5eDataSource
 import com.jlahougue.core_domain.util.ApiEvent
-import com.jlahougue.core_domain.util.UiText
+import com.jlahougue.core_domain.util.RemoteReadError
 import com.jlahougue.core_domain.util.dispatcherProvider.DispatcherProvider
-import com.jlahougue.property_data.R
 import com.jlahougue.property_domain.model.Property
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.joinAll
@@ -21,10 +20,7 @@ class PropertyDnd5eDataSource(
         propertyRemoteListener: PropertyRemoteListener
     ) {
         val response = dnd5eDataSource.sendGet(Dnd5eDataSource.WEAPON_PROPERTIES_URL)
-        if (response == null) {
-            val errorMessage = UiText.StringResource(R.string.error_fetching_properties)
-            return onApiEvent(ApiEvent.Error(errorMessage))
-        }
+            ?: return onApiEvent(ApiEvent.Error(RemoteReadError.NOT_FOUND))
         val json = JSONObject(response)
 
         val count = json.getInt("count")

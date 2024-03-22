@@ -1,8 +1,8 @@
 package com.jlahougue.feature.settings_presentation
 
 import com.jlahougue.authentication_presentation.email_change_dialog.EmailChangeDialogEvent
-import com.jlahougue.settings_domain.model.Language
-import com.jlahougue.settings_domain.model.UnitSystem
+import com.jlahougue.user_info_domain.model.Language
+import com.jlahougue.user_info_domain.model.UnitSystem
 
 sealed class SettingsEvent {
     data object OnEmailChange : SettingsEvent()

@@ -14,8 +14,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.jlahougue.core_dependency_injection.DnDCompanionApp
-import com.jlahougue.core_domain.util.extension.viewModelFactory
 import com.jlahougue.core_presentation.theme.DnDCompanionTheme
+import com.jlahougue.core_presentation.util.viewModelFactory
 import com.jlahougue.dndcompanion.navigation.AuthScreen
 import com.jlahougue.dndcompanion.navigation.authenticationSection
 import com.jlahougue.dndcompanion.navigation.characterSelectionSection

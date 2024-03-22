@@ -1,9 +1,9 @@
 package com.jlahougue.loading_domain.use_case
 
-import com.jlahougue.core_domain.util.UiText
+import com.jlahougue.loading_domain.util.LoaderKey
 
 data class LoadSate(
-    val title: UiText,
+    val identifier: LoaderKey,
     val progress: Int = 0,
     val progressMax: Int = 0,
     val actionState: ActionState = ActionState.WAITING

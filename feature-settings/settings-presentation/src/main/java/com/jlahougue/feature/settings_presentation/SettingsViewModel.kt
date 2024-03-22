@@ -6,9 +6,9 @@ import com.jlahougue.authentication_domain.util.EmailChangeError
 import com.jlahougue.authentication_presentation.email_change_dialog.EmailChangeDialogEvent
 import com.jlahougue.authentication_presentation.email_change_dialog.EmailChangeDialogState
 import com.jlahougue.authentication_presentation.util.asUiText
-import com.jlahougue.core_domain.util.UiText
 import com.jlahougue.core_domain.util.response.Result
 import com.jlahougue.core_presentation.util.UiEvent
+import com.jlahougue.core_presentation.util.UiText
 import com.jlahougue.feature.settings_domain.SettingsModule
 import com.jlahougue.settings_presentation.R
 import kotlinx.coroutines.flow.MutableSharedFlow

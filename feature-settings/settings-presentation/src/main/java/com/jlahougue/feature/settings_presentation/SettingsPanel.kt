@@ -36,9 +36,9 @@ import com.jlahougue.core_presentation.theme.DnDCompanionTheme
 import com.jlahougue.core_presentation.theme.spacing
 import com.jlahougue.feature.settings_presentation.components.LanguageSelector
 import com.jlahougue.feature.settings_presentation.components.UnitSystemSelector
-import com.jlahougue.settings_domain.model.Language
-import com.jlahougue.settings_domain.model.UnitSystem
 import com.jlahougue.settings_presentation.R
+import com.jlahougue.user_info_domain.model.Language
+import com.jlahougue.user_info_domain.model.UnitSystem
 import com.jlahougue.core_presentation.R as CoreR
 
 @Composable

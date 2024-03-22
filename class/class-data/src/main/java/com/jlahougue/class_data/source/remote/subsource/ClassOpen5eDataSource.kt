@@ -1,12 +1,11 @@
 package com.jlahougue.class_data.source.remote.subsource
 
 import com.jlahougue.ability_domain.model.AbilityName
-import com.jlahougue.class_data.R
 import com.jlahougue.class_data.source.remote.ClassRemoteListener
 import com.jlahougue.class_domain.model.Class
 import com.jlahougue.core_data_remote_instance.Open5eDataSource
 import com.jlahougue.core_domain.util.ApiEvent
-import com.jlahougue.core_domain.util.UiText
+import com.jlahougue.core_domain.util.RemoteReadError
 import com.jlahougue.core_domain.util.dispatcherProvider.DispatcherProvider
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.joinAll
@@ -23,10 +22,7 @@ class ClassOpen5eDataSource(
         classRemoteListener: ClassRemoteListener
     ) {
         val response = open5eDataSource.sendGet(Open5eDataSource.CLASSES_URL)
-        if (response == null) {
-            val errorMessage = UiText.StringResource(R.string.error_fetching_classes)
-            return onApiEvent(ApiEvent.Error(errorMessage))
-        }
+            ?: return onApiEvent(ApiEvent.Error(RemoteReadError.NOT_FOUND))
 
         val json = JSONObject(response)
         val count = json.getInt("count")

@@ -75,7 +75,6 @@ dependencies {
 
     implementation(project(":authentication:authentication-data"))
     implementation(project(":authentication:authentication-domain"))
-    implementation(project(":settings:settings-domain"))
     implementation(project(":user-info:user-info-domain"))
 
     implementation(project(":character-sheet:character-sheet-domain"))

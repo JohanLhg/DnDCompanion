@@ -35,7 +35,6 @@ android {
 
 dependencies {
     implementation(project(":core:core-domain"))
-    implementation(project(":settings:settings-domain"))
     implementation(project(":user-info:user-info-domain"))
 
     implementation(libs.bundles.datastore)

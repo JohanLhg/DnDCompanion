@@ -5,9 +5,9 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.jlahougue.core_dependency_injection.DnDCompanionApp
-import com.jlahougue.core_domain.util.extension.CollectAsEffect
-import com.jlahougue.core_domain.util.extension.viewModelFactory
 import com.jlahougue.core_presentation.util.UiEvent
+import com.jlahougue.core_presentation.util.extensions.CollectAsEffect
+import com.jlahougue.core_presentation.util.viewModelFactory
 import com.jlahougue.feature.settings_presentation.SettingsPanel
 import com.jlahougue.feature.settings_presentation.SettingsViewModel
 

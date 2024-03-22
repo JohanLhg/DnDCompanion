@@ -6,8 +6,8 @@ import com.jlahougue.damage_type_presentation.DamageTypeDialogState
 import com.jlahougue.health_domain.model.DeathSaves
 import com.jlahougue.health_domain.model.Health
 import com.jlahougue.property_presentation.PropertyDialogState
-import com.jlahougue.settings_domain.model.UnitSystem
 import com.jlahougue.stats_domain.model.StatsView
+import com.jlahougue.user_info_domain.model.UnitSystem
 
 data class CombatState(
     val unitSystem: UnitSystem = UnitSystem.METRIC,

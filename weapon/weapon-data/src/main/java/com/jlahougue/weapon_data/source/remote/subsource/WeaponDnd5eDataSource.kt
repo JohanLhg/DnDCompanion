@@ -3,12 +3,11 @@ package com.jlahougue.weapon_data.source.remote.subsource
 import com.jlahougue.ability_domain.model.AbilityName
 import com.jlahougue.core_data_remote_instance.Dnd5eDataSource
 import com.jlahougue.core_domain.util.ApiEvent
-import com.jlahougue.core_domain.util.UiText
+import com.jlahougue.core_domain.util.RemoteReadError
 import com.jlahougue.core_domain.util.dispatcherProvider.DispatcherProvider
 import com.jlahougue.core_domain.util.extension.getIntIfExists
 import com.jlahougue.core_domain.util.extension.getJSONArrayIfExists
 import com.jlahougue.core_domain.util.extension.getStringIfExists
-import com.jlahougue.weapon_data.R
 import com.jlahougue.weapon_data.source.remote.WeaponRemoteListener
 import com.jlahougue.weapon_domain.model.Weapon
 import com.jlahougue.weapon_domain.model.WeaponProperty
@@ -27,10 +26,7 @@ class WeaponDnd5eDataSource(
         weaponRemoteListener: WeaponRemoteListener
     ) {
         val response = dnd5eDataSource.sendGet(Dnd5eDataSource.WEAPON_URL)
-        if (response == null) {
-            val errorMessage = UiText.StringResource(R.string.error_fetching_weapons)
-            return onApiEvent(ApiEvent.Error(errorMessage))
-        }
+            ?: return onApiEvent(ApiEvent.Error(RemoteReadError.NOT_FOUND))
         val json = JSONObject(response)
 
         val weapons = json.getJSONArray("equipment")

@@ -43,7 +43,7 @@ dependencies {
     implementation(project(":weapon:weapon-domain"))
     implementation(project(":ability:ability-domain"))
     implementation(project(":property:property-domain"))
-    implementation(project(":settings:settings-domain"))
+    implementation(project(":user-info:user-info-domain"))
 
     implementation(project(":core:core-presentation"))
     implementation(project(":ability:ability-presentation"))

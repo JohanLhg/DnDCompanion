@@ -8,8 +8,8 @@ import com.jlahougue.character_spell_presentation.dialog.SpellDialogEvent
 import com.jlahougue.character_spell_presentation.dialog.SpellDialogState
 import com.jlahougue.combat_domain.ICombatModule
 import com.jlahougue.combat_presentation.component.TabItem
-import com.jlahougue.core_domain.util.UiText
 import com.jlahougue.core_presentation.R
+import com.jlahougue.core_presentation.util.UiText
 import com.jlahougue.damage_type_presentation.DamageTypeDialogEvent
 import com.jlahougue.damage_type_presentation.DamageTypeDialogState
 import com.jlahougue.health_domain.model.DeathSaves

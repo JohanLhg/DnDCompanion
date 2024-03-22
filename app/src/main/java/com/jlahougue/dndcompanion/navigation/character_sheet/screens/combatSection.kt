@@ -8,7 +8,7 @@ import androidx.navigation.compose.composable
 import com.jlahougue.combat_presentation.CombatScreen
 import com.jlahougue.combat_presentation.CombatViewModel
 import com.jlahougue.core_dependency_injection.DnDCompanionApp
-import com.jlahougue.core_domain.util.extension.viewModelFactory
+import com.jlahougue.core_presentation.util.viewModelFactory
 
 fun NavGraphBuilder.combatSection(route: String) {
     composable(

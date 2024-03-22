@@ -7,11 +7,8 @@ import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageException
-import com.google.firebase.storage.StorageException.ERROR_BUCKET_NOT_FOUND
-import com.google.firebase.storage.StorageException.ERROR_NOT_AUTHENTICATED
-import com.google.firebase.storage.StorageException.ERROR_NOT_AUTHORIZED
-import com.google.firebase.storage.StorageException.ERROR_PROJECT_NOT_FOUND
 import com.google.firebase.storage.StorageReference
+import com.jlahougue.core_data_remote_instance.util.asLoadImageError
 import com.jlahougue.core_domain.util.LoadImageError
 import com.jlahougue.core_domain.util.response.Result
 
@@ -51,18 +48,7 @@ class FirebaseDataSource {
                 onComplete(Result.Failure(LoadImageError.CANCELLED))
             }
             .addOnFailureListener { exception ->
-                val error = when (exception) {
-                    is StorageException -> {
-                        when (exception.errorCode) {
-                            ERROR_BUCKET_NOT_FOUND,
-                            ERROR_PROJECT_NOT_FOUND -> LoadImageError.INVALID_URL
-                            ERROR_NOT_AUTHENTICATED -> LoadImageError.NOT_AUTHENTICATED
-                            ERROR_NOT_AUTHORIZED -> LoadImageError.NOT_AUTHORIZED
-                            else -> LoadImageError.UNKNOWN
-                        }
-                    }
-                    else -> LoadImageError.UNKNOWN
-                }
+                val error = (exception as StorageException).asLoadImageError()
                 onComplete(Result.Failure(error))
             }
     }

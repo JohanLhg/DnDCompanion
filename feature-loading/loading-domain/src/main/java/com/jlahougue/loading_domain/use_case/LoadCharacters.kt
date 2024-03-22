@@ -2,17 +2,18 @@ package com.jlahougue.loading_domain.use_case
 
 import com.jlahougue.ability_domain.repository.IAbilityRepository
 import com.jlahougue.character_domain.repository.ICharacterRepository
+import com.jlahougue.character_sheet_domain.model.CharacterSheet
 import com.jlahougue.character_sheet_domain.repository.ICharacterSheetRepository
 import com.jlahougue.character_sheet_domain.use_case.CharacterSheetUseCases
-import com.jlahougue.character_sheet_domain.util.CharacterSheetRemoteEvent
 import com.jlahougue.character_spell_domain.model.SpellSlot
 import com.jlahougue.character_spell_domain.repository.ICharacterSpellRepository
 import com.jlahougue.core_domain.util.ApiEvent
-import com.jlahougue.core_domain.util.UiText
+import com.jlahougue.core_domain.util.RemoteReadError
 import com.jlahougue.core_domain.util.dispatcherProvider.DispatcherProvider
+import com.jlahougue.core_domain.util.response.Result
 import com.jlahougue.health_domain.repository.IHealthRepository
 import com.jlahougue.item_domain.repository.IItemRepository
-import com.jlahougue.loading_domain.R
+import com.jlahougue.loading_domain.util.LoaderKey
 import com.jlahougue.money_domain.repository.IMoneyRepository
 import com.jlahougue.skill_domain.repository.ISkillRepository
 import com.jlahougue.stats_domain.repository.IStatsRepository
@@ -33,28 +34,22 @@ class LoadCharacters(
     private val weaponRepository: IWeaponRepository,
     private val moneyRepository: IMoneyRepository,
     private val itemRepository: IItemRepository
-) : LoadFromRemote(UiText.StringResource(R.string.loading_characters)) {
+) : LoadFromRemote(LoaderKey.CHARACTERS) {
 
     override fun invoke() {
         super.invoke()
         CoroutineScope(dispatcherProvider.io).launch {
-            characterSheetRepository.load(::onEvent)
+            characterSheetRepository.load(::onResult)
         }
     }
 
-    private fun onEvent(event: CharacterSheetRemoteEvent) {
-        when (event) {
-            is CharacterSheetRemoteEvent.Canceled -> {
-                onApiEvent(ApiEvent.Error(UiText.StringResource(R.string.error_fetching_characters)))
-            }
-            is CharacterSheetRemoteEvent.Failure -> {
-                onApiEvent(ApiEvent.Error(event.message))
-            }
-            is CharacterSheetRemoteEvent.Success -> {
+    private fun onResult(result: Result<List<CharacterSheet>, RemoteReadError>) {
+        when (result) {
+            is Result.Success -> {
                 CoroutineScope(dispatcherProvider.io).launch {
-                    onApiEvent(ApiEvent.SetMaxProgress(event.characterSheets.size))
+                    onApiEvent(ApiEvent.SetMaxProgress(result.data.size))
                     var noneExist = !characterRepository.exists()
-                    for (characterSheet in event.characterSheets) {
+                    for (characterSheet in result.data) {
                         characterRepository.saveToLocal(characterSheet.character)
                         abilityRepository.saveToLocal(characterSheet.abilities.values.toList())
                         skillRepository.saveToLocal(characterSheet.skills.values.toList())
@@ -76,6 +71,9 @@ class LoadCharacters(
                     if (noneExist) characterSheetUseCases.createCharacter()
                     onApiEvent(ApiEvent.Finish)
                 }
+            }
+            is Result.Failure -> {
+                onApiEvent(ApiEvent.Error(result.error))
             }
         }
     }

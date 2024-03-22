@@ -36,9 +36,7 @@ data class Character(
     @ColumnInfo(name = CHARACTER_BACKGROUND_TITLE)
     var backgroundTitle: String = "",
     @ColumnInfo(name = CHARACTER_BACKGROUND)
-    var background: String = "",
-    @ColumnInfo(name = CHARACTER_IS_FAVORITE)
-    var isFavorite: Boolean = false
+    var background: String = ""
 ) {
     override fun toString(): String {
         return """
@@ -57,7 +55,6 @@ data class Character(
             $flaws
             $backgroundTitle
             $background
-            $isFavorite
         """.trimIndent()
     }
 
@@ -78,6 +75,5 @@ data class Character(
         const val CHARACTER_FLAWS = "flaws"
         const val CHARACTER_BACKGROUND_TITLE = "background_title"
         const val CHARACTER_BACKGROUND = "background"
-        const val CHARACTER_IS_FAVORITE = "is_favorite"
     }
 }

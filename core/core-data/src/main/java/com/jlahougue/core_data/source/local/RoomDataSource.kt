@@ -66,7 +66,7 @@ import com.jlahougue.weapon_domain.model.WeaponProperty
         ProficiencyView::class,
         SpellcasterView::class, CharacterSpellsStatsView::class, SpellSlotView::class
     ],
-    version = 17
+    version = 18
 )
 @TypeConverters(
     value = [AbilityNameTypeConverter::class, CurrencyTypeConverter::class]

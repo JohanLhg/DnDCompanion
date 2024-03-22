@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="spell_state_unlocked">Unlocked</string>
-    <string name="spell_state_highlighted">Highlighted</string>
-    <string name="spell_state_locked">Locked</string>
-    <string name="spell_state_prepared">Prepared</string>
-    <string name="spell_state_always_prepared">Always prepared</string>
-</resources>

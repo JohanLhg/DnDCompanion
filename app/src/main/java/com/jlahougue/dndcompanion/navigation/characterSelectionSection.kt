@@ -17,8 +17,8 @@ import androidx.navigation.compose.composable
 import com.jlahougue.character_selection_presentation.CharacterSelectionScreen
 import com.jlahougue.character_selection_presentation.CharacterSelectionViewModel
 import com.jlahougue.core_dependency_injection.DnDCompanionApp
-import com.jlahougue.core_domain.util.extension.viewModelFactory
 import com.jlahougue.core_presentation.util.UiEvent
+import com.jlahougue.core_presentation.util.viewModelFactory
 import kotlinx.coroutines.flow.collectLatest
 
 fun NavGraphBuilder.characterSelectionSection(

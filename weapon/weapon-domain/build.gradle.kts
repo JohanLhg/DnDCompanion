@@ -37,7 +37,7 @@ dependencies {
     implementation(project(":core:core-domain"))
     implementation(project(":ability:ability-domain"))
     implementation(project(":property:property-domain"))
-    implementation(project(":settings:settings-domain"))
+    implementation(project(":user-info:user-info-domain"))
 
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)

@@ -3,9 +3,8 @@ package com.jlahougue.spell_data.source.remote
 import android.util.Log
 import com.jlahougue.core_data_remote_instance.Open5eDataSource
 import com.jlahougue.core_domain.util.ApiEvent
-import com.jlahougue.core_domain.util.UiText
+import com.jlahougue.core_domain.util.RemoteReadError
 import com.jlahougue.core_domain.util.dispatcherProvider.DispatcherProvider
-import com.jlahougue.spell_data.R
 import com.jlahougue.spell_domain.model.Spell
 import com.jlahougue.spell_domain.model.SpellClass
 import com.jlahougue.spell_domain.model.SpellDamageType
@@ -26,10 +25,7 @@ class SpellOpen5eDataSource(
         spellRemoteListener: SpellRemoteListener
     ) {
         val responseCheck = apiRequest.sendGet(Open5eDataSource.SPELLS_CHECK_URL)
-        if (responseCheck == null) {
-            val errorMessage = UiText.StringResource(R.string.error_fetching_spells)
-            return onApiEvent(ApiEvent.Error(errorMessage))
-        }
+            ?: return onApiEvent(ApiEvent.Error(RemoteReadError.NOT_FOUND))
         val json = JSONObject(responseCheck)
 
         val count = json.getInt("count")

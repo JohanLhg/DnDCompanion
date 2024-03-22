@@ -2,9 +2,8 @@ package com.jlahougue.damage_type_data.source.remote
 
 import com.jlahougue.core_data_remote_instance.Dnd5eDataSource
 import com.jlahougue.core_domain.util.ApiEvent
-import com.jlahougue.core_domain.util.UiText
+import com.jlahougue.core_domain.util.RemoteReadError
 import com.jlahougue.core_domain.util.dispatcherProvider.DispatcherProvider
-import com.jlahougue.damage_type_data.R
 import com.jlahougue.damage_type_domain.model.DamageType
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.joinAll
@@ -21,10 +20,7 @@ class DamageTypeDnd5eDataSource(
         damageTypeRemoteListener: DamageTypeRemoteListener
     ) {
         val response = dnd5eDataSource.sendGet(Dnd5eDataSource.DAMAGE_TYPES_URL)
-        if (response == null) {
-            val errorMessage = UiText.StringResource(R.string.error_fetching_damage_types)
-            return onApiEvent(ApiEvent.Error(errorMessage))
-        }
+            ?: return onApiEvent(ApiEvent.Error(RemoteReadError.NOT_FOUND))
         val json = JSONObject(response)
 
         val count = json.getInt("count")

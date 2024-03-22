@@ -28,7 +28,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.jlahougue.core_presentation.theme.DnDCompanionTheme
 import com.jlahougue.core_presentation.theme.spacing
-import com.jlahougue.settings_domain.model.UnitSystem
 import com.jlahougue.weapon_domain.model.WeaponInfo
 import com.jlahougue.weapon_presentation.component.WeaponCard
 import com.jlahougue.weapon_presentation.dialog.WeaponDialog
@@ -38,7 +37,7 @@ import com.jlahougue.weapon_presentation.list_dialog.WeaponListDialogEvent
 
 @Composable
 fun WeaponList(
-    unitSystem: UnitSystem,
+    unitSystem: com.jlahougue.user_info_domain.model.UnitSystem,
     state: WeaponState,
     onEvent: (WeaponEvent) -> Unit,
     onListDialogEvent: (WeaponListDialogEvent) -> Unit,
@@ -111,7 +110,7 @@ fun WeaponList(
 fun WeaponItemPreview() {
     DnDCompanionTheme {
         WeaponList(
-            UnitSystem.METRIC,
+            com.jlahougue.user_info_domain.model.UnitSystem.METRIC,
             state = WeaponState(weapons = getWeaponsPreviewData()),
             onEvent = {},
             onListDialogEvent = {},

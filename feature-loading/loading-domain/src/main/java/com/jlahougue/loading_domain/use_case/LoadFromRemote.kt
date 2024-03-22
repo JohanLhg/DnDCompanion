@@ -1,14 +1,14 @@
 package com.jlahougue.loading_domain.use_case
 
 import com.jlahougue.core_domain.util.ApiEvent
-import com.jlahougue.core_domain.util.UiText
+import com.jlahougue.loading_domain.util.LoaderKey
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
-abstract class LoadFromRemote(title: UiText) {
+abstract class LoadFromRemote(identifier: LoaderKey) {
 
-    private var _state = MutableStateFlow(LoadSate(title))
+    private var _state = MutableStateFlow(LoadSate(identifier))
     val state = _state.asStateFlow()
 
     open operator fun invoke() {

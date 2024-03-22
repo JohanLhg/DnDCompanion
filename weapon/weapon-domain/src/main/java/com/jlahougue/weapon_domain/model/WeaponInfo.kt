@@ -7,7 +7,6 @@ import com.jlahougue.ability_domain.model.AbilityModifierView
 import com.jlahougue.ability_domain.model.AbilityName
 import com.jlahougue.core_domain.util.extension.feetToMeterString
 import com.jlahougue.property_domain.model.Property
-import com.jlahougue.settings_domain.model.UnitSystem
 
 data class WeaponInfo(
     @ColumnInfo(name = CharacterWeapon.CHARACTER_WEAPON_CID)
@@ -49,10 +48,10 @@ data class WeaponInfo(
     )
     var properties: List<Property> = emptyList()
 ) {
-    fun getRangeString(unitSystem: UnitSystem): String {
+    fun getRangeString(unitSystem: com.jlahougue.user_info_domain.model.UnitSystem): String {
         var rangeStr = ""
         when (unitSystem) {
-            UnitSystem.IMPERIAL -> {
+            com.jlahougue.user_info_domain.model.UnitSystem.IMPERIAL -> {
                 if (range > 0) rangeStr = "$range ft."
                 if (throwRangeMin > 0) {
                     if (rangeStr.isNotEmpty()) rangeStr += " / "

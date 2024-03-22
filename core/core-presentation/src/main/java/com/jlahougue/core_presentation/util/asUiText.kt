@@ -1,7 +1,6 @@
 package com.jlahougue.core_presentation.util
 
 import com.jlahougue.core_domain.util.LoadImageError
-import com.jlahougue.core_domain.util.UiText
 import com.jlahougue.core_presentation.R
 
 fun LoadImageError.asUiText() = when (this) {

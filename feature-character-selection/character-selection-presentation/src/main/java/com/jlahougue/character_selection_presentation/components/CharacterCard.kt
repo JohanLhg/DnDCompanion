@@ -120,8 +120,7 @@ fun CharacterCardPreview() {
                 "",
                 "",
                 "",
-                "",
-                false,
+                ""
             ),
             imageUri = null,
             getImage = {},

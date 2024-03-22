@@ -1,7 +1,7 @@
 package com.jlahougue.user_info_data.repository
 
-import com.jlahougue.settings_domain.model.UnitSystem
 import com.jlahougue.user_info_data.source.UserInfoLocalDataSource
+import com.jlahougue.user_info_domain.model.UnitSystem
 import com.jlahougue.user_info_domain.model.UserInfo
 import com.jlahougue.user_info_domain.repository.IUserInfoRepository
 import kotlinx.coroutines.flow.Flow

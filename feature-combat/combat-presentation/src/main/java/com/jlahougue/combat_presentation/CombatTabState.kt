@@ -4,7 +4,7 @@ import com.jlahougue.character_spell_domain.model.SpellLevel
 import com.jlahougue.combat_presentation.component.TabItem
 import com.jlahougue.combat_presentation.component.TabState
 import com.jlahougue.item_presentation.InventoryState
-import com.jlahougue.settings_domain.model.UnitSystem
+import com.jlahougue.user_info_domain.model.UnitSystem
 import com.jlahougue.weapon_presentation.WeaponState
 
 data class CombatTabState(

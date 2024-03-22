@@ -4,7 +4,7 @@ import com.jlahougue.authentication_domain.util.AuthenticationError
 import com.jlahougue.authentication_domain.util.EmailChangeError
 import com.jlahougue.authentication_domain.util.PasswordChangeError
 import com.jlahougue.authentication_presentation.R
-import com.jlahougue.core_domain.util.UiText
+import com.jlahougue.core_presentation.util.UiText
 
 fun AuthenticationError.asUiText(): UiText {
     return when (this) {

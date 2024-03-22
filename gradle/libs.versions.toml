@@ -1,4 +1,7 @@
 [versions]
+coroutines = "1.8.0"
+json = "20240303"
+
 compose = "1.6.2"
 compose-material3 = "1.2.0"
 compose-navigation = "2.7.7"
@@ -29,7 +32,6 @@ gson = "2.10.1"
 test-core = "1.5.0"
 junit = "4.13.2"
 jupiter = "5.8.1"
-coroutines = "1.8.0"
 truth = "1.4.1"
 junit-ext = "1.1.5"
 test-core-ktx = "1.5.0"
@@ -43,6 +45,9 @@ appcompat = "1.6.1"
 material = "1.11.0"
 
 [libraries]
+kotlin-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+json = { module = "org.json:json", version.ref = "json" }
+
 compose-ui = { module = "androidx.compose.ui:ui", version.ref = "compose"}
 compose-graphics = { module = "androidx.compose.ui:ui-graphics", version.ref = "compose"}
 compose-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
@@ -85,7 +90,7 @@ gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 test-core = { module = "androidx.test:core", version.ref = "test-core" }
 junit = { module = "junit:junit", version.ref = "junit" }
 jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "jupiter" }
-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
+test-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
 truth = { module = "com.google.truth:truth", version.ref = "truth" }
 compose-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
 compose-manifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "compose" }
@@ -119,5 +124,5 @@ firebase = ["firebase-auth", "firebase-firestore", "firebase-installations", "fi
     "firebase-storage-ui"]
 network = ["okhttp", "gson"]
 
-tests = ["test-core", "junit", "jupiter", "coroutines", "truth", "compose-tooling", "compose-manifest"]
-android-tests = ["coroutines", "truth", "junit-ext", "test-core-ktx", "espresso", "compose-junit4"]
+tests = ["test-core", "junit", "jupiter", "test-coroutines", "truth", "compose-tooling", "compose-manifest"]
+android-tests = ["test-coroutines", "truth", "junit-ext", "test-core-ktx", "espresso", "compose-junit4"]
