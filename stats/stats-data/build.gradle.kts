@@ -35,10 +35,12 @@ android {
 
 dependencies {
     implementation(project(":core:core-data-remote-instance"))
+    implementation(project(":core:core-data-interface"))
     implementation(project(":stats:stats-domain"))
 
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
+    implementation(project(":core:core-domain"))
     ksp(libs.room.compiler)
 
     testImplementation(libs.bundles.tests)

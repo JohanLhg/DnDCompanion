@@ -96,6 +96,7 @@ class DnDCompanionApp: Application() {
             dataSourceModule.localDataSource.skillDao()
         )
         statsModule = StatsModule(
+            appModule.dispatcherProvider,
             dataSourceModule.remoteDataSource.statsDao,
             dataSourceModule.localDataSource.statsDao()
         )

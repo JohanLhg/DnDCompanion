@@ -1,9 +1,9 @@
 package com.jlahougue.authentication_domain.use_case
 
-import android.util.Patterns
 import com.jlahougue.authentication_domain.repository.IAuthRepository
 import com.jlahougue.authentication_domain.util.EmailChangeError
 import com.jlahougue.core_domain.util.dispatcherProvider.DispatcherProvider
+import com.jlahougue.core_domain.util.extension.isValidEmail
 import com.jlahougue.core_domain.util.response.Result
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -21,7 +21,7 @@ class ChangeEmail(
         if (email.isBlank()) {
             return onComplete(Result.Failure(EmailChangeError.EMAIL_EMPTY))
         }
-        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+        if (!email.isValidEmail()) {
             return onComplete(Result.Failure(EmailChangeError.EMAIL_INVALID))
         }
         authRepository.changeEmail(email, password) {

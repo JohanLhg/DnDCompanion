@@ -34,6 +34,7 @@ android {
 
 dependencies {
     implementation(project(":core:core-domain"))
+    implementation(project(":core:core-data-interface"))
 
     implementation(libs.bundles.firebase)
     implementation(libs.bundles.network)

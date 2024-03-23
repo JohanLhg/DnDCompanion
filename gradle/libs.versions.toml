@@ -2,6 +2,8 @@
 coroutines = "1.8.0"
 json = "20240303"
 
+guava = "31.0.1-jre"
+
 compose = "1.6.2"
 compose-material3 = "1.2.0"
 compose-navigation = "2.7.7"
@@ -48,6 +50,8 @@ material = "1.11.0"
 kotlin-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 json = { module = "org.json:json", version.ref = "json" }
 
+guava = { module = "com.google.guava:guava", version.ref = "guava" }
+
 compose-ui = { module = "androidx.compose.ui:ui", version.ref = "compose"}
 compose-graphics = { module = "androidx.compose.ui:ui-graphics", version.ref = "compose"}
 compose-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
@@ -77,6 +81,7 @@ serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", v
 room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
 room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
 room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
+room-common = { module = "androidx.room:room-common", version.ref = "room" }
 
 firebase-auth = { module = "com.google.firebase:firebase-auth", version.ref = "firebase-auth"}
 firebase-firestore = { module = "com.google.firebase:firebase-firestore", version.ref = "firebase-firestore"}

@@ -1,10 +1,10 @@
 package com.jlahougue.character_domain.repository
 
-import android.net.Uri
 import com.jlahougue.character_domain.model.Character
 import com.jlahougue.core_domain.util.LoadImageError
 import com.jlahougue.core_domain.util.response.Result
 import kotlinx.coroutines.flow.Flow
+import java.net.URI
 
 interface ICharacterRepository {
     suspend fun create(): Character
@@ -21,7 +21,7 @@ interface ICharacterRepository {
     )
     fun uploadImage(
         characterId: Long,
-        uri: Uri,
+        uri: URI,
         onComplete: (Result<String, LoadImageError>) -> Unit
     )
     suspend fun getClass(characterId: Long): String

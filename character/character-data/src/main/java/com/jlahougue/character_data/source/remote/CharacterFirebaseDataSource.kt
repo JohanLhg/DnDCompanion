@@ -1,15 +1,13 @@
 package com.jlahougue.character_data.source.remote
 
-import android.net.Uri
-import com.google.firebase.storage.StorageException
 import com.jlahougue.character_domain.model.Character
-import com.jlahougue.core_data_remote_instance.FirebaseDataSource
-import com.jlahougue.core_data_remote_instance.util.asLoadImageError
+import com.jlahougue.core_data_interface.RemoteUserDataSource
 import com.jlahougue.core_domain.util.LoadImageError
 import com.jlahougue.core_domain.util.response.Result
+import java.net.URI
 
 class CharacterFirebaseDataSource(
-    private val dataSource: FirebaseDataSource
+    private val dataSource: RemoteUserDataSource
 ): CharacterRemoteDataSource {
 
     override fun save(character: Character) {
@@ -17,36 +15,29 @@ class CharacterFirebaseDataSource(
     }
 
     override fun delete(characterID: Long) {
-        dataSource.characterReference(characterID).delete()
-        dataSource.deleteImage(characterID)
+        dataSource.delete(dataSource.characterUrl(characterID))
+        dataSource.deleteImage(dataSource.characterImageUrl(characterID))
     }
 
     override fun loadImage(
         characterId: Long,
         onComplete: (Result<String, LoadImageError>) -> Unit
     ) {
-        dataSource.storage.reference
-            .child("Images/Characters/${dataSource.uid}/$characterId.png")
-            .downloadUrl
-            .addOnSuccessListener { uri ->
-                onComplete(Result.Success(uri.toString()))
-            }
-            .addOnCanceledListener {
-                onComplete(Result.Failure(LoadImageError.CANCELLED))
-            }
-            .addOnFailureListener { exception ->
-                val error = (exception as StorageException).asLoadImageError()
-                onComplete(Result.Failure(error))
-            }
+        dataSource.loadImage(
+            dataSource.characterImageUrl(characterId),
+            onComplete
+        )
     }
 
     override fun uploadImage(
         characterId: Long,
-        uri: Uri,
+        uri: URI,
         onComplete: (Result<String, LoadImageError>) -> Unit
     ) {
-        val imageRef = dataSource.storage.reference
-            .child("Images/Characters/${dataSource.uid}/$characterId.png")
-        dataSource.uploadImage(imageRef, uri, onComplete)
+        dataSource.uploadImage(
+            dataSource.characterImageUrl(characterId),
+            uri,
+            onComplete
+        )
     }
 }

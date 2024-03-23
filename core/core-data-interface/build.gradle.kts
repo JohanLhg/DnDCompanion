@@ -10,8 +10,4 @@ java {
 
 dependencies {
     implementation(project(":core:core-domain"))
-    implementation(project(":character:character-domain"))
-
-    implementation(libs.kotlin.coroutines)
-    implementation(libs.room.common)
 }

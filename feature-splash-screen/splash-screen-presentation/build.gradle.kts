@@ -36,6 +36,7 @@ dependencies {
     implementation(project(":authentication:authentication-domain"))
 
     implementation(libs.navigation)
+    implementation(libs.guava)
 
     testImplementation(libs.bundles.tests)
     androidTestImplementation(libs.bundles.android.tests)

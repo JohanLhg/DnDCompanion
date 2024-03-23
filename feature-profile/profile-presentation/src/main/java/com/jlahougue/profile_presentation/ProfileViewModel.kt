@@ -20,6 +20,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import java.net.URI
+import java.net.URLEncoder
 
 class ProfileViewModel(private val module: ProfileModule) : ViewModel() {
 
@@ -58,7 +60,7 @@ class ProfileViewModel(private val module: ProfileModule) : ViewModel() {
             is ProfileEvent.OnImageSelected -> {
                 module.characterUseCases.uploadImage(
                     state.value.character.id,
-                    event.uri,
+                    URI.create(URLEncoder.encode(event.uri.toString(), "UTF-8")),
                     ::onImageLoadResult
                 )
             }

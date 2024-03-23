@@ -44,6 +44,7 @@ dependencies {
     implementation(project(":character:character-domain"))
 
     implementation(libs.bundles.ui)
+    implementation(libs.guava)
     implementation(libs.bundles.coil)
 
     testImplementation(libs.bundles.tests)

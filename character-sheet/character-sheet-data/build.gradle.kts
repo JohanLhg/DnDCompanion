@@ -34,6 +34,7 @@ android {
 
 dependencies {
     implementation(project(":core:core-data-remote-instance"))
+    implementation(project(":core:core-data-interface"))
 
     implementation(project(":core:core-domain"))
     implementation(project(":character-sheet:character-sheet-domain"))
