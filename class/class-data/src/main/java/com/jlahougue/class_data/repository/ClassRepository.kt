@@ -36,13 +36,6 @@ class ClassRepository(
         )
     }
 
-    override suspend fun loadClassLevels(
-        className: String
-    ) = remoteDataSource.loadLevels(
-        className,
-        this
-    )
-
     override suspend fun get(name: String) = localDataSource.get(name)
 
     override suspend fun get() = localDataSource.get()

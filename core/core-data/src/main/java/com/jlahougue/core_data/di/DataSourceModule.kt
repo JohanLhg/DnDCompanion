@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.room.Room
 import com.jlahougue.core_data.source.local.RoomDataSource
 import com.jlahougue.core_data.source.remote.MixedRemoteDataSource
+import com.jlahougue.core_data_interface.RemoteGenericDataSource
 import com.jlahougue.core_data_remote_instance.Dnd5eDataSource
 import com.jlahougue.core_data_remote_instance.FirebaseDataSource
 import com.jlahougue.core_data_remote_instance.Open5eDataSource
@@ -19,6 +20,7 @@ class DataSourceModule(
 ): IDataSourceModule {
     private val firebaseDataSource by lazy { FirebaseDataSource() }
     private val okHttpClient by lazy { OkHttpClient() }
+    private val apiDataSource by lazy { RemoteGenericDataSource(okHttpClient) }
     private val dnd5eDataSource by lazy {
         Dnd5eDataSource(okHttpClient)
     }
@@ -37,6 +39,7 @@ class DataSourceModule(
         MixedRemoteDataSource(
             dispatcherProvider,
             firebaseDataSource,
+            apiDataSource,
             dnd5eDataSource,
             open5eDataSource
         )

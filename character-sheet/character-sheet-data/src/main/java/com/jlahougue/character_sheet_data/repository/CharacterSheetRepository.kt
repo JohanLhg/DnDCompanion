@@ -4,7 +4,6 @@ import com.jlahougue.character_sheet_data.source.remote.CharacterSheetRemoteData
 import com.jlahougue.character_sheet_domain.model.CharacterSheet
 import com.jlahougue.character_sheet_domain.repository.ICharacterSheetRepository
 import com.jlahougue.core_domain.util.RemoteReadError
-import com.jlahougue.core_domain.util.RemoteWriteError
 import com.jlahougue.core_domain.util.response.Result
 
 class CharacterSheetRepository(
@@ -12,12 +11,5 @@ class CharacterSheetRepository(
 ) : ICharacterSheetRepository {
     override fun load(onEvent: (Result<List<CharacterSheet>, RemoteReadError>) -> Unit) {
         remoteDataSource.load(onEvent)
-    }
-
-    override fun save(
-        character: CharacterSheet,
-        onEvent: (Result<CharacterSheet, RemoteWriteError>) -> Unit
-    ) {
-        remoteDataSource.save(character, onEvent)
     }
 }

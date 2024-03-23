@@ -11,7 +11,10 @@ class CharacterFirebaseDataSource(
 ): CharacterRemoteDataSource {
 
     override fun save(character: Character) {
-        dataSource.updateCharacterSheet(character.id, mapOf("character" to character))
+        dataSource.updateDocument(
+            dataSource.characterUrl(character.id),
+            mapOf("character" to character)
+        )
     }
 
     override fun delete(characterID: Long) {

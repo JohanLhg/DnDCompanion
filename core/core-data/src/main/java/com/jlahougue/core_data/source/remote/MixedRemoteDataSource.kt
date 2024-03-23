@@ -5,9 +5,8 @@ import com.jlahougue.authentication_data.source.AuthFirebaseDataSource
 import com.jlahougue.character_data.source.remote.CharacterFirebaseDataSource
 import com.jlahougue.character_sheet_data.source.remote.CharacterSheetFirebaseDataSource
 import com.jlahougue.character_spell_data.source.remote.CharacterSpellFirebaseDataSource
-import com.jlahougue.class_data.source.remote.ClassMixedRemoteDataSource
-import com.jlahougue.class_data.source.remote.subsource.ClassDnd5eDataSource
-import com.jlahougue.class_data.source.remote.subsource.ClassOpen5eDataSource
+import com.jlahougue.class_data.source.remote.ClassApiRemoteDataSource
+import com.jlahougue.core_data_interface.RemoteGenericDataSource
 import com.jlahougue.core_data_remote_instance.Dnd5eDataSource
 import com.jlahougue.core_data_remote_instance.FirebaseDataSource
 import com.jlahougue.core_data_remote_instance.Open5eDataSource
@@ -28,9 +27,10 @@ import com.jlahougue.weapon_data.source.remote.subsource.WeaponFirebaseDataSourc
 class MixedRemoteDataSource(
     private val dispatcherProvider: DispatcherProvider,
     private val firebaseDataSource: FirebaseDataSource,
+    private val apiDataSource: RemoteGenericDataSource,
     private val dnd5eDataSource: Dnd5eDataSource,
     private val open5eDataSource: Open5eDataSource
-): RemoteDataSource {
+) : RemoteDataSource {
     override val authDao by lazy { AuthFirebaseDataSource(firebaseDataSource.auth) }
     override val characterSheetDao by lazy { CharacterSheetFirebaseDataSource(firebaseDataSource) }
     override val characterDao by lazy { CharacterFirebaseDataSource(firebaseDataSource) }
@@ -41,15 +41,9 @@ class MixedRemoteDataSource(
     override val moneyDao by lazy { MoneyFirebaseDataSource(firebaseDataSource) }
     override val itemDao by lazy { ItemFirebaseDataSource(firebaseDataSource) }
     override val classDao by lazy {
-        ClassMixedRemoteDataSource(
-            ClassOpen5eDataSource(
-                dispatcherProvider,
-                open5eDataSource
-            ),
-            ClassDnd5eDataSource(
-                dispatcherProvider,
-                dnd5eDataSource
-            )
+        ClassApiRemoteDataSource(
+            dispatcherProvider,
+            apiDataSource
         )
     }
     override val damageTypeDao by lazy {

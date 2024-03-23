@@ -10,4 +10,6 @@ java {
 
 dependencies {
     implementation(project(":core:core-domain"))
+
+    implementation(libs.okhttp)
 }
