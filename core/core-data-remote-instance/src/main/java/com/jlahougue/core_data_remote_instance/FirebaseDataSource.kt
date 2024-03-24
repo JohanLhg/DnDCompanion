@@ -3,6 +3,7 @@ package com.jlahougue.core_data_remote_instance
 import android.net.Uri
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.storage.FirebaseStorage
@@ -42,6 +43,16 @@ class FirebaseDataSource : RemoteUserDataSource {
         values: Map<String, Any>
     ) {
         firestore.document(url).update(values)
+    }
+
+    override fun deleteField(
+        url: String,
+        key: String
+    ) {
+        updateDocument(
+            url,
+            mapOf(key to FieldValue.delete())
+        )
     }
 
     override fun <T> getList(

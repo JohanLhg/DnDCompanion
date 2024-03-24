@@ -9,6 +9,7 @@ interface RemoteUserDataSource {
     val charactersUrl: String
     fun characterImageUrl(characterID: Long): String
     fun updateDocument(url: String, values: Map<String, Any>)
+    fun deleteField(url: String, key: String)
     fun loadImage(
         url: String,
         onComplete: (Result<String, LoadImageError>) -> Unit

@@ -5,5 +5,5 @@ import com.jlahougue.core_domain.util.RemoteReadError
 import com.jlahougue.core_domain.util.response.Result
 
 interface ICharacterSheetRepository {
-    fun load(onEvent: (Result<List<CharacterSheet>, RemoteReadError>) -> Unit)
+    fun load(onComplete: (Result<List<CharacterSheet>, RemoteReadError>) -> Unit)
 }

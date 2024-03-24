@@ -14,9 +14,9 @@ import com.jlahougue.core_domain.util.dispatcherProvider.DispatcherProvider
 import com.jlahougue.user_info_domain.use_case.UserInfoUseCases
 
 class AuthModule(
-    override val dispatcherProvider: DispatcherProvider,
-    private val remoteDataSource: AuthRemoteDataSource,
-    private val userInfoUseCases: UserInfoUseCases,
+    dispatcherProvider: DispatcherProvider,
+    remoteDataSource: AuthRemoteDataSource,
+    userInfoUseCases: UserInfoUseCases,
     characterSheetUseCases: CharacterSheetUseCases
 ) : IAuthModule {
 

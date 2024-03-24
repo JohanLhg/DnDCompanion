@@ -35,6 +35,8 @@ android {
 dependencies {
     implementation(project(":core:core-di"))
     implementation(project(":core:core-data"))
+    implementation(project(":core:core-data-interface"))
+    implementation(project(":core:core-data-remote-instance"))
     implementation(project(":core:core-domain"))
 
     implementation(project(":authentication:authentication-domain"))
