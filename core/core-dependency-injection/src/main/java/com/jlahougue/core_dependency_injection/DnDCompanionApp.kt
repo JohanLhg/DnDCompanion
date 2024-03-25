@@ -2,7 +2,7 @@ package com.jlahougue.core_dependency_injection
 
 import android.app.Application
 import com.jlahougue.ability_data.AbilityModule
-import com.jlahougue.authentication_data.di.AuthModule
+import com.jlahougue.authentication_data.AuthModule
 import com.jlahougue.character_data.CharacterModule
 import com.jlahougue.character_selection_domain.CharacterSelectionModule
 import com.jlahougue.character_sheet_data.CharacterSheetModule
@@ -24,9 +24,9 @@ import com.jlahougue.property_data.PropertyModule
 import com.jlahougue.skill_data.SkillModule
 import com.jlahougue.spell_data.SpellModule
 import com.jlahougue.spells_domain.SpellsModule
-import com.jlahougue.stats_data.di.StatsModule
-import com.jlahougue.user_info_data.di.UserInfoModule
-import com.jlahougue.weapon_data.di.WeaponModule
+import com.jlahougue.stats_data.StatsModule
+import com.jlahougue.user_info_data.UserInfoModule
+import com.jlahougue.weapon_data.WeaponModule
 
 class DnDCompanionApp: Application() {
 
@@ -66,10 +66,7 @@ class DnDCompanionApp: Application() {
     override fun onCreate() {
         super.onCreate()
         appModule = AppModule()
-        dataSourceModule = DataSourceModule(
-            this,
-            appModule.dispatcherProvider
-        )
+        dataSourceModule = DataSourceModule(this)
 
         userInfoModule = UserInfoModule(
             this,
@@ -79,66 +76,67 @@ class DnDCompanionApp: Application() {
         characterModule = CharacterModule(
             appModule.dispatcherProvider,
             dataSourceModule.firebaseDataSource,
-            dataSourceModule.localDataSource.characterDao()
+            dataSourceModule.roomDataSource.characterDao()
         )
         healthModule = HealthModule(
             appModule.dispatcherProvider,
             dataSourceModule.firebaseDataSource,
-            dataSourceModule.localDataSource.healthDao()
+            dataSourceModule.roomDataSource.healthDao()
         )
         abilityModule = AbilityModule(
             appModule.dispatcherProvider,
             dataSourceModule.firebaseDataSource,
-            dataSourceModule.localDataSource.abilityDao()
+            dataSourceModule.roomDataSource.abilityDao()
         )
         skillModule = SkillModule(
             dataSourceModule.firebaseDataSource,
-            dataSourceModule.localDataSource.skillDao()
+            dataSourceModule.roomDataSource.skillDao()
         )
         statsModule = StatsModule(
             appModule.dispatcherProvider,
-            dataSourceModule.remoteDataSource.statsDao,
-            dataSourceModule.localDataSource.statsDao()
+            dataSourceModule.firebaseDataSource,
+            dataSourceModule.roomDataSource.statsDao()
         )
         moneyModule = MoneyModule(
             appModule.dispatcherProvider,
             dataSourceModule.firebaseDataSource,
-            dataSourceModule.localDataSource.moneyDao()
+            dataSourceModule.roomDataSource.moneyDao()
         )
         itemModule = ItemModule(
             appModule.dispatcherProvider,
             dataSourceModule.firebaseDataSource,
-            dataSourceModule.localDataSource.itemDao()
+            dataSourceModule.roomDataSource.itemDao()
         )
         classModule = ClassModule(
             appModule.dispatcherProvider,
             dataSourceModule.apiDataSource,
-            dataSourceModule.localDataSource.classDao()
+            dataSourceModule.roomDataSource.classDao()
         )
         damageTypeModule = DamageTypeModule(
             appModule.dispatcherProvider,
             dataSourceModule.apiDataSource,
-            dataSourceModule.localDataSource.damageTypeDao()
+            dataSourceModule.roomDataSource.damageTypeDao()
         )
         characterSpellModule = CharacterSpellModule(
             appModule.dispatcherProvider,
             dataSourceModule.firebaseDataSource,
-            dataSourceModule.localDataSource.characterSpellDao()
+            dataSourceModule.roomDataSource.characterSpellDao()
         )
         spellModule = SpellModule(
             appModule.dispatcherProvider,
             dataSourceModule.apiDataSource,
-            dataSourceModule.localDataSource.spellDao()
+            dataSourceModule.roomDataSource.spellDao()
         )
         propertyModule = PropertyModule(
             appModule.dispatcherProvider,
             dataSourceModule.apiDataSource,
-            dataSourceModule.localDataSource.propertyDao()
+            dataSourceModule.roomDataSource.propertyDao()
         )
         weaponModule = WeaponModule(
             appModule.dispatcherProvider,
-            dataSourceModule.remoteDataSource.weaponDao,
-            dataSourceModule.localDataSource.weaponDao()
+            dataSourceModule.firebaseDataSource,
+            dataSourceModule.apiDataSource,
+            dataSourceModule.roomDataSource.weaponDao()
         )
 
         characterSheetModule = CharacterSheetModule(
@@ -156,7 +154,7 @@ class DnDCompanionApp: Application() {
         )
         authModule = AuthModule(
             appModule.dispatcherProvider,
-            dataSourceModule.remoteDataSource.authDao,
+            dataSourceModule.authDataSource,
             userInfoModule.useCases,
             characterSheetModule.useCases
         )

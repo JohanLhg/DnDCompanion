@@ -23,6 +23,7 @@ import com.jlahougue.core_presentation.theme.spacing
 import com.jlahougue.weapon_domain.model.WeaponInfo
 import com.jlahougue.weapon_presentation.R
 import com.jlahougue.weapon_presentation.WeaponEvent
+import com.jlahougue.weapon_presentation.util.getRangeString
 import com.jlahougue.core_presentation.R as CoreR
 
 @Composable

@@ -62,7 +62,7 @@ class RegisterViewModel(
             is Result.Success -> {
                 viewModelScope.launch {
                     _event.emit(
-                        AuthUiEvent.ShowError(
+                        AuthUiEvent.ShowMessage(
                             UiText.StringResource(R.string.login_successful)
                         )
                     )
@@ -72,7 +72,7 @@ class RegisterViewModel(
             is Result.Failure -> {
                 viewModelScope.launch {
                     _event.emit(
-                        AuthUiEvent.ShowError(
+                        AuthUiEvent.ShowMessage(
                             result.error.asUiText()
                         )
                     )

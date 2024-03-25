@@ -5,7 +5,6 @@ import androidx.room.Junction
 import androidx.room.Relation
 import com.jlahougue.ability_domain.model.AbilityModifierView
 import com.jlahougue.ability_domain.model.AbilityName
-import com.jlahougue.core_domain.util.extension.feetToMeterString
 import com.jlahougue.property_domain.model.Property
 
 data class WeaponInfo(
@@ -48,28 +47,6 @@ data class WeaponInfo(
     )
     var properties: List<Property> = emptyList()
 ) {
-    fun getRangeString(unitSystem: com.jlahougue.user_info_domain.model.UnitSystem): String {
-        var rangeStr = ""
-        when (unitSystem) {
-            com.jlahougue.user_info_domain.model.UnitSystem.IMPERIAL -> {
-                if (range > 0) rangeStr = "$range ft."
-                if (throwRangeMin > 0) {
-                    if (rangeStr.isNotEmpty()) rangeStr += " / "
-                    rangeStr += "$throwRangeMin - $throwRangeMax ft."
-                }
-            }
-            //Metric system by default
-            else -> {
-                if (range > 0) rangeStr = "${range.feetToMeterString()} m"
-                if (throwRangeMin > 0) {
-                    if (rangeStr.isNotEmpty()) rangeStr += " / "
-                    rangeStr += "${throwRangeMin.feetToMeterString()} - ${throwRangeMax.feetToMeterString()} m"
-                }
-            }
-        }
-        return rangeStr
-    }
-
     fun toCharacterWeapon(
         count: Int = this.count,
         proficiency: Boolean = this.proficiency

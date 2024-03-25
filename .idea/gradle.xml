@@ -38,7 +38,6 @@
             <option value="$PROJECT_DIR$/core/core-data-interface" />
             <option value="$PROJECT_DIR$/core/core-data-remote-instance" />
             <option value="$PROJECT_DIR$/core/core-dependency-injection" />
-            <option value="$PROJECT_DIR$/core/core-di" />
             <option value="$PROJECT_DIR$/core/core-domain" />
             <option value="$PROJECT_DIR$/core/core-presentation" />
             <option value="$PROJECT_DIR$/damage-type" />

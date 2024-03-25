@@ -7,9 +7,6 @@ import com.jlahougue.character_spell_presentation.SpellEvent
 import com.jlahougue.character_spell_presentation.dialog.SpellDialogEvent
 import com.jlahougue.character_spell_presentation.dialog.SpellDialogState
 import com.jlahougue.combat_domain.ICombatModule
-import com.jlahougue.combat_presentation.component.TabItem
-import com.jlahougue.core_presentation.R
-import com.jlahougue.core_presentation.util.UiText
 import com.jlahougue.damage_type_presentation.DamageTypeDialogEvent
 import com.jlahougue.damage_type_presentation.DamageTypeDialogState
 import com.jlahougue.health_domain.model.DeathSaves
@@ -40,23 +37,7 @@ class CombatViewModel(
 
     private var characterId = -1L
 
-    private val _state = MutableStateFlow(
-        CombatState(
-            tab = CombatTabState(
-                tabs = listOf(
-                    TabItem(
-                        title = UiText.StringResource(R.string.spells),
-                        icon = R.drawable.spell_book
-                    ),
-                    TabItem(
-                        title = UiText.StringResource(R.string.weapons),
-                        icon = R.drawable.weapons
-                    )
-                ),
-                selectedTabIndex = 0
-            )
-        )
-    )
+    private val _state = MutableStateFlow(CombatState())
     val state = _state.asStateFlow()
 
     private var weaponListDialogJob: Job? = null
@@ -80,17 +61,18 @@ class CombatViewModel(
                 if (characterId == -1L) return@collectLatest
 
                 viewModelScope.launch(module.dispatcherProvider.io) {
-                    module.abilityUseCases.getAbilities(userInfo.characterId).collectLatest { abilities ->
-                        _state.update {
-                            it.copy(abilities = abilities)
+                    module.abilityUseCases.getAbilities(userInfo.characterId)
+                        .collectLatest { abilities ->
+                            _state.update {
+                                it.copy(abilities = abilities)
+                            }
                         }
-                    }
                 }
 
                 viewModelScope.launch(module.dispatcherProvider.io) {
                     module.statsUseCases.getStats(userInfo.characterId).collectLatest { stats ->
                         _state.update {
-                            it.copy(stats = stats?: StatsView())
+                            it.copy(stats = stats ?: StatsView())
                         }
                     }
                 }
@@ -98,29 +80,31 @@ class CombatViewModel(
                 viewModelScope.launch(module.dispatcherProvider.io) {
                     module.healthUseCases.getHealth(userInfo.characterId).collectLatest { health ->
                         _state.update {
-                            it.copy(health = health?: Health())
+                            it.copy(health = health ?: Health())
                         }
                     }
                 }
 
                 viewModelScope.launch(module.dispatcherProvider.io) {
-                    module.healthUseCases.getDeathSaves(userInfo.characterId).collectLatest { deathSaves ->
-                        _state.update {
-                            it.copy(deathSaves = deathSaves?: DeathSaves())
+                    module.healthUseCases.getDeathSaves(userInfo.characterId)
+                        .collectLatest { deathSaves ->
+                            _state.update {
+                                it.copy(deathSaves = deathSaves ?: DeathSaves())
+                            }
                         }
-                    }
                 }
 
                 viewModelScope.launch(module.dispatcherProvider.io) {
-                    module.weaponUseCases.getWeaponsOwned(userInfo.characterId).collectLatest { weapons ->
-                        _state.update {
-                            it.copy(
-                                tab = it.tab.copy(
-                                    weapons = it.tab.weapons.copy(weapons = weapons)
+                    module.weaponUseCases.getWeaponsOwned(userInfo.characterId)
+                        .collectLatest { weapons ->
+                            _state.update {
+                                it.copy(
+                                    tab = it.tab.copy(
+                                        weapons = it.tab.weapons.copy(weapons = weapons)
+                                    )
                                 )
-                            )
+                            }
                         }
-                    }
                 }
 
                 viewModelScope.launch(module.dispatcherProvider.io) {
@@ -160,6 +144,7 @@ class CombatViewModel(
                     it.copy(tab = it.tab.copy(selectedTabIndex = event.index))
                 }
             }
+
             is CombatEvent.OnStatsEvent -> onStatsEvent(event.event)
             is CombatEvent.OnHealthEvent -> onHealthEvent(event.event)
             is CombatEvent.OnWeaponEvent -> onWeaponEvent(event.event)
@@ -181,6 +166,7 @@ class CombatViewModel(
                     armorClass = event.armorClass
                 )
             }
+
             is StatsEvent.OnSpeedChanged -> {
                 _state.value.stats.toStats(
                     speed = event.speed
@@ -201,36 +187,45 @@ class CombatViewModel(
                 )
                 saveHealth(health)
             }
+
             is HealthEvent.OnCurrentHealthChange -> {
                 val health = _state.value.health.copy(
                     currentHp = min(event.currentHealth, state.value.health.maxHp)
                 )
                 saveHealth(health)
             }
+
             is HealthEvent.OnCurrentHealthChangeBy -> {
                 val health = _state.value.health.copy(
-                    currentHp = min(state.value.health.currentHp + event.value, state.value.health.maxHp)
+                    currentHp = min(
+                        state.value.health.currentHp + event.value,
+                        state.value.health.maxHp
+                    )
                 )
                 saveHealth(health)
             }
+
             is HealthEvent.OnTemporaryHealthChange -> {
                 val health = _state.value.health.copy(
                     temporaryHp = max(event.temporaryHealth, 0)
                 )
                 saveHealth(health)
             }
+
             is HealthEvent.OnTemporaryHealthChangeBy -> {
                 val health = _state.value.health.copy(
                     temporaryHp = max(state.value.health.temporaryHp + event.value, 0)
                 )
                 saveHealth(health)
             }
+
             is HealthEvent.OnHitDiceChange -> {
                 val health = _state.value.health.copy(
                     hitDice = event.hitDice
                 )
                 saveHealth(health)
             }
+
             is HealthEvent.OnDeathSavesSuccessChange -> {
                 val deathSaves = _state.value.deathSaves.copy(
                     successes = event.successes
@@ -239,6 +234,7 @@ class CombatViewModel(
                     module.healthUseCases.saveDeathSaves(deathSaves)
                 }
             }
+
             is HealthEvent.OnDeathSavesFailureChange -> {
                 val deathSaves = _state.value.deathSaves.copy(
                     failures = event.failures
@@ -291,6 +287,7 @@ class CombatViewModel(
                     }
                 }
             }
+
             is WeaponEvent.OnAddWeaponClicked -> {
                 _state.update {
                     it.copy(
@@ -343,6 +340,7 @@ class CombatViewModel(
                     )
                 }
             }
+
             is WeaponListDialogEvent.OnFilterChange -> {
                 val filter = if (state.value.tab.weapons.listDialog.filter == event.filter)
                     WeaponListDialogState.Filter.ALL
@@ -380,6 +378,7 @@ class CombatViewModel(
                     }
                 }
             }
+
             is WeaponListDialogEvent.OnSearchChange -> {
                 _state.update {
                     it.copy(
@@ -434,6 +433,7 @@ class CombatViewModel(
                     )
                 }
             }
+
             is WeaponDialogEvent.OnCountChange -> {
                 viewModelScope.launch(module.dispatcherProvider.io) {
                     module.weaponUseCases.saveWeapon(
@@ -443,6 +443,7 @@ class CombatViewModel(
                     )
                 }
             }
+
             is WeaponDialogEvent.OnPropertyClick -> {
                 _state.update {
                     it.copy(
@@ -491,6 +492,7 @@ class CombatViewModel(
                     }
                 }
             }
+
             ItemEvent.OnItemCreated -> {
                 viewModelScope.launch(module.dispatcherProvider.io) {
                     val itemId = module.itemUseCases.createItem(characterId)
@@ -516,11 +518,13 @@ class CombatViewModel(
                     )
                 }
             }
+
             is ItemDialogEvent.OnDelete -> {
                 viewModelScope.launch(module.dispatcherProvider.io) {
                     module.itemUseCases.deleteItem(event.item)
                 }
             }
+
             is ItemDialogEvent.OnQuantityChanged -> {
                 viewModelScope.launch(module.dispatcherProvider.io) {
                     module.itemUseCases.saveItem(
@@ -528,6 +532,7 @@ class CombatViewModel(
                     )
                 }
             }
+
             is ItemDialogEvent.OnCostChanged -> {
                 viewModelScope.launch(module.dispatcherProvider.io) {
                     module.itemUseCases.saveItem(
@@ -535,6 +540,7 @@ class CombatViewModel(
                     )
                 }
             }
+
             is ItemDialogEvent.OnNameChanged -> {
                 viewModelScope.launch(module.dispatcherProvider.io) {
                     module.itemUseCases.saveItem(
@@ -542,6 +548,7 @@ class CombatViewModel(
                     )
                 }
             }
+
             is ItemDialogEvent.OnDescriptionChanged -> {
                 viewModelScope.launch(module.dispatcherProvider.io) {
                     module.itemUseCases.saveItem(
@@ -549,6 +556,7 @@ class CombatViewModel(
                     )
                 }
             }
+
             is ItemDialogEvent.OnWeightChanged -> {
                 viewModelScope.launch(module.dispatcherProvider.io) {
                     module.itemUseCases.saveItem(
@@ -556,6 +564,7 @@ class CombatViewModel(
                     )
                 }
             }
+
             is ItemDialogEvent.OnCurrencyChanged -> {
                 viewModelScope.launch(module.dispatcherProvider.io) {
                     module.itemUseCases.saveItem(
@@ -567,7 +576,7 @@ class CombatViewModel(
     }
 
     private fun onSpellEvent(event: SpellEvent) {
-        when(event) {
+        when (event) {
             is SpellEvent.OnSlotRestored -> {
                 if (event.spellSlot.left == event.spellSlot.total) return
                 viewModelScope.launch(module.dispatcherProvider.io) {
@@ -578,6 +587,7 @@ class CombatViewModel(
                     )
                 }
             }
+
             is SpellEvent.OnSlotUsed -> {
                 if (event.spellSlot.left == 0) return
                 viewModelScope.launch(module.dispatcherProvider.io) {
@@ -588,6 +598,7 @@ class CombatViewModel(
                     )
                 }
             }
+
             is SpellEvent.OnSpellClicked -> {
                 _state.update {
                     it.copy(
@@ -613,6 +624,7 @@ class CombatViewModel(
                     }
                 }
             }
+
             is SpellEvent.OnSpellStateChanged -> {
                 // No changes in combat screen
             }
@@ -634,6 +646,7 @@ class CombatViewModel(
                     }
                 }
             }
+
             SpellDialogEvent.OnDismiss -> {
                 _state.update {
                     it.copy(
@@ -644,9 +657,11 @@ class CombatViewModel(
                     )
                 }
             }
+
             is SpellDialogEvent.OnStateChange -> {
                 // No changes in combat screen
             }
+
             is SpellDialogEvent.OnStateDropdownOpen -> {
                 // No changes in combat screen
             }

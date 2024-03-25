@@ -38,3 +38,12 @@ fun JSONObject.getJSONArrayIfExists(key: String): JSONArray {
     }
     return JSONArray()
 }
+
+/**
+ * Performs the given [action] on each JSONObject in the JSONArray.
+ */
+fun JSONArray.forEachObject(action: (JSONObject) -> Unit) {
+    for (i in 0 until this.length()) {
+        action(this.getJSONObject(i))
+    }
+}

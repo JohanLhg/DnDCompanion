@@ -2,7 +2,6 @@ package com.jlahougue.core_data_remote_instance
 
 import android.net.Uri
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
@@ -16,27 +15,21 @@ import com.jlahougue.core_domain.util.RemoteReadError
 import com.jlahougue.core_domain.util.response.Result
 import java.net.URI
 
-class FirebaseDataSource : RemoteUserDataSource {
+class FirebaseDataSource(
+    private val auth: FirebaseAuth
+) : RemoteUserDataSource {
 
     private val firestore by lazy { FirebaseFirestore.getInstance() }
-    val auth by lazy { FirebaseAuth.getInstance() }
     private val storage: FirebaseStorage by lazy { FirebaseStorage.getInstance() }
     private val uid
         get() = auth.uid.toString()
 
     override fun characterImageUrl(characterID: Long) = "Images/Characters/$uid/$characterID.png"
 
-    override val charactersUrl = "$TAG_USERS/$uid/$TAG_CHARACTERS"
+    override val charactersUrl
+        get() = "$TAG_USERS/$uid/$TAG_CHARACTERS"
 
     override fun characterUrl(characterID: Long) = "$TAG_USERS/$uid/$TAG_CHARACTERS/$characterID"
-
-    private fun characterReference(characterID: Long): DocumentReference {
-        return firestore.document(characterUrl(characterID))
-    }
-
-    fun updateCharacterSheet(characterID: Long, values: Map<String, Any>) {
-        characterReference(characterID).update(values)
-    }
 
     override fun updateDocument(
         url: String,

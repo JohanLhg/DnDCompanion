@@ -59,7 +59,7 @@ class DamageTypeRepository(
         val response = remote.sendGet(DND5E_API_URL + url)
         if (response is Result.Failure) return onApiEvent(ApiEvent.Skip())
 
-        val json = JSONObject(response)
+        val json = JSONObject(response.getDataOrNull())
         save(json.toDamageType())
 
         onApiEvent(ApiEvent.UpdateProgress)
