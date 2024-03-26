@@ -4,8 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jlahougue.authentication_domain.util.AuthenticationError
 import com.jlahougue.authentication_presentation.util.asUiText
-import com.jlahougue.core_domain.util.UiText
 import com.jlahougue.core_domain.util.response.Result
+import com.jlahougue.core_presentation.util.UiText
 import com.jlahougue.feature.authentication_domain.IAuthenticationModule
 import com.jlahougue.feature.authentication_presentation.R
 import com.jlahougue.feature.authentication_presentation.util.AuthUiEvent
@@ -56,7 +56,7 @@ class LoginViewModel(
             is Result.Success -> {
                 viewModelScope.launch {
                     _event.emit(
-                        AuthUiEvent.ShowSnackbar(
+                        AuthUiEvent.ShowMessage(
                             UiText.StringResource(R.string.login_successful)
                         )
                     )
@@ -66,7 +66,7 @@ class LoginViewModel(
             is Result.Failure -> {
                 viewModelScope.launch {
                     _event.emit(
-                        AuthUiEvent.ShowSnackbar(
+                        AuthUiEvent.ShowMessage(
                             result.error.asUiText()
                         )
                     )

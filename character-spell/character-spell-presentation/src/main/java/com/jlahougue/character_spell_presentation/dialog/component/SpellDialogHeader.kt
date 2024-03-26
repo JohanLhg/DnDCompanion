@@ -14,6 +14,7 @@ import com.jlahougue.character_spell_presentation.R
 import com.jlahougue.character_spell_presentation.components.ComponentImage
 import com.jlahougue.character_spell_presentation.dialog.SpellDialogEvent
 import com.jlahougue.character_spell_presentation.dialog.SpellDialogState
+import com.jlahougue.character_spell_presentation.util.asUiText
 
 @Composable
 fun RowScope.SpellDialogHeader(
@@ -54,7 +55,7 @@ fun RowScope.SpellDialogHeader(
         SpellDialogState.Mode.Display -> {
             if (spell.level > 0) {
                 Text(
-                    text = spell.state.label.getString(),
+                    text = spell.state.asUiText().getString(),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onPrimary
                 )

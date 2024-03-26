@@ -1,6 +1,6 @@
 package com.jlahougue.loading_presentation
 
-import com.jlahougue.core_domain.util.UiText
+import com.jlahougue.core_presentation.util.UiText
 
 data class LoadingState(
     val title: UiText,

@@ -19,7 +19,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.jlahougue.core_domain.util.UiText
+import com.jlahougue.core_presentation.util.UiEvent
 import com.jlahougue.dndcompanion.R
 import com.jlahougue.dndcompanion.components.NavigationItem
 import com.jlahougue.dndcompanion.components.NavigationSideBar
@@ -67,9 +67,13 @@ fun NavGraphBuilder.characterSheetSection(
         val scope = rememberCoroutineScope()
         val snackbarHostState = remember { SnackbarHostState() }
 
-        val showMessage: (UiText) -> Unit = { message ->
+        val onUiEvent: (UiEvent) -> Unit = { event ->
             scope.launch {
-                snackbarHostState.showSnackbar(message.getString(context))
+                when (event) {
+                    is UiEvent.ShowError -> snackbarHostState.showSnackbar(
+                        event.message.getString(context)
+                    )
+                }
             }
         }
         ModalNavigationDrawer(
@@ -77,7 +81,7 @@ fun NavGraphBuilder.characterSheetSection(
                 SettingsDrawer(
                     navigateBackToAuthentication = navigateBackToAuthentication,
                     navigateBackToCharacterSelection = navigateBackToCharacterSelection,
-                    showMessage = showMessage
+                    onUiEvent = onUiEvent
                 )
             },
             drawerState = drawerState
@@ -100,7 +104,10 @@ fun NavGraphBuilder.characterSheetSection(
                     modifier = Modifier.fillMaxSize()
                 ) {
                     Box(modifier = Modifier.padding(it)) {
-                        CharacterSheetGraph(navController = navController)
+                        CharacterSheetGraph(
+                            navController = navController,
+                            onUiEvent = onUiEvent
+                        )
                     }
                 }
             }

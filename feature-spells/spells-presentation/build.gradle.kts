@@ -44,7 +44,6 @@ dependencies {
     implementation(project(":feature-spells:spells-domain"))
 
     implementation(project(":user-info:user-info-domain"))
-    implementation(project(":settings:settings-domain"))
     implementation(project(":character:character-domain"))
     implementation(project(":ability:ability-domain"))
     implementation(project(":damage-type:damage-type-domain"))

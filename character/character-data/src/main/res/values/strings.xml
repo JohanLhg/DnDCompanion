@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="error_saving_character">Error while saving your character</string>
-    <string name="error_loading_character_image">Error while loading your character\'s image</string>
-    <string name="cancelled_loading_character_image">Loading your character\'s image has been cancelled</string>
-</resources>

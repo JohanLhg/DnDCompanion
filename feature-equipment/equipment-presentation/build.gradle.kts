@@ -44,7 +44,6 @@ dependencies {
     implementation(project(":feature-equipment:equipment-domain"))
 
     implementation(project(":user-info:user-info-domain"))
-    implementation(project(":settings:settings-domain"))
     implementation(project(":ability:ability-domain"))
     implementation(project(":item:item-domain"))
     implementation(project(":money:money-domain"))

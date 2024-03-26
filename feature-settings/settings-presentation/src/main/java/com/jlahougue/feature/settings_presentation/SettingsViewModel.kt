@@ -6,8 +6,9 @@ import com.jlahougue.authentication_domain.util.EmailChangeError
 import com.jlahougue.authentication_presentation.email_change_dialog.EmailChangeDialogEvent
 import com.jlahougue.authentication_presentation.email_change_dialog.EmailChangeDialogState
 import com.jlahougue.authentication_presentation.util.asUiText
-import com.jlahougue.core_domain.util.UiText
 import com.jlahougue.core_domain.util.response.Result
+import com.jlahougue.core_presentation.util.UiEvent
+import com.jlahougue.core_presentation.util.UiText
 import com.jlahougue.feature.settings_domain.SettingsModule
 import com.jlahougue.settings_presentation.R
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -22,6 +23,9 @@ class SettingsViewModel(
     private val module: SettingsModule
 ) : ViewModel() {
 
+    private val _uiEvent = MutableSharedFlow<UiEvent>()
+    val uiEvent = _uiEvent.asSharedFlow()
+
     private val _state = MutableStateFlow(SettingsState())
     val state = _state.asStateFlow()
 
@@ -30,9 +34,6 @@ class SettingsViewModel(
 
     private val _switchCharacter = MutableSharedFlow<Boolean>()
     val switchCharacter = _switchCharacter.asSharedFlow()
-
-    private val _message = MutableSharedFlow<UiText>()
-    val message = _message.asSharedFlow()
 
     init {
         viewModelScope.launch(module.dispatcherProvider.io) {
@@ -127,8 +128,8 @@ class SettingsViewModel(
         viewModelScope.launch {
             when (result) {
                 is Result.Success -> {
-                    _message.emit(
-                        UiText.StringResource(R.string.email_changed_successfully)
+                    _uiEvent.emit(
+                        UiEvent.ShowError(UiText.StringResource(R.string.email_changed_successfully))
                     )
                     _state.update {
                         it.copy(
@@ -164,8 +165,8 @@ class SettingsViewModel(
                         }
                         else -> { }
                     }
-                    _message.emit(
-                        result.error.asUiText()
+                    _uiEvent.emit(
+                        UiEvent.ShowError(result.error.asUiText())
                     )
                 }
             }

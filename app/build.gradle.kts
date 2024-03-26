@@ -67,15 +67,14 @@ android {
 
 dependencies {
     implementation(project(":core:core-data-remote-instance"))
+    implementation(project(":core:core-data-interface"))
     implementation(project(":core:core-data"))
-    implementation(project(":core:core-di"))
     implementation(project(":core:core-domain"))
     implementation(project(":core:core-presentation"))
     implementation(project(":core:core-dependency-injection"))
 
     implementation(project(":authentication:authentication-data"))
     implementation(project(":authentication:authentication-domain"))
-    implementation(project(":settings:settings-domain"))
     implementation(project(":user-info:user-info-domain"))
 
     implementation(project(":character-sheet:character-sheet-domain"))

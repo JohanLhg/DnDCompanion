@@ -1,9 +1,8 @@
 package com.jlahougue.loading_domain.use_case
 
 import com.jlahougue.core_domain.util.ApiEvent
-import com.jlahougue.core_domain.util.UiText
 import com.jlahougue.core_domain.util.dispatcherProvider.DispatcherProvider
-import com.jlahougue.core_presentation.R
+import com.jlahougue.loading_domain.util.LoaderKey
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -21,23 +20,23 @@ class LoadAll(
     loadDamageTypes: LoadDamageTypes,
     loadProperties: LoadProperties,
     loadWeapons: LoadWeapons
-) : LoadFromRemote(UiText.StringResource(R.string.loading)) {
+) : LoadFromRemote(LoaderKey.ALL) {
 
     private val _isUserAuthenticated = MutableStateFlow(false)
     private val isUserAuthenticated = _isUserAuthenticated.asStateFlow()
 
     private val useCaseMap = mapOf(
-        CLASSES_KEY to loadClasses,
-        DAMAGE_TYPES_KEY to loadDamageTypes,
-        SPELLS_KEY to loadSpells,
-        PROPERTIES_KEY to loadProperties,
-        WEAPONS_KEY to loadWeapons,
-        CHARACTERS_KEY to loadCharacters
+        LoaderKey.CLASSES to loadClasses,
+        LoaderKey.DAMAGE_TYPES to loadDamageTypes,
+        LoaderKey.SPELLS to loadSpells,
+        LoaderKey.PROPERTIES to loadProperties,
+        LoaderKey.WEAPONS to loadWeapons,
+        LoaderKey.CHARACTERS to loadCharacters
     )
 
     private val useCasePrerequisites = mapOf(
-        SPELLS_KEY to { hasFinished(DAMAGE_TYPES_KEY) },
-        CHARACTERS_KEY to { isUserAuthenticated.value }
+        LoaderKey.SPELLS to { hasFinished(LoaderKey.DAMAGE_TYPES) },
+        LoaderKey.CHARACTERS to { isUserAuthenticated.value }
     )
 
     private val _waitingFor = MutableStateFlow(
@@ -66,13 +65,8 @@ class LoadAll(
         }
     }
 
-    private fun initUseCase(identifier: Int) {
-        val loadFromRemote = useCaseMap[identifier]
-        if (loadFromRemote == null) {
-            val errorMessage = UiText.DynamicString("No use case found for identifier $identifier")
-            onApiEvent(ApiEvent.Error(errorMessage))
-            return
-        }
+    private fun initUseCase(identifier: LoaderKey) {
+        val loadFromRemote = useCaseMap[identifier] ?: return
         val job = CoroutineScope(dispatcherProvider.io).launch {
             loadFromRemote.state.takeWhile {
                 !it.hasFinished()
@@ -91,11 +85,11 @@ class LoadAll(
         }
     }
 
-    private fun finished(identifier: Int) {
+    private fun finished(identifier: LoaderKey) {
         _waitingFor.update { waitingFor.value.filter { it != identifier } }
     }
 
-    private fun startIfPossible(identifier: Int) {
+    private fun startIfPossible(identifier: LoaderKey) {
         val prerequisites = useCasePrerequisites[identifier] ?: { true }
         val useCase = useCaseMap[identifier] ?: return
         if (!useCase.state.value.hasStarted() && prerequisites.invoke()) {
@@ -103,18 +97,9 @@ class LoadAll(
         }
     }
 
-    private fun hasFinished(identifier: Int) = useCaseMap[identifier]?.state?.value?.hasFinished() ?: false
+    private fun hasFinished(identifier: LoaderKey) = useCaseMap[identifier]?.state?.value?.hasFinished() ?: false
 
     fun onUserAuthenticated() {
         _isUserAuthenticated.update { true }
-    }
-
-    companion object {
-        const val CLASSES_KEY = 0
-        const val DAMAGE_TYPES_KEY = 1
-        const val SPELLS_KEY = 2
-        const val PROPERTIES_KEY = 3
-        const val WEAPONS_KEY = 4
-        const val CHARACTERS_KEY = 5
     }
 }

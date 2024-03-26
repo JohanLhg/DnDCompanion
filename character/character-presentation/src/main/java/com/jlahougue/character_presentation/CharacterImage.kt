@@ -14,13 +14,11 @@ import coil.decode.GifDecoder
 import coil.decode.ImageDecoderDecoder
 import coil.request.ImageRequest
 import coil.size.Size
-import com.jlahougue.core_domain.util.LoadImageState
 import com.jlahougue.core_presentation.R
-
 
 @Composable
 fun CharacterImage(
-    state: LoadImageState,
+    imageUri: String?,
     modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
@@ -33,7 +31,7 @@ fun CharacterImage(
             }
         }
         .build()
-    if (!state.hasFinished()) {
+    if (imageUri == null) {
         AsyncImage(
             model = R.drawable.loading,
             imageLoader = imageLoader,
@@ -41,7 +39,7 @@ fun CharacterImage(
             modifier = modifier
         )
     } else {
-        if (state.uri.isEmpty()) {
+        if (imageUri.isEmpty()) {
             Image(
                 painter = painterResource(id = R.drawable.anonymous),
                 contentDescription = stringResource(id = R.string.descr_character_image),
@@ -49,7 +47,7 @@ fun CharacterImage(
             )
         } else {
             AsyncImage(
-                model = state.uri,
+                model = imageUri,
                 imageLoader = imageLoader,
                 placeholder = rememberAsyncImagePainter(
                     ImageRequest.Builder(context)

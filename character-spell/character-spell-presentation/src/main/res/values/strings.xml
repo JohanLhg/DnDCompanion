@@ -22,4 +22,10 @@
     <string name="spell_classes">Classes :</string>
 
     <string name="highlight_spell">Highlight Spell</string>
+
+    <string name="spell_state_unlocked">Unlocked</string>
+    <string name="spell_state_highlighted">Highlighted</string>
+    <string name="spell_state_locked">Locked</string>
+    <string name="spell_state_prepared">Prepared</string>
+    <string name="spell_state_always_prepared">Always prepared</string>
 </resources>

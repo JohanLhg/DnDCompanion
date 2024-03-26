@@ -44,7 +44,6 @@ dependencies {
     implementation(project(":feature-combat:combat-domain"))
 
     implementation(project(":user-info:user-info-domain"))
-    implementation(project(":settings:settings-domain"))
     implementation(project(":ability:ability-domain"))
     implementation(project(":damage-type:damage-type-domain"))
     implementation(project(":stats:stats-domain"))

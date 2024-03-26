@@ -12,7 +12,6 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -26,20 +25,18 @@ import androidx.compose.ui.unit.dp
 import com.jlahougue.character_domain.model.Character
 import com.jlahougue.character_presentation.CharacterImage
 import com.jlahougue.character_selection_presentation.R
-import com.jlahougue.core_domain.util.LoadImageState
 import com.jlahougue.core_presentation.theme.DnDCompanionTheme
 import com.jlahougue.core_presentation.theme.spacing
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 
 @Composable
 fun CharacterCard(
     character: Character,
-    getImage: (Long) -> StateFlow<LoadImageState>,
+    imageUri: String?,
+    getImage: (Long) -> Unit,
     modifier: Modifier = Modifier,
     onClick: (Character) -> Unit = {}
 ) {
-    val imageState = getImage(character.id).collectAsState()
+    if (imageUri == null) getImage(character.id)
     Box(
         modifier = modifier
     ) {
@@ -54,7 +51,7 @@ fun CharacterCard(
         ) {
             Box {
                 CharacterImage(
-                    state = imageState.value,
+                    imageUri = imageUri,
                     modifier = Modifier.fillMaxSize()
                 )
                 Column(
@@ -123,10 +120,10 @@ fun CharacterCardPreview() {
                 "",
                 "",
                 "",
-                "",
-                false,
+                ""
             ),
-            getImage = { _ -> MutableStateFlow(LoadImageState()) },
+            imageUri = null,
+            getImage = {},
             modifier = Modifier
                 .padding(MaterialTheme.spacing.large)
                 .size(175.dp)

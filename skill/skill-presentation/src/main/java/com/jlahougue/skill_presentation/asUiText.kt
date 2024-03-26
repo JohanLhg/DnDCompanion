@@ -1,6 +1,6 @@
 package com.jlahougue.skill_presentation
 
-import com.jlahougue.core_domain.util.UiText
+import com.jlahougue.core_presentation.util.UiText
 import com.jlahougue.skill_domain.model.SkillName
 
 fun SkillName.asUiText() = when (this) {

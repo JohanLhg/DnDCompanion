@@ -22,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.unit.dp
 import com.jlahougue.character_spell_domain.model.SpellState
+import com.jlahougue.character_spell_presentation.util.asUiText
 import com.jlahougue.core_presentation.theme.spacing
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -48,7 +49,7 @@ fun SpellStateDropDown(
                 .menuAnchor()
         ) {
             Text(
-                text = state.label.getString(),
+                text = state.asUiText().getString(),
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onPrimary
             )
@@ -77,7 +78,7 @@ fun SpellStateDropDown(
                 DropdownMenuItem(
                     text = {
                         Text(
-                            text = state.label.getString(),
+                            text = state.asUiText().getString(),
                             style = MaterialTheme.typography.bodySmall
                         )
                     },

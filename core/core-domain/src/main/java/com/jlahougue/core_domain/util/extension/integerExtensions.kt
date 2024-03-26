@@ -1,6 +1,5 @@
 package com.jlahougue.core_domain.util.extension
 
-import androidx.compose.ui.unit.Density
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 import java.util.Locale
@@ -17,8 +16,4 @@ fun Int.feetToMeterString(): String {
 fun Int.toSignedString(): String {
     return if (this >= 0) "+$this"
     else this.toString()
-}
-
-fun Int.asDp(density: Density) = density.run {
-    this@asDp.toDp()
 }

@@ -35,9 +35,9 @@
             <option value="$PROJECT_DIR$/class/class-presentation" />
             <option value="$PROJECT_DIR$/core" />
             <option value="$PROJECT_DIR$/core/core-data" />
+            <option value="$PROJECT_DIR$/core/core-data-interface" />
             <option value="$PROJECT_DIR$/core/core-data-remote-instance" />
             <option value="$PROJECT_DIR$/core/core-dependency-injection" />
-            <option value="$PROJECT_DIR$/core/core-di" />
             <option value="$PROJECT_DIR$/core/core-domain" />
             <option value="$PROJECT_DIR$/core/core-presentation" />
             <option value="$PROJECT_DIR$/damage-type" />
@@ -86,8 +86,6 @@
             <option value="$PROJECT_DIR$/property/property-data" />
             <option value="$PROJECT_DIR$/property/property-domain" />
             <option value="$PROJECT_DIR$/property/property-presentation" />
-            <option value="$PROJECT_DIR$/settings" />
-            <option value="$PROJECT_DIR$/settings/settings-domain" />
             <option value="$PROJECT_DIR$/skill" />
             <option value="$PROJECT_DIR$/skill/skill-data" />
             <option value="$PROJECT_DIR$/skill/skill-domain" />

@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.kotlinAndroid)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -33,14 +34,13 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:core-di"))
     implementation(project(":core:core-data"))
+    implementation(project(":core:core-data-interface"))
+    implementation(project(":core:core-data-remote-instance"))
     implementation(project(":core:core-domain"))
 
     implementation(project(":authentication:authentication-domain"))
-    implementation(project(":settings:settings-domain"))
     implementation(project(":user-info:user-info-domain"))
-
     implementation(project(":character-sheet:character-sheet-domain"))
     implementation(project(":ability:ability-domain"))
     implementation(project(":character:character-domain"))
@@ -57,6 +57,7 @@ dependencies {
     implementation(project(":weapon:weapon-domain"))
 
     implementation(project(":authentication:authentication-data"))
+    implementation(project(":user-info:user-info-data"))
     implementation(project(":character-sheet:character-sheet-data"))
     implementation(project(":ability:ability-data"))
     implementation(project(":character:character-data"))
@@ -71,7 +72,6 @@ dependencies {
     implementation(project(":stats:stats-data"))
     implementation(project(":skill:skill-data"))
     implementation(project(":weapon:weapon-data"))
-    implementation(project(":user-info:user-info-data"))
 
     implementation(project(":feature-authentication:authentication-domain"))
     implementation(project(":feature-character-selection:character-selection-domain"))
@@ -81,6 +81,12 @@ dependencies {
     implementation(project(":feature-spells:spells-domain"))
     implementation(project(":feature-loading:loading-domain"))
     implementation(project(":feature-profile:profile-domain"))
+
+    implementation(libs.firebase.auth)
+
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+    ksp(libs.room.compiler)
 
     testImplementation(libs.bundles.tests)
     androidTestImplementation(libs.bundles.android.tests)

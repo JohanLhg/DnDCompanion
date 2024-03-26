@@ -29,12 +29,11 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.jlahougue.core_domain.util.extension.asDp
 import com.jlahougue.core_presentation.components.containers.CustomDialog
 import com.jlahougue.core_presentation.components.text_fileds.CustomSearchBar
 import com.jlahougue.core_presentation.theme.DnDCompanionTheme
 import com.jlahougue.core_presentation.theme.spacing
-import com.jlahougue.settings_domain.model.UnitSystem
+import com.jlahougue.core_presentation.util.extensions.asDp
 import com.jlahougue.weapon_domain.model.WeaponInfo
 import com.jlahougue.weapon_presentation.R
 import com.jlahougue.weapon_presentation.WeaponEvent
@@ -198,7 +197,7 @@ fun WeaponListDialogPreview() {
                     )
                 ),
                 filter = WeaponListDialogState.Filter.MELEE,
-                unitSystem = UnitSystem.METRIC
+                unitSystem = com.jlahougue.user_info_domain.model.UnitSystem.METRIC
             ),
             onEvent = {},
             onWeaponEvent = {}

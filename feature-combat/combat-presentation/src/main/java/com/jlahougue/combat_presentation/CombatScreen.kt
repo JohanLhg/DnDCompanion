@@ -16,9 +16,9 @@ import com.jlahougue.ability_presentation.getAbilitiesPreviewData
 import com.jlahougue.character_spell_presentation.dialog.SpellDialog
 import com.jlahougue.combat_presentation.component.CombatTabs
 import com.jlahougue.combat_presentation.component.TabItem
-import com.jlahougue.core_domain.util.UiText
 import com.jlahougue.core_presentation.R
 import com.jlahougue.core_presentation.theme.DnDCompanionTheme
+import com.jlahougue.core_presentation.util.UiText
 import com.jlahougue.damage_type_presentation.DamageTypeDialog
 import com.jlahougue.health_presentation.HealthBox
 import com.jlahougue.property_presentation.PropertyDialog

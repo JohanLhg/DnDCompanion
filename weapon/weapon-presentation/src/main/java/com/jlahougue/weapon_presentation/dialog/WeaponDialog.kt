@@ -23,9 +23,9 @@ import com.jlahougue.core_presentation.components.labeled_values.PropertyRow
 import com.jlahougue.core_presentation.components.text_fileds.Counter
 import com.jlahougue.core_presentation.theme.DnDCompanionTheme
 import com.jlahougue.core_presentation.theme.spacing
-import com.jlahougue.settings_domain.model.UnitSystem
 import com.jlahougue.weapon_domain.model.WeaponInfo
 import com.jlahougue.weapon_presentation.R
+import com.jlahougue.weapon_presentation.util.getRangeString
 import com.jlahougue.core_presentation.R as CoreR
 
 @Composable
@@ -85,7 +85,7 @@ fun WeaponDialog(
 @Composable
 fun RowScope.WeaponDialogHeader(
     weapon: WeaponInfo,
-    unitSystem: UnitSystem,
+    unitSystem: com.jlahougue.user_info_domain.model.UnitSystem,
     onEvent: (WeaponDialogEvent) -> Unit
 ) {
     Text(
@@ -140,7 +140,7 @@ fun WeaponDialogPreview() {
                     throwRangeMin = 60,
                     throwRangeMax = 200,
                 ),
-                unitSystem = UnitSystem.METRIC
+                unitSystem = com.jlahougue.user_info_domain.model.UnitSystem.METRIC
             ),
             onEvent = {},
         )

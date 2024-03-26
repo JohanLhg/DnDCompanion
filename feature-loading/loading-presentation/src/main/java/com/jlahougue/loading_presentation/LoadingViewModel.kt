@@ -2,10 +2,11 @@ package com.jlahougue.loading_presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.jlahougue.core_domain.util.UiText
 import com.jlahougue.core_presentation.R
+import com.jlahougue.core_presentation.util.UiText
 import com.jlahougue.loading_domain.di.ILoadingModule
 import com.jlahougue.loading_presentation.util.LoadingUiEvent
+import com.jlahougue.loading_presentation.util.asUiText
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -43,7 +44,7 @@ class LoadingViewModel(
                         else min((currentProgress / maxProgress), 1f)
                         _state.update { _ ->
                             LoadingState(
-                                title = it.title,
+                                title = it.identifier.asUiText(),
                                 progress = progress
                             )
                         }

@@ -1,7 +1,7 @@
 package com.jlahougue.money_presentation.util
 
 import androidx.compose.runtime.Composable
-import com.jlahougue.core_domain.util.UiText
+import com.jlahougue.core_presentation.util.UiText
 import com.jlahougue.money_domain.model.Currency
 import com.jlahougue.money_presentation.R
 

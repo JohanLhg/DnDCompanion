@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextAlign
 import com.jlahougue.core_presentation.theme.spacing
-import com.jlahougue.settings_domain.model.UnitSystem
+import com.jlahougue.user_info_domain.model.UnitSystem
 
 @Composable
 fun UnitSystemSelector(

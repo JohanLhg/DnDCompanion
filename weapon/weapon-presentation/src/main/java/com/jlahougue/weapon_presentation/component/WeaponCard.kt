@@ -20,16 +20,16 @@ import com.jlahougue.core_presentation.components.labeled_values.PropertyColumn
 import com.jlahougue.core_presentation.components.labeled_values.PropertyRow
 import com.jlahougue.core_presentation.theme.DnDCompanionTheme
 import com.jlahougue.core_presentation.theme.spacing
-import com.jlahougue.settings_domain.model.UnitSystem
 import com.jlahougue.weapon_domain.model.WeaponInfo
 import com.jlahougue.weapon_presentation.R
 import com.jlahougue.weapon_presentation.WeaponEvent
+import com.jlahougue.weapon_presentation.util.getRangeString
 import com.jlahougue.core_presentation.R as CoreR
 
 @Composable
 fun WeaponCard(
     weapon: WeaponInfo,
-    unitSystem: UnitSystem,
+    unitSystem: com.jlahougue.user_info_domain.model.UnitSystem,
     onEvent: (WeaponEvent) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -78,7 +78,7 @@ fun WeaponCard(
 @Composable
 fun WeaponCardHeader(
     weapon: WeaponInfo,
-    unitSystem: UnitSystem
+    unitSystem: com.jlahougue.user_info_domain.model.UnitSystem
 ) {
     Row(
         verticalAlignment = Alignment.Bottom,
@@ -132,7 +132,7 @@ fun WeaponCardPreview() {
                 throwRangeMin = 60,
                 throwRangeMax = 200,
             ),
-            unitSystem = UnitSystem.METRIC,
+            unitSystem = com.jlahougue.user_info_domain.model.UnitSystem.METRIC,
             onEvent = {},
         )
     }

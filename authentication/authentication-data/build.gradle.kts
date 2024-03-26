@@ -39,6 +39,7 @@ dependencies {
     implementation(project(":character-sheet:character-sheet-domain"))
 
     implementation(libs.firebase.auth)
+    implementation(libs.guava)
 
     testImplementation(libs.bundles.tests)
     androidTestImplementation(libs.bundles.android.tests)

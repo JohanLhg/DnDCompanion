@@ -63,7 +63,7 @@ fun RegisterScreen(
         LaunchedEffect(Unit) {
             events.collect { event ->
                 when (event) {
-                    is AuthUiEvent.ShowSnackbar -> {
+                    is AuthUiEvent.ShowMessage -> {
                         scope.launch {
                             snackbarHostState.showSnackbar(event.message.getString(context))
                         }

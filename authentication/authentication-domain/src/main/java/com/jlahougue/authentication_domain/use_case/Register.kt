@@ -1,8 +1,8 @@
 package com.jlahougue.authentication_domain.use_case
 
-import android.util.Patterns
 import com.jlahougue.authentication_domain.repository.IAuthRepository
 import com.jlahougue.authentication_domain.util.AuthenticationError
+import com.jlahougue.core_domain.util.extension.isValidEmail
 import com.jlahougue.core_domain.util.response.Result
 import com.jlahougue.user_info_domain.use_case.UserInfoUseCases
 
@@ -20,7 +20,7 @@ class Register(
             callback(Result.Failure(AuthenticationError.EMAIL_EMPTY))
             return
         }
-        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+        if (!email.isValidEmail()) {
             callback(Result.Failure(AuthenticationError.EMAIL_INVALID))
             return
         }

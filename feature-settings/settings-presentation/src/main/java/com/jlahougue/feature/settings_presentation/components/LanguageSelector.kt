@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.painter.Painter
 import com.jlahougue.core_presentation.theme.spacing
-import com.jlahougue.settings_domain.model.Language
+import com.jlahougue.user_info_domain.model.Language
 
 @Composable
 fun LanguageSelector(

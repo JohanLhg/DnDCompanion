@@ -1,7 +1,6 @@
 package com.jlahougue.weapon_presentation.list_dialog
 
 import com.jlahougue.ability_domain.model.AbilityName
-import com.jlahougue.settings_domain.model.UnitSystem
 import com.jlahougue.weapon_domain.model.WeaponInfo
 
 data class WeaponListDialogState(
@@ -9,7 +8,7 @@ data class WeaponListDialogState(
     val search: String = "",
     val filter: Filter = Filter.ALL,
     val weapons: List<WeaponInfo> = listOf(),
-    val unitSystem: UnitSystem = UnitSystem.METRIC
+    val unitSystem: com.jlahougue.user_info_domain.model.UnitSystem = com.jlahougue.user_info_domain.model.UnitSystem.METRIC
 ) {
     enum class Filter(val value: AbilityName? = null) {
         ALL,
