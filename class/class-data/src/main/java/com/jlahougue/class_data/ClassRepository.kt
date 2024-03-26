@@ -82,10 +82,10 @@ class ClassRepository(
         if (response is Result.Failure) return
 
         val json = JSONArray(response.getDataOrNull())
-        var classLevel: JSONObject
+
         (0..<json.length()).map {
             CoroutineScope(dispatcherProvider.io).launch {
-                classLevel = json.getJSONObject(it)
+                val classLevel = json.getJSONObject(it)
 
                 if (!saveLevel(classLevel.toClassLevel(className))) return@launch
                 saveSpellSlots(classLevel.toClassSpellSlots(className))
