@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="language">Langue</string>
+    <string name="english">Anglais</string>
+    <string name="french">Français</string>
+    <string name="unit_system">Unité</string>
+    <string name="metric">Métrique</string>
+    <string name="imperial">Impériale</string>
+    <string name="account">Compte</string>
+    <string name="error_email_password_empty">Erreur : L\'e-mail et le mot de passe doivent être remplis</string>
+    <string name="change_email">Changer d\'adresse e-mail</string>
+    <string name="change_password">Changer de mot de passe</string>
+    <string name="sign_out">Se déconnecter</string>
+    <string name="switch_character">Changer de personnage</string>
+    <string name="email_changed_successfully">E-mail mis à jour avec succès</string>
+</resources>

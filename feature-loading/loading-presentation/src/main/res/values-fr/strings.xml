@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="loading">Chargement…</string>
+    <string name="loading_characters">Rassemblement de vos personnages…</string>
+    <string name="loading_character_image">Récupération de l\'image de votre personnage…</string>
+    <string name="loading_classes">Préparation des classes…</string>
+    <string name="loading_damage_types">Récupération des types de dégâts…</string>
+    <string name="loading_weapon_properties">Inspection de l\'équipement…</string>
+    <string name="loading_spells">Remplissage du livre des sorts…</string>
+    <string name="loading_weapons">Affûtage des armes…</string>
+</resources>

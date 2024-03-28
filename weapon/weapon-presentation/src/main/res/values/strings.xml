@@ -3,7 +3,7 @@
     <string name="weapons">Weapons</string>
     <string name="weapon">Weapon</string>
     <string name="weapon_test">Test :</string>
-    <string name="weapon_test_value">%s (%s)</string>
+    <string name="weapon_test_value" translatable="false">%s (%s)</string>
     <string name="weapon_damage">Normal damage :</string>
     <string name="weapon_damage_special">Special damage :</string>
     <string name="weapon_description">Description :</string>

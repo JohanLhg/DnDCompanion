@@ -5,10 +5,11 @@ import com.jlahougue.authentication_domain.util.EmailChangeError
 import com.jlahougue.authentication_domain.util.PasswordChangeError
 import com.jlahougue.authentication_presentation.R
 import com.jlahougue.core_presentation.util.UiText
+import com.jlahougue.core_presentation.R as CoreR
 
 fun AuthenticationError.asUiText(): UiText {
     return when (this) {
-        AuthenticationError.NO_INTERNET -> UiText.StringResource(R.string.error_no_internet)
+        AuthenticationError.NO_INTERNET -> UiText.StringResource(CoreR.string.no_internet_connection)
         AuthenticationError.EMAIL_EMPTY -> UiText.StringResource(R.string.error_email_empty)
         AuthenticationError.EMAIL_INVALID -> UiText.StringResource(R.string.error_email_invalid)
         AuthenticationError.EMAIL_ALREADY_IN_USE -> UiText.StringResource(R.string.error_email_already_in_use)

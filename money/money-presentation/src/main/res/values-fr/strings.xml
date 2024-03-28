@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add">Ajouter</string>
+    <string name="subtract">Soustraire</string>
+    <string name="set">Remplacer</string>
+    <string name="money">Monnaie</string>
+    <string name="traditional_currencies">Monnaies traditionnelles</string>
+    <string name="other_currencies">Autres monnaies</string>
+    <string name="copper_pieces">Pièces de Cuivre</string>
+    <string name="copper_pieces_short">PC</string>
+    <string name="silver_pieces">Pièces d\'Argent</string>
+    <string name="silver_pieces_short">PA</string>
+    <string name="gold_pieces">Pièces d\'Or</string>
+    <string name="gold_pieces_short">PO</string>
+    <string name="platinum_pieces">Pièces de Platine</string>
+    <string name="platinum_pieces_short">PP</string>
+</resources>

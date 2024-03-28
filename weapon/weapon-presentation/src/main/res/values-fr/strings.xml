@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="weapons">Armes</string>
+    <string name="weapon">Arme</string>
+    <string name="weapon_test">Test :</string>
+    <string name="weapon_damage">Dégâts :</string>
+    <string name="weapon_damage_special">Dégâts spéciaux :</string>
+    <string name="weapon_description">Description :</string>
+    <string name="weapon_properties">Propriétés :</string>
+    <string name="proficiency_bonus">Bonus de Maîtrise</string>
+    <string name="test_melee">Test Mélée</string>
+    <string name="test_ranged">Test Distance</string>
+    <string name="add_weapon">Ajouter une arme</string>
+    <string name="melee_weapon">Armes de mélée</string>
+    <string name="ranged_weapon">Armes à distance</string>
+    <string name="magic_weapon">Armes magiques</string>
+</resources>

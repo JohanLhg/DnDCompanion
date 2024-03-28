@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="label_email">E-mail</string>
+    <string name="label_password">Mot de passe</string>
+    <string name="label_confirm_password">Confirmer le mot de passe</string>
+    <string name="signup">Inscription</string>
+    <string name="login">Connexion</string>
+    <string name="text_register_now">Vous n\'avez pas encore de compte ? Cliquez ici pour vous incrire dès maintenant !</string>
+    <string name="text_login_now">Vous avez déjà un compte ? Cliquez ici pour vous connecter dès maintenant !</string>
+    <string name="login_successful">Connexion réussi</string>
+    <string name="register_successful">Inscription réussi</string>
+</resources>

@@ -33,6 +33,7 @@ interface CharacterSpellLocalDataSource {
     @Query("DELETE FROM character_spell WHERE cid = :characterId")
     suspend fun delete(characterId: Long)
 
+    @Transaction
     @Query("""
         SELECT 
             :characterId as cid,
@@ -70,6 +71,7 @@ interface CharacterSpellLocalDataSource {
         clazz: String
     ): List<Int>
 
+    @Transaction
     @Query("""
         SELECT 
             :characterId as cid,

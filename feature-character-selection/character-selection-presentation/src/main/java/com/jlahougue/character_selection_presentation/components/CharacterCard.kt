@@ -81,9 +81,9 @@ fun CharacterCard(
                     Text(
                         text = stringResource(
                             id = R.string.character_subtitle,
+                            character.level,
                             character.race,
-                            character.clazz,
-                            character.level
+                            character.clazz
                         ),
                         style = MaterialTheme.typography.bodySmall.copy(
                             textAlign = TextAlign.Center,

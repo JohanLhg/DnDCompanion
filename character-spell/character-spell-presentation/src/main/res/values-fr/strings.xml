@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="spells">Sorts</string>
+    <string name="spell_total_slots">Emplacements</string>
+    <string name="spell_slots_left">Emplacements Restants</string>
+    <string name="cantrips">Sorts Mineurs</string>
+    <string name="spell_level">Niveau %d</string>
+    <string name="spell_hdr_name">Niv %d : %s</string>
+    <string name="spell_hdr_name_cantrip">Sort Mineur : %s</string>
+    <string name="spell_casting_time">Temps d\'incantation :</string>
+    <string name="spell_range">Portée :</string>
+    <string name="vocal_component">Vocale</string>
+    <string name="somatic_component">Somatique</string>
+    <string name="material_component">Matériel</string>
+    <string name="spell_materials">Matériaux :</string>
+    <string name="spell_duration">Durée :</string>
+    <string name="spell_concentration_duration">Concentration, %s</string>
+    <string name="spell_ritual">Ce sort peut être lancé comme rituel, il prendra 10min de plus à lancer</string>
+    <string name="spell_description">Description :</string>
+    <string name="spell_higher_levels">À plus hauts niveaux :</string>
+    <string name="spell_damage_types">Types de dégâts :</string>
+    <string name="spell_classes">Classes :</string>
+    <string name="highlight_spell">Surligner le Sort</string>
+    <string name="spell_state_unlocked">Débloqué</string>
+    <string name="spell_state_highlighted">Surligné</string>
+    <string name="spell_state_locked">Vérouillé</string>
+    <string name="spell_state_prepared">Préparé</string>
+    <string name="spell_state_always_prepared">Toujours préparé</string>
+</resources>

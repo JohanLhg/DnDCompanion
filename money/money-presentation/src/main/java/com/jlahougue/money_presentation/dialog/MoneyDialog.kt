@@ -38,6 +38,7 @@ import com.jlahougue.money_domain.model.Currency
 import com.jlahougue.money_presentation.R
 import com.jlahougue.money_presentation.dialog.component.CurrencyEntry
 import com.jlahougue.money_presentation.dialog.component.TypeSelector
+import com.jlahougue.core_presentation.R as CoreR
 
 @Composable
 fun MoneyDialog(
@@ -79,7 +80,7 @@ fun RowScope.MoneyDialogHeader(
     val focusManager = LocalFocusManager.current
     Icon(
         imageVector = Icons.Default.Refresh,
-        contentDescription = stringResource(id = R.string.clear),
+        contentDescription = stringResource(id = CoreR.string.clear),
         tint = MaterialTheme.colorScheme.onPrimary,
         modifier = Modifier
             .size(24.dp)

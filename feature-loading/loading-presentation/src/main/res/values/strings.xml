@@ -8,6 +8,4 @@
     <string name="loading_weapon_properties">Inspecting gear…</string>
     <string name="loading_spells">Filling spell books…</string>
     <string name="loading_weapons">Sharpening weapons…</string>
-
-    <string name="error_fetching_characters">Error while fetching your characters</string>
 </resources>

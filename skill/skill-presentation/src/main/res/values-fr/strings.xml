@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="skill_acrobatics">Acrobaties</string>
+    <string name="skill_animal_handling">Dressage</string>
+    <string name="skill_arcana">Arcanes</string>
+    <string name="skill_athletics">Athlétisme</string>
+    <string name="skill_deception">Tromperie</string>
+    <string name="skill_history">Histoire</string>
+    <string name="skill_insight">Investigation</string>
+    <string name="skill_intimidation">Intimidation</string>
+    <string name="skill_investigation">Médecine</string>
+    <string name="skill_medicine">Médecine</string>
+    <string name="skill_nature">Nature</string>
+    <string name="skill_perception">Perception</string>
+    <string name="skill_performance">Représentation</string>
+    <string name="skill_persuasion">Persuasion</string>
+    <string name="skill_religion">Religion</string>
+    <string name="skill_sleight_of_hand">Escamotage</string>
+    <string name="skill_stealth">Discrétion</string>
+    <string name="skill_survival">Survie</string>
+</resources>
