@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="health">Health</string>
+
+    <string name="health_max">Maximum</string>
+
+    <string name="health_current">Current</string>
+    <string name="health_current_add">Add to current health</string>
+    <string name="health_current_subtract">Subtract from current health</string>
+
+    <string name="health_temporary">Temporary</string>
+    <string name="health_temporary_add">Add to temporary health</string>
+    <string name="health_temporary_subtract">Subtract from temporary health</string>
+
+    <string name="death_saves">Death Saves</string>
+    <string name="successes">Successes</string>
+    <string name="failures">Failures</string>
+</resources>

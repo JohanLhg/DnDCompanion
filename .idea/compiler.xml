@@ -1,6 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel target="17" />
+    <bytecodeTargetLevel target="17">
+      <module name="DnDCompanion.core-data" target="17" />
+      <module name="DnDCompanion.core-data-source-remote" target="17" />
+      <module name="DnDCompanion.core-di" target="17" />
+      <module name="DnDCompanion.core-domain" target="17" />
+      <module name="DnDCompanion.core-presentation" target="17" />
+      <module name="DnDCompanion.core-resources" target="17" />
+      <module name="DnDCompanion.data-authentication" target="17" />
+      <module name="DnDCompanion.data-character" target="17" />
+      <module name="DnDCompanion.data-character-sheet" target="17" />
+      <module name="DnDCompanion.data-character-spell" target="17" />
+      <module name="DnDCompanion.data-class" target="17" />
+      <module name="DnDCompanion.data-damage-type" target="17" />
+      <module name="DnDCompanion.data-health" target="17" />
+      <module name="DnDCompanion.data-item" target="17" />
+      <module name="DnDCompanion.data-money" target="17" />
+      <module name="DnDCompanion.data-property" target="17" />
+      <module name="DnDCompanion.data-settings" target="17" />
+      <module name="DnDCompanion.data-skill" target="17" />
+      <module name="DnDCompanion.data-spell" target="17" />
+      <module name="DnDCompanion.data-stats" target="17" />
+      <module name="DnDCompanion.data-user-info" target="17" />
+      <module name="DnDCompanion.data-weapon" target="17" />
+    </bytecodeTargetLevel>
   </component>
 </project>

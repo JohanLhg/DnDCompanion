@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="spells">Spells</string>
+    <string name="spell_total_slots">Total Slots</string>
+    <string name="spell_slots_left">Slots Left</string>
+    <string name="cantrips">Cantrips</string>
+    <string name="spell_level">Level %d</string>
+    <string name="spell_hdr_name">Lvl %d : %s</string>
+    <string name="spell_hdr_name_cantrip">Cantrip : %s</string>
+    <string name="spell_casting_time">Casting time :</string>
+    <string name="spell_range">Range :</string>
+    <string name="vocal_component">Vocal</string>
+    <string name="somatic_component">Somatic</string>
+    <string name="material_component">Material</string>
+    <string name="spell_materials">Materials :</string>
+    <string name="spell_duration">Duration :</string>
+    <string name="spell_concentration_duration">Concentration, %s</string>
+    <string name="spell_ritual">This spell can be cast as a ritual, but will take an additional 10 min to cast.</string>
+    <string name="spell_description">Description :</string>
+    <string name="spell_higher_levels">At higher levels :</string>
+    <string name="spell_damage_types">Damage Types :</string>
+    <string name="spell_classes">Classes :</string>
+
+    <string name="highlight_spell">Highlight Spell</string>
+
+    <string name="spell_state_unlocked">Unlocked</string>
+    <string name="spell_state_highlighted">Highlighted</string>
+    <string name="spell_state_locked">Locked</string>
+    <string name="spell_state_prepared">Prepared</string>
+    <string name="spell_state_always_prepared">Always prepared</string>
+</resources>

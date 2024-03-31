@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="confirm">Confirm</string>
+    <string name="edit">Edit</string>
+    <string name="clear">Clear</string>
+
+    <string name="add">Add</string>
+    <string name="subtract">Subtract</string>
+    <string name="set">Set</string>
+
+    <string name="money">Money</string>
+    <string name="traditional_currencies">Traditional currencies</string>
+    <string name="other_currencies">Other currencies</string>
+
+    <string name="copper_pieces">Copper Pieces</string>
+    <string name="copper_pieces_short">CP</string>
+    <string name="silver_pieces">Silver Pieces</string>
+    <string name="silver_pieces_short">SP</string>
+    <string name="gold_pieces">Gold Pieces</string>
+    <string name="gold_pieces_short">GP</string>
+    <string name="platinum_pieces">Platinum Pieces</string>
+    <string name="platinum_pieces_short">PP</string>
+</resources>
