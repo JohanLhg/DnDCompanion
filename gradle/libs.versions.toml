@@ -43,8 +43,6 @@ agp = "8.3.1"
 kotlin = "1.9.10"
 ksp = "1.9.10-1.0.13"
 google = "4.4.1"
-appcompat = "1.6.1"
-material = "1.11.0"
 
 [libraries]
 kotlin-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
@@ -104,8 +102,6 @@ junit-ext = { module = "androidx.test.ext:junit", version.ref = "junit-ext" }
 test-core-ktx = { module = "androidx.test:core-ktx", version.ref = "test-core-ktx" }
 espresso = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso" }
 compose-junit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "compose" }
-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
-material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
