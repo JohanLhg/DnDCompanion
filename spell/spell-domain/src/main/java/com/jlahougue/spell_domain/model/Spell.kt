@@ -30,7 +30,9 @@ data class Spell(
     @ColumnInfo(name = SPELL_DESCRIPTION)
     var description: String = "",
     @ColumnInfo(name = SPELL_HIGHER_LEVELS)
-    var higherLevels: String = ""
+    var higherLevels: String = "",
+    @ColumnInfo(name = SPELL_SOURCE)
+    var source: String = ""
 ) {
     companion object {
         const val TABLE_SPELL = "spell"
@@ -46,5 +48,6 @@ data class Spell(
         const val SPELL_DURATION = "duration"
         const val SPELL_DESCRIPTION = "description"
         const val SPELL_HIGHER_LEVELS = "higher_levels"
+        const val SPELL_SOURCE = "source"
     }
 }

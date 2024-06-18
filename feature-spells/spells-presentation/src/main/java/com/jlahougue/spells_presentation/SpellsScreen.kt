@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
@@ -39,6 +40,8 @@ import com.jlahougue.spells_presentation.components.SpellSearchEvent
 import com.jlahougue.spells_presentation.components.SpellSearchState
 import com.jlahougue.spells_presentation.components.SpellStats
 import com.jlahougue.spells_presentation.components.SpellcastingStats
+import com.jlahougue.spells_presentation.components.source_selection.SourceSelectionDialog
+import com.jlahougue.spells_presentation.components.source_selection.SourceSelectionEvent
 
 @Composable
 fun SpellsScreen(
@@ -63,6 +66,15 @@ fun SpellsScreen(
             Spacer(modifier = Modifier.weight(1f))
             SpellStats(
                 stats = state.spellsStats,
+                modifier = Modifier
+                    .padding(MaterialTheme.spacing.small)
+            )
+            MenuButton(
+                label = stringResource(id = R.string.sources),
+                icon = Icons.Filled.Settings,
+                onClick = {
+                    onEvent(SpellsEvent.OnSourceSelectionEvent(SourceSelectionEvent.OnShow))
+                },
                 modifier = Modifier
                     .padding(MaterialTheme.spacing.small)
             )
@@ -121,6 +133,12 @@ fun SpellsScreen(
         state = state.damageTypeDialog,
         onEvent = {
             onEvent(SpellsEvent.OnDamageTypeDialogEvent(it))
+        }
+    )
+    SourceSelectionDialog(
+        state = state.sourceSelection,
+        onEvent = {
+            onEvent(SpellsEvent.OnSourceSelectionEvent(it))
         }
     )
 }

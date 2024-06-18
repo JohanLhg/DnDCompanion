@@ -11,6 +11,7 @@ import com.jlahougue.damage_type_presentation.DamageTypeDialogEvent
 import com.jlahougue.damage_type_presentation.DamageTypeDialogState
 import com.jlahougue.spells_domain.ISpellsModule
 import com.jlahougue.spells_presentation.components.SpellSearchEvent
+import com.jlahougue.spells_presentation.components.source_selection.SourceSelectionEvent
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -20,7 +21,7 @@ import kotlinx.coroutines.launch
 
 class SpellsViewModel(
     private val module: ISpellsModule
-): ViewModel() {
+) : ViewModel() {
 
     private var characterId = -1L
 
@@ -41,6 +42,18 @@ class SpellsViewModel(
         }
 
         viewModelScope.launch(module.dispatcherProvider.io) {
+            module.spellRepository.getSources().collectLatest { sources ->
+                _state.update {
+                    it.copy(
+                        sourceSelection = it.sourceSelection.copy(
+                            sources = sources
+                        )
+                    )
+                }
+            }
+        }
+
+        viewModelScope.launch(module.dispatcherProvider.io) {
             module.userInfoUseCases.getCurrentCharacterId().collectLatest { characterId ->
 
                 this@SpellsViewModel.characterId = characterId
@@ -49,7 +62,9 @@ class SpellsViewModel(
                     _state.update {
                         it.copy(
                             search = it.search.copy(
-                                selectedClass = module.characterUseCases.getCharacterClass(characterId)
+                                selectedClass = module.characterUseCases.getCharacterClass(
+                                    characterId
+                                )
                             )
                         )
                     }
@@ -85,19 +100,21 @@ class SpellsViewModel(
                         when (mode) {
                             SpellListMode.Known -> {
                                 knownSpellsJob?.cancel()
-                                knownSpellsJob = viewModelScope.launch(module.dispatcherProvider.io) {
-                                    module.spellUseCases.getSpells(
-                                        characterId,
-                                        spellFilter = SpellFilter.Known,
-                                    ).collectLatest { spells ->
-                                        _state.update {
-                                            it.copy(
-                                                knownSpells = spells
-                                            )
+                                knownSpellsJob =
+                                    viewModelScope.launch(module.dispatcherProvider.io) {
+                                        module.spellUseCases.getSpells(
+                                            characterId,
+                                            spellFilter = SpellFilter.Known,
+                                        ).collectLatest { spells ->
+                                            _state.update {
+                                                it.copy(
+                                                    knownSpells = spells
+                                                )
+                                            }
                                         }
                                     }
-                                }
                             }
+
                             is SpellListMode.All -> {
                                 viewModelScope.launch(module.dispatcherProvider.io) {
                                     _state.update {
@@ -126,6 +143,7 @@ class SpellsViewModel(
                                     }
                                 }
                             }
+
                             else -> {}
                         }
                     }
@@ -140,6 +158,7 @@ class SpellsViewModel(
             is SpellsEvent.OnSpellEvent -> onSpellEvent(event.event)
             is SpellsEvent.OnDialogEvent -> onSpellDialogEvent(event.event)
             is SpellsEvent.OnDamageTypeDialogEvent -> onDamageTypeDialogEvent(event.event)
+            is SpellsEvent.OnSourceSelectionEvent -> onSourceSelectionEvent(event.event)
         }
     }
 
@@ -201,7 +220,7 @@ class SpellsViewModel(
     }
 
     private fun onSpellEvent(event: SpellEvent) {
-        when(event) {
+        when (event) {
             is SpellEvent.OnSlotRestored -> {
                 if (event.spellSlot.left == event.spellSlot.total) return
                 viewModelScope.launch(module.dispatcherProvider.io) {
@@ -212,6 +231,7 @@ class SpellsViewModel(
                     )
                 }
             }
+
             is SpellEvent.OnSlotUsed -> {
                 if (event.spellSlot.left == 0) return
                 viewModelScope.launch(module.dispatcherProvider.io) {
@@ -222,6 +242,7 @@ class SpellsViewModel(
                     )
                 }
             }
+
             is SpellEvent.OnSpellClicked -> {
                 _state.update {
                     it.copy(
@@ -233,17 +254,19 @@ class SpellsViewModel(
                 }
                 spellDialogJob?.cancel()
                 spellDialogJob = viewModelScope.launch(module.dispatcherProvider.io) {
-                    module.spellUseCases.getSpell(characterId, event.spellId).collectLatest { spell ->
-                        _state.update {
-                            it.copy(
-                                spellDialog = it.spellDialog.copy(
-                                    spell = spell,
+                    module.spellUseCases.getSpell(characterId, event.spellId)
+                        .collectLatest { spell ->
+                            _state.update {
+                                it.copy(
+                                    spellDialog = it.spellDialog.copy(
+                                        spell = spell,
+                                    )
                                 )
-                            )
+                            }
                         }
-                    }
                 }
             }
+
             is SpellEvent.OnSpellStateChanged -> {
                 viewModelScope.launch(module.dispatcherProvider.io) {
                     module.spellUseCases.saveSpell(
@@ -269,6 +292,7 @@ class SpellsViewModel(
                     )
                 }
             }
+
             SpellDialogEvent.OnDismiss -> {
                 _state.update {
                     it.copy(
@@ -276,6 +300,7 @@ class SpellsViewModel(
                     )
                 }
             }
+
             is SpellDialogEvent.OnStateDropdownOpen -> {
                 _state.update {
                     it.copy(
@@ -285,6 +310,7 @@ class SpellsViewModel(
                     )
                 }
             }
+
             is SpellDialogEvent.OnStateChange -> {
                 onSpellEvent(SpellEvent.OnSpellStateChanged(event.spell, event.state))
             }
@@ -297,6 +323,38 @@ class SpellsViewModel(
                 _state.update {
                     it.copy(
                         damageTypeDialog = DamageTypeDialogState()
+                    )
+                }
+            }
+        }
+    }
+
+    private fun onSourceSelectionEvent(event: SourceSelectionEvent) {
+        when (event) {
+            SourceSelectionEvent.OnShow -> {
+                _state.update {
+                    it.copy(
+                        sourceSelection = it.sourceSelection.copy(
+                            isVisible = true
+                        )
+                    )
+                }
+            }
+
+            SourceSelectionEvent.OnDismiss -> {
+                _state.update {
+                    it.copy(
+                        sourceSelection = it.sourceSelection.copy(
+                            isVisible = false
+                        )
+                    )
+                }
+            }
+
+            is SourceSelectionEvent.OnToggleSource -> {
+                viewModelScope.launch(module.dispatcherProvider.io) {
+                    module.spellRepository.saveSource(
+                        event.source.copy(selected = !event.source.selected)
                     )
                 }
             }

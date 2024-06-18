@@ -36,6 +36,8 @@ data class SpellInfo(
     var description: String = "",
     @ColumnInfo(name = Spell.SPELL_HIGHER_LEVELS)
     var higherLevels: String = "",
+    @ColumnInfo(name = Spell.SPELL_SOURCE)
+    var source: String = "",
 
     @ColumnInfo(name = CharacterSpell.CHARACTER_SPELL_STATE)
     var state: SpellState = SpellState.LOCKED,
@@ -69,6 +71,7 @@ data class SpellInfo(
             duration = duration,
             description = description,
             higherLevels = higherLevels,
+            source = source,
             state = state,
             classes = classes,
             damageTypes = damageTypes
@@ -101,6 +104,7 @@ data class SpellInfo(
                 duration == other.duration &&
                 description == other.description &&
                 higherLevels == other.higherLevels &&
+                source == other.source &&
                 state == other.state &&
                 classes == other.classes &&
                 damageTypes == other.damageTypes
@@ -119,6 +123,7 @@ data class SpellInfo(
         result = 31 * result + duration.hashCode()
         result = 31 * result + description.hashCode()
         result = 31 * result + higherLevels.hashCode()
+        result = 31 * result + source.hashCode()
         result = 31 * result + state.hashCode()
         result = 31 * result + classes.hashCode()
         result = 31 * result + damageTypes.hashCode()

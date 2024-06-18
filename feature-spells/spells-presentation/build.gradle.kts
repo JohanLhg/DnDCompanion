@@ -48,6 +48,7 @@ dependencies {
     implementation(project(":ability:ability-domain"))
     implementation(project(":damage-type:damage-type-domain"))
     implementation(project(":character-spell:character-spell-domain"))
+    implementation(project(":spell:spell-domain"))
     implementation(project(":class:class-domain"))
 
     implementation(project(":character-spell:character-spell-presentation"))

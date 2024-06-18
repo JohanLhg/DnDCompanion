@@ -39,6 +39,7 @@ import com.jlahougue.spell_data.SpellLocalDataSource
 import com.jlahougue.spell_domain.model.Spell
 import com.jlahougue.spell_domain.model.SpellClass
 import com.jlahougue.spell_domain.model.SpellDamageType
+import com.jlahougue.spell_domain.model.SpellSource
 import com.jlahougue.stats_data.StatsLocalDataSource
 import com.jlahougue.stats_domain.model.Stats
 import com.jlahougue.stats_domain.model.StatsView
@@ -55,7 +56,7 @@ import com.jlahougue.weapon_domain.model.WeaponProperty
         Money::class, Item::class,
         Class::class, ClassLevel::class, ClassSpellSlot::class,
         DamageType::class, Property::class,
-        Spell::class, SpellClass::class, SpellDamageType::class,
+        Spell::class, SpellClass::class, SpellDamageType::class, SpellSource::class,
         CharacterSpell::class, SpellSlot::class,
         CharacterWeapon::class, Weapon::class, WeaponProperty::class
     ],
@@ -65,7 +66,7 @@ import com.jlahougue.weapon_domain.model.WeaponProperty
         ProficiencyView::class,
         SpellcasterView::class, CharacterSpellsStatsView::class, SpellSlotView::class
     ],
-    version = 18,
+    version = 20,
     exportSchema = false
 )
 @TypeConverters(
