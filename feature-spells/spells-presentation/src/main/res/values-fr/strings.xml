@@ -2,10 +2,8 @@
 <resources>
     <string name="cantrips">Sorts mineurs</string>
     <string name="spell_level">Niveau %d</string>
-    <string name="spellcasting_ability">Capacité de Lanceur de Sorts</string>
-    <string name="spell_save_dc">DD de Sauvegarde des Sorts</string>
-    <string name="spell_attack_bonus">Bonus d\'Attaque des Sorts</string>
     <string name="highlighted_spells">Sorts Surlignés</string>
     <string name="unlocked_spells">Sorts Débloqués</string>
     <string name="prepared_spells">Sorts Préparés</string>
+    <string name="source_selection_title">Sources de sorts séléctionnées</string>
 </resources>

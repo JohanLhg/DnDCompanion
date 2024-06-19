@@ -26,4 +26,7 @@
     <string name="spell_state_locked">Vérouillé</string>
     <string name="spell_state_prepared">Préparé</string>
     <string name="spell_state_always_prepared">Toujours préparé</string>
+    <string name="spellcasting_ability">Capacité de Lanceur de Sorts</string>
+    <string name="spell_save_dc">DD de Sauvegarde des Sorts</string>
+    <string name="spell_attack_bonus">Bonus d\'Attaque des Sorts</string>
 </resources>

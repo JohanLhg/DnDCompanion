@@ -2,6 +2,7 @@ package com.jlahougue.combat_presentation.component
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
@@ -11,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import com.jlahougue.character_spell_presentation.SpellLevelList
 import com.jlahougue.character_spell_presentation.components.SpellListMode
+import com.jlahougue.character_spell_presentation.components.SpellcastingStatsRow
 import com.jlahougue.combat_presentation.CombatEvent
 import com.jlahougue.combat_presentation.CombatTabState
 import com.jlahougue.core_presentation.theme.spacing
@@ -42,14 +44,22 @@ fun CombatTabs(
         }
         when (state.selectedTabIndex) {
             0 -> {
-                SpellLevelList(
-                    spells = state.spells,
-                    modifier = Modifier
-                        .fillMaxHeight(),
-                    mode = SpellListMode.Prepared,
-                    onEvent = { onEvent(CombatEvent.OnSpellEvent(it)) }
-                )
+                Column {
+                    SpellcastingStatsRow(
+                        spellcasting = state.spellcasterStats,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                    HorizontalDivider()
+                    SpellLevelList(
+                        spells = state.spells,
+                        modifier = Modifier
+                            .fillMaxHeight(),
+                        mode = SpellListMode.Prepared,
+                        onEvent = { onEvent(CombatEvent.OnSpellEvent(it)) }
+                    )
+                }
             }
+
             1 -> {
                 Column(
                     modifier = Modifier.padding(horizontal = MaterialTheme.spacing.small)

@@ -66,7 +66,7 @@ import com.jlahougue.weapon_domain.model.WeaponProperty
         ProficiencyView::class,
         SpellcasterView::class, CharacterSpellsStatsView::class, SpellSlotView::class
     ],
-    version = 20,
+    version = 21,
     exportSchema = false
 )
 @TypeConverters(
