@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="empty">-</string>
-
-    <string name="skill_display">%s (%s)</string>
+    <string name="skill_display" translatable="false">%s (%s)</string>
 
     <string name="skill_acrobatics">Acrobatics</string>
     <string name="skill_animal_handling">Animal Handling</string>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- General -->
-    <string name="app_name">D&amp;D Companion</string>
-    <string name="empty">-</string>
-    <string name="amount">%d X %s</string>
-    <string name="parenthesis">(%s)</string>
-    <string name="quota">%d/%d</string>
+    <string name="app_name" translatable="false">D&amp;D Companion</string>
+    <string name="empty" translatable="false">-</string>
+    <string name="amount" translatable="false">%d X %s</string>
+    <string name="parenthesis" translatable="false">(%s)</string>
+    <string name="quota" translatable="false">%d/%d</string>
     <string name="edit">Edit</string>
     <string name="done">Done</string>
     <string name="confirm">Confirm</string>
@@ -28,14 +28,14 @@
     <string name="weapons">Weapons</string>
 
     <!-- AuthActivity -->
-    <string name="title_activity_auth">Auth Activity</string>
+    <string name="title_activity_auth">Authentication</string>
 
     <!-- LoadingActivity -->
-    <string name="title_activity_loading">Loading Activity</string>
+    <string name="title_activity_loading">Loading Data</string>
     <string name="loading">Loading…</string>
 
     <!-- CharacterSelectionActivity -->
-    <string name="title_activity_character_selection">Character Selection Activity</string>
+    <string name="title_activity_character_selection">Character Selection</string>
     <string name="descr_character_image">Character Image</string>
 
     <!-- Errors -->
@@ -46,4 +46,5 @@
     <string name="load_image_cancelled">Operation cancelled : Loading image</string>
     <string name="load_image_unknown_error">An error occurred while loading your image</string>
     <string name="no_image">No Image found</string>
+    <string name="sources">Sources</string>
 </resources>

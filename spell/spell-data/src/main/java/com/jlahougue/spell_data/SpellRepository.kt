@@ -6,12 +6,13 @@ import com.jlahougue.core_domain.util.ApiEvent
 import com.jlahougue.core_domain.util.dispatcherProvider.DispatcherProvider
 import com.jlahougue.core_domain.util.response.Result
 import com.jlahougue.spell_data.util.toSpell
-import com.jlahougue.spell_domain.model.Spell
 import com.jlahougue.spell_domain.model.SpellClass
 import com.jlahougue.spell_domain.model.SpellDamageType
+import com.jlahougue.spell_domain.model.SpellSource
 import com.jlahougue.spell_domain.repository.ISpellRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
 import org.json.JSONObject
@@ -54,6 +55,8 @@ class SpellRepository(
             }
         }.joinAll()
 
+        local.updateSources()
+
         onApiEvent(ApiEvent.Finish)
     }
 
@@ -89,7 +92,7 @@ class SpellRepository(
         onApiEvent: (ApiEvent) -> Unit
     ) {
         val spell = json.toSpell()
-        if (!save(spell)) return onApiEvent(ApiEvent.Skip())
+        if (local.insert(spell) == -1L) return onApiEvent(ApiEvent.Skip())
 
         // Classes
         val classes = mutableListOf<SpellClass>()
@@ -98,7 +101,7 @@ class SpellRepository(
             if (clazz.isBlank()) continue
             classes.add(SpellClass(spell.id, clazz.trim()))
         }
-        saveClasses(classes)
+        local.insertClasses(classes)
 
         // Damage Types
         val damageTypes = mutableListOf<SpellDamageType>()
@@ -107,24 +110,20 @@ class SpellRepository(
                 damageTypes.add(SpellDamageType(spell.id, damageType))
             }
         }
-        saveDamageTypes(damageTypes)
+        local.insertDamageTypes(damageTypes)
 
         onApiEvent(ApiEvent.UpdateProgress)
     }
 
-    override suspend fun save(spell: Spell): Boolean {
-        return local.insert(spell) != -1L
-    }
-
-    override suspend fun saveClasses(spellClasses: List<SpellClass>) {
-        local.insertClasses(spellClasses)
-    }
-
-    override suspend fun saveDamageTypes(spellDamageTypes: List<SpellDamageType>) {
-        local.insertDamageTypes(spellDamageTypes)
+    override fun saveSource(source: SpellSource) {
+        local.updateSource(source)
     }
 
     override suspend fun getIds(): List<String> {
         return local.getIds()
+    }
+
+    override fun getSources(): Flow<List<SpellSource>> {
+        return local.getSources()
     }
 }

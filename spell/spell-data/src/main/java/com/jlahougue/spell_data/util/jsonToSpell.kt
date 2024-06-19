@@ -19,6 +19,8 @@ fun JSONObject.toSpell(): Spell {
     val desc = this.getString("desc")
     val higherLevel = this.getString("higher_level")
 
+    val source = this.getString("document__title")
+
     return Spell(
         id,
         name,
@@ -31,6 +33,7 @@ fun JSONObject.toSpell(): Spell {
         concentration,
         duration,
         desc,
-        higherLevel
+        higherLevel,
+        source
     )
 }

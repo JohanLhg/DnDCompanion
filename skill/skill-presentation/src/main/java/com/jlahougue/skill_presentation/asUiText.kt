@@ -2,6 +2,7 @@ package com.jlahougue.skill_presentation
 
 import com.jlahougue.core_presentation.util.UiText
 import com.jlahougue.skill_domain.model.SkillName
+import com.jlahougue.core_presentation.R as CoreR
 
 fun SkillName.asUiText() = when (this) {
     SkillName.ACROBATICS -> UiText.StringResource(R.string.skill_acrobatics)
@@ -22,5 +23,5 @@ fun SkillName.asUiText() = when (this) {
     SkillName.SLEIGHT_OF_HAND -> UiText.StringResource(R.string.skill_sleight_of_hand)
     SkillName.STEALTH -> UiText.StringResource(R.string.skill_stealth)
     SkillName.SURVIVAL -> UiText.StringResource(R.string.skill_survival)
-    SkillName.NONE -> UiText.StringResource(R.string.empty)
+    SkillName.NONE -> UiText.StringResource(CoreR.string.empty)
 }

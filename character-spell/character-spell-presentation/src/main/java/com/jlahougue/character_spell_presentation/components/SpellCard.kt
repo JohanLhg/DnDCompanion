@@ -50,6 +50,14 @@ fun SpellCard(
             )
         }
     ) {
+        if (mode is SpellListMode.All) {
+            Text(
+                text = spell.source,
+                style = MaterialTheme.typography.titleSmall,
+                color = MaterialTheme.colorScheme.primary,
+                modifier = Modifier.padding(horizontal = MaterialTheme.spacing.small)
+            )
+        }
         PropertyRow(
             label = stringResource(id = R.string.spell_casting_time),
             value = spell.castingTime,
@@ -201,7 +209,8 @@ fun SpellCardPreview() {
                         "\n" +
                         "The fire spreads around corners. It ignites flammable objects in the area that aren't being worn or carried.",
                 higherLevels = "When you cast this spell using a spell slot of 4th level or higher, the damage increases by 1d6 for each slot level above 3rd.",
-                state = SpellState.HIGHLIGHTED
+                state = SpellState.HIGHLIGHTED,
+                source = "Player's Handbook"
             ),
             onEvent = {},
             mode = SpellListMode.All(selectedLevel = 0),

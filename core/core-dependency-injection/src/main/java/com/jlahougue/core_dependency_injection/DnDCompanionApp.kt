@@ -204,6 +204,7 @@ class DnDCompanionApp: Application() {
         )
         spellsModule = SpellsModule(
             appModule.dispatcherProvider,
+            spellModule.repository,
             userInfoModule.useCases,
             characterSpellModule.useCases,
             classModule.useCases,

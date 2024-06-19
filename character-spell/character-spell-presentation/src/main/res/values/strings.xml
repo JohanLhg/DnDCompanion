@@ -28,4 +28,8 @@
     <string name="spell_state_locked">Locked</string>
     <string name="spell_state_prepared">Prepared</string>
     <string name="spell_state_always_prepared">Always prepared</string>
+
+    <string name="spellcasting_ability">Spellcasting Ability</string>
+    <string name="spell_save_dc">Spell Save DC</string>
+    <string name="spell_attack_bonus">Spell Attack Bonus</string>
 </resources>

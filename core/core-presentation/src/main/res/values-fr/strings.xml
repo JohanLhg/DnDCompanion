@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="edit">Modifier</string>
+    <string name="done">Terminer</string>
+    <string name="confirm">Confirmer</string>
+    <string name="cancel">Annuler</string>
+    <string name="search">Recherche…</string>
+    <string name="clear">Effacer</string>
+    <string name="label_logo">Logo application</string>
+    <string name="copper_pieces_value">%dpc</string>
+    <string name="silver_pieces_value">%dpa</string>
+    <string name="gold_pieces_value">%dpo</string>
+    <string name="platinum_pieces_value">%dpp</string>
+    <string name="spells">Sorts</string>
+    <string name="weapons">Armes</string>
+    <string name="title_activity_auth">Authentification</string>
+    <string name="title_activity_loading">Chargement de Données</string>
+    <string name="loading">Chargement…</string>
+    <string name="title_activity_character_selection">Sélection du Personnage</string>
+    <string name="descr_character_image">Image du Personnage</string>
+    <string name="no_internet_connection">Impossible de se connecter à Internet, vérifiez votre connexion et réessayez</string>
+    <string name="not_authenticated">Vous devez vous identifier pour avoir accès à cette action</string>
+    <string name="not_authorized">Vous n\'êtes pas autorisé à effectuer cette action</string>
+    <string name="invalid_url">L\'URL utilisée est invalide</string>
+    <string name="load_image_cancelled">Opération annulé : Chargement d\'une image</string>
+    <string name="load_image_unknown_error">Une erreur s\'est produit lors du chargement d\'une image</string>
+    <string name="no_image">Pas d\'image trouvée</string>
+</resources>

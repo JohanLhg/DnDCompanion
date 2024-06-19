@@ -34,6 +34,7 @@ import com.jlahougue.money_presentation.dialog.MoneyDialog
 import com.jlahougue.money_presentation.dialog.MoneyDialogEvent
 import com.jlahougue.money_presentation.util.asColor
 import com.jlahougue.money_presentation.util.asValuedString
+import com.jlahougue.core_presentation.R as CoreR
 
 @Composable
 fun MoneyBox(
@@ -57,7 +58,7 @@ fun MoneyBox(
             Spacer(modifier = Modifier.weight(1f))
             Icon(
                 imageVector = Icons.Default.Edit,
-                contentDescription = stringResource(id = R.string.edit),
+                contentDescription = stringResource(id = CoreR.string.edit),
                 modifier = Modifier
                     .size(40.dp)
                     .clickable(

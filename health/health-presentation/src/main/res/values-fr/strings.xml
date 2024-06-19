@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="health">Santé</string>
+    <string name="health_max">Maximum</string>
+    <string name="health_current">Actuel</string>
+    <string name="health_current_add">Ajouter à la santé actuel</string>
+    <string name="health_current_subtract">Soustraire à la santé actuel</string>
+    <string name="health_temporary">Temporaire</string>
+    <string name="health_temporary_add">Ajouter à la santé temporaire</string>
+    <string name="health_temporary_subtract">Soustraire à la santé temporaire</string>
+    <string name="death_saves">JdS contre la Mort</string>
+    <string name="successes">Réussites</string>
+    <string name="failures">Échecs</string>
+</resources>

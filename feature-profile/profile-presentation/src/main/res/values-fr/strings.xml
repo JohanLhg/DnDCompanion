@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="character_name">Name</string>
+    <string name="character_race">Race</string>
+    <string name="character_class">Classe</string>
+    <string name="character_level">Niveau</string>
+    <string name="class_list">Montrer la liste des classes</string>
+    <string name="level_up">Monter en niveau</string>
+    <string name="character_gender">Genre</string>
+    <string name="character_age">Âge</string>
+    <string name="character_height">Taille</string>
+    <string name="character_weight">Poids</string>
+    <string name="character_biography">Biographie</string>
+    <string name="character_personality">Traits de Personnalité</string>
+    <string name="character_ideals">Idéaux</string>
+    <string name="character_bonds">Liens</string>
+    <string name="character_flaws">Défauts</string>
+</resources>

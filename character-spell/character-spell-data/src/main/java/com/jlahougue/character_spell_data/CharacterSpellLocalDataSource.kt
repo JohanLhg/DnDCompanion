@@ -33,6 +33,7 @@ interface CharacterSpellLocalDataSource {
     @Query("DELETE FROM character_spell WHERE cid = :characterId")
     suspend fun delete(characterId: Long)
 
+    @Transaction
     @Query("""
         SELECT 
             :characterId as cid,
@@ -51,7 +52,9 @@ interface CharacterSpellLocalDataSource {
     @Query("""
         SELECT DISTINCT level 
         FROM spell
-        WHERE (
+        LEFT JOIN spell_source src ON src.title = spell.source
+        WHERE src.selected = 1
+        AND (
             :search = ''
             OR name LIKE '%' || :search || '%')
         AND (
@@ -70,6 +73,7 @@ interface CharacterSpellLocalDataSource {
         clazz: String
     ): List<Int>
 
+    @Transaction
     @Query("""
         SELECT 
             :characterId as cid,
@@ -81,7 +85,9 @@ interface CharacterSpellLocalDataSource {
             FROM character_spell 
             WHERE cid = :characterId
         ) cs ON spell.spell_id = cs.spell_id
-        WHERE spell.level = :level
+        LEFT JOIN spell_source src ON src.title = spell.source
+        WHERE src.selected = 1
+        AND spell.level = :level
         ORDER BY spell.level, spell.name
     """)
     fun getAllSpells(characterId: Long, level: Int): Flow<List<SpellInfo>>
@@ -99,7 +105,9 @@ interface CharacterSpellLocalDataSource {
                 FROM character_spell 
                 WHERE cid = :characterId
             ) cs ON spell.spell_id = cs.spell_id
-            WHERE cs.state IN ('UNLOCKED', 'PREPARED', 'ALWAYS_PREPARED')
+            LEFT JOIN spell_source src ON src.title = spell.source
+            WHERE src.selected = 1
+            AND cs.state IN ('UNLOCKED', 'PREPARED', 'ALWAYS_PREPARED')
         )
         SELECT *
         FROM spell_slot_view
@@ -122,7 +130,9 @@ interface CharacterSpellLocalDataSource {
                 FROM character_spell 
                 WHERE cid = :characterId
             ) cs ON spell.spell_id = cs.spell_id
-            WHERE cs.state IN ('PREPARED', 'ALWAYS_PREPARED')
+            LEFT JOIN spell_source src ON src.title = spell.source
+            WHERE src.selected = 1
+            AND cs.state IN ('PREPARED', 'ALWAYS_PREPARED')
             OR (spell.level = 0 AND cs.state = 'UNLOCKED')
         )
         SELECT *
