@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -18,7 +19,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.jlahougue.ability_domain.model.AbilityName
 import com.jlahougue.ability_domain.model.AbilityView
 import com.jlahougue.core_domain.util.extension.toSignedString
@@ -35,27 +35,28 @@ fun Abilities(
         title = stringResource(id = R.string.abilities),
         modifier = modifier
     ) {
-        Row {
-            Spacer(
-                modifier = Modifier
-                    .width(0.dp)
-                    .weight(1f)
-            )
-            Text(
-                text = stringResource(id = R.string.ability_modifier_short),
-                modifier = Modifier.width(50.dp),
-                textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.bodySmall
-            )
-            Text(
-                text = stringResource(id = R.string.ability_saving_throws_short),
-                modifier = Modifier.width(50.dp),
-                textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.bodySmall
-            )
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Row {
+                Spacer(modifier = Modifier.weight(.7f))
+                Text(
+                    text = stringResource(id = R.string.ability_modifier_short),
+                    modifier = Modifier.weight(1f),
+                    textAlign = TextAlign.Center,
+                    style = MaterialTheme.typography.bodySmall
+                )
+                Text(
+                    text = stringResource(id = R.string.ability_saving_throws_short),
+                    modifier = Modifier.weight(1f),
+                    textAlign = TextAlign.Center,
+                    style = MaterialTheme.typography.bodySmall
+                )
+            }
+            for (ability in abilities)
+                AbilityRow(ability)
         }
-        for (ability in abilities)
-            AbilityRow(ability)
     }
 }
 
@@ -71,22 +72,19 @@ fun AbilityRow(ability: AbilityView) {
         ) {
             Text(
                 text = ability.name.asShortUiText().getString(),
+                modifier = Modifier.weight(.7f),
                 style = MaterialTheme.typography.titleSmall
-            )
-            Spacer(modifier = Modifier
-                .width(0.dp)
-                .weight(1f)
             )
             Text(
                 text = ability.modifier.toSignedString(),
-                modifier = Modifier.width(50.dp),
+                modifier = Modifier.weight(1f),
                 textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.bodySmall,
                 fontWeight = if (ability.proficiency) FontWeight.Bold else FontWeight.Normal
             )
             Text(
                 text = ability.savingThrow.toSignedString(),
-                modifier = Modifier.width(50.dp),
+                modifier = Modifier.weight(1f),
                 textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.bodySmall,
                 fontWeight = if (ability.proficiency) FontWeight.Bold else FontWeight.Normal
