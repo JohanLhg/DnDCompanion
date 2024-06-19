@@ -2,10 +2,11 @@ package com.jlahougue.ability_presentation
 
 import com.jlahougue.ability_domain.model.AbilityName
 import com.jlahougue.core_presentation.util.UiText
+import com.jlahougue.core_presentation.R as CoreR
 
 fun AbilityName.asUiText(): UiText {
     return when (this) {
-        AbilityName.NONE -> UiText.StringResource(R.string.empty)
+        AbilityName.NONE -> UiText.StringResource(CoreR.string.empty)
         AbilityName.STRENGTH -> UiText.StringResource(R.string.ability_strength)
         AbilityName.DEXTERITY -> UiText.StringResource(R.string.ability_dexterity)
         AbilityName.CONSTITUTION -> UiText.StringResource(R.string.ability_constitution)
@@ -17,7 +18,7 @@ fun AbilityName.asUiText(): UiText {
 
 fun AbilityName.asShortUiText(): UiText {
     return when (this) {
-        AbilityName.NONE -> UiText.StringResource(R.string.empty)
+        AbilityName.NONE -> UiText.StringResource(CoreR.string.empty)
         AbilityName.STRENGTH -> UiText.StringResource(R.string.ability_strength_short)
         AbilityName.DEXTERITY -> UiText.StringResource(R.string.ability_dexterity_short)
         AbilityName.CONSTITUTION -> UiText.StringResource(R.string.ability_constitution_short)

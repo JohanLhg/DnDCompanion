@@ -6,7 +6,6 @@
 
     <string name="error_login_failed">Login failed</string>
     <string name="error_register_failed">Register failed</string>
-    <string name="error_no_internet">Couldn\'t connect to internet, check your connection and try again</string>
     <string name="error_email_empty">You must enter an email address</string>
     <string name="error_email_invalid">You must enter a valid email address</string>
     <string name="error_email_already_in_use">This email is already in use</string>

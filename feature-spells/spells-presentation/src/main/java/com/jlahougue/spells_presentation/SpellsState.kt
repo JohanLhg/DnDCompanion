@@ -8,6 +8,7 @@ import com.jlahougue.character_spell_presentation.components.SpellListMode
 import com.jlahougue.character_spell_presentation.dialog.SpellDialogState
 import com.jlahougue.damage_type_presentation.DamageTypeDialogState
 import com.jlahougue.spells_presentation.components.SpellSearchState
+import com.jlahougue.spells_presentation.components.source_selection.SourceSelectionState
 
 data class SpellsState(
     val spellcasting: SpellcasterView = SpellcasterView(),
@@ -18,6 +19,7 @@ data class SpellsState(
     val allSpells: List<SpellInfo> = emptyList(),
     val knownSpells: List<SpellLevel> = emptyList(),
     val mode: SpellListMode = SpellListMode.Known,
+    val sourceSelection: SourceSelectionState = SourceSelectionState(),
     val spellDialog: SpellDialogState = SpellDialogState(),
     val damageTypeDialog: DamageTypeDialogState = DamageTypeDialogState()
 )

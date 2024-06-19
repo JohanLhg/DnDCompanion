@@ -6,11 +6,13 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
@@ -18,7 +20,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.jlahougue.ability_domain.model.AbilityName
 import com.jlahougue.character_spell_domain.model.CharacterSpellsStatsView
 import com.jlahougue.character_spell_domain.model.SpellInfo
@@ -28,6 +29,7 @@ import com.jlahougue.character_spell_domain.model.SpellState
 import com.jlahougue.character_spell_domain.model.SpellcasterView
 import com.jlahougue.character_spell_presentation.SpellLevelList
 import com.jlahougue.character_spell_presentation.components.SpellListMode
+import com.jlahougue.character_spell_presentation.components.SpellcastingStatsColumn
 import com.jlahougue.character_spell_presentation.dialog.SpellDialog
 import com.jlahougue.core_presentation.R
 import com.jlahougue.core_presentation.components.MenuButton
@@ -38,7 +40,8 @@ import com.jlahougue.spells_presentation.components.FilteredSpellList
 import com.jlahougue.spells_presentation.components.SpellSearchEvent
 import com.jlahougue.spells_presentation.components.SpellSearchState
 import com.jlahougue.spells_presentation.components.SpellStats
-import com.jlahougue.spells_presentation.components.SpellcastingStats
+import com.jlahougue.spells_presentation.components.source_selection.SourceSelectionDialog
+import com.jlahougue.spells_presentation.components.source_selection.SourceSelectionEvent
 
 @Composable
 fun SpellsScreen(
@@ -54,15 +57,24 @@ fun SpellsScreen(
                 .fillMaxHeight()
                 .width(IntrinsicSize.Max)
         ) {
-            SpellcastingStats(
+            SpellcastingStatsColumn(
                 spellcasting = state.spellcasting,
                 modifier = Modifier
                     .padding(MaterialTheme.spacing.small)
-                    .width(125.dp)
+                    .fillMaxWidth()
             )
             Spacer(modifier = Modifier.weight(1f))
             SpellStats(
                 stats = state.spellsStats,
+                modifier = Modifier
+                    .padding(MaterialTheme.spacing.small)
+            )
+            MenuButton(
+                label = stringResource(id = R.string.sources),
+                icon = Icons.Filled.Settings,
+                onClick = {
+                    onEvent(SpellsEvent.OnSourceSelectionEvent(SourceSelectionEvent.OnShow))
+                },
                 modifier = Modifier
                     .padding(MaterialTheme.spacing.small)
             )
@@ -83,11 +95,9 @@ fun SpellsScreen(
         VerticalDivider()
         if (state.mode is SpellListMode.All) {
             FilteredSpellList(
-                search = state.search.search,
+                searchState = state.search,
                 classes = state.classes,
-                selectedClass = state.search.selectedClass,
                 levels = state.spellLevels,
-                selectedLevel = state.search.selectedLevel,
                 spells = state.allSpells,
                 onSearchEvent = {
                     onEvent(SpellsEvent.OnSearchEvent(it))
@@ -96,8 +106,7 @@ fun SpellsScreen(
                     onEvent(SpellsEvent.OnSpellEvent(it))
                 },
                 mode = state.mode,
-                modifier = Modifier
-                    .fillMaxHeight()
+                modifier = Modifier.fillMaxHeight()
             )
         } else {
             SpellLevelList(
@@ -106,8 +115,7 @@ fun SpellsScreen(
                     onEvent(SpellsEvent.OnSpellEvent(it))
                 },
                 mode = state.mode,
-                modifier = Modifier
-                    .fillMaxHeight()
+                modifier = Modifier.fillMaxHeight()
             )
         }
     }
@@ -121,6 +129,12 @@ fun SpellsScreen(
         state = state.damageTypeDialog,
         onEvent = {
             onEvent(SpellsEvent.OnDamageTypeDialogEvent(it))
+        }
+    )
+    SourceSelectionDialog(
+        state = state.sourceSelection,
+        onEvent = {
+            onEvent(SpellsEvent.OnSourceSelectionEvent(it))
         }
     )
 }

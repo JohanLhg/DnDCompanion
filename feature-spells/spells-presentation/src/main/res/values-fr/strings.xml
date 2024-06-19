@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="cantrips">Sorts mineurs</string>
+    <string name="spell_level">Niveau %d</string>
+    <string name="highlighted_spells">Sorts Surlignés</string>
+    <string name="unlocked_spells">Sorts Débloqués</string>
+    <string name="prepared_spells">Sorts Préparés</string>
+    <string name="source_selection_title">Sources de sorts séléctionnées</string>
+</resources>

@@ -43,6 +43,30 @@ fun StatsList(
                 .padding(bottom = MaterialTheme.spacing.small)
         ) {
             Text(
+                text = stringResource(id = R.string.stats_proficiency),
+                style = MaterialTheme.typography.titleSmall,
+                modifier = Modifier
+                    .padding(end = MaterialTheme.spacing.small)
+            )
+            Spacer(
+                modifier = Modifier
+                    .width(0.dp)
+                    .weight(1f)
+            )
+            Text(
+                text = stats.proficiency.toSignedString(),
+                style = MaterialTheme.typography.bodySmall,
+                textAlign = TextAlign.Center,
+                modifier = Modifier
+                    .width(40.dp)
+            )
+        }
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = MaterialTheme.spacing.small)
+        ) {
+            Text(
                 text = stringResource(id = R.string.stats_initiative),
                 style = MaterialTheme.typography.titleSmall,
                 modifier = Modifier
@@ -147,6 +171,7 @@ fun StatsPreview() {
         StatsList(
             stats = StatsView(
                 cid = 1,
+                proficiency = 3,
                 initiative = 2,
                 armorClass = 10,
                 speed = 30

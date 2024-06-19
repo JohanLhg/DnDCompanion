@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="stats">Stats</string>
+    <string name="stats_initiative">Initiative</string>
+    <string name="stats_armor_class">Classe d\'Armure</string>
+    <string name="stats_speed">Vitesse</string>
+    <string name="stats_proficiency">Maîtrise</string>
+</resources>

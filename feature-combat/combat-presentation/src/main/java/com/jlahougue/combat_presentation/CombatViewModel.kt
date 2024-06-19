@@ -133,6 +133,18 @@ class CombatViewModel(
                         }
                     }
                 }
+
+                viewModelScope.launch(module.dispatcherProvider.io) {
+                    module.spellUseCases.getSpellcasterStats(userInfo.characterId).collectLatest { stats ->
+                        _state.update { state ->
+                            state.copy(
+                                tab = state.tab.copy(
+                                    spellcasterStats = stats
+                                )
+                            )
+                        }
+                    }
+                }
             }
         }
     }

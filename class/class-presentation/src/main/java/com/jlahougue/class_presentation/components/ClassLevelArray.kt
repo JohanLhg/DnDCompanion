@@ -53,7 +53,7 @@ fun ClassLevelArray(
                 row.add(level.spellSlots[i].toString())
             }
             else {
-                row.add("-")
+                row.add(stringResource(id = com.jlahougue.core_presentation.R.string.empty))
             }
         }
         rows.add(row)
@@ -84,7 +84,7 @@ private fun ClassLevelArrayPreview() {
                         cantripsKnown = 2,
                         spellsKnown = 2
                     ),
-                    spellSlots = mapOf(1 to 2, 2 to 3, 3 to 4)
+                    spellSlots = mapOf(1 to 2, 2 to 3, 3 to 4, 6 to 5)
                 ),
             )
         )

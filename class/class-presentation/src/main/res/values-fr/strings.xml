@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hit_die">Dé de vie :</string>
+    <string name="die">d%d</string>
+    <string name="class_spellcasting_ability">Capacité de Lanceur de Sorts :</string>
+    <string name="equipment">Équipement :</string>
+    <string name="proficiencies">Maîtrises</string>
+    <string name="saving_throws">Jets de Sauvegarde :</string>
+    <string name="skills">Compétences :</string>
+    <string name="armor">Armures :</string>
+    <string name="weapons">Armes :</string>
+    <string name="tools">Outils :</string>
+    <string name="class_list_dialog_title">Sélectionnez votre classe</string>
+    <string name="spellcaster">Lanceur de Sorts</string>
+    <string name="more_info">Plus d\'informations</string>
+    <string name="level">Niveau</string>
+    <string name="ability_score_bonus">Bonus S. Capacité</string>
+    <string name="proficiency_bonus">Bonus de Maîtrise</string>
+    <string name="cantrips_known">Sorts Mineurs Connus</string>
+    <string name="spells_known">Sorts Connus</string>
+</resources>

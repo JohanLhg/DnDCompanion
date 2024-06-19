@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="character_subtitle">%2$s %3$s Niv %1$d</string>
+</resources>

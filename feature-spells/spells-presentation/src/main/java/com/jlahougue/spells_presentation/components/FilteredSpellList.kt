@@ -42,11 +42,9 @@ import com.jlahougue.spells_presentation.R
 
 @Composable
 fun FilteredSpellList(
-    search: String,
+    searchState: SpellSearchState,
     classes: List<String>,
-    selectedClass: String,
     levels: List<Int>,
-    selectedLevel: Int,
     spells: List<SpellInfo>,
     onSearchEvent: (SpellSearchEvent) -> Unit,
     onSpellEvent: (SpellEvent) -> Unit,
@@ -70,7 +68,7 @@ fun FilteredSpellList(
                 .fillMaxWidth()
         ) {
             CustomSearchBar(
-                value = search,
+                value = searchState.search,
                 onValueChange = {
                     onSearchEvent(SpellSearchEvent.OnSearchChanged(it))
                 },
@@ -89,7 +87,7 @@ fun FilteredSpellList(
                     key = { it }
                 ) {
                     FilterChip(
-                        selected = selectedClass == it,
+                        selected = searchState.selectedClass == it,
                         label = {
                             Text(
                                 text = it,
@@ -123,7 +121,7 @@ fun FilteredSpellList(
                 key = { it }
             ) {
                 FilterChip(
-                    selected = selectedLevel == it,
+                    selected = searchState.selectedLevel == it,
                     label = {
                         Text(
                             text = if (it == 0) stringResource(id = R.string.cantrips)
@@ -160,7 +158,11 @@ fun FilteredSpellList(
 fun FilteredSpellListPreview() {
     DnDCompanionTheme {
         FilteredSpellList(
+            searchState = SpellSearchState(
             search = "",
+            selectedClass = "Wizard",
+            selectedLevel = 0
+            ),
             classes = listOf(
                 "Bard",
                 "Cleric",
@@ -171,9 +173,7 @@ fun FilteredSpellListPreview() {
                 "Warlock",
                 "Wizard"
             ),
-            selectedClass = "Wizard",
             levels = listOf(0, 1, 2, 3, 4, 5, 6, 7, 8, 9),
-            selectedLevel = 0,
             spells = listOf(),
             onSearchEvent = {},
             onSpellEvent = {},

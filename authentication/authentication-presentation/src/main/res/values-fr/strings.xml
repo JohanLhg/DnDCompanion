@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="email_change_dialog_title">Changement d\'adresse e-mail</string>
+    <string name="label_new_email">Nouvelle adresse</string>
+    <string name="label_password">Mot de passe</string>
+    <string name="error_login_failed">Connexion échoué</string>
+    <string name="error_register_failed">Inscription échoué</string>
+    <string name="error_email_empty">Vous devez entrer une adresse e-mail</string>
+    <string name="error_email_invalid">Vous devez entrer une adresse e-mail valide</string>
+    <string name="error_email_already_in_use">Cette adresse e-mail est déjà utilisé</string>
+    <string name="error_password_empty">Vous devez entrer un mot de passe</string>
+    <string name="error_password_too_short">Vous devez entrer un mot de passe d\'au moins 6 caractères</string>
+    <string name="error_password_invalid">Vous devez entrer un mot de passe valide</string>
+    <string name="error_invalid_credentials">Identifiants incorrectes</string>
+    <string name="error_user_not_found">Utilisateur non trouvé</string>
+    <string name="error_passwords_do_not_match">Les mots de passe entrés ne correspondent pas</string>
+    <string name="error_weak_password">Le mot de passe entré est trop faible</string>
+    <string name="error_re_authenticating">Erreur lors de la réauthentification</string>
+    <string name="error_email_change_failed">Erreur lors de la mise à jour de votre adresse e-mail</string>
+    <string name="error_password_change_failed">Erreur lors de la mise à jour de votre mot de passe</string>
+</resources>

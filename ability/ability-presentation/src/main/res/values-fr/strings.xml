@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="abilities">Capacités</string>
+    <string name="ability_modifier_short">Mod.</string>
+    <string name="ability_saving_throws_short">J.S.</string>
+    <string name="ability_strength">Force</string>
+    <string name="ability_dexterity">Dextérité</string>
+    <string name="ability_constitution">Constitution</string>
+    <string name="ability_intelligence">Intelligence</string>
+    <string name="ability_wisdom">Sagesse</string>
+    <string name="ability_charisma">Charisme</string>
+    <string name="ability_strength_short">FOR</string>
+    <string name="ability_dexterity_short">DEX</string>
+    <string name="ability_constitution_short">CON</string>
+    <string name="ability_intelligence_short">INT</string>
+    <string name="ability_wisdom_short">SAG</string>
+    <string name="ability_charisma_short">CHA</string>
+</resources>
