@@ -95,11 +95,9 @@ fun SpellsScreen(
         VerticalDivider()
         if (state.mode is SpellListMode.All) {
             FilteredSpellList(
-                search = state.search.search,
+                searchState = state.search,
                 classes = state.classes,
-                selectedClass = state.search.selectedClass,
                 levels = state.spellLevels,
-                selectedLevel = state.search.selectedLevel,
                 spells = state.allSpells,
                 onSearchEvent = {
                     onEvent(SpellsEvent.OnSearchEvent(it))
@@ -108,8 +106,7 @@ fun SpellsScreen(
                     onEvent(SpellsEvent.OnSpellEvent(it))
                 },
                 mode = state.mode,
-                modifier = Modifier
-                    .fillMaxHeight()
+                modifier = Modifier.fillMaxHeight()
             )
         } else {
             SpellLevelList(
@@ -118,8 +115,7 @@ fun SpellsScreen(
                     onEvent(SpellsEvent.OnSpellEvent(it))
                 },
                 mode = state.mode,
-                modifier = Modifier
-                    .fillMaxHeight()
+                modifier = Modifier.fillMaxHeight()
             )
         }
     }

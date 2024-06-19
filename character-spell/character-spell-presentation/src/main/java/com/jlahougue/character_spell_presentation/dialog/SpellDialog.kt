@@ -3,6 +3,7 @@ package com.jlahougue.character_spell_presentation.dialog
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -43,9 +44,10 @@ fun SpellDialog(
         Row {
             PropertyRow(
                 label = stringResource(id = R.string.spell_casting_time),
-                value = spell.castingTime
+                value = spell.castingTime,
+                modifier = Modifier.weight(1f)
             )
-            Spacer(modifier = Modifier.weight(1f))
+            Spacer(modifier = Modifier.width(MaterialTheme.spacing.small))
             Text(
                 text = spell.source,
                 style = MaterialTheme.typography.titleSmall,
