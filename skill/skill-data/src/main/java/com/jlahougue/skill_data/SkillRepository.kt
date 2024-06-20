@@ -52,4 +52,6 @@ class SkillRepository(
     override suspend fun delete(characterID: Long) {
         local.delete(characterID)
     }
+
+    override fun get(characterId: Long) = local.getSkills(characterId)
 }

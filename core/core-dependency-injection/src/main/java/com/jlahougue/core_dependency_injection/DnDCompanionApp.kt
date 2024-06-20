@@ -21,6 +21,7 @@ import com.jlahougue.loading_domain.di.LoadingModule
 import com.jlahougue.money_data.MoneyModule
 import com.jlahougue.profile_domain.ProfileModule
 import com.jlahougue.property_data.PropertyModule
+import com.jlahougue.roaming.domain.RoamingModule
 import com.jlahougue.skill_data.SkillModule
 import com.jlahougue.spell_data.SpellModule
 import com.jlahougue.spells_domain.SpellsModule
@@ -57,6 +58,7 @@ class DnDCompanionApp: Application() {
         lateinit var loadingModule: LoadingModule
         lateinit var characterSelectionModule: CharacterSelectionModule
         lateinit var combatModule: CombatModule
+        lateinit var roamingModule: RoamingModule
         lateinit var settingsModule: SettingsModule
         lateinit var spellsModule: SpellsModule
         lateinit var equipmentModule: EquipmentModule
@@ -195,6 +197,14 @@ class DnDCompanionApp: Application() {
             healthModule.useCases,
             characterSpellModule.useCases,
             weaponModule.useCases,
+            itemModule.useCases
+        )
+        roamingModule = RoamingModule(
+            appModule.dispatcherProvider,
+            userInfoModule.useCases,
+            abilityModule.useCases,
+            skillModule.useCases,
+            healthModule.useCases,
             itemModule.useCases
         )
         settingsModule = SettingsModule(

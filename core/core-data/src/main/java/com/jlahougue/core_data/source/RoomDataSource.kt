@@ -35,6 +35,7 @@ import com.jlahougue.property_data.PropertyLocalDataSource
 import com.jlahougue.property_domain.model.Property
 import com.jlahougue.skill_data.SkillLocalDataSource
 import com.jlahougue.skill_domain.model.Skill
+import com.jlahougue.skill_domain.model.SkillView
 import com.jlahougue.spell_data.SpellLocalDataSource
 import com.jlahougue.spell_domain.model.Spell
 import com.jlahougue.spell_domain.model.SpellClass
@@ -62,11 +63,12 @@ import com.jlahougue.weapon_domain.model.WeaponProperty
     ],
     views = [
         AbilityModifierView::class, AbilityView::class,
+        SkillView::class,
         StatsView::class,
         ProficiencyView::class,
         SpellcasterView::class, CharacterSpellsStatsView::class, SpellSlotView::class
     ],
-    version = 21,
+    version = 22,
     exportSchema = false
 )
 @TypeConverters(

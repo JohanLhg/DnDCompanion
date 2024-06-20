@@ -11,5 +11,5 @@ data class RoamingState(
     val abilities: List<AbilityView> = emptyList(),
     val skills: List<SkillView> = emptyList(),
     val health: Health = Health(),
-    val items: InventoryState = InventoryState()
+    val inventory: InventoryState = InventoryState()
 )

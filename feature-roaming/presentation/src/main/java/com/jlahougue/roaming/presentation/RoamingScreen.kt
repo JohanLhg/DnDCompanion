@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Devices
@@ -29,8 +31,10 @@ import com.jlahougue.health_presentation.R as HealthR
 fun RoamingScreenRoot(
     viewModel: RoamingViewModel
 ) {
+    val state by viewModel.state.collectAsState()
+
     RoamingScreen(
-        state = viewModel.state,
+        state = state,
         onAction = viewModel::onAction
     )
 }
@@ -49,15 +53,6 @@ fun RoamingScreen(
                 abilities = state.abilities,
                 modifier = Modifier.height(IntrinsicSize.Max)
             )
-            Skills(
-                skills = state.skills,
-                modifier = Modifier.height(IntrinsicSize.Max)
-            )
-        }
-        Column(
-            modifier = Modifier
-                .width(IntrinsicSize.Max)
-        ) {
             FramedBox(
                 title = stringResource(id = HealthR.string.health),
                 modifier = Modifier
@@ -101,9 +96,15 @@ fun RoamingScreen(
                 modifier = Modifier.fillMaxWidth()
             )
         }
+        Skills(
+            skills = state.skills,
+            modifier = Modifier
+                .height(IntrinsicSize.Max)
+                .width(IntrinsicSize.Max)
+        )
         VerticalDivider()
         Inventory(
-            state = state.items,
+            state = state.inventory,
             onEvent = {
                 onAction(RoamingAction.OnItemAction(it))
             },

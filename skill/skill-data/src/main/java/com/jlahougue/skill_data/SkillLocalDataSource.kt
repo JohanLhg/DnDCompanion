@@ -5,6 +5,8 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.jlahougue.skill_domain.model.Skill
+import com.jlahougue.skill_domain.model.SkillView
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface SkillLocalDataSource {
@@ -19,4 +21,7 @@ interface SkillLocalDataSource {
 
     @Query("DELETE FROM skill WHERE cid = :characterID")
     suspend fun delete(characterID: Long)
+
+    @Query("SELECT * FROM skill_view WHERE cid = :characterId")
+    fun getSkills(characterId: Long): Flow<List<SkillView>>
 }
