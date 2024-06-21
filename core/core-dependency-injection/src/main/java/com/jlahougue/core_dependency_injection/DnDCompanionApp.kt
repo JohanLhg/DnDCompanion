@@ -202,6 +202,7 @@ class DnDCompanionApp: Application() {
         roamingModule = RoamingModule(
             appModule.dispatcherProvider,
             userInfoModule.useCases,
+            characterSheetModule.useCases,
             abilityModule.useCases,
             skillModule.useCases,
             healthModule.useCases,

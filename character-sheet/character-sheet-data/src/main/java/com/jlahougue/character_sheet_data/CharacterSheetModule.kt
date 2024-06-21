@@ -7,6 +7,7 @@ import com.jlahougue.character_sheet_domain.use_case.CharacterSheetUseCases
 import com.jlahougue.character_sheet_domain.use_case.ClearCharacters
 import com.jlahougue.character_sheet_domain.use_case.CreateCharacter
 import com.jlahougue.character_sheet_domain.use_case.DeleteCharacter
+import com.jlahougue.character_sheet_domain.use_case.TakeLongRest
 import com.jlahougue.character_spell_domain.repository.ICharacterSpellRepository
 import com.jlahougue.core_data_interface.RemoteUserDataSource
 import com.jlahougue.core_domain.util.dispatcherProvider.DispatcherProvider
@@ -68,6 +69,12 @@ class CharacterSheetModule(
                 itemRepository,
                 characterSpellRepository,
                 weaponRepository
+            ),
+            takeLongRest = TakeLongRest(
+                dispatcherProvider,
+                characterRepository,
+                healthRepository,
+                characterSpellRepository
             )
         )
     }

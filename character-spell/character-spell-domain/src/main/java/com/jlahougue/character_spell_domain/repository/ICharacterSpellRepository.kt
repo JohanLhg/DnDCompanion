@@ -15,6 +15,7 @@ interface ICharacterSpellRepository {
     suspend fun save(spellSlot: SpellSlot)
     suspend fun clearLocal()
     suspend fun delete(characterId: Long)
+    suspend fun restoreSlots(characterId: Long)
     fun get(characterId: Long, spellId: String): Flow<SpellInfo>
     suspend fun getFilteredLevels(search: String, clazz: String): List<Int>
     fun getAllSpells(characterId: Long, level: Int): Flow<List<SpellInfo>>
