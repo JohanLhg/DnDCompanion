@@ -20,6 +20,7 @@ import com.jlahougue.core_presentation.components.ActionButton
 import com.jlahougue.core_presentation.components.containers.FramedBox
 import com.jlahougue.core_presentation.theme.DnDCompanionTheme
 import com.jlahougue.health_presentation.components.CurrentHealth
+import com.jlahougue.health_presentation.components.HitDiceIndicator
 import com.jlahougue.health_presentation.components.MaxHealth
 import com.jlahougue.health_presentation.components.TemporaryHealth
 import com.jlahougue.item_presentation.Inventory
@@ -75,6 +76,13 @@ fun RoamingScreen(
                 )
                 TemporaryHealth(
                     health = state.health,
+                    onEvent = {
+                        onAction(RoamingAction.OnHealthAction(it))
+                    },
+                    modifier = Modifier.fillMaxWidth()
+                )
+                HitDiceIndicator(
+                    hitDice = state.hitDice,
                     onEvent = {
                         onAction(RoamingAction.OnHealthAction(it))
                     },

@@ -15,4 +15,6 @@
     <string name="death_saves">Death Saves</string>
     <string name="successes">Successes</string>
     <string name="failures">Failures</string>
+    <string name="hit_dice">Hit dice</string>
+    <string name="hit_dice_left">Hit dice left</string>
 </resources>

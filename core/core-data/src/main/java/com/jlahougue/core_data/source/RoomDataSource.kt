@@ -26,6 +26,7 @@ import com.jlahougue.damage_type_domain.model.DamageType
 import com.jlahougue.health_data.HealthLocalDataSource
 import com.jlahougue.health_domain.model.DeathSaves
 import com.jlahougue.health_domain.model.Health
+import com.jlahougue.health_domain.model.HitDiceView
 import com.jlahougue.item_data.ItemLocalDataSource
 import com.jlahougue.item_domain.model.Item
 import com.jlahougue.money_data.MoneyLocalDataSource
@@ -62,13 +63,14 @@ import com.jlahougue.weapon_domain.model.WeaponProperty
         CharacterWeapon::class, Weapon::class, WeaponProperty::class
     ],
     views = [
+        HitDiceView::class,
         AbilityModifierView::class, AbilityView::class,
         SkillView::class,
         StatsView::class,
         ProficiencyView::class,
         SpellcasterView::class, CharacterSpellsStatsView::class, SpellSlotView::class
     ],
-    version = 22,
+    version = 23,
     exportSchema = false
 )
 @TypeConverters(

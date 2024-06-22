@@ -33,6 +33,7 @@ class RoamingViewModel(
     private var abilitiesJob: Job? = null
     private var skillsJob: Job? = null
     private var healthJob: Job? = null
+    private var hitDiceJob: Job? = null
     private var itemsJob: Job? = null
 
     private var itemDialogJob: Job? = null
@@ -78,6 +79,17 @@ class RoamingViewModel(
                         _state.update {
                             it.copy(
                                 health = health
+                            )
+                        }
+                    }
+                }
+
+                hitDiceJob?.cancel()
+                hitDiceJob = viewModelScope.launch(module.dispatcherProvider.io) {
+                    module.healthUseCases.getHitDice(userInfo.characterId).collectLatest { hitDice ->
+                        _state.update {
+                            it.copy(
+                                hitDice = hitDice
                             )
                         }
                     }
@@ -134,7 +146,7 @@ class RoamingViewModel(
 
             is HealthEvent.OnCurrentHealthChange -> {
                 val health = _state.value.health.copy(
-                    currentHp = min(event.currentHealth, state.value.health.maxHp)
+                    currentHp = max(min(event.currentHealth, state.value.health.maxHp), 0)
                 )
                 saveHealth(health)
             }
@@ -166,6 +178,13 @@ class RoamingViewModel(
             is HealthEvent.OnHitDiceChange -> {
                 val health = _state.value.health.copy(
                     hitDice = event.hitDice
+                )
+                saveHealth(health)
+            }
+
+            is HealthEvent.OnHitDiceNumberChange -> {
+                val health = _state.value.health.copy(
+                    hitDiceUsed = max(min(event.count, state.value.hitDice.max), 0)
                 )
                 saveHealth(health)
             }
