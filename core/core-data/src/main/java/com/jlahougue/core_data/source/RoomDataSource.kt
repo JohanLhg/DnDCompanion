@@ -26,6 +26,7 @@ import com.jlahougue.damage_type_domain.model.DamageType
 import com.jlahougue.health_data.HealthLocalDataSource
 import com.jlahougue.health_domain.model.DeathSaves
 import com.jlahougue.health_domain.model.Health
+import com.jlahougue.health_domain.model.HitDiceView
 import com.jlahougue.item_data.ItemLocalDataSource
 import com.jlahougue.item_domain.model.Item
 import com.jlahougue.money_data.MoneyLocalDataSource
@@ -35,6 +36,7 @@ import com.jlahougue.property_data.PropertyLocalDataSource
 import com.jlahougue.property_domain.model.Property
 import com.jlahougue.skill_data.SkillLocalDataSource
 import com.jlahougue.skill_domain.model.Skill
+import com.jlahougue.skill_domain.model.SkillView
 import com.jlahougue.spell_data.SpellLocalDataSource
 import com.jlahougue.spell_domain.model.Spell
 import com.jlahougue.spell_domain.model.SpellClass
@@ -61,12 +63,14 @@ import com.jlahougue.weapon_domain.model.WeaponProperty
         CharacterWeapon::class, Weapon::class, WeaponProperty::class
     ],
     views = [
+        HitDiceView::class,
         AbilityModifierView::class, AbilityView::class,
+        SkillView::class,
         StatsView::class,
         ProficiencyView::class,
         SpellcasterView::class, CharacterSpellsStatsView::class, SpellSlotView::class
     ],
-    version = 21,
+    version = 23,
     exportSchema = false
 )
 @TypeConverters(

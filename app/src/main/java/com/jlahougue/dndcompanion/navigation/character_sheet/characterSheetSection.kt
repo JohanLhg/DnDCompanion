@@ -50,6 +50,12 @@ fun NavGraphBuilder.characterSheetSection(
                 selectedIcon = R.drawable.combat
             ),
             NavigationItem(
+                label = stringResource(id = R.string.title_roaming_screen),
+                route = CharacterSheetScreen.Roaming.route,
+                unselectedIcon = R.drawable.roaming,
+                selectedIcon = R.drawable.roaming
+            ),
+            NavigationItem(
                 label = stringResource(id = R.string.title_spells_screen),
                 route = CharacterSheetScreen.Spells.route,
                 unselectedIcon = R.drawable.spell_book,

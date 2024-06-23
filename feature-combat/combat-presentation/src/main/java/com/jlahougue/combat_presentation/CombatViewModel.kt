@@ -135,15 +135,16 @@ class CombatViewModel(
                 }
 
                 viewModelScope.launch(module.dispatcherProvider.io) {
-                    module.spellUseCases.getSpellcasterStats(userInfo.characterId).collectLatest { stats ->
-                        _state.update { state ->
-                            state.copy(
-                                tab = state.tab.copy(
-                                    spellcasterStats = stats
+                    module.spellUseCases.getSpellcasterStats(userInfo.characterId)
+                        .collectLatest { stats ->
+                            _state.update { state ->
+                                state.copy(
+                                    tab = state.tab.copy(
+                                        spellcasterStats = stats
+                                    )
                                 )
-                            )
+                            }
                         }
-                    }
                 }
             }
         }
@@ -231,13 +232,6 @@ class CombatViewModel(
                 saveHealth(health)
             }
 
-            is HealthEvent.OnHitDiceChange -> {
-                val health = _state.value.health.copy(
-                    hitDice = event.hitDice
-                )
-                saveHealth(health)
-            }
-
             is HealthEvent.OnDeathSavesSuccessChange -> {
                 val deathSaves = _state.value.deathSaves.copy(
                     successes = event.successes
@@ -255,6 +249,9 @@ class CombatViewModel(
                     module.healthUseCases.saveDeathSaves(deathSaves)
                 }
             }
+
+            is HealthEvent.OnHitDiceChange -> Unit
+            is HealthEvent.OnHitDiceNumberChange -> Unit
         }
     }
 

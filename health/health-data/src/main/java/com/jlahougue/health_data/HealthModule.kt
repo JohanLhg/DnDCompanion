@@ -5,6 +5,7 @@ import com.jlahougue.core_domain.util.dispatcherProvider.DispatcherProvider
 import com.jlahougue.health_domain.di.IHealthModule
 import com.jlahougue.health_domain.use_case.GetDeathSaves
 import com.jlahougue.health_domain.use_case.GetHealth
+import com.jlahougue.health_domain.use_case.GetHitDice
 import com.jlahougue.health_domain.use_case.HealthUseCases
 import com.jlahougue.health_domain.use_case.SaveDeathSaves
 import com.jlahougue.health_domain.use_case.SaveHealth
@@ -33,6 +34,7 @@ class HealthModule(
                 repository
             ),
             GetHealth(repository),
+            GetHitDice(repository),
             GetDeathSaves(repository)
         )
     }

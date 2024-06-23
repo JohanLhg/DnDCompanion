@@ -11,4 +11,6 @@
     <string name="death_saves">JdS contre la Mort</string>
     <string name="successes">Réussites</string>
     <string name="failures">Échecs</string>
+    <string name="hit_dice">Dé de vie</string>
+    <string name="hit_dice_left">Dés de vie restants</string>
 </resources>

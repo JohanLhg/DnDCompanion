@@ -62,6 +62,9 @@
             <option value="$PROJECT_DIR$/feature-profile" />
             <option value="$PROJECT_DIR$/feature-profile/profile-domain" />
             <option value="$PROJECT_DIR$/feature-profile/profile-presentation" />
+            <option value="$PROJECT_DIR$/feature-roaming" />
+            <option value="$PROJECT_DIR$/feature-roaming/domain" />
+            <option value="$PROJECT_DIR$/feature-roaming/presentation" />
             <option value="$PROJECT_DIR$/feature-settings" />
             <option value="$PROJECT_DIR$/feature-settings/settings-domain" />
             <option value="$PROJECT_DIR$/feature-settings/settings-presentation" />

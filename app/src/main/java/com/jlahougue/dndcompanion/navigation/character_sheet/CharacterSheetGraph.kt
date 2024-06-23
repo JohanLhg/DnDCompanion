@@ -8,6 +8,7 @@ import com.jlahougue.dndcompanion.ScreenGroup
 import com.jlahougue.dndcompanion.navigation.character_sheet.screens.combatSection
 import com.jlahougue.dndcompanion.navigation.character_sheet.screens.equipmentSection
 import com.jlahougue.dndcompanion.navigation.character_sheet.screens.profileSection
+import com.jlahougue.dndcompanion.navigation.character_sheet.screens.roamingSection
 import com.jlahougue.dndcompanion.navigation.character_sheet.screens.spellsSection
 
 @Composable
@@ -25,6 +26,7 @@ fun CharacterSheetGraph(
             onUiEvent = onUiEvent
         )
         combatSection(route = CharacterSheetScreen.Combat.route)
+        roamingSection(route = CharacterSheetScreen.Roaming.route)
         spellsSection(route = CharacterSheetScreen.Spells.route)
         equipmentSection(route = CharacterSheetScreen.Equipment.route)
     }
@@ -33,6 +35,7 @@ fun CharacterSheetGraph(
 sealed class CharacterSheetScreen(val route: String) {
     data object Profile : CharacterSheetScreen("profile")
     data object Combat : CharacterSheetScreen("combat")
+    data object Roaming : CharacterSheetScreen("roaming")
     data object Spells : CharacterSheetScreen("spells")
     data object Equipment : CharacterSheetScreen("equipment")
 }
