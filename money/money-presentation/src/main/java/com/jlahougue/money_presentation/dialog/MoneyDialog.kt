@@ -17,10 +17,10 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Refresh
-import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -86,7 +86,7 @@ fun RowScope.MoneyDialogHeader(
             .size(24.dp)
             .clickable(
                 interactionSource = remember { MutableInteractionSource() },
-                indication = rememberRipple(bounded = false),
+                indication = ripple(bounded = false),
                 onClick = {
                     focusManager.clearFocus()
                     onEvent(MoneyDialogEvent.OnClear)
@@ -115,21 +115,21 @@ fun ColumnScope.MoneyDialogContent(
                 painter = painterResource(id = R.drawable.minus),
                 description = stringResource(id = R.string.subtract),
                 type = MoneyDialogState.MoneyDialogType.SUBTRACT,
-                state = state,
+                selectedType = state.type,
                 onEvent = onEvent
             )
             TypeSelector(
                 painter = painterResource(id = R.drawable.equals),
                 description = stringResource(id = R.string.set),
                 type = MoneyDialogState.MoneyDialogType.SET,
-                state = state,
+                selectedType = state.type,
                 onEvent = onEvent
             )
             TypeSelector(
                 painter = painterResource(id = R.drawable.plus),
                 description = stringResource(id = R.string.add),
                 type = MoneyDialogState.MoneyDialogType.ADD,
-                state = state,
+                selectedType = state.type,
                 onEvent = onEvent
             )
         }

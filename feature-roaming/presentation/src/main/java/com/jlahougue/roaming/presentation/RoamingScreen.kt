@@ -58,7 +58,7 @@ fun RoamingScreen(
                 title = stringResource(id = HealthR.string.health),
                 modifier = Modifier
                     .width(IntrinsicSize.Max)
-                    .height(IntrinsicSize.Max)
+                    .height(IntrinsicSize.Min)
             ) {
                 MaxHealth(
                     health = state.health,
@@ -107,8 +107,8 @@ fun RoamingScreen(
         Skills(
             skills = state.skills,
             modifier = Modifier
-                .height(IntrinsicSize.Max)
                 .width(IntrinsicSize.Max)
+                .height(IntrinsicSize.Min)
         )
         VerticalDivider()
         Inventory(

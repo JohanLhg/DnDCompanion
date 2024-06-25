@@ -45,7 +45,7 @@ fun CombatScreen(
                     onEvent(CombatEvent.OnStatsEvent(it))
                 },
                 modifier = Modifier
-                    .height(IntrinsicSize.Max)
+                    .height(IntrinsicSize.Min)
             )
         }
         HealthBox(
@@ -56,7 +56,7 @@ fun CombatScreen(
             },
             modifier = Modifier
                 .width(IntrinsicSize.Max)
-                .height(IntrinsicSize.Max)
+                .height(IntrinsicSize.Min)
         )
         VerticalDivider()
         CombatTabs(

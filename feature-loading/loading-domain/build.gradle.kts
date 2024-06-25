@@ -1,11 +1,5 @@
 plugins {
-    id("java-library")
-    alias(libs.plugins.kotlinJvm)
-}
-
-java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
+    alias(libs.plugins.dndcompanion.jvm.library)
 }
 
 dependencies {
@@ -24,6 +18,4 @@ dependencies {
     implementation(project(":weapon:weapon-domain"))
     implementation(project(":stats:stats-domain"))
     implementation(project(":skill:skill-domain"))
-
-    implementation(libs.kotlin.coroutines)
 }
