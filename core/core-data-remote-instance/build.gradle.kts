@@ -4,11 +4,6 @@ plugins {
 
 android {
     namespace = "com.jlahougue.core_data_remote_instance"
-
-    defaultConfig {
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
-    }
 }
 
 dependencies {

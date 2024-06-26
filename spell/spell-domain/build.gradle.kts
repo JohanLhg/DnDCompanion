@@ -3,6 +3,5 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":core:core-domain"))
     implementation(project(":class:class-domain"))
 }

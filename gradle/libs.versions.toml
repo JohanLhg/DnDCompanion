@@ -54,6 +54,8 @@ projectMinSdkVersion = "26"
 projectTargetSdkVersion = "34"
 projectCompileSdkVersion = "34"
 projectVersionCode = "1"
+appcompat = "1.7.0"
+material = "1.12.0"
 
 [libraries]
 kotlin-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
@@ -121,6 +123,8 @@ android-tools-common = { group = "com.android.tools", name = "common", version.r
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
 room-gradlePlugin = { group = "androidx.room", name = "room-gradle-plugin", version.ref = "room" }
+appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
@@ -141,6 +145,7 @@ dndcompanion-android-feature-ui = { id = "dndcompanion.android.feature.ui", vers
 dndcompanion-android-room = { id = "dndcompanion.android.room", version = "unspecified" }
 dndcompanion-jvm-library = { id = "dndcompanion.jvm.library", version = "unspecified" }
 dndcompanion-jvm-room = { id = "dndcompanion.jvm.room", version = "unspecified" }
+dndcompanion-jvm-data = { id = "dndcompanion.jvm.data", version = "unspecified" }
 
 [bundles]
 ui = ["compose-ui", "compose-graphics", "compose-tooling-preview", "compose-material3",

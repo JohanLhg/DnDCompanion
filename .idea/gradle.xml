@@ -99,6 +99,10 @@
             <option value="$PROJECT_DIR$/money/money-data" />
             <option value="$PROJECT_DIR$/money/money-domain" />
             <option value="$PROJECT_DIR$/money/money-presentation" />
+            <option value="$PROJECT_DIR$/note" />
+            <option value="$PROJECT_DIR$/note/data" />
+            <option value="$PROJECT_DIR$/note/domain" />
+            <option value="$PROJECT_DIR$/note/presentation" />
             <option value="$PROJECT_DIR$/property" />
             <option value="$PROJECT_DIR$/property/property-data" />
             <option value="$PROJECT_DIR$/property/property-domain" />

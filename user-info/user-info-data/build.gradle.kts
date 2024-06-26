@@ -5,11 +5,6 @@ plugins {
 
 android {
     namespace = "com.jlahougue.user_info_data"
-
-    defaultConfig {
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
-    }
 }
 
 dependencies {
