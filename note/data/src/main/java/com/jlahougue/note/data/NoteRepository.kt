@@ -9,25 +9,27 @@ class NoteRepository(
     private val local: NoteLocalDataSource
 ): INoteRepository {
 
-    override suspend fun create(characterId: Long): Long {
-        val id = local.getLastId(characterId) + 1
-        save(Note(cid = characterId, id = id, title = "", content = ""))
-        return id
+    override suspend fun create(characterId: Long, title: String) {
+        save(Note(characterId, title))
     }
 
     override suspend fun save(note: Note) {
         local.insert(note)
         remote.updateDocument(
             remote.characterUrl(note.cid),
-            mapOf("notes.${note.id}" to note)
+            mapOf("notes.${note.title}" to note)
         )
+    }
+
+    override suspend fun saveToLocal(notes: List<Note>) {
+        local.insert(notes)
     }
 
     override suspend fun delete(note: Note) {
         local.delete(note)
         remote.deleteField(
             remote.characterUrl(note.cid),
-            "notes.${note.id}"
+            "notes.${note.title}"
         )
     }
 

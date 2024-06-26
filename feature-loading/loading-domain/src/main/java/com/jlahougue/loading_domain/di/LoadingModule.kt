@@ -18,6 +18,7 @@ import com.jlahougue.loading_domain.use_case.LoadProperties
 import com.jlahougue.loading_domain.use_case.LoadSpells
 import com.jlahougue.loading_domain.use_case.LoadWeapons
 import com.jlahougue.money_domain.repository.IMoneyRepository
+import com.jlahougue.note.domain.repository.INoteRepository
 import com.jlahougue.property_domain.repository.IPropertyRepository
 import com.jlahougue.skill_domain.repository.ISkillRepository
 import com.jlahougue.spell_domain.repository.ISpellRepository
@@ -40,7 +41,8 @@ class LoadingModule(
     private val propertyRepository: IPropertyRepository,
     private val weaponRepository: IWeaponRepository,
     private val moneyRepository: IMoneyRepository,
-    private val itemRepository: IItemRepository
+    private val itemRepository: IItemRepository,
+    private val noteRepository: INoteRepository
 ) : ILoadingModule {
 
     override lateinit var loadAll: LoadAll
@@ -83,7 +85,8 @@ class LoadingModule(
         characterSpellRepository,
         weaponRepository,
         moneyRepository,
-        itemRepository
+        itemRepository,
+        noteRepository
     )
 
     override fun init() {

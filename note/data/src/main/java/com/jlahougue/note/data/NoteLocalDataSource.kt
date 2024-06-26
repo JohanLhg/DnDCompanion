@@ -14,11 +14,11 @@ interface NoteLocalDataSource {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(note: Note)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insert(notes: List<Note>)
+
     @Delete
     suspend fun delete(note: Note)
-
-    @Query("SELECT MAX(id) FROM note WHERE cid = :characterId")
-    fun getLastId(characterId: Long): Long
 
     @Query("SELECT * FROM note WHERE cid = :characterId")
     fun get(characterId: Long): Flow<List<Note>>

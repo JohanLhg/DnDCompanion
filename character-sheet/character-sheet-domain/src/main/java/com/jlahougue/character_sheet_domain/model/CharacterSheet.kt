@@ -22,7 +22,8 @@ data class CharacterSheet(
     var spellSlots: Map<String, Int> = mapOf(),
     var spells: Map<String, CharacterSpell> = mapOf(),
     var weapons: Map<String, CharacterWeapon> = mapOf(),
-    var items: Map<String, Item> = mapOf()
+    var items: Map<String, Item> = mapOf(),
+    var notes: Map<String, String> = mapOf()
 ) {
     val id: Long
         get() = character.id
@@ -52,6 +53,8 @@ data class CharacterSheet(
                 ${weapons.forEach { it.toString() }}
                 Items:
                 ${items.forEach { it.toString() }}
+                Notes:
+                ${notes.forEach { "${it.key}:\n${it.value}" }}
             """.trimIndent()
     }
 }

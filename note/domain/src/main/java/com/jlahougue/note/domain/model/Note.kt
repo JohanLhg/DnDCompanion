@@ -4,11 +4,10 @@ import androidx.room.Entity
 
 @Entity(
     tableName = "note",
-    primaryKeys = ["cid", "id"]
+    primaryKeys = ["cid", "title"]
 )
 data class Note(
-    val cid: Long,
-    val id: Long,
-    val title: String,
-    val content: String
+    val cid: Long = 0,
+    val title: String = "",
+    val content: String = ""
 )
