@@ -4,6 +4,18 @@
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
+        <compositeConfiguration>
+          <compositeBuild compositeDefinitionSource="SCRIPT">
+            <builds>
+              <build path="$PROJECT_DIR$/build-logic" name="build-logic">
+                <projects>
+                  <project path="$PROJECT_DIR$/build-logic" />
+                  <project path="$PROJECT_DIR$/build-logic/convention" />
+                </projects>
+              </build>
+            </builds>
+          </compositeBuild>
+        </compositeConfiguration>
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="gradleJvm" value="corretto-17" />
         <option name="modules">
@@ -18,6 +30,8 @@
             <option value="$PROJECT_DIR$/authentication/authentication-data" />
             <option value="$PROJECT_DIR$/authentication/authentication-domain" />
             <option value="$PROJECT_DIR$/authentication/authentication-presentation" />
+            <option value="$PROJECT_DIR$/build-logic" />
+            <option value="$PROJECT_DIR$/build-logic/convention" />
             <option value="$PROJECT_DIR$/character" />
             <option value="$PROJECT_DIR$/character-sheet" />
             <option value="$PROJECT_DIR$/character-sheet/character-sheet-data" />

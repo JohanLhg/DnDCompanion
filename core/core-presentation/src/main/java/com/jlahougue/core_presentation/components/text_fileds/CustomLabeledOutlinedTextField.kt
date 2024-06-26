@@ -103,12 +103,12 @@ fun CustomLabeledOutlinedTextField(
                 colors = colors,
                 contentPadding = contentPadding,
                 container = {
-                    OutlinedTextFieldDefaults.ContainerBox(
-                        enabled,
-                        isError,
-                        interactionSource,
-                        colors,
-                        shape
+                    OutlinedTextFieldDefaults.Container(
+                        enabled = enabled,
+                        isError = isError,
+                        interactionSource = interactionSource,
+                        colors = colors,
+                        shape = shape
                     )
                 }
             )

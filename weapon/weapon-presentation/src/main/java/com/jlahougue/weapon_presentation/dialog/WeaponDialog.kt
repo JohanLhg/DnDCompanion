@@ -1,6 +1,5 @@
 package com.jlahougue.weapon_presentation.dialog
 
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.sizeIn
@@ -12,7 +11,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.DialogProperties
 import com.jlahougue.ability_domain.model.AbilityName
 import com.jlahougue.ability_presentation.asShortUiText
 import com.jlahougue.core_domain.util.extension.toSignedString
@@ -23,6 +21,7 @@ import com.jlahougue.core_presentation.components.labeled_values.PropertyRow
 import com.jlahougue.core_presentation.components.text_fileds.Counter
 import com.jlahougue.core_presentation.theme.DnDCompanionTheme
 import com.jlahougue.core_presentation.theme.spacing
+import com.jlahougue.property_domain.model.Property
 import com.jlahougue.weapon_domain.model.WeaponInfo
 import com.jlahougue.weapon_presentation.R
 import com.jlahougue.weapon_presentation.util.getRangeString
@@ -38,8 +37,7 @@ fun WeaponDialog(
     CustomDialog(
         isShown = state.isShown,
         onDismissRequest = { onEvent(WeaponDialogEvent.OnDismiss) },
-        modifier = Modifier.width(IntrinsicSize.Max),
-        properties = DialogProperties(usePlatformDefaultWidth = false),
+        modifier = Modifier,
         header = {
             WeaponDialogHeader(
                 weapon = weapon,
@@ -139,6 +137,10 @@ fun WeaponDialogPreview() {
                     range = 20,
                     throwRangeMin = 60,
                     throwRangeMax = 200,
+                    properties = listOf(
+                        Property("Légère"),
+                        Property("Perforant"),
+                    )
                 ),
                 unitSystem = com.jlahougue.user_info_domain.model.UnitSystem.METRIC
             ),

@@ -66,7 +66,7 @@ fun HealthPreview() {
             onEvent = {},
             modifier = Modifier
                 .width(IntrinsicSize.Max)
-                .height(IntrinsicSize.Max)
+                .height(IntrinsicSize.Min)
         )
     }
 }
