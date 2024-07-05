@@ -213,7 +213,8 @@ class DnDCompanionApp: Application() {
             abilityModule.useCases,
             skillModule.useCases,
             healthModule.useCases,
-            itemModule.useCases
+            itemModule.useCases,
+            noteModule.repository
         )
         settingsModule = SettingsModule(
             appModule.dispatcherProvider,

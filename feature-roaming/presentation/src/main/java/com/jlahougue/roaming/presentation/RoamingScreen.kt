@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -24,6 +25,7 @@ import com.jlahougue.health_presentation.components.HitDiceIndicator
 import com.jlahougue.health_presentation.components.MaxHealth
 import com.jlahougue.health_presentation.components.TemporaryHealth
 import com.jlahougue.item_presentation.Inventory
+import com.jlahougue.note.presentation.NoteList
 import com.jlahougue.skill_presentation.Skills
 import com.jlahougue.skill_presentation.getSkillsPreviewData
 import com.jlahougue.health_presentation.R as HealthR
@@ -111,17 +113,28 @@ fun RoamingScreen(
                 .height(IntrinsicSize.Min)
         )
         VerticalDivider()
-        Inventory(
-            state = state.inventory,
-            onEvent = {
-                onAction(RoamingAction.OnItemAction(it))
-            },
-            onDialogEvent = {
-                onAction(RoamingAction.OnItemDialogAction(it))
-            },
-            modifier = Modifier
-                .weight(1f)
-        )
+        Column(
+            modifier = Modifier.weight(1f)
+
+        ) {
+            Inventory(
+                state = state.inventory,
+                onEvent = {
+                    onAction(RoamingAction.OnItemAction(it))
+                },
+                onDialogEvent = {
+                    onAction(RoamingAction.OnItemDialogAction(it))
+                },
+                modifier = Modifier.weight(1f)
+            )
+            HorizontalDivider()
+            NoteList(
+                notes = state.notes,
+                onAddNote = {},
+                onNoteChange = {},
+                modifier = Modifier.weight(1f)
+            )
+        }
     }
 }
 

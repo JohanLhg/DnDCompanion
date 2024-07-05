@@ -1,13 +1,15 @@
 package com.jlahougue.note.domain.model
 
-import androidx.room.Entity
-
-@Entity(
-    tableName = "note",
-    primaryKeys = ["cid", "title"]
-)
 data class Note(
+    val id: Long = 0,
     val cid: Long = 0,
     val title: String = "",
     val content: String = ""
-)
+) {
+    override fun toString(): String {
+        return """
+            $title
+            $content
+        """.trimIndent()
+    }
+}

@@ -33,7 +33,7 @@ import com.jlahougue.money_data.MoneyLocalDataSource
 import com.jlahougue.money_data.util.CurrencyTypeConverter
 import com.jlahougue.money_domain.model.Money
 import com.jlahougue.note.data.NoteLocalDataSource
-import com.jlahougue.note.domain.model.Note
+import com.jlahougue.note.data.model.Note
 import com.jlahougue.property_data.PropertyLocalDataSource
 import com.jlahougue.property_domain.model.Property
 import com.jlahougue.skill_data.SkillLocalDataSource
@@ -72,7 +72,7 @@ import com.jlahougue.weapon_domain.model.WeaponProperty
         ProficiencyView::class,
         SpellcasterView::class, CharacterSpellsStatsView::class, SpellSlotView::class
     ],
-    version = 24,
+    version = 25,
     exportSchema = false
 )
 @TypeConverters(

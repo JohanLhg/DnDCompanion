@@ -15,7 +15,6 @@ import com.jlahougue.health_domain.repository.IHealthRepository
 import com.jlahougue.item_domain.repository.IItemRepository
 import com.jlahougue.loading_domain.util.LoaderKey
 import com.jlahougue.money_domain.repository.IMoneyRepository
-import com.jlahougue.note.domain.model.Note
 import com.jlahougue.note.domain.repository.INoteRepository
 import com.jlahougue.skill_domain.repository.ISkillRepository
 import com.jlahougue.stats_domain.repository.IStatsRepository
@@ -76,11 +75,7 @@ class LoadCharacters(
                         weaponRepository.saveToLocal(characterSheet.weapons.values.toList())
                         moneyRepository.saveToLocal(characterSheet.money)
                         itemRepository.saveToLocal(characterSheet.items.values.toList())
-                        noteRepository.saveToLocal(
-                            characterSheet.notes.map { (title, content) ->
-                                Note(characterSheet.id, title, content)
-                            }
-                        )
+                        noteRepository.saveToLocal(characterSheet.notes.values.toList())
                         noneExist = false
                         onApiEvent(ApiEvent.UpdateProgress)
                     }

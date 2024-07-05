@@ -1,8 +1,12 @@
 package com.jlahougue.note.data
 
 import com.jlahougue.core_data_interface.RemoteUserDataSource
+import com.jlahougue.note.data.mapper.toData
+import com.jlahougue.note.data.mapper.toDomain
 import com.jlahougue.note.domain.model.Note
 import com.jlahougue.note.domain.repository.INoteRepository
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 class NoteRepository(
     private val remote: RemoteUserDataSource,
@@ -10,11 +14,11 @@ class NoteRepository(
 ): INoteRepository {
 
     override suspend fun create(characterId: Long, title: String) {
-        save(Note(characterId, title))
+        save(Note())
     }
 
     override suspend fun save(note: Note) {
-        local.insert(note)
+        local.insert(note.toData())
         remote.updateDocument(
             remote.characterUrl(note.cid),
             mapOf("notes.${note.title}" to note)
@@ -22,16 +26,19 @@ class NoteRepository(
     }
 
     override suspend fun saveToLocal(notes: List<Note>) {
-        local.insert(notes)
+        local.insert(notes.toData())
     }
 
     override suspend fun delete(note: Note) {
-        local.delete(note)
+        local.delete(note.toData())
         remote.deleteField(
             remote.characterUrl(note.cid),
             "notes.${note.title}"
         )
     }
 
-    override fun get(characterId: Long) = local.get(characterId)
+    override fun get(characterId: Long): Flow<List<Note>> {
+        return local.get(characterId)
+            .map { it.toDomain() }
+    }
 }

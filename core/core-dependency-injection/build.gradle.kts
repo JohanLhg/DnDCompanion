@@ -1,5 +1,4 @@
 plugins {
-    alias(libs.plugins.dndcompanion.android.library)
     alias(libs.plugins.dndcompanion.android.room)
 }
 

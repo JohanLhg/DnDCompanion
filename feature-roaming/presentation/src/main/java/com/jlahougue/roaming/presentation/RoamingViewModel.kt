@@ -35,6 +35,7 @@ class RoamingViewModel(
     private var healthJob: Job? = null
     private var hitDiceJob: Job? = null
     private var itemsJob: Job? = null
+    private var notesJob: Job? = null
 
     private var itemDialogJob: Job? = null
 
@@ -103,6 +104,17 @@ class RoamingViewModel(
                                 inventory = it.inventory.copy(
                                     items = items
                                 )
+                            )
+                        }
+                    }
+                }
+
+                notesJob?.cancel()
+                notesJob = viewModelScope.launch(module.dispatcherProvider.io) {
+                    module.noteRepository.get(userInfo.characterId).collectLatest { notes ->
+                        _state.update {
+                            it.copy(
+                                notes = notes
                             )
                         }
                     }

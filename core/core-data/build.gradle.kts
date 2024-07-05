@@ -1,5 +1,4 @@
 plugins {
-    alias(libs.plugins.dndcompanion.android.library)
     alias(libs.plugins.dndcompanion.android.room)
 }
 
@@ -44,4 +43,5 @@ dependencies {
 
     implementation(libs.firebase.auth)
     implementation(libs.okhttp)
+    implementation(libs.junit.ktx)
 }
