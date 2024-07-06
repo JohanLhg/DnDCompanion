@@ -2,4 +2,8 @@
 <resources>
     <string name="notes">Notes</string>
     <string name="add_note">Ajouter une note</string>
+    <string name="delete_note">Supprimer la note</string>
+    <string name="delete_note_title">Supprimer la note \'%s\' ?</string>
+    <string name="delete_note_content">Es-tu sûr de vouloir supprimer \'%s\' ? Tu ne pourras plus retourner en arrière.</string>
+    <string name="title_hint">Titre…</string>
 </resources>

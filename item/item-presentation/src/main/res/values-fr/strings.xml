@@ -5,4 +5,5 @@
     <string name="item_cost">Coût :</string>
     <string name="item_weight">Poids :</string>
     <string name="item_description">Description :</string>
+    <string name="delete_item">Supprimer l\'objet</string>
 </resources>

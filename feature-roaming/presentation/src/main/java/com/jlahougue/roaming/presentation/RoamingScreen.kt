@@ -130,8 +130,9 @@ fun RoamingScreen(
             HorizontalDivider()
             NoteList(
                 notes = state.notes,
-                onAddNote = {},
-                onNoteChange = {},
+                onAction = {
+                    onAction(RoamingAction.OnNoteAction(it))
+                },
                 modifier = Modifier.weight(1f)
             )
         }
