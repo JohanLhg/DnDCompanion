@@ -10,10 +10,13 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Delete
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -26,6 +29,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.KeyboardCapitalization
@@ -68,6 +72,7 @@ fun NoteDetails(
                     )
             )
         }
+        HorizontalDivider()
         NoteContentEdit(
             selectedNote = selectedNote,
             note = note,
@@ -85,8 +90,10 @@ fun NoteTitleEdit(
     var textFieldValue by remember { mutableStateOf(TextFieldValue()) }
     val interactionSource by remember { mutableStateOf(MutableInteractionSource()) }
     val isFocused by interactionSource.collectIsFocusedAsState()
+    val focusManager = LocalFocusManager.current
 
     LaunchedEffect(selectedNote) {
+        focusManager.clearFocus()
         if (note == null) return@LaunchedEffect
 
         textFieldValue = textFieldValue.copy(
@@ -144,8 +151,12 @@ fun NoteContentEdit(
     var textFieldValue by remember { mutableStateOf(TextFieldValue()) }
     val interactionSource by remember { mutableStateOf(MutableInteractionSource()) }
     val isFocused by interactionSource.collectIsFocusedAsState()
+    val focusManager = LocalFocusManager.current
+    val scrollState = rememberScrollState()
 
     LaunchedEffect(selectedNote) {
+        focusManager.clearFocus()
+        scrollState.scrollTo(0)
         if (note == null) return@LaunchedEffect
 
         textFieldValue = textFieldValue.copy(
@@ -176,8 +187,9 @@ fun NoteContentEdit(
         interactionSource = interactionSource,
         textStyle = MaterialTheme.typography.bodyMedium,
         modifier = Modifier
-            .padding(MaterialTheme.spacing.small)
-            .fillMaxSize(),
+            .fillMaxSize()
+            .verticalScroll(scrollState)
+            .padding(MaterialTheme.spacing.small),
         lineColor = MaterialTheme.colorScheme.secondary
     )
 

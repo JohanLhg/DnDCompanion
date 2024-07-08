@@ -7,6 +7,7 @@ import com.jlahougue.note.domain.model.Note
 import com.jlahougue.note.domain.repository.INoteRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import java.util.logging.Logger
 
 class NoteRepository(
     private val remote: RemoteUserDataSource,
@@ -30,6 +31,7 @@ class NoteRepository(
     }
 
     override suspend fun delete(note: Note) {
+        Logger.getLogger("NoteRepository").info("Deleting note: $note")
         local.delete(note.toData())
         remote.deleteField(
             remote.characterUrl(note.cid),
