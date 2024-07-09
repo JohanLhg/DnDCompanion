@@ -12,6 +12,7 @@ dependencies {
     implementation(project(":health:health-domain"))
     implementation(project(":item:item-domain"))
     implementation(project(":money:money-domain"))
+    implementation(project(":note:domain"))
     implementation(project(":character-spell:character-spell-domain"))
     implementation(project(":spell:spell-domain"))
     implementation(project(":property:property-domain"))

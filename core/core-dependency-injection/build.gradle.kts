@@ -1,15 +1,9 @@
 plugins {
-    alias(libs.plugins.dndcompanion.android.library)
     alias(libs.plugins.dndcompanion.android.room)
 }
 
 android {
     namespace = "com.jlahougue.core_dependency_injection"
-
-    defaultConfig {
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
-    }
 }
 
 dependencies {
@@ -25,6 +19,7 @@ dependencies {
     implementation(project(":character:character-domain"))
     implementation(project(":class:class-domain"))
     implementation(project(":money:money-domain"))
+    implementation(project(":note:domain"))
     implementation(project(":damage-type:damage-type-domain"))
     implementation(project(":health:health-domain"))
     implementation(project(":item:item-domain"))
@@ -42,6 +37,7 @@ dependencies {
     implementation(project(":character:character-data"))
     implementation(project(":class:class-data"))
     implementation(project(":money:money-data"))
+    implementation(project(":note:data"))
     implementation(project(":health:health-data"))
     implementation(project(":item:item-data"))
     implementation(project(":damage-type:damage-type-data"))

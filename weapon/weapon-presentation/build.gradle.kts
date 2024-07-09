@@ -4,11 +4,6 @@ plugins {
 
 android {
     namespace = "com.jlahougue.weapon_presentation"
-
-    defaultConfig {
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
-    }
 }
 
 dependencies {

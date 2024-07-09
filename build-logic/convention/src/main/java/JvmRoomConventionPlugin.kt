@@ -2,6 +2,7 @@ import com.jlahougue.convention.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
+import org.gradle.kotlin.dsl.project
 
 class JvmRoomConventionPlugin: Plugin<Project> {
 
@@ -11,6 +12,7 @@ class JvmRoomConventionPlugin: Plugin<Project> {
 
             dependencies {
                 "implementation"(libs.findLibrary("room.common").get())
+                "implementation"(project(":core:core-domain"))
             }
         }
     }

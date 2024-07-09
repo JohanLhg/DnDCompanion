@@ -46,5 +46,9 @@ gradlePlugin {
             id = "dndcompanion.jvm.room"
             implementationClass = "JvmRoomConventionPlugin"
         }
+        register("jvmData") {
+            id = "dndcompanion.jvm.data"
+            implementationClass = "JvmDataConventionPlugin"
+        }
     }
 }

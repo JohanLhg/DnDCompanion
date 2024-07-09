@@ -15,6 +15,7 @@ import com.jlahougue.health_domain.repository.IHealthRepository
 import com.jlahougue.item_domain.repository.IItemRepository
 import com.jlahougue.loading_domain.util.LoaderKey
 import com.jlahougue.money_domain.repository.IMoneyRepository
+import com.jlahougue.note.domain.repository.INoteRepository
 import com.jlahougue.skill_domain.repository.ISkillRepository
 import com.jlahougue.stats_domain.repository.IStatsRepository
 import com.jlahougue.weapon_domain.repository.IWeaponRepository
@@ -33,7 +34,8 @@ class LoadCharacters(
     private val characterSpellRepository: ICharacterSpellRepository,
     private val weaponRepository: IWeaponRepository,
     private val moneyRepository: IMoneyRepository,
-    private val itemRepository: IItemRepository
+    private val itemRepository: IItemRepository,
+    private val noteRepository: INoteRepository
 ) : LoadFromRemote(LoaderKey.CHARACTERS) {
 
     override fun invoke() {
@@ -51,8 +53,16 @@ class LoadCharacters(
                     var noneExist = !characterRepository.exists()
                     for (characterSheet in result.data) {
                         characterRepository.saveToLocal(characterSheet.character)
-                        abilityRepository.saveToLocal(characterSheet.abilities.values.toList())
-                        skillRepository.saveToLocal(characterSheet.skills.values.toList())
+                        if (characterSheet.abilities.isEmpty()) {
+                            abilityRepository.create(characterSheet.id)
+                        } else {
+                            abilityRepository.saveToLocal(characterSheet.abilities.values.toList())
+                        }
+                        if (characterSheet.skills.isEmpty()) {
+                            skillRepository.create(characterSheet.id)
+                        } else {
+                            skillRepository.saveToLocal(characterSheet.skills.values.toList())
+                        }
                         statsRepository.saveToLocal(characterSheet.stats)
                         healthRepository.saveToLocal(characterSheet.health)
                         healthRepository.saveToLocal(characterSheet.deathSaves)
@@ -65,6 +75,7 @@ class LoadCharacters(
                         weaponRepository.saveToLocal(characterSheet.weapons.values.toList())
                         moneyRepository.saveToLocal(characterSheet.money)
                         itemRepository.saveToLocal(characterSheet.items.values.toList())
+                        noteRepository.saveToLocal(characterSheet.notes.values.toList())
                         noneExist = false
                         onApiEvent(ApiEvent.UpdateProgress)
                     }
@@ -72,6 +83,7 @@ class LoadCharacters(
                     onApiEvent(ApiEvent.Finish)
                 }
             }
+
             is Result.Failure -> {
                 onApiEvent(ApiEvent.Error(result.error))
             }

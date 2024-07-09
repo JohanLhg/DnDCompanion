@@ -6,6 +6,7 @@ import com.jlahougue.health_domain.model.Health
 import com.jlahougue.health_presentation.HealthEvent
 import com.jlahougue.item_presentation.ItemEvent
 import com.jlahougue.item_presentation.dialog.ItemDialogEvent
+import com.jlahougue.note.presentation.NoteAction
 import com.jlahougue.roaming.domain.RoamingModule
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel
@@ -35,6 +36,7 @@ class RoamingViewModel(
     private var healthJob: Job? = null
     private var hitDiceJob: Job? = null
     private var itemsJob: Job? = null
+    private var notesJob: Job? = null
 
     private var itemDialogJob: Job? = null
 
@@ -86,13 +88,14 @@ class RoamingViewModel(
 
                 hitDiceJob?.cancel()
                 hitDiceJob = viewModelScope.launch(module.dispatcherProvider.io) {
-                    module.healthUseCases.getHitDice(userInfo.characterId).collectLatest { hitDice ->
-                        _state.update {
-                            it.copy(
-                                hitDice = hitDice
-                            )
+                    module.healthUseCases.getHitDice(userInfo.characterId)
+                        .collectLatest { hitDice ->
+                            _state.update {
+                                it.copy(
+                                    hitDice = hitDice
+                                )
+                            }
                         }
-                    }
                 }
 
                 itemsJob?.cancel()
@@ -103,6 +106,17 @@ class RoamingViewModel(
                                 inventory = it.inventory.copy(
                                     items = items
                                 )
+                            )
+                        }
+                    }
+                }
+
+                notesJob?.cancel()
+                notesJob = viewModelScope.launch(module.dispatcherProvider.io) {
+                    module.noteRepository.get(userInfo.characterId).collectLatest { notes ->
+                        _state.update {
+                            it.copy(
+                                notes = notes
                             )
                         }
                     }
@@ -123,6 +137,10 @@ class RoamingViewModel(
 
             is RoamingAction.OnItemDialogAction -> {
                 onItemDialogAction(action.action)
+            }
+
+            is RoamingAction.OnNoteAction -> {
+                onNoteAction(action.action)
             }
 
             RoamingAction.OnLongRest -> {
@@ -305,6 +323,28 @@ class RoamingViewModel(
                     module.itemUseCases.saveItem(
                         event.item.copy(currency = event.currency)
                     )
+                }
+            }
+        }
+    }
+
+    private fun onNoteAction(action: NoteAction) {
+        when (action) {
+            NoteAction.OnAddNote -> {
+                viewModelScope.launch(module.dispatcherProvider.io) {
+                    module.noteRepository.create(characterId)
+                }
+            }
+
+            is NoteAction.OnDeleteNote -> {
+                viewModelScope.launch(module.dispatcherProvider.io) {
+                    module.noteRepository.delete(action.note)
+                }
+            }
+
+            is NoteAction.OnEditNote -> {
+                viewModelScope.launch(module.dispatcherProvider.io) {
+                    module.noteRepository.save(action.note)
                 }
             }
         }

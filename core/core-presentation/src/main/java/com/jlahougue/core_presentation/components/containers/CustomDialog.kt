@@ -11,19 +11,23 @@ import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import com.jlahougue.core_presentation.R
 import com.jlahougue.core_presentation.theme.DnDCompanionTheme
 import com.jlahougue.core_presentation.theme.spacing
 
@@ -192,6 +196,44 @@ fun CustomDialog(
     )
 }
 
+@Composable
+fun ConfirmDialog(
+    isShown: Boolean,
+    title: String,
+    content: String,
+    onConfirm: () -> Unit,
+    onDismissRequest: () -> Unit
+) {
+    CustomDialog(
+        isShown = isShown,
+        onDismissRequest = onDismissRequest,
+        title = title,
+        modifier = Modifier.width(350.dp)
+    ) {
+        Text(
+            text = content,
+            style = MaterialTheme.typography.bodyMedium
+        )
+        Row(
+            horizontalArrangement = Arrangement.End,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            TextButton(onClick = onDismissRequest) {
+                Text(
+                    text = stringResource(id = R.string.cancel),
+                    style = MaterialTheme.typography.bodyMedium
+                )
+            }
+            TextButton(onClick = onConfirm) {
+                Text(
+                    text = stringResource(id = R.string.confirm),
+                    style = MaterialTheme.typography.bodyMedium
+                )
+            }
+        }
+    }
+}
+
 @Preview
 @Composable
 private fun CustomDialogPreview() {
@@ -203,6 +245,20 @@ private fun CustomDialogPreview() {
             content = {
                 // Content
             }
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun ConfirmDialogPreview() {
+    DnDCompanionTheme {
+        ConfirmDialog(
+            isShown = true,
+            onConfirm = {},
+            onDismissRequest = {},
+            title = "My Custom Dialog",
+            content = "Are you sure you want to confirm this action?"
         )
     }
 }

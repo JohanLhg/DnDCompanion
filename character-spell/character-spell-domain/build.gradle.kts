@@ -3,7 +3,6 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":core:core-domain"))
     implementation(project(":spell:spell-domain"))
     implementation(project(":ability:ability-domain"))
     implementation(project(":character:character-domain"))

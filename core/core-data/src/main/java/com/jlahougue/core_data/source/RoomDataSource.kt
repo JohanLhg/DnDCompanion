@@ -32,6 +32,8 @@ import com.jlahougue.item_domain.model.Item
 import com.jlahougue.money_data.MoneyLocalDataSource
 import com.jlahougue.money_data.util.CurrencyTypeConverter
 import com.jlahougue.money_domain.model.Money
+import com.jlahougue.note.data.NoteLocalDataSource
+import com.jlahougue.note.data.model.Note
 import com.jlahougue.property_data.PropertyLocalDataSource
 import com.jlahougue.property_domain.model.Property
 import com.jlahougue.skill_data.SkillLocalDataSource
@@ -55,7 +57,7 @@ import com.jlahougue.weapon_domain.model.WeaponProperty
         Character::class,
         Health::class, DeathSaves::class,
         Ability::class, Skill::class, Stats::class,
-        Money::class, Item::class,
+        Money::class, Note::class, Item::class,
         Class::class, ClassLevel::class, ClassSpellSlot::class,
         DamageType::class, Property::class,
         Spell::class, SpellClass::class, SpellDamageType::class, SpellSource::class,
@@ -70,7 +72,7 @@ import com.jlahougue.weapon_domain.model.WeaponProperty
         ProficiencyView::class,
         SpellcasterView::class, CharacterSpellsStatsView::class, SpellSlotView::class
     ],
-    version = 23,
+    version = 25,
     exportSchema = false
 )
 @TypeConverters(
@@ -83,6 +85,7 @@ abstract class RoomDataSource : RoomDatabase() {
     abstract fun skillDao(): SkillLocalDataSource
     abstract fun statsDao(): StatsLocalDataSource
     abstract fun moneyDao(): MoneyLocalDataSource
+    abstract fun noteDao(): NoteLocalDataSource
     abstract fun itemDao(): ItemLocalDataSource
     abstract fun classDao(): ClassLocalDataSource
     abstract fun damageTypeDao(): DamageTypeLocalDataSource

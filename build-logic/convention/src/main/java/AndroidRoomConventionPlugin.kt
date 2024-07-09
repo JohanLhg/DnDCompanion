@@ -10,6 +10,7 @@ class AndroidRoomConventionPlugin: Plugin<Project> {
     override fun apply(target: Project) {
         target.run {
             pluginManager.run {
+                apply("dndcompanion.android.library")
                 apply("androidx.room")
                 apply("com.google.devtools.ksp")
             }

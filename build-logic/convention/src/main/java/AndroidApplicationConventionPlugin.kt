@@ -6,6 +6,7 @@ import com.jlahougue.convention.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
+import org.gradle.kotlin.dsl.dependencies
 
 class AndroidApplicationConventionPlugin: Plugin<Project> {
 
@@ -32,6 +33,11 @@ class AndroidApplicationConventionPlugin: Plugin<Project> {
                     extensionType = ExtensionType.APPLICATION
                 )
             }
+
+            dependencies {
+                "testImplementation"(libs.findLibrary("junit").get())
+            }
         }
+
     }
 }

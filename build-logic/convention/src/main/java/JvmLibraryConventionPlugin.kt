@@ -14,6 +14,8 @@ class JvmLibraryConventionPlugin: Plugin<Project> {
 
             dependencies {
                 "implementation"(libs.findLibrary("kotlin.coroutines").get())
+                "testImplementation"(libs.findLibrary("junit").get())
+                "testImplementation"(libs.findLibrary("test-coroutines").get())
             }
         }
     }

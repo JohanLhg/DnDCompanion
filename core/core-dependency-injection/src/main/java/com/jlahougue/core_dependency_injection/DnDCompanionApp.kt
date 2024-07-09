@@ -19,6 +19,7 @@ import com.jlahougue.health_data.HealthModule
 import com.jlahougue.item_data.ItemModule
 import com.jlahougue.loading_domain.di.LoadingModule
 import com.jlahougue.money_data.MoneyModule
+import com.jlahougue.note.data.NoteModule
 import com.jlahougue.profile_domain.ProfileModule
 import com.jlahougue.property_data.PropertyModule
 import com.jlahougue.roaming.domain.RoamingModule
@@ -44,6 +45,7 @@ class DnDCompanionApp: Application() {
         lateinit var skillModule: SkillModule
         lateinit var statsModule: StatsModule
         lateinit var moneyModule: MoneyModule
+        lateinit var noteModule: NoteModule
         lateinit var itemModule: ItemModule
         lateinit var classModule: ClassModule
         lateinit var damageTypeModule: DamageTypeModule
@@ -103,6 +105,10 @@ class DnDCompanionApp: Application() {
             appModule.dispatcherProvider,
             dataSourceModule.firebaseDataSource,
             dataSourceModule.roomDataSource.moneyDao()
+        )
+        noteModule = NoteModule(
+            dataSourceModule.firebaseDataSource,
+            dataSourceModule.roomDataSource.noteDao()
         )
         itemModule = ItemModule(
             appModule.dispatcherProvider,
@@ -181,7 +187,8 @@ class DnDCompanionApp: Application() {
             propertyModule.repository,
             weaponModule.repository,
             moneyModule.repository,
-            itemModule.repository
+            itemModule.repository,
+            noteModule.repository
         )
         characterSelectionModule = CharacterSelectionModule(
             appModule.dispatcherProvider,
@@ -206,7 +213,8 @@ class DnDCompanionApp: Application() {
             abilityModule.useCases,
             skillModule.useCases,
             healthModule.useCases,
-            itemModule.useCases
+            itemModule.useCases,
+            noteModule.repository
         )
         settingsModule = SettingsModule(
             appModule.dispatcherProvider,

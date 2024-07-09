@@ -10,4 +10,5 @@ dependencies {
     implementation(project(":skill:skill-domain"))
     implementation(project(":health:health-domain"))
     implementation(project(":item:item-domain"))
+    implementation(project(":note:domain"))
 }

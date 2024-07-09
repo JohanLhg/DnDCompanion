@@ -37,6 +37,9 @@ fun FramedBox(
         modifier = modifier
             .padding(MaterialTheme.spacing.small)
             .fillMaxSize(),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surface
+        ),
         elevation = CardDefaults.cardElevation(
             defaultElevation = MaterialTheme.spacing.extraSmall
         )

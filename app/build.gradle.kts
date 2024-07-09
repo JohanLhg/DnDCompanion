@@ -96,4 +96,6 @@ dependencies {
 
     // Glide (image loading)
     implementation(libs.bundles.glide)
+
+    testImplementation(libs.test.coroutines)
 }

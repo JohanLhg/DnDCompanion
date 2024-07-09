@@ -1,9 +1,7 @@
 plugins {
-    alias(libs.plugins.dndcompanion.jvm.room)
+    alias(libs.plugins.dndcompanion.jvm.data)
 }
 
 dependencies {
-    implementation(project(":core:core-data-interface"))
-    implementation(project(":core:core-domain"))
     implementation(project(":character:character-domain"))
 }

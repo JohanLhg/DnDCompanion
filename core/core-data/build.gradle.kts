@@ -1,15 +1,9 @@
 plugins {
-    alias(libs.plugins.dndcompanion.android.library)
     alias(libs.plugins.dndcompanion.android.room)
 }
 
 android {
     namespace = "com.jlahougue.core_data"
-
-    defaultConfig {
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
-    }
 }
 
 dependencies {
@@ -25,6 +19,7 @@ dependencies {
     implementation(project(":health:health-domain"))
     implementation(project(":item:item-domain"))
     implementation(project(":money:money-domain"))
+    implementation(project(":note:domain"))
     implementation(project(":property:property-domain"))
     implementation(project(":skill:skill-domain"))
     implementation(project(":spell:spell-domain"))
@@ -39,6 +34,7 @@ dependencies {
     implementation(project(":health:health-data"))
     implementation(project(":item:item-data"))
     implementation(project(":money:money-data"))
+    implementation(project(":note:data"))
     implementation(project(":property:property-data"))
     implementation(project(":skill:skill-data"))
     implementation(project(":spell:spell-data"))
@@ -47,4 +43,5 @@ dependencies {
 
     implementation(libs.firebase.auth)
     implementation(libs.okhttp)
+    implementation(libs.junit.ktx)
 }
