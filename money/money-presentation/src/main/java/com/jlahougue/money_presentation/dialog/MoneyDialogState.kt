@@ -2,7 +2,7 @@ package com.jlahougue.money_presentation.dialog
 
 data class MoneyDialogState(
     val isShown: Boolean = false,
-    val type: MoneyDialogType = MoneyDialogType.ADD,
+    val type: MoneyDialogType = MoneyDialogType.SET,
     val copperPieces: Int = 0,
     val silverPieces: Int = 0,
     val goldPieces: Int = 0,

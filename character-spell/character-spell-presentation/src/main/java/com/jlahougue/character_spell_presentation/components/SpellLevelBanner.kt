@@ -8,9 +8,9 @@ import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -217,7 +217,7 @@ fun SpellLevelBanner(
                     .clickable(
                         enabled = spellSlot.left > 0,
                         interactionSource = remember { MutableInteractionSource() },
-                        indication = rememberRipple(bounded = false),
+                        indication = ripple(bounded = false),
                         onClick = {
                             onEvent(SpellEvent.OnSlotUsed(spellSlot))
                         },
@@ -238,7 +238,7 @@ fun SpellLevelBanner(
                     .clickable(
                         enabled = spellSlot.left < spellSlot.total,
                         interactionSource = remember { MutableInteractionSource() },
-                        indication = rememberRipple(bounded = false),
+                        indication = ripple(bounded = false),
                         onClick = {
                             onEvent(SpellEvent.OnSlotRestored(spellSlot))
                         },

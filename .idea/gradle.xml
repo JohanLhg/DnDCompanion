@@ -4,6 +4,18 @@
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
+        <compositeConfiguration>
+          <compositeBuild compositeDefinitionSource="SCRIPT">
+            <builds>
+              <build path="$PROJECT_DIR$/build-logic" name="build-logic">
+                <projects>
+                  <project path="$PROJECT_DIR$/build-logic" />
+                  <project path="$PROJECT_DIR$/build-logic/convention" />
+                </projects>
+              </build>
+            </builds>
+          </compositeBuild>
+        </compositeConfiguration>
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="gradleJvm" value="corretto-17" />
         <option name="modules">
@@ -18,6 +30,8 @@
             <option value="$PROJECT_DIR$/authentication/authentication-data" />
             <option value="$PROJECT_DIR$/authentication/authentication-domain" />
             <option value="$PROJECT_DIR$/authentication/authentication-presentation" />
+            <option value="$PROJECT_DIR$/build-logic" />
+            <option value="$PROJECT_DIR$/build-logic/convention" />
             <option value="$PROJECT_DIR$/character" />
             <option value="$PROJECT_DIR$/character-sheet" />
             <option value="$PROJECT_DIR$/character-sheet/character-sheet-data" />
@@ -62,6 +76,9 @@
             <option value="$PROJECT_DIR$/feature-profile" />
             <option value="$PROJECT_DIR$/feature-profile/profile-domain" />
             <option value="$PROJECT_DIR$/feature-profile/profile-presentation" />
+            <option value="$PROJECT_DIR$/feature-roaming" />
+            <option value="$PROJECT_DIR$/feature-roaming/domain" />
+            <option value="$PROJECT_DIR$/feature-roaming/presentation" />
             <option value="$PROJECT_DIR$/feature-settings" />
             <option value="$PROJECT_DIR$/feature-settings/settings-domain" />
             <option value="$PROJECT_DIR$/feature-settings/settings-presentation" />
@@ -82,6 +99,10 @@
             <option value="$PROJECT_DIR$/money/money-data" />
             <option value="$PROJECT_DIR$/money/money-domain" />
             <option value="$PROJECT_DIR$/money/money-presentation" />
+            <option value="$PROJECT_DIR$/note" />
+            <option value="$PROJECT_DIR$/note/data" />
+            <option value="$PROJECT_DIR$/note/domain" />
+            <option value="$PROJECT_DIR$/note/presentation" />
             <option value="$PROJECT_DIR$/property" />
             <option value="$PROJECT_DIR$/property/property-data" />
             <option value="$PROJECT_DIR$/property/property-domain" />

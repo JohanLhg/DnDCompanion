@@ -1,18 +1,8 @@
 plugins {
-    id("java-library")
-    alias(libs.plugins.kotlinJvm)
-}
-
-java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
+    alias(libs.plugins.dndcompanion.jvm.room)
 }
 
 dependencies {
-    implementation(project(":core:core-domain"))
     implementation(project(":user-info:user-info-domain"))
     implementation(project(":character-sheet:character-sheet-domain"))
-
-    implementation(libs.kotlin.coroutines)
-    implementation(libs.room.common)
 }

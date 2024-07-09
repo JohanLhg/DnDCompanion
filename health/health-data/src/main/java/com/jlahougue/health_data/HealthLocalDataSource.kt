@@ -6,6 +6,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.jlahougue.health_domain.model.DeathSaves
 import com.jlahougue.health_domain.model.Health
+import com.jlahougue.health_domain.model.HitDiceView
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -66,6 +67,9 @@ interface HealthLocalDataSource {
 
     @Query("SELECT * FROM health WHERE cid = :characterID")
     fun getHealth(characterID: Long): Flow<Health>
+
+    @Query("SELECT * FROM hit_dice WHERE cid = :characterId")
+    fun getHitDice(characterId: Long): Flow<HitDiceView>
 
     @Query("SELECT level FROM character WHERE id = :characterID")
     fun getHitDiceNbr(characterID: Long): Flow<Int>

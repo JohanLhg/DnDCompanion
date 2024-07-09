@@ -38,6 +38,15 @@ class CharacterSpellRepository(
 
     override suspend fun delete(characterId: Long) = local.delete(characterId)
 
+    override suspend fun restoreSlots(characterId: Long) {
+        local.restoreSlots(characterId)
+        val spellSlots = local.getSpellSlots(characterId)
+        remote.updateDocument(
+            remote.characterUrl(characterId),
+            mapOf("spellSlots" to spellSlots.associate { it.level.toString() to it.used })
+        )
+    }
+
     override fun get(
         characterId: Long,
         spellId: String

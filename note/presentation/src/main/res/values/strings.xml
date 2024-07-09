@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="notes">Notes</string>
+    <string name="add_note">Add note</string>
+    <string name="delete_note">Delete note</string>
+    <string name="delete_note_title">Delete note \'%s\' ?</string>
+    <string name="delete_note_content">Are you sure you want to delete \'%s\' ? You won\'t be able to get that note back.</string>
+    <string name="title_hint">Title…</string>
+</resources>

@@ -2,6 +2,7 @@ package com.jlahougue.health_domain.repository
 
 import com.jlahougue.health_domain.model.DeathSaves
 import com.jlahougue.health_domain.model.Health
+import com.jlahougue.health_domain.model.HitDiceView
 import kotlinx.coroutines.flow.Flow
 
 interface IHealthRepository {
@@ -13,5 +14,6 @@ interface IHealthRepository {
     suspend fun clearLocal()
     suspend fun delete(characterId: Long)
     fun getHealth(characterId: Long): Flow<Health>
+    fun getHitDice(characterId: Long): Flow<HitDiceView>
     fun getDeathSaves(characterId: Long): Flow<DeathSaves>
 }

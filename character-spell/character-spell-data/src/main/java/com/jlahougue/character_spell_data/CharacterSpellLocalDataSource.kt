@@ -33,6 +33,12 @@ interface CharacterSpellLocalDataSource {
     @Query("DELETE FROM character_spell WHERE cid = :characterId")
     suspend fun delete(characterId: Long)
 
+    @Query("UPDATE spell_slot SET slots_used = 0 WHERE cid = :characterId")
+    suspend fun restoreSlots(characterId: Long)
+
+    @Query("SELECT * FROM spell_slot WHERE cid = :characterId")
+    suspend fun getSpellSlots(characterId: Long): List<SpellSlot>
+
     @Transaction
     @Query("""
         SELECT 

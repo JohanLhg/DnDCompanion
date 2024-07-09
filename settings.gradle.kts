@@ -1,4 +1,5 @@
 pluginManagement {
+    includeBuild("build-logic")
     repositories {
         google()
         mavenCentral()
@@ -12,6 +13,8 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
+
+gradle.startParameter.excludedTaskNames.addAll(listOf(":build-logic:convention:testClasses"))
 
 rootProject.name = "DnDCompanion"
 include(":app")
@@ -83,3 +86,8 @@ include(":user-info:user-info-domain")
 include(":weapon:weapon-data")
 include(":weapon:weapon-domain")
 include(":weapon:weapon-presentation")
+include(":feature-roaming:presentation")
+include(":feature-roaming:domain")
+include(":note:domain")
+include(":note:presentation")
+include(":note:data")

@@ -47,5 +47,7 @@ class HealthRepository(
 
     override fun getHealth(characterId: Long) = local.getHealth(characterId)
 
+    override fun getHitDice(characterId: Long) = local.getHitDice(characterId)
+
     override fun getDeathSaves(characterId: Long) = local.getDeathSaves(characterId)
 }
